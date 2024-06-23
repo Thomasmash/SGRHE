@@ -82,33 +82,6 @@ class UnidadeOrganicaController extends Controller
     }
 
 
-
-    
-    public function index()
-    { 
-         $permissoes = Cargo::where('id', session()->only(['funcionario'])['funcionario']->idCargo )->first()->permissoes;
-        if (  $permissoes == 'Admin' ) {
-            //Todos Os Privilegios
-            $dados = UnidadeOrganica::all();
-            return view('sgrhe/pages/tables/unidadeorganica',compact('dados'));
-        }elseif($permissoes<=6 && $permissoes>=4){
-            //Privilegios de Select para as Unidades Organicas
-            $dados = UnidadeOrganica::all();
-            return view('sgrhe/pages/tables/unidadeorganica',compact('dados'));
-        }elseif ($permissoes<=3 && $permissoes>=2) {
-            //Sera Redirecionad a Sua Unidade Organica com as Permissoes de Select e Create pra sua unidade Organica
-            //Com o Acesso de Create para registros e Select
-            $unidadeOrganicaSelected = UnidadeOrganica::where('id', session()->only(['funcionario'])['funcionario']->idUnidadeOrganica)->first();
-            return view('sgrhe/unidade-organica-view',compact('unidadeOrganicaSelected','permissoes'));
-        }elseif($permissoes <= 1){
-            //Sem Acesso aos dados sobre unidade Organica e Sera Redirecionado ao Seu Perfil View
-          
-            route('perfil.show', ['idFuncionario' => session()->only(['funcionario'])['funcionario']->id ]);
-        }
-        $dados = UnidadeOrganica::all();
-        return view('sgrhe/pages/tables/unidadeorganica',compact('dados'));
-    }
-
     public function funcionariosUnidadeOrganica(Request $request){
 
         $dados = DB::select('

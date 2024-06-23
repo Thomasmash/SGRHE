@@ -77,13 +77,18 @@
                                 <label for="email">Email da Unidade Orgânica</label>
                                 <input type="text" name="email" class="form-control" id="email" placeholder="Email da Unidade Orgânica" value="{{isset($UnidadeOrganica) ? $UnidadeOrganica->email : '' }}">
                               </div>
-                              <div class="card-footer">
                                   <button type="submit" class="btn btn-primary" style="width: 100%;">{{isset($UnidadeOrganica) ? 'Actualizar Unidade Orgánica ':'Cadastrar Unidade Orgánica'}}</button>
-                                  <br>
-                                  <br>
-                              <a href="{{route('unidadeorganicas.index')}}" class="btn btn-primary" style="width: 100%;"> Unidades Organicas / Index </a>
-                              </div>
                         </form>
+                        
+                    </div>
+                    <div class="card-footer">
+                      <form action="{{ route('unidades.organicas') }}">
+                          @csrf
+                          @method('POST')
+                          <input type="hidden" name="titulo" value="Unidades Orgânicas">
+                          <input type="hidden" name="nivelEnsino" value="Todo">
+                          <input type="submit" class="btn btn-primary w-100 p-10" value="Unidades Orgânicas">                      
+                      </form>
                     </div>
                   </div>
                 </div>

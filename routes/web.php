@@ -192,9 +192,9 @@ Route::delete('/delete-categoriafuncionario{id}',[CategoriaFuncionarioController
 Route::any('/create-edit-unidadeorganica/{id?}',[UnidadeOrganicaController::class,'formulario'])->name('unidadeorganicas.form');
 //Armzenar Registros na Tabela Unidade Organica 
 Route::any('/store-unidadeorganica',[UnidadeOrganicaController::class,'store'])->name('unidadeorganicas.store');//->middleware('AcessoAdmin');
-//Exibir Unidade Organicas  
-Route::any('/index-unidadeorganica',[UnidadeOrganicaController::class,'index'])->name('unidadeorganicas.index');//->middleware('AcessoAdmin');
-//
+
+//Index Unidades \\organicas
+
 Route::any('/unidadesorganicas',[UnidadeOrganicaController::class,'indexUnidadesOrganicas'])->name('unidades.organicas');
 
 //Ver unidade Organica unidadeOrganica.show 

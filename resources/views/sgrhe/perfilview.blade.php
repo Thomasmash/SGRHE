@@ -67,7 +67,6 @@
                 </div>
               </div><!-- /.container-fluid -->
             </section>
-
             <!-- Main content -->
             <section class="content">
               <div class="container-fluid">
@@ -379,7 +378,7 @@
                                                     
                                                     <!--Item Funcionario Cartão de Munícipe-->
                                                       <div class="intem-funcionario"> 
-                                                       <h6 class="card-header"><strong><i class="far fa-file-alt mr-1"></i>Cartão de Munícipe</strong></h6>
+                                                       <h6 class="card-header"><strong><i class="far fa-file-alt mr-1"></i> Cartão de Munícipe</strong></h6>
                                                             <!--Solicitando a existencia do registro do arquivo no banco de dados-->
                                                               @php
                                                             
