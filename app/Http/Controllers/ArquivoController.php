@@ -246,7 +246,7 @@ class ArquivoController extends Controller
                 'idEndereco' => $request->input('idEndereco'),
             ]);
             if ($cmToSave) {
-                //Actualizar numero do Bilhete na Entidade Pessoa
+                //Actualizar na Entidade Pessoa
                 $endereco = Endereco::where('id', $request->idEndereco)->first();
                 $endereco->idPessoa = $request->idPessoa;
                 $endereco->provincia = $request->provinciaEndereco;
@@ -269,7 +269,7 @@ class ArquivoController extends Controller
         }
            
           }
-             //Actualizar numero do Bilhete na Entidade Pessoa
+             //Actualizar na Entidade Pessoa
              $endereco = Endereco::where('id', $request->idEndereco)->first();
              $endereco->idPessoa = $request->idPessoa;
              $endereco->provincia = $request->provinciaEndereco;

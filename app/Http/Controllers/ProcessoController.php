@@ -350,6 +350,18 @@ class ProcessoController extends Controller
     //Solicitar Processos Genericos 
     public function solicitar(Request $request)
     { 
+
+        //Verificar se é processo de aposentadoria 
+        if (($request->categoria=="GozoFerias") && (isset($request->dataInicio))) {
+            $request->validate([
+                'dataInicio' => ['required', 'date', 'after_or_equal:today'],
+            ],[
+                //Menssagem personalizada 
+                'dataInicio.after_or_equal' => 'Não é possivel solicitar férias antes do dia de Hoje',
+    
+            ]);
+        }
+
         //Verificar se é processo de aposentadoria 
         if (isset($request['confirmar'])) {
             if ($request['confirmar'] === "false") {
