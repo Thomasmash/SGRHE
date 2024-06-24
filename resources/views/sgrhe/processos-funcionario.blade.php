@@ -83,7 +83,6 @@
                                             <i class="fas fa-user bg-info"></i>
 
                                             <div class="timeline-item">
-                                              <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
                                               <h3 class="timeline-header border-0"><a href="#">{{$pessoa->nomeCompleto}}</a>
                                               </h3>
                                             </div>
@@ -108,7 +107,7 @@
                                               <i class="fas fa-envelope bg-primary"></i>
                                               <div class="timeline-item">
                                               <span class="time">
-                                                  <i class="far fa-clock"></i> a 4 Meses</span>
+                                                  <i class="far fa-clock"></i> {{ \Carbon\Carbon::parse($processom->created_at)->diffForHumans() }} </span>
                                                 <h3 class="timeline-header"> 
                                                   Estado: <span  class=" font-weight-bold {{ ($processom->estado == 'Submetido' || $processom->estado == 'Aprovado') ? 'text-success' : 'text-danger'}}"> {{ $processom->estado }} </span>
                                                 </h3>
@@ -160,7 +159,7 @@
                                               <i class="fas fa-comments bg-warning"></i>
 
                                               <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                <span class="time"><i class="far fa-clock"></i> Início </span>
 
                                                 <h3 class="timeline-header"><a href="#"></a> Início da Linha de Tempo</h3>
 

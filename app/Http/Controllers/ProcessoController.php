@@ -6,6 +6,7 @@ use App\Models\Arquivo;
 use App\Models\Cargo;
 use App\Models\CategoriaFuncionario;
 use App\Models\Funcionario;
+use App\Models\Notificacao;
 use App\Models\Pessoa;
 use App\Models\Processo;
 use App\Models\Seccao;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+
 
 
 class ProcessoController extends Controller
@@ -351,7 +353,7 @@ class ProcessoController extends Controller
     public function solicitar(Request $request)
     { 
 
-        //Verificar se é processo de aposentadoria 
+        //Verificar se é processo de Gozo de Ferias
         if (($request->categoria=="GozoFerias") && (isset($request->dataInicio))) {
             $request->validate([
                 'dataInicio' => ['required', 'date', 'after_or_equal:today'],
@@ -362,11 +364,13 @@ class ProcessoController extends Controller
             ]);
         }
 
-        //Verificar se é processo de aposentadoria 
+        //Verificar se é processo de Aposentadoria 
         if (isset($request['confirmar'])) {
             if ($request['confirmar'] === "false") {
                 return redirect()->back()->with('error', 'Processo de aposentadoria Canselado com sucesso!');
             }
+            //Se a aposentadoria for confirmada verificar condicoes de aponsentadoria relactivamente a tempo de serviso se possivel e mais outras condicoes sensiveis a isso
+            //dd("E aposentadoria");
         }
        //Verificar Status do Funcionário se é aplicavel para Socicitacao do servico //23121997
        $FuncionarioSolicitante = Funcionario::find($request->idFuncionarioSolicitante)->estado;
@@ -413,6 +417,15 @@ class ProcessoController extends Controller
          DB::beginTransaction();
          if ($processo) {
             DB::commit();
+            //Criar Notificacao
+            $eventoProcesso = Processo::where('idFuncionarioSolicitante', $request->input('idFuncionarioSolicitante'))->latest()->first();
+            //dd($eventoProcesso);
+            $processo = Notificacao::create([
+                'idProcesso' => $eventoProcesso->id,
+                'idFuncionarioSolicitante' => $eventoProcesso->idFuncionarioSolicitante,
+                'Request' => $eventoProcesso->Request,
+                'verificador' => false,             
+            ]);
             return redirect()->back()->with('success', 'Solicitacao aplicada com Sucesso!');     
          }
          DB::rollBack();
@@ -519,9 +532,10 @@ class ProcessoController extends Controller
         $cargo = Cargo::where('id',$funcionario->idCargo)->first();
         $unidadeOrganica = UnidadeOrganica::where('id',$funcionario->idUnidadeOrganica)->first();
         $categoriaFuncionario = CategoriaFuncionario::where('id',$funcionario->idCategoriaFuncionario)->first();
+        $notificacao = Notificacao::where('idFuncionarioSolicitante', $idFuncionario)->where('verificador', false)->get();
         //$arquivos = Arquivo::where('idFuncionario',$funcionario->id);
        // dd($processo);;
-        return view('sgrhe/processos-seccao',compact('funcionario','pessoa','cargo','unidadeOrganica','categoriaFuncionario','processos'));
+        return view('sgrhe/processos-seccao',compact('funcionario','pessoa','cargo','unidadeOrganica','categoriaFuncionario','processos','notificacao'));
  
     }
     public function verProcessosFuncionario(Request $request)
@@ -529,8 +543,10 @@ class ProcessoController extends Controller
         $funcionarioSolicitante = Funcionario::find($request->idFuncionario);
         $processos = Processo::orderBy('created_at', 'desc')->where('idFuncionarioSolicitante', $funcionarioSolicitante->id)->get();
         $pessoaSolicitante = Pessoa::where('id',$funcionarioSolicitante->idPessoa)->first();
-        return view('sgrhe/pages/tables/processos-funcionario',compact('funcionarioSolicitante','processos','pessoaSolicitante'));
- 
+        $notificacao = Notificacao::where('idFuncionarioSolicitante', $idFuncionario)->where('verificador', false)->exists();
+dd('dd');
+        return view('sgrhe/pages/tables/processos-funcionario',compact('funcionarioSolicitante','processos','pessoaSolicitante','notificacao'));
+        
     }
 
     public function verArquivosFuncionario(Request $request)

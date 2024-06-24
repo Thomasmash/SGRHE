@@ -1,5 +1,6 @@
 @php
   $permissoes = $cargoLogado->permissoes;
+  $notificacaos = App\Models\Notificacao::where('idFuncionarioSolicitante', $funcionarioLogado->id)->where('verificador', false)->exists();
 @endphp
 <div class="sidebar">
       <!-- SidebarSearch Form 
@@ -55,10 +56,9 @@
                                   <hr style="border: 1px solid grey;">
                                 </a>
                                 
-                               
-                                
+    
                           <li class="nav-item">
-                                <a href="{{ route('listar.processos.funionario', ['idFuncionario' => $funcionarioLogado->id]) }} "  class="nav-link {{ request()->routeIs('listar.processos.funionario') ? 'active' : ''}}">
+                                <a id="{{ $notificacaos == true ? 'toggleLink' : '' }}" href="{{ route('listar.processos.funionario', ['idFuncionario' => $funcionarioLogado->id]) }} "  class="{{ $notificacaos == true ? 'fade-link' : '' }} nav-link {{ request()->routeIs('listar.processos.funionario') ? 'active' : ''}}">
                                 <i class="bi bi-calendar2-range"></i>  
                                 <p class="item-1">
                                     Linha de Tempo/ Processos do Funcionário
@@ -440,4 +440,4 @@
           </ul>
         </nav>
       <!-- /.sidebar-menu -->
-    </div>
+    </div>   

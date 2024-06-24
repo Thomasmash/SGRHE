@@ -1,3 +1,7 @@
+@php
+  setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
+  $permissoes = $cargoLogado->permissoes;
+@endphp
 <!--Layout Principal-->
 @extends('layouts.app')
   @section('titulo' , isset($pessoa) ? 'Editar Pessoa' : 'Cadastrar Pessoa' )
@@ -37,7 +41,7 @@
                         </div>
                         <div class="card-body">
                            <!-- form-->
-                            <form action="{{ isset($pessoa) ? route('pessoas.update',['id' => $pessoa->id]) : route('pessoas.store') }}" method="post">
+                            <form id="quickForm" action="{{ isset($pessoa) ? route('pessoas.update',['id' => $pessoa->id]) : route('pessoas.store') }}" method="post">
                               @csrf
                               @method('post')
                           
@@ -46,7 +50,7 @@
                                 <label for="nomeCompleto"><span class="text-danger">*</span>Nome Completo</label>
                                 <input type="text" name="nomeCompleto" class="form-control" id="nomeCompleto" placeholder="Nome Completo" maxlength="250" required value="{{ isset($pessoa) ? $pessoa->nomeCompleto : ''}}">
                                 <label for="dataNascimento"><span class="text-danger">*</span>Data de Nascimento</label>
-                                <input type="date" name="dataNascimento" class="form-control" id="dataNascimento" placeholder="12-12-2000" required value="{{ isset($pessoa) ? $pessoa->dataNascimento : ''}}" >
+                                <input type="date" name="dataNascimento" class="form-control" id="dataNascimento"  required value="{{ isset($pessoa) ? $pessoa->dataNascimento : ''}}" >
                               </div>
                               <div class="form-group">
                                 <label for="numeroBI"> <span class="text-danger">*</span> Bilhete de Identidade "BI"</label>
@@ -54,6 +58,10 @@
                                 <label for="validadeBI"><span class="text-danger">*</span> Validade do Bilhete de Identidade "BI"</label>
                                 <input type="date" name="validadeBI" class="form-control" id="validadeBI" placeholder="12-12-2000" required value="{{ isset($pessoa) ? $pessoa->validadeBI : ''}}">
                               </div>
+                              <div class="form-group">
+                                                                                        <label for="validadeBI" >Teste</label>
+                                                                                        <input type="date" class="form-control" id="validadeBI" name="validadeBI">
+                                                                                    </div>
                               
                               <label>Naturalidade</label>
                               <div  class="form-group">

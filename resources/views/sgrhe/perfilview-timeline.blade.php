@@ -98,7 +98,9 @@
                                             <!-- timeline time label -->
                                             <div class="time-label">
                                               <span class="bg-danger">
-                                                {{ strftime('%d de %B de %Y', strtotime($processom->created_at)) }}
+                                                {{ strftime('%d de %B de %Y', strtotime($processom->created_at)) }} 
+
+                                                {{ \Carbon\Carbon::parse($processom->created_at)->diffForHumans() }}
                                               </span>
                                             </div>
                                             <!-- /.timeline-label -->

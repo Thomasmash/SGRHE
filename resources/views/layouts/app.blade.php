@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Auth;
  ?>
 @php
   $permissoes = session()->only(['Cargo'])['Cargo']->permissoes;
+  setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
 @endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -107,6 +109,22 @@ use Illuminate\Support\Facades\Auth;
                 margin: 0;
                 padding: 0;
             }
+
+            
+            /*Link */
+                /* Estilos básicos para o link */
+
+            .fade-link {
+                color: blue; /* Cor padrão do link */
+                text-decoration: none; /* Sem sublinhado */
+                cursor: pointer; /* Cursor de mão ao passar por cima */
+                opacity: .5; /* Começa invisível */
+                transition: opacity 0.5s ease; /* Transição suave de opacidade */
+            }
+
+            .fade-link.active {
+                opacity: 1; /* Torna o link visível */
+            }
         </style>
 
 
@@ -169,6 +187,24 @@ use Illuminate\Support\Facades\Auth;
                     }
                 });
         </script>
+         <script>
+            // Função para alternar o estado do link
+            function toggleLink() {
+                var link = document.getElementById('toggleLink');
+                if (link.classList.contains('active')) {
+                    link.classList.remove('active');
+                } else {
+                    link.classList.add('active');
+                }
+            }
+
+            // Chama a função toggleLink assim que a página é carregada
+            window.onload = function() {
+                toggleLink(); // Primeira chamada para ativar o efeito fade
+                setInterval(toggleLink, 500); // Chama a função a cada 2 segundos (2000 milissegundos)
+            };
+        </script>
+        
         @yield('scripts')
         @stack('modals')
         @livewireScripts

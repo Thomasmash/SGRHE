@@ -347,7 +347,7 @@
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="validadeBI" >Data de Validade / Válido até</label>
-                                                                                        <input type="date" class="form-control" id="validadeBI" name="validadeBI" placeholder="Password">
+                                                                                        <input type="date" class="form-control" id="validadeBI" name="validadeBI">
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="arquivo">O BI deve estar no formato "pdf, png e jpg"</label>

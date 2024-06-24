@@ -6,6 +6,7 @@ use App\Models\Funcionario;
 use App\Models\Arquivo;
 use App\Models\Cargo;
 use App\Models\CategoriaFuncionario;
+use App\Models\Notificacao;
 use App\Models\Endereco;
 use App\Models\Naturalidade;
 use App\Models\Parente;
@@ -44,8 +45,14 @@ class PerfilController extends Controller
         $funcionario = Funcionario::find($idFuncionario);
         $pessoa = Pessoa::find($funcionario->idPessoa);
         $processos = Processo::orderBy('created_at', 'desc')->where('idFuncionarioSolicitante', $idFuncionario)->get();
-        // dd($arquivos->where('categoria','fotodeperfil')->first()->arquivo);
-        return view('sgrhe/processos-funcionario',compact('funcionario','pessoa','processos'));
+        $notificacaos = Notificacao::where('idFuncionarioSolicitante', $idFuncionario)->where('verificador', false)->get();
+        //Activar a visualizacao dos processo
+        foreach ($notificacaos as $notificacao) {
+            $notificacao->verificador = true;
+            $notificacao->save();
+        }
+
+        return view('sgrhe/processos-funcionario',compact('funcionario','pessoa','processos','notificacaos'));
     }
     
     public function timelineShow($idFuncionario)
