@@ -14,7 +14,7 @@ class Notificacao extends Model
        'idFuncionarioSolicitante',
        'Request',
        'idProcesso',
-       'verificador',
+       'visualizado',
     ];
 
     // Relacionamento com a tabela Naturalidade

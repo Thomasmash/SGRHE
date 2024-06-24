@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('notificacaos', function (Blueprint $table) {
             $table->id();
             $table->integer('idFuncionarioSolicitante');
-            $table->integer('verificador');
+            $table->integer('visualizado');
             $table->text('Request', 10000);
             $table->unsignedBigInteger('idProcesso')->require();
             $table->foreign('idProcesso')->references('id')->on('processos')->onDelete('cascade');    

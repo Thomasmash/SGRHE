@@ -1,6 +1,6 @@
 @php
   $permissoes = $cargoLogado->permissoes;
-  $notificacaos = App\Models\Notificacao::where('idFuncionarioSolicitante', $funcionarioLogado->id)->where('verificador', false)->exists();
+  $notificacaos = App\Models\Notificacao::where('idFuncionarioSolicitante', $funcionarioLogado->id)->where('visualizado', false)->exists();
 @endphp
 <div class="sidebar">
       <!-- SidebarSearch Form 

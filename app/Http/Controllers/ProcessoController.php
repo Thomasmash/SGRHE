@@ -424,7 +424,7 @@ class ProcessoController extends Controller
                 'idProcesso' => $eventoProcesso->id,
                 'idFuncionarioSolicitante' => $eventoProcesso->idFuncionarioSolicitante,
                 'Request' => $eventoProcesso->Request,
-                'verificador' => false,             
+                'visualizado' => false,             
             ]);
             return redirect()->back()->with('success', 'Solicitacao aplicada com Sucesso!');     
          }
@@ -532,7 +532,7 @@ class ProcessoController extends Controller
         $cargo = Cargo::where('id',$funcionario->idCargo)->first();
         $unidadeOrganica = UnidadeOrganica::where('id',$funcionario->idUnidadeOrganica)->first();
         $categoriaFuncionario = CategoriaFuncionario::where('id',$funcionario->idCategoriaFuncionario)->first();
-        $notificacao = Notificacao::where('idFuncionarioSolicitante', $idFuncionario)->where('verificador', false)->get();
+        $notificacao = Notificacao::where('idFuncionarioSolicitante', $idFuncionario)->where('visualizado', false)->get();
         //$arquivos = Arquivo::where('idFuncionario',$funcionario->id);
        // dd($processo);;
         return view('sgrhe/processos-seccao',compact('funcionario','pessoa','cargo','unidadeOrganica','categoriaFuncionario','processos','notificacao'));
@@ -543,7 +543,7 @@ class ProcessoController extends Controller
         $funcionarioSolicitante = Funcionario::find($request->idFuncionario);
         $processos = Processo::orderBy('created_at', 'desc')->where('idFuncionarioSolicitante', $funcionarioSolicitante->id)->get();
         $pessoaSolicitante = Pessoa::where('id',$funcionarioSolicitante->idPessoa)->first();
-        $notificacao = Notificacao::where('idFuncionarioSolicitante', $idFuncionario)->where('verificador', false)->exists();
+        $notificacao = Notificacao::where('idFuncionarioSolicitante', $idFuncionario)->where('visualizado', false)->exists();
 dd('dd');
         return view('sgrhe/pages/tables/processos-funcionario',compact('funcionarioSolicitante','processos','pessoaSolicitante','notificacao'));
         
