@@ -58,11 +58,6 @@
                                 <label for="validadeBI"><span class="text-danger">*</span> Validade do Bilhete de Identidade "BI"</label>
                                 <input type="date" name="validadeBI" class="form-control" id="validadeBI" placeholder="12-12-2000" required value="{{ isset($pessoa) ? $pessoa->validadeBI : ''}}">
                               </div>
-                              <div class="form-group">
-                                                                                        <label for="validadeBI" >Teste</label>
-                                                                                        <input type="date" class="form-control" id="validadeBI" name="validadeBI">
-                                                                                    </div>
-                              
                               <label>Naturalidade</label>
                               <div  class="form-group">
                               <label for="provincia"><span class="text-danger">*</span>Escolha uma Província:</label>

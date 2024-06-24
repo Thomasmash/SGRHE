@@ -1,6 +1,7 @@
 @php
   $permissoes = $cargoLogado->permissoes;
-  $notificacaos = App\Models\Notificacao::where('idFuncionarioSolicitante', $funcionarioLogado->id)->where('visualizado', false)->exists();
+  $notificacaosSeccao = App\Models\Notificacao::where('idFuncionarioSolicitante', $funcionarioLogado->id)->where('visualizadoSeccao', false)->exists();
+  $notificacaosFuncionario = App\Models\Notificacao::where('idFuncionarioSolicitante', $funcionarioLogado->id)->where('visualizadoFuncionario', false)->exists();
 @endphp
 <div class="sidebar">
       <!-- SidebarSearch Form 
@@ -58,7 +59,7 @@
                                 
     
                           <li class="nav-item">
-                                <a id="{{ $notificacaos == true ? 'toggleLink' : '' }}" href="{{ route('listar.processos.funionario', ['idFuncionario' => $funcionarioLogado->id]) }} "  class="{{ $notificacaos == true ? 'fade-link' : '' }} nav-link {{ request()->routeIs('listar.processos.funionario') ? 'active' : ''}}">
+                                <a id="{{ $notificacaosFuncionario == true ? 'toggleLink' : '' }}" href="{{ route('listar.processos.funionario', ['idFuncionario' => $funcionarioLogado->id]) }} "  class="{{ $notificacaosFuncionario == true ? 'fade-link' : '' }} nav-link {{ request()->routeIs('listar.processos.funionario') ? 'active' : ''}}">
                                 <i class="bi bi-calendar2-range"></i>  
                                 <p class="item-1">
                                     Linha de Tempo/ Processos do Funcionário
@@ -68,7 +69,7 @@
                           @if ($permissoes === 'Admin' || $permissoes >= 4)
                                     <!--Dashboards-->
                                       <li class="nav-item">
-                                          <a href="#" class="nav-link {{ request()->routeIs('inicio') ? 'active' : ''}}">
+                                          <a id="{{ $notificacaosFuncionario == true ? 'toggleLinkSeccao' : '' }}" href="#" class="nav-link {{ request()->routeIs('inicio') ? 'active' : ''}}">
                                           <i class="bi bi-graph-up-arrow"></i>
                                             <p class="item-1">
                                               Dashboards & Processos

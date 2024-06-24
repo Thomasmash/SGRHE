@@ -187,6 +187,8 @@ use Illuminate\Support\Facades\Auth;
                     }
                 });
         </script>
+        
+
          <script>
             // Função para alternar o estado do link
             function toggleLink() {

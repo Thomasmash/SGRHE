@@ -45,10 +45,10 @@ class PerfilController extends Controller
         $funcionario = Funcionario::find($idFuncionario);
         $pessoa = Pessoa::find($funcionario->idPessoa);
         $processos = Processo::orderBy('created_at', 'desc')->where('idFuncionarioSolicitante', $idFuncionario)->get();
-        $notificacaos = Notificacao::where('idFuncionarioSolicitante', $idFuncionario)->where('visualizado', false)->get();
+        $notificacaos = Notificacao::where('idFuncionarioSolicitante', $idFuncionario)->where('visualizadoFuncionario', false)->get();
         //Activar a visualizacao dos processo
         foreach ($notificacaos as $notificacao) {
-            $notificacao->visualizado = true;
+            $notificacao->visualizadoFuncionario = true;
             $notificacao->save();
         }
 
