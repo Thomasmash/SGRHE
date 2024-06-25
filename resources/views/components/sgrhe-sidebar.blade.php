@@ -69,7 +69,7 @@
                           @if ($permissoes === 'Admin' || $permissoes >= 4)
                                     <!--Dashboards-->
                                       <li class="nav-item">
-                                          <a id="{{ $notificacaosFuncionario == true ? 'toggleLinkSeccao' : '' }}" href="#" class="nav-link {{ request()->routeIs('inicio') ? 'active' : ''}}">
+                                          <a id="{{ $notificacaosFuncionario == true ? 'toggleLinkSeccao' : '' }}" href="#" class="{{ $notificacaosFuncionario == true ? 'fade-linkSeccao' : '' }} nav-link {{ request()->routeIs('inicio') ? 'active' : ''}}">
                                           <i class="bi bi-graph-up-arrow"></i>
                                             <p class="item-1">
                                               Dashboards & Processos

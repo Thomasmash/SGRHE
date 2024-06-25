@@ -125,6 +125,21 @@ use Illuminate\Support\Facades\Auth;
             .fade-link.active {
                 opacity: 1; /* Torna o link visível */
             }
+
+               /*Link */
+                /* Estilos básicos para o link */
+
+                .fade-linkSeccao {
+                color: blue; /* Cor padrão do link */
+                text-decoration: none; /* Sem sublinhado */
+                cursor: pointer; /* Cursor de mão ao passar por cima */
+                opacity: .5; /* Começa invisível */
+                transition: opacity 0.5s ease; /* Transição suave de opacidade */
+            }
+
+            .fade-linkSeccao.active {
+                opacity: 1; /* Torna o link visível */
+            }
         </style>
 
 
@@ -187,25 +202,34 @@ use Illuminate\Support\Facades\Auth;
                     }
                 });
         </script>
-        
 
-         <script>
-            // Função para alternar o estado do link
-            function toggleLink() {
-                var link = document.getElementById('toggleLink');
-                if (link.classList.contains('active')) {
-                    link.classList.remove('active');
-                } else {
-                    link.classList.add('active');
-                }
+
+     <script>
+        // Função para alternar o estado do link
+        function toggleLink(id) {
+            var link = document.getElementById(id);
+            if (link.classList.contains('active')) {
+                link.classList.remove('active');
+            } else {
+                link.classList.add('active');
             }
+        }
 
-            // Chama a função toggleLink assim que a página é carregada
-            window.onload = function() {
-                toggleLink(); // Primeira chamada para ativar o efeito fade
-                setInterval(toggleLink, 500); // Chama a função a cada 2 segundos (2000 milissegundos)
-            };
-        </script>
+        // Função que será chamada quando a página for carregada
+        function initToggle() {
+            toggleLink('toggleLink'); // Primeira chamada para ativar o efeito fade no primeiro link
+            toggleLink('toggleLinkSeccao'); // Primeira chamada para ativar o efeito fade no segundo link
+
+            setInterval(function() {
+                toggleLink('toggleLink'); // Alterna o estado do primeiro link a cada 2 segundos
+                toggleLink('toggleLinkSeccao'); // Alterna o estado do segundo link a cada 2 segundos
+            }, 500);
+        }
+
+        // Chama a função initToggle assim que a página é carregada
+        window.onload = initToggle;
+    </script>
+
         
         @yield('scripts')
         @stack('modals')
