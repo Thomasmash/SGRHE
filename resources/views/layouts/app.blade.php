@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Auth;
    if (!isset($funcionarioLogado)) {
    dd('Nao existe um funcionario Logado e Registrado');
 }
+
+
     session(['funcionario' => $funcionarioLogado]);
     session(['Cargo' => App\Models\Cargo::find($funcionarioLogado->idCargo)->first()]);
     session(['Seccao' => App\Models\Seccao::find($funcionarioLogado->idSeccao)->first()]);
