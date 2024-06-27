@@ -24,22 +24,11 @@ class DadosUsuario
      */
     public function handle(Request $request, Closure $next): Response
     {
+       
         if (Auth::check()) {
-            //dd(Auth::check());
+            //Se o Funcionario estiver Logado
             $numeroAgente = Auth::user()->numeroAgente;
-            $funcionario = Funcionario::where('numeroAgente', $numeroAgente)->first();
-            //dd($funcionario);
-            session(['funcionario' => $funcionario]);
-            session(['funcionario' => $funcionario]);
-            session(['Cargo' => Cargo::find($funcionario->idCargo)->first()]);
-            session(['Seccao' => Seccao::find($funcionario->idSeccao)->first()]);
-            session(['Pessoa' =>  Pessoa::find($funcionario->idPessoa)->first()]);
-            session(['unidadeOrganica' => UnidadeOrganica::find($funcionario->idUnidadeOrganica)->first()]);
-            //
-            //
-            session(['fotoPerfil' => isset(Arquivo::where('idFuncionario', $funcionario->id)->where('categoria','FotoPerfil')->first()->caminho) ? Arquivo::where('idFuncionario',$funcionario->id)->where('categoria','FotoPerfil')->first()->caminho : "null"]);
-            // dd(session()->only(['fotoPerfil'])['fotoPerfil']);
-            session(['idUnidadeOrganica' => UnidadeOrganica::where('id', Funcionario::where('id', $funcionario->id)->first()->idUnidadeOrganica)->first()->id]);
+            $funcionario = Funcionario::where('numeroAgente', $numeroAgente)->first();  
             view()->share([
                 'funcionarioLogado' => $funcionario,
                 'pessoaLogado' => Pessoa::where('id', $funcionario->idPessoa )->first(),
@@ -50,7 +39,7 @@ class DadosUsuario
             ]);
             return $next($request);
         }
-        //return redirect()->route('login');
+        //Se Funcionario nao Logado
         return $next($request);
     }
 }

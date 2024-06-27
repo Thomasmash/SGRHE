@@ -5,6 +5,14 @@ use Illuminate\Support\Facades\Auth;
 
  //Carregar dados de perfil de Usuário Logado no Sistema 
  /*
+
+     session(['FuncionarioLogado' => $funcionario]);
+           session(['CargoLogado' => Cargo::find($funcionario->idCargo)->first()]);
+           session(['SeccaoLogado' => Seccao::find($funcionario->idSeccao)->first()]);
+           session(['PessoaLogado' =>  Pessoa::find($funcionario->idPessoa)->first()]);
+           session(['UnidadeOrganicaLogado' => UnidadeOrganica::find($funcionario->idUnidadeOrganica)->first()]);
+           session(['FotoPerfilLogado' => isset(Arquivo::where('idFuncionario', $funcionario->id)->where('categoria','FotoPerfil')->first()->caminho) ? Arquivo::where('idFuncionario',$funcionario->id)->where('categoria','FotoPerfil')->first()->caminho : "null"]); 
+
  session(['funcionario' => App\Models\Funcionario::where('numeroAgente', Auth::user()->numeroAgente)->first()]);
  session(['numeroAgente' => Auth::user()->numeroAgente]);
   $idFuncionario = session()->only(['idFuncionario']);
@@ -17,7 +25,21 @@ use Illuminate\Support\Facades\Auth;
 // dd(session()->only(['fotoPerfil'])['fotoPerfil']);
  session(['idUnidadeOrganica' => App\Models\UnidadeOrganica::where('id', App\Models\Funcionario::where('id', $idFuncionario)->first()->idUnidadeOrganica)->first()->id]);
  */
+
+//Dados Essenssiais 
+   //Se funionario nao registrado
+   if (!isset($funcionarioLogado)) {
+   dd('Nao existe um funcionario Logado e Registrado');
+}
+    session(['funcionario' => $funcionarioLogado]);
+    session(['Cargo' => App\Models\Cargo::find($funcionarioLogado->idCargo)->first()]);
+    session(['Seccao' => App\Models\Seccao::find($funcionarioLogado->idSeccao)->first()]);
+    session(['Pessoa' =>  App\Models\Pessoa::find($funcionarioLogado->idPessoa)->first()]);
+    session(['unidadeOrganica' => App\Models\UnidadeOrganica::find($funcionarioLogado->idUnidadeOrganica)->first()]);
+    session(['fotoPerfil' => isset(App\Models\Arquivo::where('idFuncionario', $funcionarioLogado->id)->where('categoria','FotoPerfil')->first()->caminho) ? App\Models\Arquivo::where('idFuncionario',$funcionarioLogado->id)->where('categoria','FotoPerfil')->first()->caminho : "null"]);
+    session(['idUnidadeOrganica' => App\Models\UnidadeOrganica::where('id', App\Models\Funcionario::where('id', $funcionarioLogado->id)->first()->idUnidadeOrganica)->first()->id]);
  ?>
+
 @php
   $permissoes = session()->only(['Cargo'])['Cargo']->permissoes;
   setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');

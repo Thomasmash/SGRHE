@@ -23,6 +23,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        //\App\Http\Middleware\SetSessionDataOnLogin::class,
     ];
 
     /**
@@ -80,5 +81,6 @@ class Kernel extends HttpKernel
         'AcessoTecnicoDME' => \App\Http\Middleware\AcessoTecnicoDME::class,
         'AcessoChefeSeccao' => \App\Http\Middleware\AcessoChefeSeccao::class,
         'AcessoDirectorGeral' => \App\Http\Middleware\AcessoDirectorGeral::class,
+       // 'set.session.on.login' => \App\Http\Middleware\SetSessionDataOnLogin::class,
     ];
 }

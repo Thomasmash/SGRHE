@@ -1,6 +1,6 @@
 @php
   $permissoes = $cargoLogado->permissoes;
-  $notificacaosSeccao = App\Models\Notificacao::where('idFuncionarioSolicitante', $funcionarioLogado->id)->where('visualizadoSeccao', false)->exists();
+  $notificacaosSeccao = App\Models\Notificacao::where('seccao', $seccaoLogado->codNome)->where('visualizadoSeccao', false)->exists();
   $notificacaosFuncionario = App\Models\Notificacao::where('idFuncionarioSolicitante', $funcionarioLogado->id)->where('visualizadoFuncionario', false)->exists();
 @endphp
 <div class="sidebar">
@@ -50,7 +50,6 @@
                                       <p style="font-weight: bolder;">{{ $cargoLogado->designacao }}</p> <!--.' de(a) '.$seccaoLogado->designacao -->
                                       <p>({{ $seccaoLogado->codNome }})</p>
                                       <p>Olá {{ explode(" ", $pessoaLogado->nomeCompleto)[0] }}!</p>
-                                      
                                       <p>Seja bem vindo(a)!</p>
                                     </div>
                                   </div>

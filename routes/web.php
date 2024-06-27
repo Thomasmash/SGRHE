@@ -39,6 +39,12 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
+
+Route::middleware('set.session.on.login')->group(function () {
+    // Rotas que devem executar o middleware SetSessionDataOnLogin
+});
+
+
 //Landing Home
 Route::get('/', function () {
     return view('welcome');
