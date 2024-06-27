@@ -69,7 +69,7 @@ class PerfilController extends Controller
         $unidadeOrganica = UnidadeOrganica::where('id',$funcionario->idUnidadeOrganica)->first();
         $categoriaFuncionario = CategoriaFuncionario::where('id',$funcionario->idCategoriaFuncionario)->first();
         $arquivos = Arquivo::where('idFuncionario',$funcionario->id);
-        $processosMy = Processo::orderBy('created_at', 'desc')->where('idFuncionarioSolicitante', session()->only(['funcionario'])['funcionario']->id)->get();
+        $processosMy = Processo::orderBy('created_at', 'desc')->where('idFuncionarioSolicitante', session()->only(['FuncionarioLogado'])['FuncionarioLogado']->id)->get();
         //dd($processosMy);
         $processos = Processo::orderBy('created_at', 'desc')->where('seccao', $seccao->codNome)->get();
         //dd($seccao);

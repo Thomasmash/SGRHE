@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\AcessoAdmin;
 use App\Http\Middleware\DadosUsuario;
+use App\Http\Middleware\SetSessionDataOnLogin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -23,7 +24,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        //\App\Http\Middleware\SetSessionDataOnLogin::class,
     ];
 
     /**
@@ -40,6 +40,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\DadosUsuario::class,
+			//\App\Http\Middleware\SetSessionDataOnLogin::class,
             
         ],
 
@@ -70,6 +71,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'dados.usuario.logado' => \App\Http\Middleware\DadosUsuario::class,
+		//'dados.usuario' => \App\Http\Middleware\SetSessionDataOnLogin::class,
 
     ];
 
@@ -81,6 +83,5 @@ class Kernel extends HttpKernel
         'AcessoTecnicoDME' => \App\Http\Middleware\AcessoTecnicoDME::class,
         'AcessoChefeSeccao' => \App\Http\Middleware\AcessoChefeSeccao::class,
         'AcessoDirectorGeral' => \App\Http\Middleware\AcessoDirectorGeral::class,
-       // 'set.session.on.login' => \App\Http\Middleware\SetSessionDataOnLogin::class,
     ];
 }

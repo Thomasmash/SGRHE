@@ -534,13 +534,13 @@ class ProcessoController extends Controller
         $cargo = Cargo::where('id',$funcionario->idCargo)->first();
         $unidadeOrganica = UnidadeOrganica::where('id',$funcionario->idUnidadeOrganica)->first();
         $categoriaFuncionario = CategoriaFuncionario::where('id',$funcionario->idCategoriaFuncionario)->first();
-        $notificacaos = Notificacao::where('seccao', Seccao::find($funcionario->idSeccao)->codNome)->where('visualizado', false)->get();
+        $notificacaos = Notificacao::where('seccao', Seccao::find($funcionario->idSeccao)->codNome)->where('visualizadoSeccao', false)->get();
         //Activar a visualizacao dos processo
         foreach ($notificacaos as $notificacao) {
             $notificacao->visualizadoSeccao = true;
             $notificacao->save();
         }
-        return view('sgrhe/processos-seccao',compact('funcionario','pessoa','cargo','unidadeOrganica','categoriaFuncionario','processos','notificacao'));
+        return view('sgrhe/processos-seccao',compact('funcionario','pessoa','cargo','unidadeOrganica','categoriaFuncionario','processos','notificacaos'));
  
     }
     public function verProcessosFuncionario(Request $request)
