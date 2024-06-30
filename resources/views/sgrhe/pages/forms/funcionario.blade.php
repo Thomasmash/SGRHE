@@ -104,7 +104,7 @@
 									<div class="form-group">
 								   		<!-- Opcoes de Cargo //23121997  -->
 										<label for="seccaoSelect">Selecione a Secção:</label>
-										<select class="form-control" id="seccaoSelect" onchange="fetchFuncionarios()">
+										<select name="idSeccao" class="form-control" id="seccaoSelect" onchange="fetchFuncionarios()" required>
                                             <option selected="selected" value="{{ isset($opcoesSeccaos) ? $opcoesSeccaos->id : '' }}">{{ isset($opcoesSeccaos) ? $opcoesSeccaos->designacao : 'Seleccione uma Secção' }}</option>
                                             @php
                                               $opcoesSeccaos = App\Models\Seccao::all();
@@ -118,7 +118,7 @@
 									<div class="form-group">
 										<!-- Opcoes de Cargo //23121997  -->
 										<label for="cargo">Cargo:</label>
-										<select class="form-control" name="cargo" id="cargoSelect" disabled>
+										<select class="form-control" name="idCargo" id="cargoSelect" disabled required>
 											<option value="">Selecione a Secção primeiro</option>
 										</select>
 									</div>

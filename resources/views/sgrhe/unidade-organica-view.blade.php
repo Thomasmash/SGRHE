@@ -163,7 +163,7 @@
                   <!-- Main row -->
                   <div class="row">
                     <!-- Left col -->
-                    <section class="col-lg-7 {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}">
+                    <section class="col-lg-7 {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }} {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}">
                       <!-- Custom tabs (Charts with tabs)-->
                       <div class="card">
                         <div class="card-header">
@@ -215,10 +215,10 @@
                               <div class="card-header p-2">
                                 <ul class="nav nav-pills">
                                   <li class="nav-item"><a class="nav-link active" href="#SobreFuncionario" data-toggle="tab">Sobre a Escola</a></li>
-                                  <li class="nav-item"><a class="nav-link {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}" href="#ITrimestre" data-toggle="tab">Aproveitamento I Trimestre</a></li>
-                                  <li class="nav-item"><a class="nav-link {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}" href="#IITrimestre" data-toggle="tab">Aproveitamento II Trimestre</a></li>
-                                  <li class="nav-item"><a class="nav-link {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}" href="#IIITrimestre" data-toggle="tab">Aproveitamento III Trimestre</a></li>
-                                  <li class="nav-item"><a class="nav-link {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}" href="#Final" data-toggle="tab">Final</a></li>
+                                  <li class="nav-item"><a class="nav-link {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }} {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}" href="#ITrimestre" data-toggle="tab">Aproveitamento I Trimestre</a></li>
+                                  <li class="nav-item"><a class="nav-link {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }} {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}" href="#IITrimestre" data-toggle="tab">Aproveitamento II Trimestre</a></li>
+                                  <li class="nav-item"><a class="nav-link {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }} {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}" href="#IIITrimestre" data-toggle="tab">Aproveitamento III Trimestre</a></li>
+                                  <li class="nav-item"><a class="nav-link {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }} {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}" href="#Final" data-toggle="tab">Final</a></li>
                                 </ul>
                               </div><!-- /.card-header -->
                               <div class="card-body">

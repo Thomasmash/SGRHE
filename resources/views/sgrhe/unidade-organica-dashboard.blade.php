@@ -109,7 +109,7 @@
                       </div>
                     </div>
                     <!-- Unidades Organicas -->
-                      <div class="col-lg-3 col-6">
+                      <div class="col-lg-3 col-6 ">
                         <div class="small-box bg-info">
                           <div class="inner">
                             <h3> {{ isset($ultimoMapaAproveitamento) ? $ultimoMapaAproveitamento->matriculadosIAMF : 'Sem Dados' }} </h3>
@@ -156,7 +156,7 @@
                   <!-- Main row -->
                   <div class="row">
                     <!-- Left col -->
-                    <section class="col-lg-7 connectedSortable">
+                    <section class="col-lg-7 connectedSortable {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }}">
                       <!-- Custom tabs (Charts with tabs)-->
                       <div class="card">
                         <div class="card-header">
@@ -208,10 +208,10 @@
                               <div class="card-header p-2">
                                 <ul class="nav nav-pills">
                                   <li class="nav-item"><a class="nav-link active" href="#SobreFuncionario" data-toggle="tab">Sobre a Escola</a></li>
-                                  <li class="nav-item"><a class="nav-link" href="#ITrimestre" data-toggle="tab">Aproveitamento I Trimestre</a></li>
-                                  <li class="nav-item"><a class="nav-link" href="#IITrimestre" data-toggle="tab">Aproveitamento II Trimestre</a></li>
-                                  <li class="nav-item"><a class="nav-link" href="#IIITrimestre" data-toggle="tab">Aproveitamento III Trimestre</a></li>
-                                  <li class="nav-item"><a class="nav-link" href="#Final" data-toggle="tab">Final</a></li>
+                                  <li class="nav-item"><a class="nav-link {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }}" href="#ITrimestre" data-toggle="tab">Aproveitamento I Trimestre</a></li>
+                                  <li class="nav-item"><a class="nav-link {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }}" href="#IITrimestre" data-toggle="tab">Aproveitamento II Trimestre</a></li>
+                                  <li class="nav-item"><a class="nav-link {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }}" href="#IIITrimestre" data-toggle="tab">Aproveitamento III Trimestre</a></li>
+                                  <li class="nav-item"><a class="nav-link {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }}" href="#Final" data-toggle="tab">Final</a></li>
                                 </ul>
                               </div><!-- /.card-header -->
                               <div class="card-body">
@@ -225,19 +225,21 @@
                                                 Sobre a Unidade Orgânica
                                               </h3>
                                             </div>
+
                                             <div class="card-body">
                                               <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
                                                   <p><b>EQT:</b> {{ $unidadeOrganicaSelected->eqt }} </p> 
                                                   <p><b>Decreto de Criação:</b> {{ $unidadeOrganicaSelected->decretoCriacao }} </p>
-                                                  <p><b>Nível de Ensino:</b> {{ 'Nivel de Ensino' }} </p>  
+                                                  <p><b>Nível de Ensino:</b> {{ $unidadeOrganicaSelected->nivelEnsino }} </p>  
                                                   <p><b>Telefone:</b> {{ $unidadeOrganicaSelected->telefone }} </p>
                                                   <p><b>E-mail:</b> {{ $unidadeOrganicaSelected->email }} </p>
                                                   <p><b>Localidade:</b> {{ $unidadeOrganicaSelected->localidade }} </p>
-                                                  <p><b>Coordenadas Geograficas:</b> {{ 'N/D' }} </p>
+                                                  <p><b>Coordenadas Geograficas:</b> {{ $unidadeOrganicaSelected->coordenadasGeograficas }} </p>
                                                 </li>
                                               </ul>
                                             </div>
+
                                             <div class="card-footer">
 
                                             </div>

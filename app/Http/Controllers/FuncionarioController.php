@@ -151,7 +151,7 @@ class FuncionarioController extends Controller
   
 //Create
     public function store(Request $request) {
-       // dd($request->all());
+      //  dd($request->all());
        $cargo = Cargo::find($request->idCargo);
        $seccao = Seccao ::find($request->idSeccao);
        if ($cargo->codNome === "DirectorEscola") {
@@ -181,7 +181,7 @@ class FuncionarioController extends Controller
                 //'numeroBI.unique' => 'O Número de Bilhete de Identidade já está sendo utilizado por outro Funcionário!',
                 'numeroAgente.required' => 'O Número de Agente é Obrigatório!',
                 'numeroAgente.numeric' => 'O Número de Agente deve ser um numero!',
-                'dataAdmissao.before' => 'A data de Admissão deve ser antes do dia de Hoje!', 
+                'dataAdmissao.before_or_equal' => 'A data de Admissão deve ser antes do dia de Hoje!', 
                 'dataAdmissao.required' => 'A data de Admissão é Obrigatória!',
                 'iban.unique' => 'O Iban ja está sendo utilizado por outro Funcionário!',
                 //'email.unique' => 'O Email ja está sendo utilizado por outro Funcionário!', 
