@@ -6,10 +6,52 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <!-- Styles -->
         <style>
-          .row > a {
-            margin: 10px;
-          }
-        </style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial;
+        }
+
+        .header {
+            text-align: center;
+            padding: 32px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 4px;
+        }
+
+        .column {
+            flex: 25%;
+            max-width: 25%;
+            padding: 0 4px;
+        }
+
+        .column img {
+            margin-top: 8px;
+            vertical-align: middle;
+            width: 100%;
+        }
+
+        @media screen and (max-width: 800px) {
+            .column {
+                flex: 50%;
+                max-width: 50%;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .column {
+                flex: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
         @livewireStyles
         @endsection
   @section('conteudo_principal')
@@ -47,16 +89,16 @@
                                             </div>
                                             <div class="card-body">
                                               
-                                                <div class="container">
-                                                  <div class="row row col-lg-10 offset-md-1 text-center">
-                                                        @foreach ($fotos as $foto)
-                                                       
-                                                            <a href="{{ route('Exibir.Imagem', ['imagem' => base64_encode($foto->caminho)]) }}" data-toggle="lightbox" data-gallery="gallery" class="col-md-3 d-inline-block">
-                                                              <img src="{{ route('Exibir.Imagem', ['imagem' => base64_encode($foto->caminho)]) }}" class="img-fluid rounded">
+                                               
+
+                                                <div class="row">
+                                                    @foreach ($fotos as $foto)
+                                                        <div class="column">
+                                                            <a href="{{ route('Exibir.Imagem', ['imagem' => base64_encode($foto->caminho)]) }}" data-toggle="lightbox" data-gallery="gallery" class="d-inline-block">
+                                                              <img src="{{ route('Exibir.Imagem', ['imagem' => base64_encode($foto->caminho)]) }}" class="img-fluid rounded" alt="Foto" style="width:100%">
                                                             </a>
-                                                        
-                                                        @endforeach
-                                                  </div>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
                                             
                                             </div>

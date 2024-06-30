@@ -2,15 +2,12 @@
 @extends('layouts.app')
   @section('titulo' , 'DashBoard Unidade Orgânica')
         @section('header')
-        <!--JS e CSS do LivWare Integrado -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
         <!-- Styles -->
         <style>
           .row > a {
             margin: 10px;
           }
         </style>
-        @livewireStyles
         @endsection
   @section('conteudo_principal')
   <x-sgrhe-preloader />
@@ -77,8 +74,8 @@
                         </form>
                       </div>
                     </div>
-                  <!-- Funcionários Aposentados-->
-                  <div class="col-lg-3 col-6">
+                    <!-- Funcionários Aposentados-->
+                    <div class="col-lg-3 col-6">
                       <div class="small-box bg-danger">
                         <div class="inner">
                           <h3>{{ $Funcionarios->where('estado', 'Inativos')->count() }}</h3>
