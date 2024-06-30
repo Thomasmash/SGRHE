@@ -20,8 +20,8 @@ class DashboardController extends Controller
             $PERMISSOES = Cargo::where('id', $FUNCIONARIO->idCargo)->first()->permissoes;
             if ($PERMISSOES === 'Admin' || $PERMISSOES >= 4) {
                      //Carregando os Dados do Dashboard
-                $unidadesOrganicas = UnidadeOrganica::all();
-                $funcionarios = Funcionario::all();
+                $unidadesOrganicas = UnidadeOrganica::where('id', '!=', 1)->get();
+                $funcionarios = Funcionario::where('id', '!=', 1)->get();
                 $dataActual = now();
                 //Determinar o Ano Lectivo sabendo que Ele comeca sempre em setembro
                 if ($dataActual->format('n') > 9) {

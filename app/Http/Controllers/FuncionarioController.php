@@ -31,18 +31,18 @@ class FuncionarioController extends Controller
         if ($request->estado === "Todo") {
             if(isset($request->idUnidadeOrganica) || $request->idUnidadeOrganica != "" ){
                 $idUnidadeOrganica = $request->idUnidadeOrganica;
-                $unidadeOrganica="where unidade_organicas.id=".$request->idUnidadeOrganica;
+                $unidadeOrganica="And unidade_organicas.id=".$request->idUnidadeOrganica;
                 $estado="";  
             }else {
                 $estado="";
             }
         }else{
             if(isset($request->idUnidadeOrganica) || $request->idUnidadeOrganica != "" ){
-                $estado ="where funcionarios.estado=".'"'.$request->estado.'"';  
+                $estado ="And funcionarios.estado=".'"'.$request->estado.'"';  
                 $idUnidadeOrganica = $request->idUnidadeOrganica;
                 $unidadeOrganica="And unidade_organicas.id=".$request->idUnidadeOrganica;
             }else {
-                $estado ="where funcionarios.estado=".'"'.$request->estado.'"';  
+                $estado ="And funcionarios.estado=".'"'.$request->estado.'"';  
             }  
         }
           //Operacoes de join para varias tabelas relacionadas com funcionarios
@@ -55,7 +55,8 @@ class FuncionarioController extends Controller
               join categoria_funcionarios on categoria_funcionarios.id=funcionarios.idCategoriaFuncionario
               join seccaos on seccaos.id=funcionarios.idSeccao
               join unidade_organicas on unidade_organicas.id=funcionarios.idUnidadeOrganica
-              join cargos on cargos.id=funcionarios.idCargo            
+              join cargos on cargos.id=funcionarios.idCargo  
+            where funcionarios.id !=1          
           '.$estado.$unidadeOrganica);
          if ($unidadeOrganica ==="") {
             $titulo = $request->titulo;
@@ -123,32 +124,13 @@ class FuncionarioController extends Controller
               join categoria_funcionarios on categoria_funcionarios.id=funcionarios.idCategoriaFuncionario
               join seccaos on seccaos.id=funcionarios.idSeccao
               join unidade_organicas on unidade_organicas.id=funcionarios.idUnidadeOrganica
-              join cargos on cargos.id=funcionarios.idCargo 
+              join cargos on cargos.id=funcionarios.idCargo
+              where funcionarios.id!=1
           ');
           $titulo = "Funcionários / Força de Trabalho";
           return view('sgrhe/pages/tables/funcionarios',compact('dados','titulo'));
     }
-   /*
-    public function indexFuncionariosInativos()
-    {
-          //Operacoes de join para varias tabelas relacionadas com funcionarios
-          $dados = DB::select('
-          select 
-           seccaos.designacao as designacao_seccao, unidade_organicas.designacao as designacao_unidadeOrganica, funcionarios.id as id_funcionario, pessoas.id as id_pessoas, unidade_organicas.id as id_unidade_organica, categoria_funcionarios.categoria as categoria_unidade_organica, cargos.designacao as nomeCargo, 
-           funcionarios.*, pessoas.*, categoria_funcionarios.*, unidade_organicas.*, cargos.*, seccaos.*
-              from funcionarios
-              join pessoas on pessoas.id=funcionarios.idPessoa
-              join categoria_funcionarios on categoria_funcionarios.id=funcionarios.idCategoriaFuncionario
-              join seccaos on seccaos.id=funcionarios.idSeccao
-              join unidade_organicas on unidade_organicas.id=funcionarios.idUnidadeOrganica
-              join cargos on cargos.id=funcionarios.idCargo 
-            where funcionarios.estado = "Inactiv"
-          ');
-          $titulo = "Funcionários em estado";
-          return view('sgrhe/pages/tables/funcionarios',compact('dados','titulo'));
-    }
-*/
-  
+
 //Create
     public function store(Request $request) {
       //  dd($request->all());

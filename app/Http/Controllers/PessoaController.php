@@ -24,7 +24,7 @@ class PessoaController extends Controller
     }
     public function index()
     {
-        $pessoas = Pessoa::all();
+        $pessoas = Pessoa::where('id', '!=', 1)->get();
         //dd($pessoas->all());
         return view('sgrhe/pages/tables/pessoas',compact('pessoas'));
     }

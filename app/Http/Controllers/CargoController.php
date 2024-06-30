@@ -101,8 +101,7 @@ class CargoController extends Controller
 
    public function getFuncionarios(string $idSeccaoSelecionada){
 			$seccao = Seccao::find($idSeccaoSelecionada);
-            $ca = Cargo::where('permissoes', '<=', $seccao->permissoes)->get(); // Obtém todos os funcionários
-			$cargos = $ca->except(['permissoes', 'Admin']);
+            $cargos = Cargo::where('id', '!=', 1)->where('permissoes', '<=', $seccao->permissoes)->get(); // Obtém todos os funcionários
 			//dd($cargos);
         return response()->json($cargos);
     }
