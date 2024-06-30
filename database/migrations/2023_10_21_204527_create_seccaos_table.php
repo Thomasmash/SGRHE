@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('codNome');
             $table->string('designacao');
             $table->string('idChefe')->nullable();
+			$table->string('permissoes')->nullable();
             $table->string('email')->nullable();
             $table->timestamps();
         });

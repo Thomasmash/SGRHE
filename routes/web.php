@@ -336,5 +336,5 @@ Route::any('/efectivar/mapa/', [MapaEfectividadeController::class, 'efectivarMap
 
 
 // Rota para carregar os cargos por Seccao
-Route::get('/funcionarios/{seccaoPermissoes}', [CargoController::class, 'getFuncionarios']);
+Route::get('/funcionarios/{idSeccaoSelecionada}', [CargoController::class, 'getFuncionarios']);
 });

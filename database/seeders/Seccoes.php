@@ -21,48 +21,56 @@ class Seccoes extends Seeder
                 'designacao' => 'Admin',
                 'idChefe' => '',
                 'email' => '',
+				'permissoes' => 'Admin',
             ]); 
             DB::table('seccaos')->insert([
                 'codNome' =>'SecretariaGeral',
                 'designacao' => 'Secretaria Geral',
                 'idChefe' => '',
                 'email' => '',
+				'permissoes' => '6',
             ]); 
             DB::table('seccaos')->insert([
                 'codNome' =>'RHPE',
                 'designacao' => 'Recursos Humanos Planeamento e Estatística',
                 'idChefe' => '',
                 'email' => '',
+				'permissoes' => '6',
             ]); 
             DB::table('seccaos')->insert([
                 'codNome' =>'TIC',
                 'designacao' => 'Tecnologias de Informação e Comunicação',
                 'idChefe' => '',
                 'email' => '',
+				'permissoes' => '6',
             ]);
             DB::table('seccaos')->insert([
                 'codNome' =>'EdEnsino',
                 'designacao' => 'Educação e Ensino',
                 'idChefe' => '',
                 'email' => '',
+				'permissoes' => '6',
             ]); 
             DB::table('seccaos')->insert([
                 'codNome' =>'Inspenccao',
                 'designacao' => 'Inspecção',
                 'idChefe' => '',
                 'email' => '',
+				'permissoes' => '6',
             ]); 
             DB::table('seccaos')->insert([
                 'codNome' =>'Juridico',
-                'designacao' => 'Acessoria Jurídica',
+                'designacao' => 'Gabinete Jurídica',
                 'idChefe' => '',
                 'email' => '',
+				'permissoes' => '6',
             ]); 
             DB::table('seccaos')->insert([
                 'codNome' =>'Escola',
-                'designacao' => 'Escola',
+                'designacao' => 'Unidade Organica - Escola',
                 'idChefe' => '',
                 'email' => '',
+				'permissoes' => '3',
             ]); 
     }
 }

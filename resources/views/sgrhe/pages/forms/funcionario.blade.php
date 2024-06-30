@@ -243,10 +243,10 @@
 
    <script>
         function fetchFuncionarios() {
-            const seccaoPermissoes = document.getElementById('seccaoSelect').value;
+            const idSeccaoSelecionada = document.getElementById('seccaoSelect').value;
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            fetch(`/funcionarios/${seccaoPermissoes}`, {
+            fetch(`/funcionarios/${idSeccaoSelecionada}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

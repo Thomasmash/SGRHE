@@ -14,6 +14,7 @@ class Seccao extends Model
         'designacao',
         'idChefe',
         'email',
+		'permissoes',
         //Anexos, Dependencias Tipo Documentos e Outras Imformacoes para se efectivar um determinado processo 
     ];
 }
