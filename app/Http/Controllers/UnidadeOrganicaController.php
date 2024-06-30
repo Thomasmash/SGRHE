@@ -102,6 +102,7 @@ class UnidadeOrganicaController extends Controller
 //Ver Detalhes Da Unidade Orgânica 
     public function show(string $idUnidadeOrganica)
     {
+
             $unidadeOrganicaSelected = UnidadeOrganica::where('id', $idUnidadeOrganica)->first();
             $Funcionarios = Funcionario::where('idUnidadeOrganica', $idUnidadeOrganica);
             $aproveitamento = FormularioAproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('id', 1)->first();
@@ -173,6 +174,7 @@ class UnidadeOrganicaController extends Controller
             'eqt' => ['required', 'string', 'max:255', 'unique:unidade_organicas,eqt'],
             'decretoCriacao' => ['string', 'max:255'],
             'localidade' => ['required','string', 'max:255'],
+            'coordenadasGeograficas' => ['string', 'max:255'],
             'telefone' => ['string', 'max:255','unique:unidade_organicas,telefone'],
             'email' => ['email', 'max:255','unique:unidade_organicas,email'],
         ], [
@@ -186,6 +188,7 @@ class UnidadeOrganicaController extends Controller
         'descricao' => $request->input('descricao'),
         'eqt'=> $request->input('eqt'),
         'decretoCriacao' => $request->input('decretoCriacao'),
+        'coordenadasGeograficas' => $request->input('coordenadasGeograficas'),
         'localidade' => $request->input('localidade'),
         'telefone' => $request->input('telefone'),
         'email' => $request->input('email')  
@@ -205,6 +208,7 @@ class UnidadeOrganicaController extends Controller
             'descricao' => ['required','string', 'max:255'],
             'eqt' => ['required', 'string', 'max:255', 'unique:unidade_organicas,eqt,'.$id.''],
             'decretoCriacao' => ['string', 'max:255'],
+            'coordenadasGeograficas' => ['string', 'max:255'],
             'localidade' => ['required','string', 'max:255'],
           //  'telefone' => ['string', 'max:255','unique:unidade_organicas,telefone,'.$id.''],
            // 'email' => ['email', 'max:255','unique:unidade_organicas,email,'.$id.''],
@@ -221,6 +225,7 @@ class UnidadeOrganicaController extends Controller
         $UnidadeOrganica->eqt = $request->eqt;
         $UnidadeOrganica->decretoCriacao = $request->decretoCriacao;
         $UnidadeOrganica->localidade = $request->localidade;
+        $UnidadeOrganica->coordenadasGeograficas = $request->coordenadasGeograficas;
         $UnidadeOrganica->telefone = $request->telefone;
         $UnidadeOrganica->email = $request->email;
         //Converter antes o array de nivel de ensino

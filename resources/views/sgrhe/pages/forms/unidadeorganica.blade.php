@@ -70,6 +70,10 @@
                                 <input type="text" name="localidade" class="form-control" id="localidade" placeholder="Localidade da Unidade Organica" value="{{isset($UnidadeOrganica) ? $UnidadeOrganica->localidade : '' }}" required>
                               </div>
                               <div class="form-group">
+                                <label for="coordenadasGeograficas">Coordenadas Geográficas</label>
+                                <input type="text" name="coordenadasGeograficas" class="form-control" id="localidade" placeholder="Coordenadas Geográficas da Unidade Organica" value="{{isset($UnidadeOrganica) ? $UnidadeOrganica->coordenadasGeograficas : '' }}" required>
+                              </div>
+                              <div class="form-group">
                                 <label for="telefone">Telefone</label>
                                 <input type="text" name="telefone" class="form-control" id="telefone" placeholder="Telefone da Unidade Orgânica" value="{{isset($UnidadeOrganica) ? $UnidadeOrganica->telefone : '' }}">
                               </div>

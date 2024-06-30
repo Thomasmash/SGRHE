@@ -107,7 +107,7 @@
 										<select name="idSeccao" class="form-control" id="seccaoSelect" onchange="fetchFuncionarios()" required>
                                             <option selected="selected" value="{{ isset($opcoesSeccaos) ? $opcoesSeccaos->id : '' }}">{{ isset($opcoesSeccaos) ? $opcoesSeccaos->designacao : 'Seleccione uma Secção' }}</option>
                                             @php
-                                              $opcoesSeccaos = App\Models\Seccao::all();
+                                              $opcoesSeccaos = App\Models\Seccao::where('id', '!=', 1)->get();
                                             @endphp
                                             @foreach ($opcoesSeccaos as $seccao)
                                             <option value="{{ old('id',$seccao->id ?? 'id') }}">{{ old('designacao',$seccao->designacao ?? $seccao->designacao) }}</option>

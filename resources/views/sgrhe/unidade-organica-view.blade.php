@@ -241,7 +241,7 @@
                                                   <p><b>Telefone:</b> {{ $unidadeOrganicaSelected->telefone }} </p>
                                                   <p><b>E-mail:</b> {{ $unidadeOrganicaSelected->email }} </p>
                                                   <p><b>Localidade:</b> {{ $unidadeOrganicaSelected->localidade }} </p>
-                                                  <p><b>Coordenadas Geograficas:</b> {{ 'N/D' }} </p>
+                                                  <p><b>Coordenadas Geograficas:</b> {{ $unidadeOrganicaSelected->coordenadasGeograficas }} </p>
                                                 </li>
                                               </ul>
                                             </div>
