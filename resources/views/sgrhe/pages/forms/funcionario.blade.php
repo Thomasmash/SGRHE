@@ -99,9 +99,12 @@
                                           </select>
                                       </div>
                                   <!--Consultas para preencher o combobox do banco de dados de forma automatica para a tabela cargo-->
-                                  <div class="form-group">
-                                        <label for="idSeccao">Secção</label>
-                                          <select name="idSeccao" class="form-control select2" required>
+                          
+								 
+									<div class="form-group">
+								   		<!-- Opcoes de Cargo //23121997  -->
+										<label for="seccaoSelect">Selecione a Secção:</label>
+										<select class="form-control" id="seccaoSelect" onchange="fetchFuncionarios()">
                                             <option selected="selected" value="{{ isset($opcoesSeccaos) ? $opcoesSeccaos->id : '' }}">{{ isset($opcoesSeccaos) ? $opcoesSeccaos->designacao : 'Seleccione uma Secção' }}</option>
                                             @php
                                               $opcoesSeccaos = App\Models\Seccao::all();
@@ -109,23 +112,18 @@
                                             @foreach ($opcoesSeccaos as $seccao)
                                             <option value="{{ old('id',$seccao->id ?? 'id') }}">{{ old('designacao',$seccao->designacao ?? $seccao->designacao) }}</option>
                                             @endforeach 
-                                          </select>
-                                      </div>    
-                                  
-                                  <div class="form-group">
-                                        <label for="idCargo">Cargo</label>
-                                          <select name="idCargo" class="form-control select2" required>
-                                            <option selected="selected" value="{{ isset($opcoesCargo) ? $opcoesCargo->id : '' }}">{{ isset($opcoesCargo) ? $opcoesCargo->designacao : 'Selecione um Cargo' }}</option>
-                                            @php
-                                              $opcoesCargos = App\Models\Cargo::all();
-                                            @endphp
-                                            @foreach ($opcoesCargos as $cargo)
-                                            <option value="{{ old('id',$cargo->id ?? 'id') }}">{{ old('designacao',$cargo->designacao ?? $cargo->designacao) }}</option>
-                                            @endforeach 
-                                          </select>
-                                  </div>
+                                         </select>
+									</div>
+										
+									<div class="form-group">
+										<!-- Opcoes de Cargo //23121997  -->
+										<label for="cargo">Cargo:</label>
+										<select class="form-control" name="cargo" id="cargoSelect" disabled>
+											<option value="">Selecione a Secção primeiro</option>
+										</select>
+									</div>
 
-                                      <!--Consultas para preencher o combobox do banco de dados de forma automatica para a tabela Unidade Organica-->
+                                    <!--Consultas para preencher o combobox do banco de dados de forma automatica para a tabela Unidade Organica-->
                                   <div class="form-group">
                                         <label for="idUnidadeOrganica">Unidade Orgânica</label>
                                           <select name="idUnidadeOrganica" class="form-control select2" required>
@@ -239,4 +237,32 @@
             this.value = valorFormatado;
           });
         </script>
+
+
+
+
+   <script>
+        function fetchFuncionarios() {
+            const seccaoPermissoes = document.getElementById('seccaoSelect').value;
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch(`/funcionarios/${seccaoPermissoes}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                 cargoSelect.innerHTML = '<option value="">Selecione o Cargo</option>';
+                data.forEach(cargo => {
+                    cargoSelect.innerHTML += `<option value="${cargo.id}">${cargo.designacao}</option>`;
+                });
+                cargoSelect.disabled = false;
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+    </script>
+
         @endsection

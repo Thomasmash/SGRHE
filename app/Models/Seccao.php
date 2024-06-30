@@ -11,9 +11,9 @@ class Seccao extends Model
     protected $table = 'seccaos'; // Nome da tabela
     protected $fillable = [    
         'codNome',
-       'designacao',
-       'idChefe',
-       'email',
+        'designacao',
+        'idChefe',
+        'email',
         //Anexos, Dependencias Tipo Documentos e Outras Imformacoes para se efectivar um determinado processo 
     ];
 }

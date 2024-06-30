@@ -118,34 +118,9 @@ use Illuminate\Support\Facades\Auth;
             }
 
             
-            /*Link */
-                /* Estilos básicos para o link */
-
-            .fade-link {
-                color: blue; /* Cor padrão do link */
-                text-decoration: none; /* Sem sublinhado */
-                cursor: pointer; /* Cursor de mão ao passar por cima */
-                opacity: .5; /* Começa invisível */
-                transition: opacity 0.5s ease; /* Transição suave de opacidade */
-            }
-
-            .fade-link.active {
-                opacity: 1; /* Torna o link visível */
-            }
-
-               /*Link */
-                /* Estilos básicos para o link */
-
-                .fade-linkSeccao {
-                color: blue; /* Cor padrão do link */
-                text-decoration: none; /* Sem sublinhado */
-                cursor: pointer; /* Cursor de mão ao passar por cima */
-                opacity: .5; /* Começa invisível */
-                transition: opacity 0.5s ease; /* Transição suave de opacidade */
-            }
-
-            .fade-linkSeccao.active {
-                opacity: 1; /* Torna o link visível */
+  
+            .notificacaoActiva {
+                text-color:red;
             }
         </style>
 
@@ -234,11 +209,11 @@ use Illuminate\Support\Facades\Auth;
 
             // Chama as funções assim que a página é carregada
             window.onload = function() {
-                toggleLink(); // Primeira chamada para ativar o efeito fade
-                setInterval(toggleLink, 500); // Chama a função a cada 500ms
-
-                toggleLinkSeccao(); // Primeira chamada para ativar o efeito fade
-                setInterval(toggleLinkSeccao, 750); // Chama a função a cada 750ms
+               // toggleLink(); // Primeira chamada para ativar o efeito fade
+				//toggleLinkSeccao(); // Primeira chamada para ativar o efeito fade
+                
+				setInterval(toggleLink, 500); // Chama a função a cada 500ms
+                setInterval(toggleLinkSeccao, 700); // Chama a função a cada 500ms
             };
             </script>
 

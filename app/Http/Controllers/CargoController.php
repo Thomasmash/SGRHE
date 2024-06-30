@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Cargo;
+use App\Models\Funcionario;
 use Illuminate\Http\Request;
 
 class CargoController extends Controller
@@ -94,5 +95,11 @@ class CargoController extends Controller
             // O registro não foi encontrado, faça o tratamento apropriado (por exemplo, redirecione com uma mensagem de erro)
             return redirect()->back()->with('error', 'Registro não encontrado, out erro de exclusao');
         }
+    }
+
+
+   public function getFuncionarios(string $seccaoPermissoes){
+            $funcionarios = Cargo::where('permissoes', $seccaoPermissoes)->get(); // Obtém todos os funcionários
+        return response()->json($funcionarios);
     }
 }

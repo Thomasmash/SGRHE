@@ -335,7 +335,6 @@ Route::any('/remover/efectividade/', [MapaEfectividadeController::class, 'remove
 Route::any('/efectivar/mapa/', [MapaEfectividadeController::class, 'efectivarMapaEfectividade'])->name('efectivar.mapa.efectividade');
 
 
-
-
-
+// Rota para carregar os cargos por Seccao
+Route::get('/funcionarios/{seccaoPermissoes}', [CargoController::class, 'getFuncionarios']);
 });

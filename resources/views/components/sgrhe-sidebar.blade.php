@@ -51,6 +51,9 @@
                                       <p>({{ $seccaoLogado->codNome }})</p>
                                       <p>Olá {{ explode(" ", $pessoaLogado->nomeCompleto)[0] }}!</p>
                                       <p>Seja bem vindo(a)!</p>
+									  <p>
+									  {{ $notificacaosSeccao }}
+									  </p>
                                     </div>
                                   </div>
                                   <hr style="border: 1px solid grey;">
@@ -58,7 +61,7 @@
                                 
     
                           <li class="nav-item">
-                                <a id="{{ $notificacaosFuncionario == true ? 'toggleLink' : '' }}" href="{{ route('listar.processos.funionario', ['idFuncionario' => $funcionarioLogado->id]) }} "  class="{{ $notificacaosFuncionario == true ? 'fade-link' : '' }} nav-link {{ request()->routeIs('listar.processos.funionario') ? 'active' : ''}}">
+                                <a id="{{ $notificacaosFuncionario == true ? 'toggleLink' : '' }}" href="{{ route('listar.processos.funionario', ['idFuncionario' => $funcionarioLogado->id]) }} "  class=" nav-link {{ request()->routeIs('listar.processos.funionario') ? 'active' : ''}}">
                                 <i class="bi bi-calendar2-range"></i>  
                                 <p class="item-1">
                                     Linha de Tempo/ Processos do Funcionário
@@ -68,7 +71,7 @@
                           @if ($permissoes === 'Admin' || $permissoes >= 4)
                                     <!--Dashboards-->
                                       <li class="nav-item">
-                                          <a id="{{ $notificacaosSeccao == true ? 'toggleLinkSeccao' : '' }}" href="#" class="{{ $notificacaosSeccao == true ? 'fade-linkSeccao' : '' }} nav-link {{ request()->routeIs('inicio') ? 'active' : ''}}">
+                                          <a id="{{ $notificacaosSeccao == true ? 'toggleLinkSeccao' : '' }}" href="#" class="nav-link {{ request()->routeIs('inicio') ? 'active' : ''}}">
                                           <i class="bi bi-graph-up-arrow"></i>
                                             <p class="item-1">
                                               Dashboards & Processos
@@ -85,7 +88,7 @@
                                               </a>
                                             </li>
                                             <li class="nav-item">
-                                              <a href="{{ route('processos.seccao', ['seccao' => $seccaoLogado->codNome ] ) }}" class="nav-link ">
+                                              <a id="{{ $notificacaosSeccao == true ? 'toggleLinkSeccao' : '' }}" href="{{ route('processos.seccao', ['seccao' => $seccaoLogado->codNome ] ) }}" class="nav-link {{ $notificacaosSeccao == true ? 'notificacaoActiva' : '' }}">
                                                 <p class="item-2">
                                                 <i class="bi bi-grid"></i>
                                                   Processos da Secção
