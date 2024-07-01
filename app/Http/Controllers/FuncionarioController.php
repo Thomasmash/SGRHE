@@ -268,6 +268,7 @@ class FuncionarioController extends Controller
       //Update
       public function update(Request $request, string $id)
       { 
+	 // dd($request->all());
         // Verificar se campos de Nomeação Foram alterados fazendo comparação dos campos submetidos com campos do funcionário
         $funcionario = Funcionario::find($id);
         if ( $request->idUnidadeOrganica != $funcionario->idUnidadeOrganica || $request->idCargo != $funcionario->idCargo || $request->idSeccao != $funcionario->idSeccao ) {  

@@ -154,11 +154,11 @@
                               <p><b>Nome da Mãe:</b> {{ $parente->nomeMae }} </p>
                               <p><b>Naturalidade (Província):</b> {{ $naturalidade->provincia }} </p> 
                               <p><b>Naturalidade (Município):</b> {{ $naturalidade->municipio }} </p> 
-                              <p><b>Categoria:</b> {{ $categoriaFuncionario->categoria }} </p>
                               <p><b>Data de Admissão:</b> {{ \Carbon\Carbon::parse($funcionario->dataAdmissao)->format('d/m/Y') }} </p>          
                               <p><b>Unidade Orgânica:</b> {{ $unidadeOrganica->designacao }} </p>
-                              <p><b>Grau:</b> {{ $categoriaFuncionario->grau }} </p>    
-                              <p><b>Secção:</b> {{ $seccao->designacao }} </p>                            
+							  <p><b>Categoria:</b> {{ $categoriaFuncionario->categoria." do ".$categoriaFuncionario->grau." Grau" }} </p>
+                              <p><b>Salário Base:</b> {{ $categoriaFuncionario->salariobase." Kz" }} </p>
+							  <p><b>Secção:</b> {{ $seccao->designacao }} </p>    							  
                               <p><b>Cargo:</b> {{ $cargo->designacao }} </p>    
                               <p><b>Telefone:</b> {{ $funcionario->numeroTelefone }} </p>
                             </li>

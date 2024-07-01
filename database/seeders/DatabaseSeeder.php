@@ -20,10 +20,10 @@ class DatabaseSeeder extends Seeder
          //    'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+		$this->call(Admin::class);
         $this->call(Cargos::class);
         $this->call(Seccoes::class);
         $this->call(UnidadesOrganicasPuri::class);
-        $this->call(Admin::class);
         $this->call(CategoriaFuncionario::class);
  
     

@@ -15,7 +15,7 @@ class CategoriaFuncionarioController extends Controller
     //Read
     public function index()
     {
-        $categoriafuncionarios = CategoriaFuncionario::all();
+        $categoriafuncionarios = CategoriaFuncionario::where( 'id', '!=', 1 )->get();
         //dd($categoriafuncionarios->all());
         return view('sgrhe/pages/tables/categoriafuncionario',compact('categoriafuncionarios'));
     }

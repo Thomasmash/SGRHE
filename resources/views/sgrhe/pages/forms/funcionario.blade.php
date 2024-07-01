@@ -118,8 +118,8 @@
 									<div class="form-group">
 										<!-- Opcoes de Cargo //23121997  -->
 										<label for="cargo">Cargo:</label>
-										<select class="form-control" name="idCargo" id="cargoSelect" disabled required>
-											<option value="">Selecione a Secção primeiro</option>
+										<select class="form-control" name="idCargo" id="cargoSelect" required>
+										 <option  value="{{ isset($opcoesCargo) ? $opcoesCargo->id : '' }}">{{ isset($opcoesCargo) ? $opcoesCargo->designacao : 'Selecione a Secção primeiro' }}</option>
 										</select>
 									</div>
 
