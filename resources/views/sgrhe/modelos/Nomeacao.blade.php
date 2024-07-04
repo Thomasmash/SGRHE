@@ -8,7 +8,7 @@ $naturalidade = App\Models\Naturalidade::where('idPessoa',$pessoa->id)->first();
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Declaração de Efectividade</title>
+        <title>Proposta de Nomeação</title>
        <style>
                 @page{
                         size: A4;
@@ -196,15 +196,31 @@ $naturalidade = App\Models\Naturalidade::where('idPessoa',$pessoa->id)->first();
                         @if (isset($idRatificador))
                         @php
                                 $assinatura =  App\Models\Assinatura::where('idFuncionario', $funcionarioLogado->id)->first()->assinatura;
+								$DG = App\Models\Funcionario::where('idCargo', 8)->first();
+								 $DirectorMunicipal =  App\Models\Pessoa::where('idFuncionario', $DG->idPessoa)->first();
                         @endphp
                                 <div style="position:absolute; width:100%; z-index:1; ">
                                        <!-- <img src="data:image/png;base64,{{$assinatura}}"  alt="" style="height:129px; width: 200px;"> -->
                                 </div>
                        @endif
+					     @php
+								$CargoDG = App\Models\Cargo::where('codNome', 'DirectorDM')->first();
+								$DG = App\Models\Funcionario::where('idCargo', $CargoDG->id)->first();
+								
+								$DirectorMunicipal =  $DG != null ? App\Models\Pessoa::where('id', $DG->idPessoa)->first() : null ;
+								
+                        @endphp
+                  		@php
+								$CargoDG = App\Models\Cargo::where('codNome', 'DirectorDM')->first();
+								$DG = App\Models\Funcionario::where('idCargo', $CargoDG->id)->first();
+								
+								$DirectorMunicipal =  $DG != null ? App\Models\Pessoa::where('id', $DG->idPessoa)->first() : null ;
+								
+                        @endphp
                        <div style="position:absolute; z-index:2; width:100%;">
-                        <p style="font-weight: bold;">O Solicitante</p>
+								<p style="font-weight: bold;">O Director Municipal</p>
                                 <p style="margin: 0; padding:0;">____________________________</p>
-                                <p style="margin: 0; padding:0; font-weight: bold;">{{ $pessoa->nomeCompleto }}</p>
+                                <p style="margin: 0; padding:0;">{{ $DirectorMunicipal != null ? $DirectorMunicipal->nomeCompleto : "Director Municipal Indisponível " }} </p>
                        </div>
 
                 </div>

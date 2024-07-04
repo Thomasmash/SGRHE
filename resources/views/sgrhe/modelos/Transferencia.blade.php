@@ -8,7 +8,7 @@ $naturalidade = App\Models\Naturalidade::where('idPessoa',$pessoa->id)->first();
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Declaração de Efectividade</title>
+        <title>Solicitação de Transferência </title>
        <style>
                 @page{
                         size: A4;

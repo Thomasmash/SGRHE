@@ -40,7 +40,8 @@ class UnidadeOrganicaController extends Controller
                 return view('sgrhe/pages/tables/unidadeorganica',compact('dados','nivelEnsino','titulo'));
             }elseif($permissoes<=6 && $permissoes>=4){
                 //Privilegios de Select para as Unidades Organicas
-                   $dados = UnidadeOrganica::where('id', '!=', 1)->get();
+				//dd('cheguei');
+                     $dados = UnidadeOrganica::where('id', '!=', 1)->get();
                 return view('sgrhe/pages/tables/unidadeorganica',compact('dados','nivelEnsino','titulo'));
             }elseif ($permissoes<=3 && $permissoes>=2) {
                 //Sera Redirecionad a Sua Unidade Organica com as Permissoes de Select e Create pra sua unidade Organica
@@ -62,11 +63,11 @@ class UnidadeOrganicaController extends Controller
         $permissoes = Cargo::where('id', session()->only(['funcionario'])['funcionario']->idCargo )->first()->permissoes;
         if (  $permissoes == 'Admin' ) {
             //Todos Os Privilegios
-            $dados = UnidadeOrganica::where('id', '!=', 1)->where('nivelEnsino',$nivelEnsino);
+            $dados = UnidadeOrganica::where('id', '!=', 1)->where('nivelEnsino',$nivelEnsino)->get();
             return view('sgrhe/pages/tables/unidadeorganica',compact('dados','nivelEnsino','titulo'));
         }elseif($permissoes<=6 && $permissoes>=4){
             //Privilegios de Select para as Unidades Organicas
-            $dados = UnidadeOrganica::where('id', '!=', 1)->where('nivelEnsino',$nivelEnsino);
+            $dados = UnidadeOrganica::where('id', '!=', 1)->where('nivelEnsino',$nivelEnsino)->get();
             return view('sgrhe/pages/tables/unidadeorganica',compact('dados','nivelEnsino','titulo'));
         }elseif ($permissoes<=3 && $permissoes>=2) {
             //Sera Redirecionad a Sua Unidade Organica com as Permissoes de Select e Create pra sua unidade Organica
@@ -78,7 +79,7 @@ class UnidadeOrganicaController extends Controller
           
             route('perfil.show', ['idFuncionario' => session()->only(['funcionario'])['funcionario']->id ]);
         }
-        $dados = UnidadeOrganica::where('id', '!=', 1)->where('nivelEnsino',$nivelEnsino);
+        $dados = UnidadeOrganica::where('id', '!=', 1)->where('nivelEnsino',$nivelEnsino)->get();
         return view('sgrhe/pages/tables/unidadeorganica',compact('dados','nivelEnsino','titulo'));
     }
 
@@ -103,7 +104,6 @@ class UnidadeOrganicaController extends Controller
 //Ver Detalhes Da Unidade Orgânica 
     public function show(string $idUnidadeOrganica)
     {
-
             $unidadeOrganicaSelected = UnidadeOrganica::where('id', $idUnidadeOrganica)->first();
             $Funcionarios = Funcionario::where('idUnidadeOrganica', $idUnidadeOrganica);
             $aproveitamento = FormularioAproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('id', 1)->first();

@@ -47,7 +47,6 @@
                           <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                              <th>Cargos (id)</th>
                               <th>Designacao</th>
                               <th>Descrisao</th>
                               <th>Permissoes</th>
@@ -58,8 +57,6 @@
                             <!--Gerando a Tabela de forma Dinamica-->
                             @foreach ($dados as $cargo)
                                           <tr>
-                                           
-                                              <td>{{ $cargo->id }}</td>
                                               <td>{{ $cargo->designacao }}</td>
                                               <td>{{ $cargo->descrisao }}</td>
                                               <td>{{ $cargo->permissoes }}</td>
@@ -82,7 +79,6 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                              <th>Cargos (id)</th>
                               <th>Designacao</th>
                               <th>Descrisao</th>
                               <th>Permissoes</th>
