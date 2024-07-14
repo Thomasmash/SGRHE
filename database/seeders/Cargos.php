@@ -14,13 +14,8 @@ class Cargos extends Seeder
     public function run(): void
     {
         
-        //Unidades Organicas 
-        DB::table('cargos')->insert([
-            'codNome' => 'Admin',
-            'designacao' =>'Admin',
-            'permissoes' => 'Admin',
-            'descrisao' => 'Admin'
-        ]); 
+        //Cargos 
+   
         DB::table('cargos')->insert([
             'codNome' => 'Operario',
             'designacao' =>'Operário Qualificado',

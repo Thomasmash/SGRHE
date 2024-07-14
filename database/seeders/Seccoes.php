@@ -17,13 +17,6 @@ class Seccoes extends Seeder
         //Registros
             //Unidades Organicas 
             DB::table('seccaos')->insert([
-                'codNome' =>'Admin',
-                'designacao' => 'Admin',
-                'idChefe' => '',
-                'email' => '',
-				'permissoes' => 'Admin',
-            ]); 
-            DB::table('seccaos')->insert([
                 'codNome' =>'SecretariaGeral',
                 'designacao' => 'Secretaria Geral',
                 'idChefe' => '',

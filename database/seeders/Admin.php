@@ -14,12 +14,6 @@ class Admin extends Seeder
      */
     public function run(): void
     {
-        //Categoria Funionarios
-        DB::table('categoria_funcionarios')->insert([
-            'categoria' => 'Admin',
-            'grau' => 'Admin',
-            'salariobase' => 145456,
-        ]);
         //unidade Organica
         DB::table('unidade_organicas')->insert([
             'designacao' => 'Admin',
@@ -52,10 +46,31 @@ class Admin extends Seeder
             'nomeMae' =>  'N/D' ,
             'idPessoa' => '1',
         ]);
-        //parentes
+        //enderecos
         DB::table('enderecos')->insert([
                 'idPessoa' => '1',
         ]);
+		//Categoria Funionarios
+        DB::table('categoria_funcionarios')->insert([
+            'categoria' => 'Admin',
+            'grau' => 'Admin',
+            'salariobase' => 145456,
+        ]);
+		//seccaos
+		DB::table('seccaos')->insert([
+            'codNome' =>'Admin',
+            'designacao' => 'Admin',
+            'idChefe' => '',
+			'email' => '',
+			'permissoes' => 'Admin',
+        ]); 
+		//cargos
+	    DB::table('cargos')->insert([
+            'codNome' => 'Admin',
+            'designacao' =>'Admin',
+            'permissoes' => 'Admin',
+            'descrisao' => 'Admin'
+        ]); 
          //funcionario
          DB::table('funcionarios')->insert([
             'numeroAgente' => '12345678',
