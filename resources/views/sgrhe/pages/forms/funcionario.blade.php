@@ -81,7 +81,7 @@
 
                                     <div class="form-group">
                                       <label for="numeroAgente">Número de Agente</label>
-                                      <input type="text" name="numeroAgente" class="form-control" id="numeroAgente" placeholder="Insira o número de Agente" value="{{ old('numeroAgente',$funcionario->numeroAgente ?? '')  }}" required>
+                                      <input type="text" name="numeroAgente" class="form-control" id="numeroAgente" placeholder="Insira o número de Agente" value="{{ old('numeroAgente',$funcionario->numeroAgente ?? '')  }}" maxlength="24" required>
                                     </div>
 
                                     <hr>

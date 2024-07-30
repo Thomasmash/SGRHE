@@ -12,13 +12,28 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cartao_municipes', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('idArquivo')->nullable();
-            $table->string('areaResidencia')->require();
-            $table->date('validadeCM')->require();
-            $table->unsignedBigInteger('idEndereco')->require();
-            $table->foreign('idEndereco')->references('id')->on('enderecos')->onDelete('cascade');           
+            // Primary key
+            $table->id()->comment('Identificador único da tabela cartao de municipe');
+
+            // Foreign key to arquivos table (file ID)
+            $table->unsignedBigInteger('idArquivo')->nullable()->comment('ID do arquivo do cartão');
+
+            // Área de residência do munícipe
+            $table->string('areaResidencia')->required()->comment('Área de residência do munícipe');
+
+            // Data de validade do cartão
+            $table->date('validadeCM')->required()->comment('Data de validade do cartão');
+
+            // Foreign key to enderecos table (address ID)
+            $table->unsignedBigInteger('idEndereco')->required()->comment('ID do endereço do munícipe');
+            $table->foreign('idEndereco')->references('id')->on('enderecos')->onDelete('cascade');
+
+            // Timestamps
             $table->timestamps();
+        });
+
+        Schema::table('cartao_municipes', function (Blueprint $table) {
+            $table->comment = 'Tabela de cartões de munícipes';
         });
     }
 

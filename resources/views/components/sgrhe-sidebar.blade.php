@@ -51,9 +51,6 @@
                                       <p>({{ $seccaoLogado->codNome }})</p>
                                       <p>Olá {{ explode(" ", $pessoaLogado->nomeCompleto)[0] }}!</p>
                                       <p>Seja bem vindo(a)!</p>
-									  <p>
-									  {{ $notificacaosSeccao }}
-									  </p>
                                     </div>
                                   </div>
                                   <hr style="border: 1px solid grey;">
@@ -71,7 +68,7 @@
                           @if ($permissoes === 'Admin' || $permissoes >= 4)
                                     <!--Dashboards-->
                                       <li class="nav-item">
-                                          <a id="{{ $notificacaosSeccao == true ? 'toggleLinkSeccao' : '' }}" href="#" class="nav-link {{ request()->routeIs('inicio') ? 'active' : ''}}">
+                                          <a id="{{ $notificacaosSeccao == true ? 'toggleLinkSeccao' : '' }}" href="#" class="nav-link {{ request()->routeIs('inicio') ? 'active' : ''}} {{ request()->routeIs('processos.seccao') ? 'active' : ''}} {{ request()->routeIs('mapas.efectividade') ? 'active' : ''}}">
                                           <i class="bi bi-graph-up-arrow"></i>
                                             <p class="item-1">
                                               Dashboards & Processos
@@ -88,7 +85,7 @@
                                               </a>
                                             </li>
                                             <li class="nav-item">
-                                              <a id="{{ $notificacaosSeccao == true ? 'toggleLinkSeccao' : '' }}" href="{{ route('processos.seccao', ['seccao' => $seccaoLogado->codNome ] ) }}" class="nav-link {{ $notificacaosSeccao == true ? 'notificacaoActiva' : '' }}">
+                                              <a id="{{ $notificacaosSeccao == true ? 'toggleLinkSeccao' : '' }}" href="{{ route('processos.seccao', ['seccao' => $seccaoLogado->codNome ] ) }}" class="nav-link {{ $notificacaosSeccao == true ? 'notificacaoActiva' : '' }} {{ request()->routeIs('processos.seccao') ? 'active' : ''}}">
                                                 <p class="item-2">
                                                 <i class="bi bi-grid"></i>
                                                   Processos da Secção
@@ -96,7 +93,7 @@
                                               </a>
                                             </li>
                                             <li class="nav-item">
-                                              <a href="{{ route('mapas.efectividade') }}"  class="nav-link ">
+                                              <a href="{{ route('mapas.efectividade') }}"  class="nav-link {{ request()->routeIs('mapas.efectividade') ? 'active' : ''}}">
                                                 <p class="item-2">
                                                 <i class="bi bi-grid"></i>
                                                   Mapas de Efectividade

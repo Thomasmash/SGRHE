@@ -12,11 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('fotos_unidade_organicas', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('idArguivo')->nullable();
-            $table->unsignedBigInteger('idUnidadeOrganica')->nullable();
+            // Primary key
+            $table->id()->comment('Identificador único da tabela fotos sobre as unidades organicas');
+
+            // Foreign key to arquivos table (file ID)
+            $table->unsignedBigInteger('idArguivo')->nullable()->comment('ID do arquivo da foto');
+
+            // Foreign key to unidade_organicas table (unit ID)
+            $table->unsignedBigInteger('idUnidadeOrganica')->nullable()->comment('ID da unidade orgânica');
             $table->foreign('idUnidadeOrganica')->references('id')->on('unidade_organicas')->onDelete('cascade');
+
+            // Timestamps
             $table->timestamps();
+        });
+
+        Schema::table('fotos_unidade_organicas', function (Blueprint $table) {
+            $table->comment = 'Tabela de fotos das unidades orgânicas';
         });
     }
 

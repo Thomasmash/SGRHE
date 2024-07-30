@@ -12,20 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('processos', function (Blueprint $table) {
-            $table->id();
-            $table->integer('idFuncionario');
-            $table->unsignedBigInteger('idFuncionarioSolicitante')->nullable();
-            $table->string('seccao');
-            $table->string('categoria');
-            $table->string('natureza');
-            $table->text('Request', 10000);
-            $table->string('estado')->nullable();
-            $table->string('deferimento')->nullable();   
-            $table->unsignedBigInteger('idArquivo')->nullable();
-            $table->unsignedBigInteger('ratificador')->nullable();
-            $table->foreign('idFuncionarioSolicitante')->references('id')->on('funcionarios')->onDelete('cascade'); 
-            //Anexos, Dependencias Tipo Documentos e Outras Imformacoes para se efectivar um determinado processo 
+            $table->id()->comment('Identificador único do processo');
+            $table->integer('idFuncionario')->comment('Identificador do funcionário responsável');
+            $table->unsignedBigInteger('idFuncionarioSolicitante')->nullable()->comment('Identificador do funcionário solicitante (opcional)');
+            $table->string('seccao')->comment('Seção do processo');
+            $table->string('categoria')->comment('Categoria do processo');
+            $table->string('natureza')->comment('Natureza do processo');
+            $table->text('Request', 10000)->comment('Descrição do processo');
+            $table->string('estado')->nullable()->comment('Estado do processo (opcional)');
+            $table->string('deferimento')->nullable()->comment('Deferimento do processo (opcional)');
+            $table->unsignedBigInteger('idArquivo')->nullable()->comment('Identificador do arquivo relacionado (opcional)');
+            $table->unsignedBigInteger('ratificador')->nullable()->comment('Identificador do ratificador do processo (opcional)');
+            $table->foreign('idFuncionarioSolicitante')->references('id')->on('funcionarios')->onDelete('cascade')->comment('Chave estrangeira para a tabela de funcionários');
             $table->timestamps();
+        });
+
+        Schema::table('processos', function (Blueprint $table) {
+            $table->comment = 'Tabela de processos';
         });
     }
 

@@ -7,23 +7,28 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Executa a criação da tabela seccaos
      */
     public function up(): void
     {
         Schema::create('seccaos', function (Blueprint $table) {
-            $table->id();
-            $table->string('codNome');
-            $table->string('designacao');
-            $table->string('idChefe')->nullable();
-			$table->string('permissoes')->nullable();
-            $table->string('email')->nullable();
+            $table->id()->comment('Chave primária auto-incrementável');
+            $table->string('codNome')->comment('Código e nome da seção');
+            $table->string('designacao')->comment('Designação da seção');
+            $table->string('idChefe')->nullable()->comment('ID do chefe da seção');
+            $table->string('permissoes')->nullable()->comment('Permissões da seção');
+            $table->string('email')->nullable()->comment('E-mail da seção');
             $table->timestamps();
+        });
+
+        // Adiciona comentário à tabela
+        Schema::table('seccaos', function (Blueprint $table) {
+            $table->comment = 'Tabela de seções';
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Executa a remoção da tabela seccaos
      */
     public function down(): void
     {

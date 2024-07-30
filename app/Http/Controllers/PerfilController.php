@@ -78,9 +78,10 @@ class PerfilController extends Controller
     }
 
 
-    public function exibirfoto(Request $request)
+    public function config()
     {
-        
+       //  dd('Cheguei ate aqui');
+        return view('profile/config-usuario');
     }
 
     /**

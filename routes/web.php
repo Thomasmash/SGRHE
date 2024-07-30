@@ -317,6 +317,10 @@ Route::get('/configuracao/perfil/', function(){
         return view('sgrhe/perfil-config');
 })->name('configuracao.perfil');
 
+//Configuracao de Usuario obs nao do perfil que e diferente 
+Route::any('/configuracao/usuario', [PerfilController::class, 'config'])->name('config.usuario');
+
+
 //Delete Item
 Route::any('/objecto/eliminar/', [ObjectController::class, 'eliminar'])->name('eliminar.objecto');
 

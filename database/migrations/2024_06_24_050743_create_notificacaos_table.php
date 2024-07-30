@@ -12,15 +12,34 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notificacaos', function (Blueprint $table) {
-            $table->id();
-            $table->integer('idFuncionarioSolicitante');
-            $table->string('seccao');
-            $table->string('visualizadoFuncionario');
-            $table->string('visualizadoSeccao');
-            $table->text('Request', 10000);
-            $table->unsignedBigInteger('idProcesso')->require();
-            $table->foreign('idProcesso')->references('id')->on('processos')->onDelete('cascade');    
+            // Primary key
+            $table->id()->comment('Identificador único da tabela notificacao');
+
+            // ID do funcionário solicitante
+            $table->integer('idFuncionarioSolicitante')->comment('ID do funcionário que solicitou a notificação');
+
+            // Seção relacionada à notificação
+            $table->string('seccao')->comment('Seção relacionada à notificação');
+
+            // Visualizado pelo funcionário?
+            $table->string('visualizadoFuncionario')->comment('Indica se a notificação foi visualizada pelo funcionário');
+
+            // Visualizado pela seção?
+            $table->string('visualizadoSeccao')->comment('Indica se a notificação foi visualizada pela seção');
+
+            // Conteúdo da solicitação
+            $table->text('Request')->comment('Conteúdo da solicitação');
+
+            // Foreign key to processos table (process ID)
+            $table->unsignedBigInteger('idProcesso')->required()->comment('ID do processo relacionado à notificação');
+            $table->foreign('idProcesso')->references('id')->on('processos')->onDelete('cascade');
+
+            // Timestamps
             $table->timestamps();
+        });
+
+        Schema::table('notificacaos', function (Blueprint $table) {
+            $table->comment = 'Tabela de notificações';
         });
     }
 
