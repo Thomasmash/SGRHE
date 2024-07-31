@@ -35,7 +35,7 @@ class PessoaController extends Controller
             'nomeCompleto' => ['string', 'max:255','required'],
             'dataNascimento' => ['date','required','before:' .now()->subYears(18)->format('Y-m-d')],
             'genero'=> ['string', 'max:9','required'],
-            'grupoSanguineo' => ['string','max:3'],
+            //'grupoSanguineo' => ['string','max:3'],
             'estadoCivil' => ['string'],
             'numeroBI' => ['required', 'string', 'max:14', 'unique:pessoas,numeroBI'],
             'validadeBI' => ['date','required','after_or_equal:'.now()],
@@ -57,12 +57,12 @@ class PessoaController extends Controller
             ]);
 
         $pessoa = Pessoa::create([
-            'nomeCompleto' => mb_strtoupper($request->input('nomeCompleto')),
+            'nomeCompleto' => ucwords(strtolower($request->input('nomeCompleto'))),
             'dataNascimento' => $request->input('dataNascimento'),
             'genero'=> $request->input('genero'),
             'grupoSanguineo' => $request->input('grupoSanguineo'),
             'estadoCivil' => $request->input('estadoCivil'),
-            'numeroBI' => $request->input('numeroBI'),
+            'numeroBI' => mb_strtoupper($request->input('numeroBI')),
             'validadeBI' => $request->input('validadeBI'),  
         ]);
         //Inicio da Transacao
@@ -70,8 +70,8 @@ class PessoaController extends Controller
         if ($pessoa) {
             $idPessoa = Pessoa::latest()->value('id');
             $parente = Parente::create([
-                'nomePai' => $request->input('nomePai'),
-                'nomeMae' => $request->input('nomeMae'),
+                'nomePai' => ucwords(strtolower($request->input('nomePai'))),
+                'nomeMae' => ucwords(strtolower($request->input('nomeMae'))),
                 'idPessoa' => $idPessoa,
              ]);
              if ($parente) {
@@ -85,10 +85,10 @@ class PessoaController extends Controller
                         'idPessoa' => $idPessoa,
                         'provincia' => $request->input('provinciaEndereco'),
                         'municipio' => $request->input('municipioEndereco'),
-                        'bairro' => $request->input('bairro'),
-                        'zona' => $request->input('zona'),
-                        'quarteirao' => $request->input('quarteirao'),
-                        'rua' => $request->input('rua'),
+                        'bairro' => ucwords(strtolower($request->input('bairro'))),
+                        'zona' => ucwords(strtolower($request->input('zona'))),
+                        'quarteirao' => ucwords(strtolower($request->input('quarteirao'))),
+                        'rua' => ucwords(strtolower($request->input('rua'))),
                         'casa' => $request->input('casa'),
                     ]);
                     if ($endereco) {
@@ -153,17 +153,17 @@ class PessoaController extends Controller
     // Encontre o registro em Naturalidade com base na chave estrangeira
     $naturalidades = Naturalidade::where('idPessoa', $id)->first();
     // Atualize os campos do pesso$pessoa com os dados do formulário
-            $pessoa->nomeCompleto = $request->nomeCompleto;
+            $pessoa->nomeCompleto = ucwords(strtolower($request->nomeCompleto));
             $pessoa->dataNascimento = $request->dataNascimento;
             $pessoa->genero = $request->genero;
             $pessoa->grupoSanguineo = $request->grupoSanguineo;
             $pessoa->estadoCivil = $request->estadoCivil;
-            $pessoa->numeroBI = $request->numeroBI;
+            $pessoa->numeroBI = mb_strtoupper($request->numeroBI);
             $pessoa->validadeBI = $request->validadeBI;
             $naturalidades->provincia = $request->provincia;
             $naturalidades->municipio = $request->municipio;
-            $parentes->nomePai = $request->nomePai;
-            $parentes->nomeMae = $request->nomeMae;
+            $parentes->nomePai = ucwords(strtolower($request->nomePai));
+            $parentes->nomeMae = ucwords(strtolower($request->nomeMae));
     // iniciando a transacao para as alterações no registro
     DB::beginTransaction();
     if ($pessoa->save()) {

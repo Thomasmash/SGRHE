@@ -81,7 +81,7 @@
 
                                     <div class="form-group">
                                       <label for="numeroAgente">Número de Agente</label>
-                                      <input type="text" name="numeroAgente" class="form-control" id="numeroAgente" placeholder="Insira o número de Agente" value="{{ old('numeroAgente',$funcionario->numeroAgente ?? '')  }}" maxlength="24" required>
+                                      <input type="text" name="numeroAgente" class="form-control" id="numeroAgente" placeholder="Insira o número de Agente" value="{{ old('numeroAgente',$funcionario->numeroAgente ?? '')  }}" maxlength="12" required>
                                     </div>
 
                                     <hr>
@@ -150,7 +150,7 @@
                                   </div>
                                   <div class="form-group">
                                       <label for="tel">Telefone</label>
-                                      <input type="text" name="numeroTelefone" class="form-control" id="tel" value="{{ old('numeroTelefone',$funcionario->numeroTelefone ?? '') }}" placeholder="+244 92 000 000" >
+                                      <input type="text" name="numeroTelefone" class="form-control" id="tel" value="{{ old('numeroTelefone',$funcionario->numeroTelefone ?? '') }}" maxlength="14" placeholder="+244 92 000 000" >
                                   </div>
                                   <br>
                                   <div class="form-group mb-0">

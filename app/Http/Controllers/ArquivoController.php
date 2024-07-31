@@ -208,7 +208,7 @@ class ArquivoController extends Controller
 
     public function storeCM(Request $request, string $idFuncionario, string $categoria, string $idPessoa)
     {
-           // dd($request->all());
+            //dd($request->all());
             $verificar = $request->validate([
                 'areaResidencia' => ['required'],//, 'string', 'max:14', 'unique:pessoas,numeroBI'],
                 'validadeCM' => ['date','required','after_or_equal:'.now()],
@@ -251,11 +251,11 @@ class ArquivoController extends Controller
                 $endereco->idPessoa = $request->idPessoa;
                 $endereco->provincia = $request->provinciaEndereco;
                 $endereco->municipio = $request->municipioEndereco;
-                $endereco->bairro = $request->bairro;
-                $endereco->zona = $request->zona;
-                $endereco->quarteirao = $request->quarteirao;
-                $endereco->rua = $request->rua;
-                $endereco->casa = $request->casa;
+                $endereco->bairro = ucwords(strtolower($request->bairro));
+                $endereco->zona = ucwords(strtolower($request->zona));
+                $endereco->quarteirao = ucwords(strtolower($request->quarteirao));
+                $endereco->rua = ucwords(strtolower($request->rua));
+                $endereco->casa = ucwords(strtolower($request->casa));
                 $endereco->save();
                 DB::commit();
                 return redirect()->back()->with('success', 'BI Actualizado com sucesso!');
@@ -274,11 +274,11 @@ class ArquivoController extends Controller
              $endereco->idPessoa = $request->idPessoa;
              $endereco->provincia = $request->provinciaEndereco;
              $endereco->municipio = $request->municipioEndereco;
-             $endereco->bairro = $request->bairro;
-             $endereco->zona = $request->zona;
-             $endereco->quarteirao = $request->quarteirao;
-             $endereco->rua = $request->rua;
-             $endereco->casa = $request->casa;
+             $endereco->bairro = ucwords(strtolower($request->bairro));
+             $endereco->zona = ucwords(strtolower($request->zona));
+             $endereco->quarteirao = ucwords(strtolower($request->quarteirao));
+             $endereco->rua = ucwords(strtolower($request->rua));
+             $endereco->casa = ucwords(strtolower($request->casa));
              $endereco->save();
             // Atualizar simbolicamente o conteudo da coluna 'caminho'
             $arquivo->update([

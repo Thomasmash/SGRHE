@@ -364,7 +364,7 @@ class FuncionarioController extends Controller
               return redirect()->back()->with('error', 'Erro de Actualização do Funcionário! ');
           }
    }  
-    //Update
+    /*Update
     public function updatea(Request $request, string $id)
     {       
            // dd($request->all());
@@ -494,6 +494,7 @@ class FuncionarioController extends Controller
            }
            
     }
+    */
 
     //Delete
     public function destroy(string $id)

@@ -381,7 +381,6 @@
                                                        <h6 class="card-header"><strong><i class="far fa-file-alt mr-1"></i> Cartão de Munícipe</strong></h6>
                                                             <!--Solicitando a existencia do registro do arquivo no banco de dados-->
                                                               @php
-                                                            
                                                                 $biArquivo = App\Models\Arquivo::where('idFuncionario',  $funcionario->id  )->where('categoria','CM');
                                                                 //echo($biArquivo->first()->caminho);
                                                               @endphp 
@@ -412,7 +411,7 @@
                                                           <div id="item-CM" class="info-toggle">
                                                             @if ( $cargoLogado->permissoes === 'Admin' || $seccaoLogado->codNome === 'RHPE' )
                                                               <!--BTN Modal de Add Arquivo -->
-                                                                <button class="btn btn-primary btn-modal-doc-edit" data-toggle="modal" data-target="#addCM" data-form-action="{{ route('arquivos.store',['idFuncionario' => $funcionario->id, 'categoria' => 'BI', 'idPessoa' => $funcionario->idPessoa ]) }}">
+                                                                <button class="btn btn-primary btn-modal-doc-edit" data-toggle="modal" data-target="#addCM" data-form-action="{{ route('arquivos.store.cm',['idFuncionario' => $funcionario->id, 'categoria' => 'CM', 'idPessoa' => $funcionario->idPessoa ]) }}">
                                                                   <i class="fa fa-plus"></i>  Actualizar Cartão de Munícipe
                                                                 </button>
                                                               <!--/BTN Modal de Add Arquivo -->
@@ -506,7 +505,7 @@
                                                                                         <input type="date" class="form-control" id="validadeCM" name="validadeCM" placeholder="Password">
                                                                                     </div>
                                                                                     <div class="form-group">
-                                                                                        <label for="arquivo">O Cartão de Munícipe deve estar no formato "pdf"</label>
+                                                                                        <label for="arquivo">O Cartão de Munícipe deve estar no formato "pdf, png ou jpg"</label>
                                                                                         <div class="input-group">
                                                                                             <div class="custom-file">
                                                                                                 <input type="file" class="custom-file-input" name="arquivo">
@@ -517,7 +516,7 @@
 
 
                                                                                     <div class="form-check">
-                                                                                        <input type="checkbox" name="confirmar" class="form-check-input">
+                                                                                        <input type="checkbox" name="confirmar" class="form-check-input" required >
                                                                                         <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
                                                                                     </div>
                                                                                     <div class="modal-footer">

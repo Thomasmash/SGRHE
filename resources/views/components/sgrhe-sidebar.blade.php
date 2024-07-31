@@ -100,7 +100,7 @@
                                                 </p>
                                               </a>
                                             </li>
-                                            <li class="nav-item">
+                                            <li class="nav-item d-none">
                                               <a href="#"  class="nav-link ">
                                                 <p class="item-2">
                                                 <i class="bi bi-grid"></i>
@@ -189,7 +189,7 @@
                                 </p>
                               </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item d-none">
                               <a href=""  class="nav-link ">
                                 <p class="item-2">
                                 <i class="bi bi-calendar2-range"></i>

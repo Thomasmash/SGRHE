@@ -185,14 +185,14 @@ class UnidadeOrganicaController extends Controller
         ]);
 
     $registro=UnidadeOrganica::create([
-        'designacao' => $request->input('designacao'),
+        'designacao' => ucwords(strtolower($request->input('designacao'))),
         'descricao' => $request->input('descricao'),
         'eqt'=> $request->input('eqt'),
         'decretoCriacao' => $request->input('decretoCriacao'),
         'coordenadasGeograficas' => $request->input('coordenadasGeograficas'),
         'localidade' => $request->input('localidade'),
         'telefone' => $request->input('telefone'),
-        'email' => $request->input('email')  
+        'email' => strtolower($request->input('email')),  
     ]); 
     if ($registro) {
         return redirect()->route('unidadeorganicas.form')->with('success', 'Unidade Orgânica, '.$request->designacao.' cadastrada com sucesso!');
@@ -221,14 +221,14 @@ class UnidadeOrganicaController extends Controller
         ]);
 
         $UnidadeOrganica = UnidadeOrganica::where('id', $id)->first();
-        $UnidadeOrganica->designacao = $request->designacao;
+        $UnidadeOrganica->designacao = ucwords(strtolower($request->designacao));
         $UnidadeOrganica->descricao = $request->descricao;
         $UnidadeOrganica->eqt = $request->eqt;
         $UnidadeOrganica->decretoCriacao = $request->decretoCriacao;
         $UnidadeOrganica->localidade = $request->localidade;
         $UnidadeOrganica->coordenadasGeograficas = $request->coordenadasGeograficas;
         $UnidadeOrganica->telefone = $request->telefone;
-        $UnidadeOrganica->email = $request->email;
+        $UnidadeOrganica->email = strtolower($request->email);
         //Converter antes o array de nivel de ensino
         $niveldeEnsino = "";
         $decodedQueryString = urldecode(http_build_query($request->nivelEnsino));
