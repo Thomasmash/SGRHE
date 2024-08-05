@@ -278,13 +278,13 @@
                                                                                         <label for="arquivo">A Foto deve estar no Formato "png e jpg"</label>
                                                                                         <div class="input-group">
                                                                                             <div class="custom-file">
-                                                                                                <input type="file" class="custom-file-input" name="arquivo">
+                                                                                                <input type="file" class="custom-file-input" name="arquivo" required>
                                                                                                 <label class="custom-file-label" for="arquivo">Escolha a foto </label>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-check">
-                                                                                        <input type="checkbox" name="confirmar" class="form-check-input">
+                                                                                        <input type="checkbox" name="confirmar" class="form-check-input" required>
                                                                                         <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
                                                                                     </div>
                                                                                     <div class="modal-footer">

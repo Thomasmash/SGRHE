@@ -26,9 +26,9 @@ class PerfilController extends Controller
         $processos = Processo::where('idFuncionarioSolicitante', $idFuncionario)->get();
         $funcionario = Funcionario::where('id',$idFuncionario)->first();
         $pessoa = Pessoa::where('id',$funcionario->idPessoa)->first();
-        $parente = Parente::where('id',$funcionario->idPessoa)->first();
-        $naturalidade = Naturalidade::where('id',$funcionario->idPessoa)->first();
-        $endereco = Endereco::where('id',$funcionario->idPessoa)->first();
+        $parente = Parente::where('idPessoa',$funcionario->idPessoa)->first();
+        $naturalidade = Naturalidade::where('idPessoa',$funcionario->idPessoa)->first();
+        $endereco = Endereco::where('idPessoa',$funcionario->idPessoa)->first();
         $cargo = Cargo::where('id',$funcionario->idCargo)->first();
         $seccao = Seccao::where('id',$funcionario->idSeccao)->first();
         $unidadeOrganica = UnidadeOrganica::where('id',$funcionario->idUnidadeOrganica)->first();
@@ -36,6 +36,7 @@ class PerfilController extends Controller
         $arquivos = Arquivo::where('idFuncionario',$funcionario->id);
         //dd($arquivos->where('categoria','fotodeperfil')->first()->arquivo);
         // dd($arquivos->where('categoria','fotodeperfil')->first()->arquivo);
+       // dd($pessoa);
         return view('sgrhe/perfilview',compact('funcionario','pessoa','parente','naturalidade','endereco','cargo','unidadeOrganica','categoriaFuncionario','arquivos','processos','seccao'));
     }
 
@@ -61,9 +62,9 @@ class PerfilController extends Controller
         //Determinando a Seccao do Fucnionario
         $funcionario = Funcionario::where('id',$idFuncionario)->first();
         $pessoa = Pessoa::where('id',$funcionario->idPessoa)->first();
-        $parente = Parente::where('id',$funcionario->idPessoa)->first();
-        $naturalidade = Naturalidade::where('id',$funcionario->idPessoa)->first();
-        $endereco = Endereco::where('id',$funcionario->idPessoa)->first();
+        $parente = Parente::where('idPessoa',$funcionario->idPessoa)->first();
+        $naturalidade = Naturalidade::where('idPessoa',$funcionario->idPessoa)->first();
+        $endereco = Endereco::where('idPessoa',$funcionario->idPessoa)->first();
         $cargo = Cargo::where('id',$funcionario->idCargo)->first();
         $seccao = Seccao::where('id',$funcionario->idSeccao)->first();
         $unidadeOrganica = UnidadeOrganica::where('id',$funcionario->idUnidadeOrganica)->first();

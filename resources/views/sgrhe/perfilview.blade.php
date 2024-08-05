@@ -145,7 +145,6 @@
                                   </div>
                               <!--Edicao e Corte de imagen /-->
                           </div>
-
                           <h5 class="profile-username text-center">{{ $pessoa->nomeCompleto}}</h5>
                           <p class="text-muted text-center">Agente: {{ $funcionario->numeroAgente }}</p>
                           <ul class="list-group list-group-unbordered mb-3">
@@ -156,9 +155,9 @@
                               <p><b>Naturalidade (Município):</b> {{ $naturalidade->municipio }} </p> 
                               <p><b>Data de Admissão:</b> {{ \Carbon\Carbon::parse($funcionario->dataAdmissao)->format('d/m/Y') }} </p>          
                               <p><b>Unidade Orgânica:</b> {{ $unidadeOrganica->designacao }} </p>
-							  <p><b>Categoria:</b> {{ $categoriaFuncionario->categoria." do ".$categoriaFuncionario->grau." Grau" }} </p>
+							                <p><b>Categoria:</b> {{ $categoriaFuncionario->categoria." do ".$categoriaFuncionario->grau." Grau" }} </p>
                               <p><b>Salário Base:</b> {{ $categoriaFuncionario->salariobase." Kz" }} </p>
-							  <p><b>Secção:</b> {{ $seccao->designacao }} </p>    							  
+							                <p><b>Secção:</b> {{ $seccao->designacao }} </p>    							  
                               <p><b>Cargo:</b> {{ $cargo->designacao }} </p>    
                               <p><b>Telefone:</b> {{ $funcionario->numeroTelefone }} </p>
                             </li>
@@ -343,23 +342,23 @@
                                                                                 
                                                                                     <div class="form-group">
                                                                                         <label for="numeroBI">Número de BI</label>
-                                                                                        <input type="text" class="form-control" id="numeroBI" name="numeroBI" placeholder="Introduza o Número de BI">
+                                                                                        <input type="text" class="form-control" id="numeroBI" name="numeroBI" placeholder="Introduza o Número de BI" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="validadeBI" >Data de Validade / Válido até</label>
-                                                                                        <input type="date" class="form-control" id="validadeBI" name="validadeBI">
+                                                                                        <input type="date" class="form-control" id="validadeBI" name="validadeBI" required>
                                                                                     </div>
                                                                                     <div class="form-group">
-                                                                                        <label for="arquivo">O BI deve estar no formato "pdf, png e jpg"</label>
+                                                                                        <label for="arquivo">O BI deve ter o tamanho máximo de 2MB, e  estar no formato "pdf, png e jpg"</label>
                                                                                         <div class="input-group">
                                                                                             <div class="custom-file">
-                                                                                                <input type="file" class="custom-file-input" name="arquivo">
+                                                                                                <input type="file" class="custom-file-input" name="arquivo" required>
                                                                                                 <label class="custom-file-label" for="arquivo">Escolha um arquivo</label>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-check">
-                                                                                        <input type="checkbox" name="confirmar" class="form-check-input">
+                                                                                        <input type="checkbox" name="confirmar" class="form-check-input" required>
                                                                                         <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
                                                                                     </div>
                                                                                     <div class="modal-footer">
@@ -454,7 +453,7 @@
                                                                                 <form method="POST" enctype="multipart/form-data">
                                                                                     @csrf
                                                                                     <div  class="form-group">
-                                                                                      <input type="hidden" name="idEndereco" value="{{ $idEndereco->id }}">
+                                                                                      <input type="hidden" name="idEndereco" value="{{ $idEndereco->id }}" required>
                                                                                       <label>Endereço</label>
                                                                                       <label for="provinciaEndereco">Escolha uma Província:</label>
                                                                                           <select name="provinciaEndereco" id="provinciaEndereco" onchange="carregarMunicipiosEndereco()" class="form-control select2" style="width: 100%;" >
@@ -498,17 +497,17 @@
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="Área de Residência">Área de Residência</label>
-                                                                                        <input type="text" class="form-control" id="areaResidencia" name="areaResidencia" placeholder=" N3P-53JK-KJ">
+                                                                                        <input type="text" class="form-control" id="areaResidencia" name="areaResidencia" placeholder=" N3P-53JK-KJ" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="validadeCM" >Data de Validade / Válido até</label>
-                                                                                        <input type="date" class="form-control" id="validadeCM" name="validadeCM" placeholder="Password">
+                                                                                        <input type="date" class="form-control" id="validadeCM" name="validadeCM" placeholder="Password" required>
                                                                                     </div>
                                                                                     <div class="form-group">
-                                                                                        <label for="arquivo">O Cartão de Munícipe deve estar no formato "pdf, png ou jpg"</label>
+                                                                                        <label for="arquivo">O Cartão de Munícipe deve ter o tamanho máximo de 2MB, e  estar no formato "pdf, png ou jpg"!</label>
                                                                                         <div class="input-group">
                                                                                             <div class="custom-file">
-                                                                                                <input type="file" class="custom-file-input" name="arquivo">
+                                                                                                <input type="file" class="custom-file-input" name="arquivo" required>
                                                                                                 <label class="custom-file-label" for="arquivo">Escolha um arquivo</label>
                                                                                             </div>
                                                                                         </div>
@@ -605,11 +604,11 @@
                                                                                     @method('POST')
                                                                                     <div class="form-group">
                                                                                         <label for="instituicao">Nome da Instituição</label>
-                                                                                        <input type="text" class="form-control" id="instituicao" name="instituicao" placeholder="Digite o nome da Instituição do cerificado!">
+                                                                                        <input type="text" class="form-control" id="instituicao" name="instituicao" placeholder="Digite o nome da Instituição do cerificado!" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                       <label for="nivel">Nivel de Formação</label>
-                                                                                        <select name="nivel" class="form-control select2" style="width: 100%;">
+                                                                                        <select name="nivel" class="form-control select2" style="width: 100%;" required>
                                                                                             <option selected="">Escolha o nível de Formação</option>
                                                                                             <option>Base</option>
                                                                                             <option>Médio</option>
@@ -618,11 +617,11 @@
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="curso">Curso Especialidade</label>
-                                                                                        <input type="text" class="form-control" id="curso" name="curso" placeholder="Digite a especialidade tal como está no certificado!">
+                                                                                        <input type="text" class="form-control" id="curso" name="curso" placeholder="Digite a especialidade tal como está no certificado!" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                       <label for="status">Status</label>
-                                                                                        <select name="status" class="form-control select2" style="width: 100%;">
+                                                                                        <select name="status" class="form-control select2" style="width: 100%;" required>
                                                                                             <option selected="">Estado</option>
                                                                                             <option>Em Andamento</option>
                                                                                             <option>Concluido</option>
@@ -639,10 +638,10 @@
                                                                                     </div>
 
                                                                                     <div class="form-group">
-                                                                                        <label for="arquivo">OBS: As Habilitações deve estar no formato "pdf"!</label>
+                                                                                        <label for="arquivo">OBS: As Habilitações deve ter o tamanho máximo de 2MB, e  estar no formato "pdf, png e jpg"!</label>
                                                                                         <div class="input-group">
                                                                                             <div class="custom-file">
-                                                                                                <input type="file" class="custom-file-input" name="arquivo">
+                                                                                                <input type="file" class="custom-file-input" name="arquivo" required>
                                                                                                 <label class="custom-file-label" for="arquivo">Escolha um arquivo</label>
                                                                                             </div>
                                                                                         </div>
@@ -731,13 +730,13 @@
                                                                                     @csrf
                                                                                     <div class="form-group">
                                                                                         <label for="dataInicioFuncoes">Data de Inicio de Funções</label>
-                                                                                        <input type="date" class="form-control"name="dataInicioFuncoes">
+                                                                                        <input type="date" class="form-control"name="dataInicioFuncoes" required>
                                                                                     </div>
                                                                                     <div class="form-group">
-                                                                                        <label for="arquivo">OBS: O Termo de Início de Funcões deve estar no formato "pdf"!</label>
+                                                                                        <label for="arquivo">OBS: O Termo de Início de Funcões deve ter o tamanho máximo de 2MB, e  estar no formato "pdf, png e jpg"!</label>
                                                                                         <div class="input-group">
                                                                                             <div class="custom-file">
-                                                                                                <input type="file" class="custom-file-input" name="arquivo">
+                                                                                                <input type="file" class="custom-file-input" name="arquivo" required>
                                                                                                 <label class="custom-file-label" for="arquivo">Escolha um arquivo</label>
                                                                                             </div>
                                                                                         </div>
@@ -844,7 +843,7 @@
                                                                                     </div>
 
                                                                                     <div class="form-group">
-                                                                                        <label for="arquivo">OBS: a Guia de Colocação deve estar no formato "pdf"!</label>
+                                                                                        <label for="arquivo">OBS: a Guia de Colocação deve ter o tamanho máximo de 2MB, e  estar no formato formato "pdf, png e jpg"!</label>
                                                                                         <div class="input-group">
                                                                                             <div class="custom-file">
                                                                                                 <input type="file" class="custom-file-input" name="arquivo">
@@ -940,7 +939,7 @@
                                                                                         <input type="date" class="form-control" name="dataCriacao">
                                                                                     </div>
                                                                                     <div class="form-group">
-                                                                                        <label for="arquivo">OBS: A Autobiografia deve estar no formato "pdf"!</label>
+                                                                                        <label for="arquivo">OBS: A Autobiografia deve ter o tamanho máximo de 2MB, e  estar no formato "pdf, png e jpg"!</label>
                                                                                         <div class="input-group">
                                                                                             <div class="custom-file">
                                                                                                 <input type="file" class="custom-file-input" name="arquivo">
@@ -1036,7 +1035,7 @@
                                                                                         <input type="date" class="form-control"name="dataCriacao">
                                                                                     </div>
                                                                                     <div class="form-group">
-                                                                                        <label for="arquivo">OBS: a CurriculumVitae deve estar no formato "pdf"!</label>
+                                                                                        <label for="arquivo">OBS: a CurriculumVitae deve ter o tamanho máximo de 2MB, e  estar no formato formato "pdf, png e jpg"!</label>
                                                                                         <div class="input-group">
                                                                                             <div class="custom-file">
                                                                                                 <input type="file" class="custom-file-input" name="arquivo">
@@ -1474,7 +1473,7 @@
                               municipioSelectEndereco.innerHTML += "<option value='Maquela do Zombo'> Maquela do Zombo </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Milunga'> Milunga </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Negage'> Negage </option>";
-                              municipioSelectEndereco.innerHTML += "<option value='Puri'> Puri </option>";
+                              municipioSelectEndereco.innerHTML += "<option value='Púri'> Púri </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Quimbele'> Quimbele </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Quitexe'> Quitexe </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Sanza Pombo'> Sanza Pombo </option>";

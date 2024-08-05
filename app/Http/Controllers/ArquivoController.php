@@ -25,7 +25,7 @@ class ArquivoController extends Controller
         $categoria = $request['categoria'];
         $arquivo = $request->file('arquivo');
         $nomeArquivo = 'arquivoHabilitacao.'.$arquivo->extension();
-        $caminho = 'sgrhe/funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
+        $caminho = 'funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
         // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
         //Procurar um outro metodo para o put que guarada com nme personalizado
         Storage::disk('local')->put($caminho, file_get_contents($arquivo));
@@ -89,7 +89,7 @@ class ArquivoController extends Controller
       if ($imageData) {
           $binaryImage = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageData));
           $fileName = 'user.png';
-          $caminho = 'sgrhe/funcionarios/'.$request->input('idFuncionario').'/'.$request->input('categoria').'/'.$fileName;
+          $caminho = 'funcionarios/'.$request->input('idFuncionario').'/'.$request->input('categoria').'/'.$fileName;
           // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
           Storage::disk('local')->put($caminho, $binaryImage);
           $fotodeperfil = Arquivo::where('idFuncionario',$request->input('idFuncionario'))->where('categoria','FotoPerfil');
@@ -126,7 +126,7 @@ class ArquivoController extends Controller
     {
            // dd($request->all());
             $verificar = $request->validate([
-                'numeroBI' => ['required', 'string', 'max:14', 'unique:pessoas,numeroBI'],
+                'numeroBI' => ['required', 'string', 'max:14', 'unique:pessoas,numeroBI,'.$idPessoa],
                 'validadeBI' => ['date','required','after_or_equal:'.now()],
                 'arquivo' => 'required|file|mimes:png,jpg,pdf|max:2048',
                 'confirmar' => 'required|accepted',
@@ -137,7 +137,7 @@ class ArquivoController extends Controller
 
             $arquivo = $request->file('arquivo');
             $nomeArquivo = 'arquivoBI.'.$arquivo->extension();
-            $caminho = 'sgrhe/funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
+            $caminho = 'funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
             // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
             //Procurar um outro metodo para o put que guarada com nme personalizado
             Storage::disk('local')->put($caminho, file_get_contents($arquivo));
@@ -221,7 +221,7 @@ class ArquivoController extends Controller
 
             $arquivo = $request->file('arquivo');
             $nomeArquivo = 'arquivoBI.'.$arquivo->extension();
-            $caminho = 'sgrhe/funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
+            $caminho = 'funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
             // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
             //Procurar um outro metodo para o put que guarada com nme personalizado
             Storage::disk('local')->put($caminho, file_get_contents($arquivo));
@@ -249,13 +249,13 @@ class ArquivoController extends Controller
                 //Actualizar na Entidade Pessoa
                 $endereco = Endereco::where('id', $request->idEndereco)->first();
                 $endereco->idPessoa = $request->idPessoa;
-                $endereco->provincia = $request->provinciaEndereco;
-                $endereco->municipio = $request->municipioEndereco;
-                $endereco->bairro = ucwords(strtolower($request->bairro));
-                $endereco->zona = ucwords(strtolower($request->zona));
-                $endereco->quarteirao = ucwords(strtolower($request->quarteirao));
-                $endereco->rua = ucwords(strtolower($request->rua));
-                $endereco->casa = ucwords(strtolower($request->casa));
+                $endereco->provincia = $request->provinciaEndereco != null ? $request->provinciaEndereco : "N/D";
+                $endereco->municipio = $request->municipioEndereco != null ? $request->municipioEndereco : "N/D";
+                $endereco->bairro = $request->bairro != null ? ucwords(strtolower($request->bairro)) : "N/D";
+                $endereco->zona = $request->zona != null ? ucwords(strtolower($request->zona)) : "N/D";
+                $endereco->quarteirao = $request->quarteirao != null ? ucwords(strtolower($request->quarteirao)) : "N/D";
+                $endereco->rua = $request->rua != null ? ucwords(strtolower($request->rua)) : "N/D";
+                $endereco->casa = $request->casa != null ? ucwords(strtolower($request->casa)) : "N/D";
                 $endereco->save();
                 DB::commit();
                 return redirect()->back()->with('success', 'BI Actualizado com sucesso!');
@@ -272,13 +272,13 @@ class ArquivoController extends Controller
              //Actualizar na Entidade Pessoa
              $endereco = Endereco::where('id', $request->idEndereco)->first();
              $endereco->idPessoa = $request->idPessoa;
-             $endereco->provincia = $request->provinciaEndereco;
-             $endereco->municipio = $request->municipioEndereco;
-             $endereco->bairro = ucwords(strtolower($request->bairro));
-             $endereco->zona = ucwords(strtolower($request->zona));
-             $endereco->quarteirao = ucwords(strtolower($request->quarteirao));
-             $endereco->rua = ucwords(strtolower($request->rua));
-             $endereco->casa = ucwords(strtolower($request->casa));
+             $endereco->provincia = $request->provinciaEndereco != null ? $request->provinciaEndereco : "N/D";
+             $endereco->municipio = $request->municipioEndereco != null ? $request->municipioEndereco : "N/D";
+             $endereco->bairro = $request->bairro != null ? ucwords(strtolower($request->bairro)) : "N/D";
+             $endereco->zona = $request->zona != null ? ucwords(strtolower($request->zona)) : "N/D";
+             $endereco->quarteirao = $request->quarteirao != null ? ucwords(strtolower($request->quarteirao)) : "N/D";
+             $endereco->rua = $request->rua != null ? ucwords(strtolower($request->rua)) : "N/D";
+             $endereco->casa = $request->casa != null ? ucwords(strtolower($request->casa)) : "N/D";
              $endereco->save();
             // Atualizar simbolicamente o conteudo da coluna 'caminho'
             $arquivo->update([
@@ -358,11 +358,11 @@ class ArquivoController extends Controller
         $categoria = $request->categoria;
         $idFuncionario = $processo->idFuncionario;
         $nomeArquivo = date('dmYHis').$nome.'.'.$arquivo->extension();
-        $caminho = 'sgrhe/funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
+        $caminho = 'funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
        // dd($caminho);
         // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
         //Procurar um outro metodo para o put que guarada com nme personalizado
-        Storage::disk('local')->put($caminho, file_get_contents($arquivo));
+        Storage::disk('local')->putFile($caminho, file_get_contents($arquivo));
         if ($request->idArquivo==null) {
             $arquivo = Arquivo::find($request->idArquivo);
             DB::beginTransaction();

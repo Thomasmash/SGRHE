@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id()->comment('Chave primária auto-incrementável');
             $table->string('numeroAgente')->comment('Número de agente do funcionário');
             $table->date('dataAdmissao')->comment('Data de admissão do funcionário');
-            $table->string('iban')->comment('IBAN do funcionário');
+            $table->string('iban')->comment('IBAN do funcionário')->nullable();
             $table->string('estado')->nullable()->comment('Estado do funcionário');
             $table->string('avaliacaoCorrente')->nullable()->comment('Avaliação corrente do funcionário');
             $table->string('numeroTelefone')->nullable()->comment('Número de telefone do funcionário');

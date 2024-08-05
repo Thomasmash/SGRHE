@@ -70,6 +70,9 @@
                                       <label for="biValidade"> Validade do Bilhete de Identidade "BI"</label>
                                       <input type="date" name="biValidade" class="form-control" id="biValidade" value="{{ old('validadeBI',$pessoa->validadeBI ?? 'validadeBI') }}" required readonly>
                                     </div>
+                                    <div class="form-group">
+                                      <a class="btn btn-secondary" href="{{ route('pessoas.form', ['id' => $pessoa->id]) }}">Mais Configurações</a>
+                                    </div>
                                     <div class="form-group" style="display: none;">
                                       <label for="idPessoa">ID Pessoa</label>
                                       <input type="text" name="idPessoa" class="form-control" id="idPessoa"  value="{{ old('idPessoa',$funcionario->idPessoa ?? $pessoa->id) }}" required>
@@ -141,7 +144,7 @@
                                       <label for="iban">Coodenadas Bancarias (IBAN)</label>
                                       <br>
                                       <span class="text-danger"> OBS: Não incluir o indicativo (AO06) </span>
-                                      <input type="text" name="iban" class="form-control" id="iban" value="{{ old('iban',$funcionario->iban ?? '') }}" maxlength="26" placeholder="0000.0000.0000.0000.0000.0" oninput="this.value = this.value.replace(/[^0-9]/g,'')" required>
+                                      <input type="text" name="iban" class="form-control" id="iban" value="{{ old('iban',$funcionario->iban ?? '') }}" maxlength="26" placeholder="0000.0000.0000.0000.0000.0" oninput="this.value = this.value.replace(/[^0-9]/g,'')">
                                   </div>
 
                                   <div class="form-group d-none">

@@ -12,26 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('documentos', function (Blueprint $table) {
-            // Primary key
             $table->id()->comment('Identificador único da tabela documentos');
-
-            // Categoria do documento
             $table->text('categoria')->comment('Categoria do documento');
-
-            // Request do documento
             $table->text('Request')->comment('Request do documento');
-
-            // Funcionário relacionado
             $table->unsignedBigInteger('funcionario')->comment('Funcionário relacionado');
-
-            // Arquivo relacionado
             $table->unsignedBigInteger('idArquivo')->nullable()->comment('ID do arquivo relacionado');
-
-            // Funcionário proprietário
             $table->unsignedBigInteger('idFuncionario')->nullable()->comment('ID do funcionário proprietário');
             $table->foreign('idFuncionario')->references('id')->on('funcionarios')->onDelete('cascade');
-
-            // Timestamps
+            $table->foreign('funcionario')->references('id')->on('funcionarios');
+            $table->foreign('idArquivo')->references('id')->on('arquivos');
             $table->timestamps();
         });
 

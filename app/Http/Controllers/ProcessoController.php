@@ -37,7 +37,7 @@ class ProcessoController extends Controller
         //Nomear o Nome do Novo ficheiro PDF
         $nomeFuncionario = Pessoa::find($funcionarioSolicitante->idPessoa)->first()->nomeCompleto;
         $fileName = $nomeFuncionario.'-'.date('dmYHis').'.pdf';
-        $caminho = 'sgrhe/funcionarios/'.$Request['idFuncionarioSolicitante'].'/'.$Request['categoria'].'/'.$fileName;
+        $caminho = 'funcionarios/'.$Request['idFuncionarioSolicitante'].'/'.$Request['categoria'].'/'.$fileName;
         //dd($Documento);
         // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
         $save = Storage::disk('local')->put($caminho, file_get_contents($Documento));
@@ -180,7 +180,7 @@ class ProcessoController extends Controller
         //return $Documento->download('file.pdf');
         //Armazenar o Conteudo PDF em uma Variavel
         $pdfContent = $Documento->output();
-        $caminho = 'sgrhe/funcionarios/'.$funcionario->idPessoa.'/'.$categoria.'/'.$fileName;
+        $caminho = 'funcionarios/'.$funcionario->idPessoa.'/'.$categoria.'/'.$fileName;
         // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
         $save = Storage::disk('local')->put($caminho, $pdfContent);
         $Arquivo = Arquivo::create([
@@ -250,7 +250,7 @@ class ProcessoController extends Controller
         //return $Documento->download('file.pdf');
         //Armazenar o Conteudo PDF em uma Variavel
         $pdfContent = $Documento->output();
-        $caminho = 'sgrhe/funcionarios/'.$funcionario->idPessoa.'/'.$categoria.'/'.$fileName;
+        $caminho = 'funcionarios/'.$funcionario->idPessoa.'/'.$categoria.'/'.$fileName;
         // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
         $save = Storage::disk('local')->put($caminho, $pdfContent);
         $Arquivo = Arquivo::create([
@@ -296,7 +296,7 @@ class ProcessoController extends Controller
         //Reconversao do Submit do ormularo armazenado no banco de dados //23121997
         $D = $request->Request;
         parse_str($D, $Request);
-        //dd($Request);
+       // dd($Request);
         $categoria = $Request['categoria'];
         //Verificar se nao [e uma requisicao para imprimir um documento como guia de colocacao de marcha ou um outro documanto solicitado via requerimento
         if (isset($request->imprimir)) {
@@ -326,6 +326,7 @@ class ProcessoController extends Controller
             $cargoOndeVai = "";
         }
         //Carregar a View
+        //dd($Request);
         $Documento = PDF::loadView("sgrhe/modelos/$categoria",compact('unidadeOrganicaOndeVai','cargoOndeVai','Request','pessoa','funcionario','funcionarioProcessador','cargo','categoriaFuncionario','unidadeOrganica','idProcesso','categoriaProcesso'));      
         //Renderizar a View
         $Documento->render();

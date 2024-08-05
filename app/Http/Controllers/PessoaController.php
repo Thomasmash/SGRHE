@@ -17,9 +17,9 @@ class PessoaController extends Controller
     {
        //Se o $id for nulo é a criacao de um novo registro se nao é edicao
        $pessoa = $id ? Pessoa::find($id):null;
-       $parente = $id ? Parente::find($id):null;
-       $naturalidade = $id ? Naturalidade::find($id):null;
-       $endereco = $id ? Endereco::find($id):null;
+       $parente = $id ? Parente::where('idPessoa', $pessoa->id)->first():null;
+       $naturalidade = $id ? Naturalidade::where('idPessoa', $pessoa->id)->first():null;
+       $endereco = $id ? Endereco::where('idPessoa', $pessoa->id)->first():null;
        return view('sgrhe/pages/forms/pessoa',compact('pessoa','parente','naturalidade','endereco'));
     }
     public function index()
@@ -60,15 +60,14 @@ class PessoaController extends Controller
             'nomeCompleto' => ucwords(strtolower($request->input('nomeCompleto'))),
             'dataNascimento' => $request->input('dataNascimento'),
             'genero'=> $request->input('genero'),
-            'grupoSanguineo' => $request->input('grupoSanguineo'),
+            'grupoSanguineo' => $request->input('grupoSanguineo') === null ? "N/D" : $request->input('grupoSanguineo'),
             'estadoCivil' => $request->input('estadoCivil'),
             'numeroBI' => mb_strtoupper($request->input('numeroBI')),
             'validadeBI' => $request->input('validadeBI'),  
         ]);
         //Inicio da Transacao
-        DB::beginTransaction();
         if ($pessoa) {
-            $idPessoa = Pessoa::latest()->value('id');
+            $idPessoa = Pessoa::where('numeroBI', $request->input('numeroBI'))->first()->id;
             $parente = Parente::create([
                 'nomePai' => ucwords(strtolower($request->input('nomePai'))),
                 'nomeMae' => ucwords(strtolower($request->input('nomeMae'))),
@@ -76,8 +75,8 @@ class PessoaController extends Controller
              ]);
              if ($parente) {
                 $naturalidade = Naturalidade::create([
-                    'provincia' => $request->input('provincia'),
-                    'municipio' => $request->input('municipio'),
+                    'provincia' => $request->input('provincia') != null ? $request->input('provincia') : "N/D",
+                    'municipio' => $request->input('municipio') != null ? $request->input('municipio') : "N/D",
                     'idPessoa'  => $idPessoa,     
                 ]);
                 if ($naturalidade) {
@@ -85,36 +84,31 @@ class PessoaController extends Controller
                         'idPessoa' => $idPessoa,
                         'provincia' => $request->input('provinciaEndereco'),
                         'municipio' => $request->input('municipioEndereco'),
-                        'bairro' => ucwords(strtolower($request->input('bairro'))),
-                        'zona' => ucwords(strtolower($request->input('zona'))),
-                        'quarteirao' => ucwords(strtolower($request->input('quarteirao'))),
-                        'rua' => ucwords(strtolower($request->input('rua'))),
-                        'casa' => $request->input('casa'),
+                        'bairro' => $request->input('bairro') != null ? ucwords(strtolower($request->input('bairro'))) : "N/D",
+                        'zona' => $request->input('bairro') != null ? ucwords(strtolower($request->input('zona'))) : "N/D",
+                        'quarteirao' => $request->input('bairro') != null ? ucwords(strtolower($request->input('quarteirao'))) : "N/D",
+                        'rua' => $request->input('bairro') != null ? ucwords(strtolower($request->input('rua'))) : "N/D",
+                        'casa' => $request->input('bairro') != null ? ucwords(strtolower($request->input('casa'))) : "N/D",
                     ]);
                     if ($endereco) {
-                        DB::commit();
                         if ($request->input('cadastrar') == 'cadastrarPessoa') {
-                            return redirect()->route('pessoas.form')->with('success','Pessoa Cadastrada com Sucesso!');
+                            return redirect()->back()->with('success','Pessoa Cadastrada com Sucesso!');
                         }else {
                             // 
                             return redirect()->route('funcionarios.verificarPessoa.funcionario', ['numeroBI' => $request->input('numeroBI')]);
                         }
                     }else {
-                        DB::rollBack();
                         return redirect()->back()->with('error','Erro ao Adicionar Endereço');
 
                     }
                 }else {
-                    DB::rollBack();
                     return redirect()->back()->with('error','Erro ao Adicionar Naturalidade');
 
                 }
              }else {
-                DB::rollBack();
                 return redirect()->back()->with('error','Erro ao Adicionar Parentesco');
             }
         }else {
-            DB::rollBack();
             return redirect()->back()->with('error','Erro ao Cadastrar Pessoa');
         }
     }
@@ -126,7 +120,7 @@ class PessoaController extends Controller
             'nomeCompleto' => ['string', 'max:255','required'],
             'dataNascimento' => ['date','required','before:' .now()->subYears(18)->format('Y-m-d')],
             'genero'=> ['string', 'max:9','required'],
-            'grupoSanguineo' => ['string','max:3'],
+            //'grupoSanguineo' => ['string','max:3'],
             'estadoCivil' => ['string'],
             'numeroBI' => ['required', 'string', 'max:14', 'unique:pessoas,numeroBI,'.$id],
             'validadeBI' => ['date','required','after_or_equal:'.now()],
@@ -156,7 +150,7 @@ class PessoaController extends Controller
             $pessoa->nomeCompleto = ucwords(strtolower($request->nomeCompleto));
             $pessoa->dataNascimento = $request->dataNascimento;
             $pessoa->genero = $request->genero;
-            $pessoa->grupoSanguineo = $request->grupoSanguineo;
+            $pessoa->grupoSanguineo = $request->grupoSanguineo === null ? "N/D" : $request->grupoSanguineo;
             $pessoa->estadoCivil = $request->estadoCivil;
             $pessoa->numeroBI = mb_strtoupper($request->numeroBI);
             $pessoa->validadeBI = $request->validadeBI;
@@ -171,7 +165,7 @@ class PessoaController extends Controller
             if ($parentes->save()) {
                 DB::commit();
                 // Redirecionando para a Pagina de Index Funionarios
-                return redirect()->route('pessoas.index')->with('success', 'Registro atualizado com sucesso.');
+                return redirect()->back()->with('success', 'Registro atualizado com sucesso.');
             }else {
                 DB::rollBack();
                 return redirect()->back()->with('error', 'Erro de actualização na tabela parentes! ')->withInput();

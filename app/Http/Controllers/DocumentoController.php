@@ -27,11 +27,13 @@ class DocumentoController extends Controller
      */
     public function inserirDocumento(Request $request)
     {
+    
         // Verificar se o funcionario pode ou ser actualizado
         $nomeFuncionarioSolicitante = Pessoa::find(Funcionario::find($request->idFuncionario)->idPessoa)->nomeCompleto;
-        $FuncionarioSolicitante = Funcionario::find($request->idFuncionario)->estado;
-        if (!($FuncionarioSolicitante == "Activo") || !($FuncionarioSolicitante == "Licenca")) {
-         return redirect()->back()->with('error', 'O Funcionário '.$nomeFuncionarioSolicitante.' não pode ser actualizado por estar em estado Inactivo ou Aposentado!');
+        $FuncionarioSolicitante = Funcionario::find($request->idFuncionario);
+        //dd($FuncionarioSolicitante->estado);
+        if ($FuncionarioSolicitante->estado != "Activo") {
+         return redirect()->back()->with('error', 'O Funcionário '.$nomeFuncionarioSolicitante.' não pode ser actualizado porque não está activo!');
         }
         $idFuncionario = $request->idFuncionario;
         $nome = Pessoa::find(Funcionario::find($idFuncionario)->idPessoa)->first()->nomeCompleto;
@@ -39,39 +41,42 @@ class DocumentoController extends Controller
         $verificar = $request->validate([
             //Form Request Pesquisar e implementar
         ]);
-
+      
         $arquivo = $request->file('arquivo');
         $nomeArquivo = $categoria.'-'.$nome.'.'.$arquivo->extension();
-        $caminho = 'sgrhe/funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
+        $caminho = 'funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
         // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
         //Procurar um outro metodo para o put que guarada com nme personalizado
         Storage::disk('local')->put($caminho, file_get_contents($arquivo));
-        $arquivo = Arquivo::where('idFuncionario',$idFuncionario)->where('categoria',$categoria);
-        $documento  = Documento::where('idFuncionario',$idFuncionario)->where('categoria',$categoria);
-        if ($arquivo->doesntExist()) {
+        $arquivo = Arquivo::where('idFuncionario', $idFuncionario)->where('categoria', $categoria)->first();
+        $documento  = Documento::where('idFuncionario', $idFuncionario)->where('categoria', $categoria);
+        if ($arquivo == null) {
         DB::beginTransaction();
-        // dd($arquivo->first());
+        //dd($arquivo);
         $Arquivo = Arquivo::create([
             'titulo' => md5($nomeArquivo.date('d-m-y')),
             'categoria' => $categoria,
-            'descricao' => 'N/D',
+            'descricao' => "N/D",
             'arquivo' => $nomeArquivo,
             'caminho' => $caminho,
             'idFuncionario' => $idFuncionario,
         ]);
         if ($Arquivo) {
+            DB::commit();
+            DB::beginTransaction();
             $idArquivo = Arquivo::where('idFuncionario',$idFuncionario)->where('categoria',$categoria)->first()->id;
             //dd($idArquivo);
             $Documento = Documento::create([
-                'idFuncionario' => $request->idFuncionario,
-                'funcionario' => $request->funcionario,
+                'idFuncionario' => $idFuncionario,
                 'Request' => http_build_query($request->all()),
                 'idArquivo' => $idArquivo,
-                'funcionario' => session('idFuncionario'),
+                'funcionario' => session()->only(['FuncionarioLogado'])['FuncionarioLogado']->id,
                 'categoria' => $categoria,
-                
             ]);
+            //dd('Chegiei ate aqui');
+            //dd($idArquivo);
             if ($Documento) {
+               // dd($arquivo);
                 DB::commit();
                 return redirect()->back()->with('success', 'Actualizado com sucesso!');
             }else {
@@ -87,15 +92,15 @@ class DocumentoController extends Controller
                 $arquivo->update([
                     'titulo' => md5($nomeArquivo.date('d-m-y')),
                     'categoria' => $categoria,
-                    'descricao' => 'N/D',
+                    'descricao' => "N/D",
                     'arquivo' => $nomeArquivo,
                     'caminho' => $caminho,
                     'idFuncionario' => $idFuncionario,
                 ]);
                 $documento->update([
-                    'idFuncionario' => $request->idFuncionario,
+                    'idFuncionario' => $idFuncionario,
                     'Request' => http_build_query($request->all()),
-                    'funcionario' => session('idFuncionario'),
+                    'funcionario' => session()->only(['FuncionarioLogado'])['FuncionarioLogado']->id,
                     'categoria' => $categoria,
                 
                 ]);

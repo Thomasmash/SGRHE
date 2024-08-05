@@ -398,7 +398,7 @@
                               municipioSelect.innerHTML += "<option value='Maquela do Zombo'> Maquela do Zombo </option>";
                               municipioSelect.innerHTML += "<option value='Milunga'> Milunga </option>";
                               municipioSelect.innerHTML += "<option value='Negage'> Negage </option>";
-                              municipioSelect.innerHTML += "<option value='Puri'> Puri </option>";
+                              municipioSelect.innerHTML += "<option value='Púri'> Púri </option>";
                               municipioSelect.innerHTML += "<option value='Quimbele'> Quimbele </option>";
                               municipioSelect.innerHTML += "<option value='Quitexe'> Quitexe </option>";
                               municipioSelect.innerHTML += "<option value='Sanza Pombo'> Sanza Pombo </option>";
@@ -615,7 +615,7 @@
                               municipioSelectEndereco.innerHTML += "<option value='Maquela do Zombo'> Maquela do Zombo </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Milunga'> Milunga </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Negage'> Negage </option>";
-                              municipioSelectEndereco.innerHTML += "<option value='Puri'> Puri </option>";
+                              municipioSelectEndereco.innerHTML += "<option value='Púri'> Púri </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Quimbele'> Quimbele </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Quitexe'> Quitexe </option>";
                               municipioSelectEndereco.innerHTML += "<option value='Sanza Pombo'> Sanza Pombo </option>";

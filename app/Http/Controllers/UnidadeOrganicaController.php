@@ -190,7 +190,7 @@ class UnidadeOrganicaController extends Controller
         'eqt'=> $request->input('eqt'),
         'decretoCriacao' => $request->input('decretoCriacao'),
         'coordenadasGeograficas' => $request->input('coordenadasGeograficas'),
-        'localidade' => $request->input('localidade'),
+        'localidade' => ucwords(strtolower($request->input('localidade'))),
         'telefone' => $request->input('telefone'),
         'email' => strtolower($request->input('email')),  
     ]); 
@@ -225,7 +225,7 @@ class UnidadeOrganicaController extends Controller
         $UnidadeOrganica->descricao = $request->descricao;
         $UnidadeOrganica->eqt = $request->eqt;
         $UnidadeOrganica->decretoCriacao = $request->decretoCriacao;
-        $UnidadeOrganica->localidade = $request->localidade;
+        $UnidadeOrganica->localidade = ucwords(strtolower($request->localidade));
         $UnidadeOrganica->coordenadasGeograficas = $request->coordenadasGeograficas;
         $UnidadeOrganica->telefone = $request->telefone;
         $UnidadeOrganica->email = strtolower($request->email);
@@ -273,7 +273,7 @@ class UnidadeOrganicaController extends Controller
         $idUnidadeOrganica = $request->input('idUnidadeOrganica');
         $foto = $request->file('arquivo');
         $nomeArquivo = $categoria.'-'.date('d-m-y-H-i-s').'.'.$foto->extension();
-        $caminho = 'sgrhe/unidadeorganicas/'.$idUnidadeOrganica.'/'.$categoria.'/'.$nomeArquivo;
+        $caminho = 'unidadeorganicas/'.$idUnidadeOrganica.'/'.$categoria.'/'.$nomeArquivo;
         // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
         //Procurar um outro metodo para o put que guarada com nme personalizado
         $save = Storage::disk('local')->put($caminho, file_get_contents($foto));

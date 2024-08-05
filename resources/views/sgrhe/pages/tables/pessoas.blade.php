@@ -58,9 +58,9 @@
                               @foreach ($pessoas as $pessoa)
                               <!--Invocando outro elementos/ Tabelas -->
                               @php
-                                $parente = app('\App\Models\Parente')::find($pessoa->id);
-                                $naturalidade = app('\App\Models\Naturalidade')::find($pessoa->id);
-                                $isFuncionario = App\Models\Funcionario::where('idPessoa', $pessoa->id)->first();
+                                $parente = \App\Models\Parente::where('idPessoa', $pessoa->id)->first();
+                                $naturalidade = \App\Models\Naturalidade::where('idPessoa', $pessoa->id)->first();
+                                $isFuncionario = \App\Models\Funcionario::where('idPessoa', $pessoa->id)->first();
                               @endphp
                                             <tr class=" {{ isset($isFuncionario) ? ' ' : 'font-weight-bold'}}">
                                                 <td>{{ $pessoa->nomeCompleto }}</td>
