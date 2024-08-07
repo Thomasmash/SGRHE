@@ -52,6 +52,7 @@ class ProcessoController extends Controller
         ]);
         if ($request->parecer == "Favoravel") {
             if ($Arquivo) {
+                //dd($Documento);
                 $idArquivo = Arquivo::where('idFuncionario', $Request['idFuncionarioSolicitante'])->where('categoria', $Request['categoria'] )->latest()->first()->id;
                 $Processo = Processo::where('id', $request['idProcesso'])->first();
                 //dd($Processo);
@@ -84,16 +85,19 @@ class ProcessoController extends Controller
                         $Processo->estado = "Aprovado";
                         //$Processo->save();
                         $funcionario = Funcionario::where('id', $Request['idFuncionarioSolicitante'])->first();
+                     
                         $funcionario->numeroAgente = $Request['numeroAgente'];
                         $funcionario->idCategoriaFuncionario =  $Request['idCategoriaFuncionario'];
                         $funcionario->idCargo =  $Request['idCargo'];
                         $funcionario->idSeccao =  $Request['idSeccao'];
                         $funcionario->idUnidadeOrganica =  $Request['idUnidadeOrganica'];
-                        $funcionario->iban =  $Request['iban'];
+                        //$funcionario->iban =  $Request['iban'];
                         $funcionario->dataAdmissao =  $Request['dataAdmissao'];
-                        $funcionario->numeroTelefone =  $Request['numeroTelefone'];
+                       // $funcionario->numeroTelefone =  $Request['numeroTelefone'];
                         $funcionario->save();
+                        //dd($funcionario);
                     }
+                   // dd($Documento);
                     //Se Categoria for Licenca
                     if ($Request['categoria'] == "Licenca") {
                     //Isolar ou identificar o Registros a Serem Alterados
@@ -353,7 +357,7 @@ class ProcessoController extends Controller
     //Solicitar Processos Genericos 
     public function solicitar(Request $request)
     { 
-
+//dd($request->all());
         //Verificar se é processo de Gozo de Ferias
         if (($request->categoria=="GozoFerias") && (isset($request->dataInicio))) {
             $request->validate([
