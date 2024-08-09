@@ -99,7 +99,7 @@ $dataF= new DateTime($Request['dataFim']);
                 .rodape {
                         position: absolute;
                         white-space: nowrap;
-                        top: 270mm;
+                        top: 260mm;
                 }
                 .foot-esquerda{
                        /* border: 1px solid rgb(2,6,7); */
@@ -155,17 +155,15 @@ $dataF= new DateTime($Request['dataFim']);
         </div>
         <div class="corpo">
                 <div class="titulo ">
-                        <br>
                         <p>Licença</p>
                         <br>
                         <p style="text-align: left;">#{{ App\Models\Processo::where('categoria', $categoriaProcesso)->count() }}/{{ date('Y').' '}}DME-PÚRI</p>
-                        <br>
                 </div>
                 <div class="introducao">
                         {{$pessoa->nomeCompleto}}, funcionári(a) desta Direcção, vem por meio deste, solicitar ao Senhor Director Municipal da Educação do Púri, se digne dispensá-lo num período de {{ ($dataI->diff($dataF))->format('%a') }} dias úteis, a partir de {{strftime('%d %B de %Y', strtotime(\Carbon\Carbon::parse($dataI))) }} à  {{strftime('%d %B de %Y', strtotime(\Carbon\Carbon::parse($dataF))) }}, {{ $Request['motivo']}}
                 </div>
                 <div class="preenchimento">
-                       # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ###
+                       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                 </div>
                 <div class="conclusao">
                      

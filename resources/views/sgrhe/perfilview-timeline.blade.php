@@ -127,7 +127,7 @@
                                                 </div>
                                                 <div class="timeline-footer">  
 
-                                                  <form class="{{ ($processom->estado == 'Submetido') ? 'd-inline' : 'd-none'}}" action="{{ route('solicitacao.cancelar', ['idProcesso' => $processom->id ]) }}" method="POST" id="deleteForm{{ $processom->id }}">
+                                                  <form class="{{ ($processom->estado == 'Submetido') ? '' : 'd-none'}} {{ ($processom->categoria === 'Nomeacao') ? 'd-none' : 'd-inline'}} " action="{{ route('solicitacao.cancelar', ['idProcesso' => $processom->id ]) }}" method="POST" id="deleteForm{{ $processom->id }}">
                                                     @csrf
                                                     @method('POST')
                                                     <input type="hidden" name="Request"  value="{{$processom->Request}}">

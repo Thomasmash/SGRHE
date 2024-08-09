@@ -397,8 +397,8 @@
                         </li>
                       <!--/.Cargos-->
               @endif
-                <!--Serviços-->
-                <li class="nav-item {{ request()->routeIs('habilitacaos.index') || request()->routeIs('habilitacaos.form') ? 'menu-open' : '' }}">
+                <!--Serviços Funcionalidade Blockeada -->
+                <li class=" d-none nav-item {{ request()->routeIs('habilitacaos.index') || request()->routeIs('habilitacaos.form') ? 'menu-open' : '' }}">
                           <a href="#" class="nav-link {{ request()->routeIs('habilitacaos.index') || request()->routeIs('habilitacaos.form') ? 'active' : '' }}">
                            <i class="bi bi-subtract"></i>
                             <p class="item-1">

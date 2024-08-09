@@ -26,7 +26,9 @@
                 </div>
               </div><!-- /.container-fluid -->
             </section>
-
+            <?php
+  dd('Cheguei ate aqui');
+?>
             <!-- Main content -->
             <section class="content">
               <div class="container-fluid">

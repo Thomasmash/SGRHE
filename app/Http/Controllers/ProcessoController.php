@@ -302,12 +302,12 @@ class ProcessoController extends Controller
         parse_str($D, $Request);
        // dd($Request);
         $categoria = $Request['categoria'];
-        //Verificar se nao [e uma requisicao para imprimir um documento como guia de colocacao de marcha ou um outro documanto solicitado via requerimento
+        //Verificar se nao é uma requisicao para imprimir um documento como guia de colocacao de marcha ou um outro documanto solicitado via requerimento
         if (isset($request->imprimir)) {
             $categoria = $request->imprimir;
         }
 
-        //dd($unidadeOrganicaOndeVai) //23121997;
+        //dd($Request); //23121997;
         $funcionarioProcessador = Funcionario::where('numeroAgente',  Auth::user()->numeroAgente)->first();
         $funcionario = Funcionario::where('id', $Request['idFuncionarioSolicitante'])->first();
         $pessoa = Pessoa::where('id', $funcionario->idPessoa)->first();
@@ -315,8 +315,8 @@ class ProcessoController extends Controller
         $categoriaFuncionario = categoriaFuncionario::where('id', $funcionario->idCategoriaFuncionario)->first();
         $unidadeOrganica = UnidadeOrganica::where('id', $funcionario->idUnidadeOrganica)->first();
         $categoriaProcesso = $Request['categoria'];
-
         $idProcesso = $request['idProcesso'];
+        //dd($idProcesso);
         //Verificar se nao é uma guia de Transferencia
         if(($Request['categoria'] === "Transferencia") || ($Request['categoria'] === "Nomeacao")){
         $unidadeOrganicaOndeVai = UnidadeOrganica::where('id', $Request['idUnidadeOrganica'])->first();
@@ -330,10 +330,11 @@ class ProcessoController extends Controller
             $cargoOndeVai = "";
         }
         //Carregar a View
-        //dd($Request);
-        $Documento = PDF::loadView("sgrhe/modelos/$categoria",compact('unidadeOrganicaOndeVai','cargoOndeVai','Request','pessoa','funcionario','funcionarioProcessador','cargo','categoriaFuncionario','unidadeOrganica','idProcesso','categoriaProcesso'));      
+        // dd($Request);
+        $Documento = PDF::loadView("sgrhe/modelos/$categoria", compact('unidadeOrganicaOndeVai','cargoOndeVai','Request','pessoa','funcionario','funcionarioProcessador','cargo','categoriaFuncionario','unidadeOrganica','idProcesso','categoriaProcesso'));      
         //Renderizar a View
         $Documento->render();
+        //dd($Request);
         //Nomear o Nome do Novo ficheiro PDF
         $nomeFuncionario = Pessoa::find($funcionario->idPessoa)->nomeCompleto;
         $fileName = $nomeFuncionario.'-'.$categoria.'.pdf';
