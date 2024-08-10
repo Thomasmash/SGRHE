@@ -39,6 +39,7 @@
                             <table id="example1" class="table table-bordered table-striped">
                               <thead>
                               <tr>
+                                <th>Nº</th>
                                 <th>Nome Completo</th>
                                 <th>Genero</th>
                                 <th>Nome do Pai</th>
@@ -63,6 +64,7 @@
                                 $isFuncionario = \App\Models\Funcionario::where('idPessoa', $pessoa->id)->first();
                               @endphp
                                             <tr class=" {{ isset($isFuncionario) ? ' ' : 'font-weight-bold'}}">
+                                                <td>{{ $loop->index+1 }}</td>    
                                                 <td>{{ $pessoa->nomeCompleto }}</td>
                                                 <td>{{ $pessoa->genero }}</td>
                                                 <td>{{ $parente->nomePai}}</td>
@@ -102,6 +104,7 @@
                               </tbody>
                               <tfoot>
                               <tr>
+                                <th>Nº</th>
                                 <th>Nome Completo</th>
                                 <th>Genero</th>
                                 <th>Nome do Pai</th>

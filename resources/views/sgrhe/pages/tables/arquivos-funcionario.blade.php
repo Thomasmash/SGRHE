@@ -51,6 +51,7 @@
                               <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
+                                  <th>Nº</th>
                                   <th>Categoria</th>
                                   <th>Funcionário</th>
                                   <th>Data de Criacão</th>
@@ -62,6 +63,7 @@
                                 <!--Gerando a Tabela de forma Dinamica //23121997-->
                                 @foreach ($arquivos as $arquivo)
                                               <tr>
+                                              <td>{{ $loop->index+1 }}</td>
                                                   @php
                                                     $funcionario = App\Models\Funcionario::find($arquivo->idFuncionario);
                                                     $pessoaFuncionario = App\Models\Pessoa::find($funcionario->idPessoa);
@@ -83,6 +85,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
+                                  <th>Nº</th>
                                   <th>Categoria</th>
                                   <th>Funcionário</th>
                                   <th>Data de Criacão</th>

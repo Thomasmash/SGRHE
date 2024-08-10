@@ -46,6 +46,7 @@
                             <table id="example1" class="table table-bordered table-striped">
                               <thead>
                               <tr>
+                                <th>Nº</th>
                                 <th>Categoria de Funcionário (id)</th>
                                 <th>Categoria</th>
                                 <th>Grau</th>
@@ -57,6 +58,7 @@
                               <!--Gerando a Tabela de forma Dinamica-->
                               @foreach ($categoriafuncionarios as $categoriafuncionario)
                                             <tr>
+                                                <td>{{ $loop->index+1 }}</td>
                                                 <td>{{ $categoriafuncionario->id }}</td>
                                                 <td>{{ $categoriafuncionario->categoria }}</td>
                                                 <td>{{ $categoriafuncionario->grau }}</td>
@@ -78,7 +80,8 @@
                               </tbody>
                               <tfoot>
                               <tr>
-                              <th>Categoria de Funcionário (id)</th>
+                                <td>{{ $loop->index+1 }}</td>
+                                <th>Categoria de Funcionário (id)</th>
                                 <th>Categoria</th>
                                 <th>Grau</th>
                                 <th>Salário Base</th>

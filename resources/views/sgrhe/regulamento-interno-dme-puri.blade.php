@@ -70,49 +70,66 @@
                       <h3>Regulamento Interno da Direcção Municipal da Educação do Púri</h3>
                     </div>
                     <div class="card-body">
-                        REPÚBLICA DE ANGOLA GOVERNO PROVINCIAL DO VÍGE ADMINISTRAÇÃO MUNICIPAL DO PÚRI GABINETE DA ADMINISTRADORA
-                        DESPACHO N° 0 3 / GAB. ADM.MUN.PU/2023
+                        <p style="font-weight:bold; text-align:center;">
+                        REPÚBLICA DE ANGOLA
+                        </p>
+                        <p style="font-weight:bold; text-align:center;">
+                        GOVERNO PROVINCIAL DO UÍGE
+                        </p>
+                        <p style="font-weight:bold; text-align:center;">
+                        ADMINISTRAÇÃO MUNICIPAL DO PÚRI GABINETE DA ADMINISTRADORA
+                        </p>
                         <br>
+                        <p style="font-weight:bold; text-align:center; color:red;">
+                        DESPACHO N° 0 3 / GAB. ADM.MUN.PU/2023
+                        </p>
+                        <br>
+                        <br>
+                        <br>
+                        <p style="text-align:center; text-align:justify;">
                         Havendo necessidade de se estabelecer o modo de estruturação, organização e funcionamento da Direcção Municipal da Educação do Púri, ajustado ao seu perfil das acções, actividades, programas, projectos e medidas de políticas no seu domínio, tendo em vista a realização das suas atribuições;
                         Em conformidade com n° 1 do artigo 88°, do Decreto Presidencial no 260/10, de 19 de Novembro, conjugado com a alínea d) do n° 4 do artigo 5 do Decreto Legislativo -Presidencial no 2/13, de forma a melhorar a disciplina, rentabilizar e racionalizar os recursos humanos e matérias, assim como adequá-lo a reforma geral da Administração Pública;
                         Administração Municipal do Púri, nos termos do n° 2do artigo 11o da Lei no 15/16, de 12 de Setembro, Lei da Administração local do Estado, conjugado com a alínea o) do artigo 11° do Decreto Presidencial n° 202/19 de 25 de Junho (Regulamento da Lei da Administração Local do Estado) e com n° 1 do artigo 1° do Decreto executivo no 56/20 de 17 de Fevereiro, que aprova o Estatuto Orgânico da Administração Municipal do Púri
                         determina o seguinte:
-                        <br>
+                        </p>
+                        <p>
                         DETERMINA:
-                        <br>
+                        </p>
+                        <p>
                         1º É aprovado o Estatuto orgânico da Direcção Municipal da Educação do Púri, anexo á presente Resolução e que dele faz parte integrante.
-                        <br>
+                        </p>
+                        <p>
                         2º São revogadas todas as disposições que contrariem o disposto no presente despacho.
-                        <br>
+                        </p>
+                        <p>
                         3º As dúvidas e omissões resultantes da interpretação e aplicação do presente despacho são resolvidos pela administração Municipal do Púri.
-                        <br>
-                        4º O presente despacho entra imediatamente em vigor 
-                        <br>
-                        PROPOSTA DE REGULAMENTO INTERNO DE ORGANIZAÇÃO E FUNCIONAMENTO DA DIRECÇÃO MUNICIPAL DA EDUCAÇÃO DO PÚRI.
-                        <br>
-                        CAPÍTULO. I
-                        <br>
+                        </p>
+                        <p>
+                        4º O presente despacho entra imediatamente em vigor  
+                        </p>
+                        <p style="font-weight:bold; text-align:center;">
+                          PROPOSTA DE REGULAMENTO INTERNO DE ORGANIZAÇÃO E FUNCIONAMENTO DA DIRECÇÃO MUNICIPAL DA EDUCAÇÃO DO PÚRI.
+                        </p>
+                        <p style="font-weight:bold; text-align:left;">
+                          CAPÍTULO. I
+                        </p>
                         DISPOSIÇÕES GERAIS
-                        <br>
-                        Artigo 1°. (Objecto)
+                        <br>Artigo 1°. (Objecto)
                         <br>
                         O presente instrumento regula os princípios de organização e funcionamento da Direcção Municipal da Educação do Púri bem como estabelece a sua estrutura orgânica.
-                        <br>
-                        Artigo 2.°
+                        <br>Artigo 2.°
                         <br>
                         (Âmbito)
                         <br>
                         O presente regulamento aplica-se exclusivamente à Direcção Municipal da
                         <br>
                         Educação do Púri.
-                        <br>
-                        Artigo 3°.
+                        <br>Artigo 3°.
                         <br>
                         (Definição, Provimento e Competências)
                         <br>
                         A Direcção Municipal da Educação é o serviço desconcentrado da Administração Municipal, incumbido de assegurar a execução das acções, actividades, programas, projectos e medidas de políticas, no domínio da Educação, do Ensino e Alfabetização ao nível do Município, bem coordenar programas Municipais que visem o desenvolvimento científico, tecnológico e a Inovação ao nível do Município.
-                        <br>
-                        Artigo 4.°
+                        <br>Artigo 4.°
                         <br>
                         (Atribuições)
                         <br>
@@ -147,8 +164,7 @@
                             n) Exercer as demais competências estabelecidas por lei ou determinadas superiormente.
                             <br>
                         CAPÍTULO. II
-                        <br>
-                        Artigo 5.°
+                        <br>Artigo 5.°
                         <br>
                         (Definição)
                         <br>

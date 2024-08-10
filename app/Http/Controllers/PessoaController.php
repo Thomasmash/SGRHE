@@ -95,7 +95,7 @@ class PessoaController extends Controller
                             return redirect()->back()->with('success','Pessoa Cadastrada com Sucesso!');
                         }else {
                             // 
-                            return redirect()->route('funcionarios.verificarPessoa.funcionario', ['numeroBI' => $request->input('numeroBI')]);
+                            return redirect()->route('funcionarios.verificarPessoa.funcionario', ['numeroBI' => $request->input('numeroBI')])->with('success', 'Pessoa Cadastrada com Sucesso!');
                         }
                     }else {
                         return redirect()->back()->with('error','Erro ao Adicionar Endereço');

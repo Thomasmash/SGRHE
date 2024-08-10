@@ -46,6 +46,7 @@
                             <table id="example1" class="table table-bordered table-striped">
                               <thead>
                               <tr>
+                                  <th>Nº</th>
                                   <th>Estado</th>
                                   <th>Número de Agente</th>
                                   <th>Nome Completo</th>
@@ -68,6 +69,7 @@
                               <!--Gerando a Tabela de forma Dinamica-->
                               @foreach ($dados as $funcionario)
                                             <tr>
+                                                  <td>{{ $loop->index+1 }}</td>
                                                   <td class="{{ ($funcionario->estado =='Activo') ? 'text-success' : '' }} {{ ($funcionario->estado =='Inactivo') ? 'text-danger' : '' }} {{ ($funcionario->estado =='Inactivo') ? 'text-danger' : '' }} {{ ($funcionario->estado =='Dispensado') ? 'text-warning' : '' }} {{ ($funcionario->estado =='Ferias') ? 'text-secondary' : '' }}" style="font-weight: bolder;">{{ $funcionario->estado }}</td>
                                                   <td class="{{ ($funcionario->nomeCargo =='Director da Escola') ? 'font-weight-bolder' : '' }}" >{{ $funcionario->numeroAgente }}</td>
                                                   <td class="{{ ($funcionario->nomeCargo =='Director da Escola') ? 'font-weight-bolder' : '' }}" >{{ $funcionario->nomeCompleto }}</td>
@@ -115,6 +117,7 @@
                               </tbody>
                               <tfoot>
                               <tr>
+                                  <th>Nº</th>
                                   <th>Estado</th>
                                   <th>Número de Agente</th>
                                   <th>Nome Completo</th>

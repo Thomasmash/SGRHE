@@ -47,6 +47,7 @@
                           <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                              <th>Nº</th>
                               <th>Designacao</th>
                               <th>Descrisao</th>
                               <th>Permissoes</th>
@@ -57,6 +58,7 @@
                             <!--Gerando a Tabela de forma Dinamica-->
                             @foreach ($dados as $cargo)
                                           <tr>
+                                              <td>{{ $loop->index+1 }}</td>
                                               <td>{{ $cargo->designacao }}</td>
                                               <td>{{ $cargo->descrisao }}</td>
                                               <td>{{ $cargo->permissoes }}</td>
@@ -79,6 +81,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
+                              <th>Nº</th>
                               <th>Designacao</th>
                               <th>Descrisao</th>
                               <th>Permissoes</th>

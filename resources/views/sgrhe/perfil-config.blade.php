@@ -1,6 +1,6 @@
 <!--Layout Principal-->
 @extends('layouts.app')
-  @section('titulo' , 'Perfil - '.$pessoaLog->nomeCompleto )
+  @section('titulo' , 'Perfil - '.$pessoaLogado->nomeCompleto )
         @section('header')
         
              <!--Estilizacao do Previw foto de Perfil-->
@@ -26,9 +26,6 @@
                 </div>
               </div><!-- /.container-fluid -->
             </section>
-            <?php
-  dd('Cheguei ate aqui');
-?>
             <!-- Main content -->
             <section class="content">
               <div class="container-fluid">

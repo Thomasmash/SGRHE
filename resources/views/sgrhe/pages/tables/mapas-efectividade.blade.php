@@ -46,7 +46,7 @@
                             <table id="example1" class="table table-bordered table-striped text-center">
                               <thead>
                               <tr>
-                                <th>Número de Ordem</th>
+                                <th>Nº</th>
                                 <th>Mês / Periódo</th>
                                 <th>Estado</th>
                                 <th>Opções</th>
@@ -56,7 +56,7 @@
                               <!--Gerando a Tabela de forma Dinamica-->
                               @foreach ($dados as $mapas)
                                             <tr>
-                                                <td>{{ $mapas->numerOrdem }}</td>
+                                                <td>{{ $loop->index+1 }}</td>
                                                 <td>{{ $mapas->dataPeriodo }}</td>
                                                 <td>{{ $mapas->estado }}</td>
                                                 <td>
@@ -72,7 +72,7 @@
                               </tbody>
                               <tfoot>
                               <tr>
-                                <th>Número de Ordem</th>
+                                <th>Nº</th>
                                 <th>Mês / Periódo</th>
                                 <th>Estado</th>
                                 <th>Opções</th>
