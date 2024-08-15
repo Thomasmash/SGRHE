@@ -63,12 +63,51 @@
                                                       <input type="hidden" name="id" value="{{ $avaliacao->id_avaliacao_desempenho }}">
                                                       <button type="submit" class="btn btn-primary w-100 m-1">Ver Avaliação</button>
                                                     </form>
-                                                    <form action="{{ route('homologar.avaliacao') }}" method="POST" style="display: inline;">
-                                                      @csrf
-                                                      @method('POST')
-                                                      <input type="hidden" name="id" value="{{ $avaliacao->id_avaliacao_desempenho }}">
-                                                      <button type="submit" class="btn btn-success w-100 m-1">Homologar Avaliação</button>
-                                                    </form>
+                                                    
+                                                    <button class="btn btn-warning w-100 m-1" data-toggle="modal" data-target="#addfotosUnidadeOrganica{{$loop->index+1}}" >
+                                                     Homologar
+                                                    </button>
+
+                                                    <div class="modal fade" id="addfotosUnidadeOrganica{{$loop->index+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                  <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h6 class="modal-title" id="exampleModalLabel">Confirmar Homologação de {{ $avaliacao->nomeCompleto }}</h6>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+
+                                                                                <!-- Formulário dentro da modal -->
+                                                                                <form method="POST" enctype="multipart/form-data" action="{{ route('homologar.avaliacao') }}">
+                                                                                    @csrf
+                                                                                    @method('POST')
+                                                                                    <div class="form-group">
+                                                                                        <label for="arquivo">A ficha de avaliação deve estar no Formato "PDF, PNG e JPG"</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="custom-file">
+                                                                                                <input type="file" class="custom-file-input image" name="arquivo" required>
+                                                                                                <label class="custom-file-label" for="arquivo">Escolha um Ficheiro </label>
+                                                                                                <input type="text" class="custom-file-input" name="idAvaliacao" value="{{ $avaliacao->id_avaliacao_funcionario}}">
+                                                                                                <input type="text" class="custom-file-input" name="categoria" value="AvaliacaoFuncionario">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <input type="checkbox" name="confirmar" class="form-check-input" required>
+                                                                                        <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                          <input type="hidden" name="idUnidadeOrganica" value="1">
+                                                                                          <button type="submit" class="btn btn-primary">Comfirmar</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                  </div>
+                                                    </div>
+
                                                     <form action="{{ route('eliminar.objecto') }}" method="POST" id="deleteForm{{ $avaliacao->id }}">
                                                         @csrf
                                                         @method('DELETE')
@@ -96,8 +135,7 @@
               </div>
               <!-- /.container-fluid -->
                 </section>
-              <!-- /.content -->
-     
+              <!-- /.content -->     
             </div>
           <!-- /.content-wrapper -->
           @endsection

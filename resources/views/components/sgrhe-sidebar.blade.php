@@ -1,5 +1,6 @@
 @php
   $permissoes = $cargoLogado->permissoes;
+  $seccao = $seccaoLogado->designacao;
   $notificacaosSeccao = App\Models\Notificacao::where('seccao', $seccaoLogado->codNome)->where('visualizadoSeccao', false)->exists();
   $notificacaosFuncionario = App\Models\Notificacao::where('idFuncionarioSolicitante', $funcionarioLogado->id)->where('visualizadoFuncionario', false)->exists();
 @endphp
@@ -221,7 +222,7 @@
                                 </p>
                               </a>
                             </li>
-                            <li class="nav-item {{ ($permissoes >= 6) ? '' : 'd-none' }}">
+                            <li class="nav-item {{ ($permissoes >= 6 || $seccao == 'Secretaria Geral' ) ? '' : 'd-none' }}">
                               <a href="{{route('avaliacao.nao.homologados')}}" class="nav-link {{ request()->routeIs('avaliacao.nao.homologados') ? 'active' : ''}}">
                                 <p class="item-2">
                                  <i class="bi bi-building-fill-add"></i>

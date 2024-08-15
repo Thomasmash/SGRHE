@@ -362,7 +362,7 @@ class ArquivoController extends Controller
        // dd($caminho);
         // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
         //Procurar um outro metodo para o put que guarada com nme personalizado
-        Storage::disk('local')->putFile($caminho, file_get_contents($arquivo));
+        Storage::disk('local')->put($caminho, file_get_contents($arquivo));
         if ($request->idArquivo==null) {
             $arquivo = Arquivo::find($request->idArquivo);
             DB::beginTransaction();

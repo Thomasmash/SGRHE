@@ -26,7 +26,7 @@ return new class extends Migration
 
             // Classificação e Request
             $table->text('classificacao')->comment('Classificação do funcionário'); // Classificação do funcionário
-            $table->text('request')->comment('Request do funcionário'); // Request do funcionário
+            $table->text('Request')->comment('Request do funcionário'); // Request do funcionário
 
             // Arquivo e período de avaliação
             $table->string('idArquivo')->nullable()->comment('ID do arquivo de avaliação'); // ID do arquivo de avaliação

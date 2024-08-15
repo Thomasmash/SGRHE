@@ -8,6 +8,8 @@ use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Arquivo;
 
 class AvaliacaoDesempenhoFuncionarioController extends Controller
 {
@@ -95,7 +97,7 @@ class AvaliacaoDesempenhoFuncionarioController extends Controller
                 //Operacoes de join para varias tabelas relacionadas com funcionarios
                 $dados = DB::select('
                 Select 
-                categoria_funcionarios.categoria as categoriaFuncionario, cargos.designacao as designacao_cargo, cargos.id as id_cargo, avaliacao_desempenho_funcionarios.estado AS estado_avaliacao, avaliacao_desempenho_funcionarios.id As id_avaliacao_desempenho, funcionarios.id AS id_funcionario , pessoas.id AS id_pessoa, unidade_organicas.id AS id_unidade_organica, categoria_funcionarios.id AS id_categoria_funcionario, avaliacao_desempenho_funcionarios.*, funcionarios.*, pessoas.*, unidade_organicas.*, categoria_funcionarios.*
+                avaliacao_desempenho_funcionarios.id as id_avaliacao_funcionario, categoria_funcionarios.categoria as categoriaFuncionario, cargos.designacao as designacao_cargo, cargos.id as id_cargo, avaliacao_desempenho_funcionarios.estado AS estado_avaliacao, avaliacao_desempenho_funcionarios.id As id_avaliacao_desempenho, funcionarios.id AS id_funcionario , pessoas.id AS id_pessoa, unidade_organicas.id AS id_unidade_organica, categoria_funcionarios.id AS id_categoria_funcionario, avaliacao_desempenho_funcionarios.*, funcionarios.*, pessoas.*, unidade_organicas.*, categoria_funcionarios.*
                 From avaliacao_desempenho_funcionarios
                 JOIN funcionarios ON avaliacao_desempenho_funcionarios.idFuncionario = funcionarios.id
                 JOIN cargos  ON cargos.id = funcionarios.idCargo
@@ -170,7 +172,41 @@ class AvaliacaoDesempenhoFuncionarioController extends Controller
 
     public function homologar(Request $request)
     {
-            $idProcesso = $request->id;  
-            return view('/sgrhe/pages/forms/upload-file', compact('idProcesso'));
+        //dd($request->all());
+             $processo = AvaliacaoDesempenhoFuncionario::find($request->idAvaliacao);
+             $arquivo = $request->file('arquivo');
+             $nome = '-Documento';
+             $categoria = $request->categoria;
+             $idFuncionario = $processo->idFuncionario;
+             $nomeArquivo = date('dmYHis').$nome.'.'.$arquivo->extension();
+             $caminho = 'funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
+            // dd($caminho);
+             // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
+             //Procurar um outro metodo para o put que guarada com nme personalizado
+             Storage::disk('local')->put($caminho, file_get_contents($arquivo));
+             if ($request->idArquivo==null) {
+                 $arquivo = Arquivo::find($request->idArquivo);
+                 DB::beginTransaction();
+                 $Arquivo = Arquivo::create([
+                     'titulo' =>$nomeArquivo,
+                     'categoria' => $categoria,
+                     'descricao' => $processo->Request,
+                     'arquivo' => $nomeArquivo,
+                     'caminho' => $caminho,
+                     'idFuncionario' => $idFuncionario,
+                 ]);
+             if ($Arquivo) {
+                 //Alterando o Estado da Origem da avaliacao e o e identificador do ficheiro da Avaliacao do Funcionario
+                 $processo->estado = 'Homologado';
+                 $processo->idArquivo = $Arquivo->id; //Inserindo o id do Registro arquivo recem criado
+                 $processo->save();
+                 DB::commit();
+                 return redirect()->route('avaliacao.nao.homologados')->with('success', 'O ficheiro foi salvo com sucesso!');
+             }else{
+                 DB::rollBack();
+                 return redirect()->route('avaliacao.nao.homologados')->with('error', 'Erro ao salvar o documento');
+             }
+         }
+         return redirect()->route('avaliacao.nao.homologados')->with('error', 'O documento já existe');
     }
 }

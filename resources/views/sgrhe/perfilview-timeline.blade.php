@@ -5,7 +5,9 @@
 @extends('layouts.app')
   @section('titulo' , 'Linha de Tempo - '.$pessoa->nomeCompleto )
         @section('header')
-        
+        <?php
+        dd('Cheguei ate aqui');
+        ?>
              <!--Estilizacao do Previw foto de Perfil-->
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
             <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -81,7 +83,7 @@
                                             <i class="fas fa-user bg-info"></i>
 
                                             <div class="timeline-item">
-                                              <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
+                                              <span class="time"><i class="far fa-clock"></i> Início</span>
                                               <h3 class="timeline-header border-0"><a href="#">{{$pessoa->nomeCompleto}}</a>, Seja bem Vindo a Sua Linha de Tempo
                                               </h3>
                                             </div>
@@ -108,7 +110,7 @@
                                               <i class="fas fa-envelope bg-primary"></i>
                                               <div class="timeline-item">
                                               <span class="time">
-                                                  <i class="far fa-clock"></i> a 4 Meses</span>
+                                                  <i class="far fa-clock"></i> a  Meses</span>
                                                 <h3 class="timeline-header"> 
                                                   Estado: <span  class=" font-weight-bold {{ ($processom->estado == 'Submetido' || $processom->estado == 'Aprovado') ? 'text-success' : 'text-danger'}}"> {{ $processom->estado }} </span>
                                                 </h3>

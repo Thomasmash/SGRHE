@@ -217,6 +217,36 @@ use Illuminate\Support\Facades\Auth;
             };
             </script>
 
+            <!--Evento para Mudar a Menssagem do Ipntut pos escolha do cheiro-->
+                <!-- Adicione script para lidar com a dinamicidade do formulário -->
+                <script>
+                        $(document).ready(function(){
+                        $(".custom-file-input").on("change", function() {
+                            var fileName = $(this).val().split("\\").pop();
+                            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                        });
+                    });
+                </script>
+            <!--/Evento para Mudar a Menssagem do Ipntut pos escolha do cheiro-->
+
+            <script>
+                function toggleInfo() {
+                const btnToggles = document.querySelectorAll('.btn-toggle');
+
+                btnToggles.forEach((btnToggle) => {
+                    btnToggle.addEventListener('click', () => {
+                    const targetId = btnToggle.dataset.target;
+                    const infoToggle = document.getElementById(targetId);
+
+                    infoToggle.classList.toggle('visible');
+                    });
+                });
+                }
+
+                toggleInfo();
+            </script>
+
+
         
         @yield('scripts')
         @stack('modals')

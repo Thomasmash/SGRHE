@@ -63,14 +63,14 @@
                                 <!--Gerando a Tabela de forma Dinamica //23121997-->
                                 @foreach ($arquivos as $arquivo)
                                               <tr>
-                                              <td>{{ $loop->index+1 }}</td>
+                                            
                                                   @php
                                                     $funcionario = App\Models\Funcionario::find($arquivo->idFuncionario);
                                                     $pessoaFuncionario = App\Models\Pessoa::find($funcionario->idPessoa);
                                                   @endphp
-                                                 
-                                                  <td> {{ $pessoaFuncionario->nomeCompleto}}</td>
+                                                  <td>{{ $loop->index+1 }}</td>
                                                   <td> {{ $arquivo->categoria}}</td>
+                                                  <td> {{ $pessoaFuncionario->nomeCompleto}}</td>
                                                   <td>{{ strftime('%d de %B de %Y', strtotime(\Carbon\Carbon::parse($arquivo->created_at))) }}</td>
                                                   <td>{{ strftime('%d de %B de %Y', strtotime(\Carbon\Carbon::parse($arquivo->updated_at))) }}</td>
                                                   <td>
