@@ -109,6 +109,7 @@
                                                   @method('PUT')
                                                     <button type="submit" class="btn btn-primary w-100 m-1">Ver</button>
                                                 </form>
+                                                @if ( ($cargoLogado->permissoes === "Admin") || ($cargoLogado->permissoes >= 4 && $seccaoLogado === "RHPE") )
                                                 <form action="{{ route('unidadeorganicas.form', ['id' => $unidadeOrganica->id]) }}" method="POST" style="display: inline;">
                                                   @csrf
                                                   @method('PUT')
@@ -121,6 +122,7 @@
                                                     <input type="hidden" name="categoria" value="UnidadeOrganica">
                                                     <button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar Unidade Orgânica?', 'Sim, Deletar!', 'Não, Cancelar!')">Deletar</button>
                                                 </form>
+                                                @endif
                                                 </td>
                                             </tr>
                               @endforeach
@@ -143,7 +145,7 @@
                           </div>
 
                         <div class="card-footer">
-                          <a href="{{route('unidadeorganicas.form')}}" class="btn btn-primary d-block"> Cadastrar Unidade Orgânica</a>
+                          <a href="{{route('unidadeorganicas.form')}}" class="btn btn-primary {{ (($cargoLogado->permissoes === 'Admin') || ($cargoLogado->permissoes >= 4 && $seccaoLogado === 'RHPE')) ? 'd-block' : 'd-none' }}"> Cadastrar Unidade Orgânica</a>
                         </div>
                         <!--/.Card-body -->
                       </div>

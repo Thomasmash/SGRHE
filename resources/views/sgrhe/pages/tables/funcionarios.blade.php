@@ -1,7 +1,5 @@
 @php
   setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
-  $permissoes = $cargoLogado->permissoes;
-  $seccao = $seccaoLogado->codNome;
 @endphp
 <!--Layout Principal //23121997-->
 @extends('layouts.app')
@@ -147,14 +145,14 @@
                                                         @csrf
                                                         <button type="submit" class="btn btn-primary w-100 m-1">Ver Perfil</button>
                                                       </form>
-                                                      @if ( ($permissoes === "Admin") || ($permissoes >= 4 && $seccao === "RHPE") )
+                                                      @if ( ($cargoLogado->permissoes === "Admin") || ($cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === "RHPE") )
                                                       <form action="{{ route('funcionarios.form', ['id' => $funcionario->idPessoa]) }}" method="POST" style="display: inline;">
                                                         @csrf
                                                         @method('PUT')
                                                         <button type="submit" class="btn btn-warning w-100 m-1">Editar</button>
                                                       </form>
                                                       @endif
-                                                      @if ( ($permissoes === "Admin") || ($permissoes >= 4 && $seccao === "RHPE") )
+                                                      @if ( ($cargoLogado->permissoes === "Admin") || ($cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === "RHPE") )
                                                       <form action="{{ route('eliminar.objecto') }}" method="POST" id="deleteForm{{ $funcionario->id_funcionario }}">
                                                           @csrf
                                                           @method('DELETE')
@@ -163,7 +161,7 @@
                                                           <button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar  Funcionário?', 'Sim, Deletar!', 'Não, Cancelar!')">Deletar</button>
                                                       </form>
                                                       @endif
-                                                      @if ( ($permissoes === "Admin") || ($permissoes >= 4 && $seccao === "RHPE") )
+                                                      @if ( ($cargoLogado->permissoes === "Admin") || ($cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === "RHPE") )
                                                       <form action="{{ route('formulario.avaliar.funcionario') }}" method="GET" style="display: inline;">
                                                         @csrf
                                                         <input type="hidden" name="idFuncionario" value="{{ $funcionario->id }}">
@@ -212,7 +210,7 @@
                               </table>
                             </div>
                             <div class="card-footer">
-                                <a href="{{route('funcionarios.form')}}" class="btn btn-primary d-block"> Cadastrar Funcionário</a>
+                                <a href="{{route('funcionarios.form')}}" class=" btn btn-primary {{ (($cargoLogado->permissoes === 'Admin') || ($cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === 'RHPE')) ? 'd-block' : 'd-none' }}"> Cadastrar Funcionário</a>
                             </div>  <!-- /.card-body -->
                       </div>
                       <!-- /.card -->

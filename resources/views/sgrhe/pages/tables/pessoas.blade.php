@@ -124,7 +124,7 @@
 
 
                           <div class="card-footer">
-                          <a href="{{route('pessoas.form')}}" class="btn btn-primary d-block"> Cadastrar Pessoa</a>
+                          <a href="{{route('pessoas.form')}}" class="btn btn-primary {{ (($cargoLogado->permissoes === 'Admin') || ($cargoLogado->permissoes >= 4 && $seccaoLogado === 'RHPE')) ? 'd-block' : 'd-none' }}"> Cadastrar Pessoa</a>
                           </div>
                         <!-- /.card-body -->
                       </div>

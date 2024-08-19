@@ -9,6 +9,7 @@ use App\Models\FormularioAproveitamento;
 use App\Models\FotosUnidadeOrganica;
 use App\Models\Funcionario;
 use App\Models\Pessoa;
+use App\Models\Aproveitamento;
 use App\Models\UnidadeOrganica;
 use App\Models\UnidadeOrganicaDado;
 use Illuminate\Http\Request;
@@ -122,7 +123,13 @@ class UnidadeOrganicaController extends Controller
                 $anoLectivo = ($dataActual->format('Y') - 1).'/'.$dataActual->format('Y');
             } 
             $ultimoMapaAproveitamento = FormularioAproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->latest()->first();
-            return view('sgrhe/unidade-organica-view',compact('aproveitamentoFinal','anoLectivo','ultimoMapaAproveitamento','unidadeOrganicaSelected','Funcionarios','aproveitamentoITrimestre','aproveitamentoIITrimestre','aproveitamentoIIITrimestre','fotos'));
+            
+            $aproveitamentosI = Aproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('trimestre', 'I')->orderBy('classe', 'desc')->get();
+            $aproveitamentosII = Aproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('trimestre', 'II')->orderBy('classe', 'desc')->get();
+            $aproveitamentosIII = Aproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('trimestre', 'III')->orderBy('classe', 'desc')->get();
+            $aproveitamentosFinal = Aproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('trimestre', 'Final')->orderBy('classe', 'desc')->get();
+
+            return view('sgrhe/unidade-organica-view',compact('aproveitamentosI','aproveitamentosII','aproveitamentosIII','aproveitamentosFinal','aproveitamentoFinal','anoLectivo','ultimoMapaAproveitamento','unidadeOrganicaSelected','Funcionarios','aproveitamentoITrimestre','aproveitamentoIITrimestre','aproveitamentoIIITrimestre','fotos'));
     }
 
     public function galeriaUnidadeOrganica(string $idUnidadeOrganica)
@@ -156,14 +163,21 @@ class UnidadeOrganicaController extends Controller
             $ultimoMapaAproveitamento = FormularioAproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->latest()->first();
             $fotos = Arquivo::where('idFuncionario', 1)->where('categoria', 'FotosUnidadeOrganica')->where('descricao', $idUnidadeOrganica)->get();
             $dataActual = now();
+            
             //Determinar o Ano Lectivo sabendo que Ele comeca sempre em setembro
             if ($dataActual->format('n') > 9) {
                 $anoLectivo = $dataActual->format('Y').'/'.($dataActual->format('Y') + 1);
             }else {
                 $anoLectivo = ($dataActual->format('Y') - 1).'/'.$dataActual->format('Y');
             } 
-      
-            return view('sgrhe/unidade-organica-dashboard',compact('aproveitamentoFinal','anoLectivo','ultimoMapaAproveitamento','unidadeOrganicaSelected','Funcionarios','aproveitamentoITrimestre','aproveitamentoIITrimestre','aproveitamentoIIITrimestre','fotos'));
+
+
+            $aproveitamentosI = Aproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('trimestre', 'I')->orderBy('classe', 'desc')->get();
+            $aproveitamentosII = Aproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('trimestre', 'II')->orderBy('classe', 'desc')->get();
+            $aproveitamentosIII = Aproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('trimestre', 'III')->orderBy('classe', 'desc')->get();
+            $aproveitamentosFinal = Aproveitamento::where('idUnidadeOrganica', $idUnidadeOrganica)->where('trimestre', 'Final')->orderBy('classe', 'desc')->get();
+
+            return view('sgrhe/unidade-organica-dashboard',compact('aproveitamentosI','aproveitamentosII','aproveitamentosIII','aproveitamentosFinal','aproveitamentoFinal','anoLectivo','ultimoMapaAproveitamento','unidadeOrganicaSelected','Funcionarios','aproveitamentoITrimestre','aproveitamentoIITrimestre','aproveitamentoIIITrimestre','fotos'));
 
     }
     //Create

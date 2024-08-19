@@ -51,7 +51,7 @@
                                       <p style="font-weight: bolder;">{{ $cargoLogado->designacao }}</p> <!--.' de(a) '.$seccaoLogado->designacao -->
                                       <p>({{ $seccaoLogado->codNome }})</p>
                                       <p>Olá {{ explode(" ", $pessoaLogado->nomeCompleto)[0] }}!</p>
-                                      <p>Seja bem vindo(a)!</p>
+                                      <p>Seja bem vind{{ ( $pessoaLogado->genero === 'Masculino' ) ? 'o' : 'a' }}!</p>
                                     </div>
                                   </div>
                                   <hr style="border: 1px solid grey;">
@@ -62,7 +62,7 @@
                                 <a id="{{ $notificacaosFuncionario == true ? 'toggleLink' : '' }}" href="{{ route('listar.processos.funionario', ['idFuncionario' => $funcionarioLogado->id]) }} "  class=" nav-link {{ request()->routeIs('listar.processos.funionario') ? 'active' : ''}}">
                                 <i class="bi bi-calendar2-range"></i>  
                                 <p class="item-1">
-                                    Linha de Tempo/ Processos do Funcionário
+                                    Processos do Funcionário
                                   </p>
                                 </a>
                           </li>
@@ -257,7 +257,7 @@
                                 </p>
                               </form>
                             </li>
-                            <li class="nav-item {{ ($permissoes === 'Admin' || $permissoes >= 5 ) ? '' : 'd-none' }}">
+                            <li class="nav-item {{ ($permissoes === 'Admin' || ($permissoes >= 5 && $seccaoLogado->codNome === 'RHPE')) ? '' : 'd-none' }}">
                                 <a href="{{route('funcionarios.form')}}"  class="nav-link {{ request()->routeIs('funcionarios.form') ? 'active' : ''}}">
                                   <p class="item-2">
                                   <i class="bi bi-person-plus-fill"></i>
@@ -269,7 +269,7 @@
                         </li>
                       <!--/.funcionários-->
               @endif
-              @if ($permissoes === 'Admin' || $permissoes >= 4 )
+              @if ($permissoes === 'Admin' || ($permissoes >= 4 && $seccaoLogado->codNome === "RHPE") )
                       <!--CategoriaFuncionario-->
                         <li class="nav-item {{ request()->routeIs('categoriafuncionarios.index') || request()->routeIs('categoriafuncionarios.form') ? 'menu-open' : '' }}">
                           <a href="#" class="nav-link {{ request()->routeIs('categoriafuncionarios.index') || request()->routeIs('categoriafuncionarios.form') ? 'active' : '' }}">
@@ -300,7 +300,7 @@
                         </li>
                       <!--/.CategoriaFuncionario-->
               @endif
-              @if ($permissoes === 'Admin' || $permissoes >= 4 )
+              @if ($permissoes === 'Admin' || ($permissoes >= 4 && $seccaoLogado->codNome === "RHPE" )  )
 
                       <!--Pessoas-->
                         <li class="nav-item {{ request()->routeIs('pessoas.index') || request()->routeIs('pessoas.form') ? 'menu-open' : '' }}">
@@ -338,7 +338,7 @@
                         <a href="#" class="nav-link {{ request()->routeIs('unidades.organicas') || request()->routeIs('unidadeorganicas.form') ? 'active' : '' }}">
                           <i class="fas fa-building"></i>
                           <p class="item-1">
-                          Unidade Orgânica
+                          Unidades Orgânica
                             <i class="right fas fa-angle-left"></i>
                           </p>
                         </a>
@@ -355,7 +355,7 @@
                                 </p>
                               </form>
                             </li>
-                            <li class="nav-item {{ ($permissoes === 'Admin' || $permissoes >= 5) ? '' : 'd-none' }}">
+                            <li class="nav-item {{ ($permissoes === 'Admin' || ($permissoes >= 5 && $seccaoLogado->codNome === 'RHPE')) ? '' : 'd-none' }}">
                               <a href="{{route('unidadeorganicas.form')}}" class="nav-link {{ request()->routeIs('unidadeorganicas.form') ? 'active' : ''}}">
                                 <p class="item-2">
                                  <i class="bi bi-building-fill-add"></i>
@@ -367,7 +367,7 @@
                         </li>
                       <!--/.UnidadeOrganica-->
               @endif
-              @if ($permissoes === 'Admin' || $permissoes >= 4 )
+              @if ($permissoes === 'Admin' || ($permissoes >= 4 && $seccaoLogado->codNome === "RHPE") )
                       <!--Cargos-->
                         <li class="nav-item {{ request()->routeIs('cargos.index') || request()->routeIs('cargos.form') ? 'menu-open' : '' }}">
                           <a href="#" class="nav-link {{ request()->routeIs('cargos.index') || request()->routeIs('cargos.form') ? 'active' : '' }}">

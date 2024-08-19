@@ -7,6 +7,9 @@
           .row > a {
             margin: 10px;
           }
+          th{
+            width:20px;
+          }
         </style>
         @endsection
   @section('conteudo_principal')
@@ -299,271 +302,990 @@
                                         </div>
                                
                                         <!--/tab-pane-->
-                                        <!--tab-pane-->
-                                        <div class="tab-pane" id="ITrimestre">
-                                          <!-- Formulario I  Trimestre -->
+                                            <!--tab-pane-->
+                                            <div class="tab-pane" id="ITrimestre">
+                                            <!-- Formulario I  Trimestre -->
+                                                <div class="card card-primary">
+                                                  <div class="card-header">
+                                                    <h3 class="card-title">
+                                                      Aproveitamento escolar do I Trimestre
+                                                    </h3>
+                                                  </div>
+                                                  <div class="card-body">
+                                                    <div class="table-responsive">
+                                                    <table id="tabelaI" class="table table-bordered table-striped">
+                                            
+                                                        <thead class="bg-secondary">
+                                                          <tr>
+                                                            <th scope="col" rowspan="3" colspan="1" style=" vertical-align:middle" >Classe</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Trimestre</th> <!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <th class="d-none" scope="col" colspan="1" rowspan="3" style="vertical-align: middle;">Opções</th><!--<th scope="col">Total</th>-->
+                                                          </tr>
+                                                          <tr>
+                                                            <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
+                                                          </tr>
+                                                          <tr>
+                                                            <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
+                                                          </tr>
+                                                        </thead>
+                                                
+                                                      <tbody>
+                                                      <!--Gerando a Tabela de forma Dinamica-->
+                                                      @foreach ($aproveitamentosI as $aproveitamentoI)
+                                                      <!--Invocando outro elementos/ Tabelas -->
+                                                  
+                                                                    <tr class="">
+                                                                        <td>{{$aproveitamentoI->classe }}</td>
+                                                                        <td>{{$aproveitamentoI->matriculadosMF }}</td>
+                                                                        <td>{{$aproveitamentoI->matriculadosF }}</td>
+                                                                  
+                                                                        <td>{{$aproveitamentoI->aprovadosMF }}</td>
+                                                                        <td>{{$aproveitamentoI->aprovadosF }}</td>
+                                                                        <td>{{$aproveitamentoI->reprovadosMF }}</td>
+                                                                        <td>{{$aproveitamentoI->reprovadosF }}</td>
+                                                                        <td>{{$aproveitamentoI->transferidosEMF }}</td>
+                                                                        <td>{{$aproveitamentoI->transferidosEF }}</td>
+                                                                        <td>{{$aproveitamentoI->transferidosSMF }}</td>
+                                                                        <td>{{$aproveitamentoI->transferidosSF }}</td>
+                                                                        <td>{{$aproveitamentoI->desistentesMF }}</td>
+                                                                        <td>{{$aproveitamentoI->desistentesF }}</td>
                                           
 
-                                            @if (isset($aproveitamentoITrimestre))
-                                              <div class="card card-primary">
-                                                <div class="card-header">
-                                                  <h3 class="card-title">
-                                                    Aproveitamento escolar do I Trimestre
-                                                  </h3>
-                                                </div>
-                                                <div class="card-body">
-                                                  <div class="table-responsive">
-                                                    <table class="table table-hover table-bordered border-secondary table-striped" style="text-align:center;">
-                                                        <thead class="bg-primary">
-                                                          <tr>
-                                                            <th scope="col" rowspan="2" colspan="1" style=" vertical-align:middle" >Alunos</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Matriculados no Início do Ano Lectivo</th><!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Matriculados no Final do Ano Lectivo</th><!--<th scope="col">Matriculados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <!--<th scope="col">Total</th>-->
-                                                          </tr>
-                                                          <tr>
-                                                            <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
-                                                          </tr>
-                                                          <tr>
-                                                            <th scope="col">Classe</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
-                                                          </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                          <tr>
-                                                              <th scope="row">1ª</th>   <td class="col-1" id="Ta11"> {{ isset($aproveitamentoITrimestre['a11']) ? $aproveitamentoITrimestre['a11'] : '0' }} </td> <td class="col-1" id="Ta12"> {{  isset($aproveitamentoITrimestre['a12']) ? $aproveitamentoITrimestre['a12'] : '0' }}  </td> <td class="col-1" id="Ta13"> {{  isset($aproveitamentoITrimestre['a13']) ? $aproveitamentoITrimestre['a13'] : '0' }}  </td> <td class="col-1" id="Ta14"> {{ isset($aproveitamentoITrimestre['a14']) ? $aproveitamentoITrimestre['a14'] : '0' }}  </td> <td class="col-1" id="Ta15"> {{   isset($aproveitamentoITrimestre['a15']) ? $aproveitamentoITrimestre['a15'] : '0' }}  </td> <td class="col-1" id="Ta16"> {{  isset($aproveitamentoITrimestre['a16']) ? $aproveitamentoITrimestre['a16'] : '0' }}  </td> <td class="col-1" id="Ta17"> {{  isset($aproveitamentoITrimestre['a17']) ? $aproveitamentoITrimestre['a17'] : '0' }}  </td> <td class="col-1" id="Ta18"> {{ isset($aproveitamentoITrimestre['a18']) ? $aproveitamentoITrimestre['a18'] : '0' }}  </td> <td class="col-1" id="Ta19"> {{   isset($aproveitamentoITrimestre['a19']) ? $aproveitamentoITrimestre['a19'] : '0' }}  </td> <td class="col-1" id="Ta110"> {{   isset($aproveitamentoITrimestre['a110']) ? $aproveitamentoITrimestre['a110'] : '0' }}   </td> <td class="col-1" id="Ta111"> {{  isset($aproveitamentoITrimestre['a111']) ? $aproveitamentoITrimestre['a111'] : '0' }}   </td> <td class="col-1" id="Ta112"> {{  isset($aproveitamentoITrimestre['a112']) ? $aproveitamentoITrimestre['a112'] : '0' }}   </td> <td class="col-1" id="Ta113"> {{ isset($aproveitamentoITrimestre['a113']) ? $aproveitamentoITrimestre['a113'] : '0' }}  </td> <td class="col-1" id="Ta114"> {{  isset($aproveitamentoITrimestre['a114']) ? $aproveitamentoITrimestre['a114'] : '0' }}  </td>
-                                                          </tr>
-                                                          <tr>
-                                                              <th scope="row">2ª</th>   <td class="col-1" id="Ta21"> {{ isset($aproveitamentoITrimestre['a21']) ? $aproveitamentoITrimestre['a21'] : '0' }}  </td> <td class="col-1" id="Ta22"> {{   isset($aproveitamentoITrimestre['a22']) ? $aproveitamentoITrimestre['a22'] : '0' }}  </td> <td class="col-1" id="Ta23"> {{  isset($aproveitamentoITrimestre['a23']) ? $aproveitamentoITrimestre['a23'] : '0' }}  </td> <td class="col-1" id="Ta24"> {{  isset($aproveitamentoITrimestre['a24']) ? $aproveitamentoITrimestre['a24'] : '0' }}  </td> <td class="col-1" id="Ta25"> {{ isset($aproveitamentoITrimestre['a25']) ? $aproveitamentoITrimestre['a25'] : '0' }}  </td> <td class="col-1" id="Ta26"> {{   isset($aproveitamentoITrimestre['a26']) ? $aproveitamentoITrimestre['a26'] : '0' }}  </td> <td class="col-1" id="Ta27"> {{  isset($aproveitamentoITrimestre['a27']) ? $aproveitamentoITrimestre['a27'] : '0' }}  </td> <td class="col-1" id="Ta28"> {{  isset($aproveitamentoITrimestre['a28']) ? $aproveitamentoITrimestre['a28'] : '0' }}  </td> <td class="col-1" id="Ta29"> {{ isset($aproveitamentoITrimestre['a29']) ? $aproveitamentoITrimestre['a29'] : '0' }}  </td> <td class="col-1" id="Ta210"> {{  isset($aproveitamentoITrimestre['a210']) ? $aproveitamentoITrimestre['a210'] : '0' }}   </td> <td class="col-1" id="Ta211"> {{  isset($aproveitamentoITrimestre['a211']) ? $aproveitamentoITrimestre['a211'] : '0' }}   </td> <td class="col-1" id="Ta212"> {{ isset($aproveitamentoITrimestre['a212']) ? $aproveitamentoITrimestre['a212'] : '0' }}   </td> <td class="col-1" id="Ta213"> {{   isset($aproveitamentoITrimestre['a213']) ? $aproveitamentoITrimestre['a213'] : '0' }}  </td> <td class="col-1" id="Ta214"> {{   isset($aproveitamentoITrimestre['a214']) ? $aproveitamentoITrimestre['a214'] : '0' }}  </td>
-                                                          </tr>
-                                                          <tr>
-                                                              <th scope="row">3ª</th>   <td class="col-1" id="Ta31"> {{ isset($aproveitamentoITrimestre['a31']) ? $aproveitamentoITrimestre['a31'] : '0' }}  </td> <td class="col-1" id="Ta32"> {{   isset($aproveitamentoITrimestre['a32']) ? $aproveitamentoITrimestre['a32'] : '0' }}  </td> <td class="col-1" id="Ta33"> {{  isset($aproveitamentoITrimestre['a33']) ? $aproveitamentoITrimestre['a33'] : '0' }}  </td> <td class="col-1" id="Ta34"> {{  isset($aproveitamentoITrimestre['a34']) ? $aproveitamentoITrimestre['a34'] : '0' }}  </td> <td class="col-1" id="Ta35"> {{ isset($aproveitamentoITrimestre['a35']) ? $aproveitamentoITrimestre['a35'] : '0' }}  </td> <td class="col-1" id="Ta36"> {{   isset($aproveitamentoITrimestre['a36']) ? $aproveitamentoITrimestre['a36'] : '0' }}  </td> <td class="col-1" id="Ta37"> {{  isset($aproveitamentoITrimestre['a37']) ? $aproveitamentoITrimestre['a37'] : '0' }}  </td> <td class="col-1" id="Ta38"> {{  isset($aproveitamentoITrimestre['a38']) ? $aproveitamentoITrimestre['a38'] : '0' }}  </td> <td class="col-1" id="Ta39"> {{ isset($aproveitamentoITrimestre['a39']) ? $aproveitamentoITrimestre['a39'] : '0' }}  </td> <td class="col-1" id="Ta310"> {{  isset($aproveitamentoITrimestre['a310']) ? $aproveitamentoITrimestre['a310'] : '0' }}   </td> <td class="col-1" id="Ta311"> {{  isset($aproveitamentoITrimestre['a311']) ? $aproveitamentoITrimestre['a311'] : '0' }}   </td> <td class="col-1" id="Ta312"> {{ isset($aproveitamentoITrimestre['a312']) ? $aproveitamentoITrimestre['a312'] : '0' }}   </td> <td class="col-1" id="Ta313"> {{   isset($aproveitamentoITrimestre['a313']) ? $aproveitamentoITrimestre['a313'] : '0' }}  </td> <td class="col-1" id="Ta314"> {{   isset($aproveitamentoITrimestre['a314']) ? $aproveitamentoITrimestre['a314'] : '0' }}  </td>
-                                                          </tr>
-                                                          <tr>
-                                                              <th scope="row">4ª</th>   <td class="col-1" id="Ta41"> {{ isset($aproveitamentoITrimestre['a41']) ? $aproveitamentoITrimestre['a41'] : '0' }}  </td> <td class="col-1" id="Ta42"> {{   isset($aproveitamentoITrimestre['a42']) ? $aproveitamentoITrimestre['a42'] : '0' }}  </td> <td class="col-1" id="Ta43"> {{  isset($aproveitamentoITrimestre['a43']) ? $aproveitamentoITrimestre['a43'] : '0' }}  </td> <td class="col-1" id="Ta44"> {{  isset($aproveitamentoITrimestre['a44']) ? $aproveitamentoITrimestre['a44'] : '0' }}  </td> <td class="col-1" id="Ta45"> {{ isset($aproveitamentoITrimestre['a45']) ? $aproveitamentoITrimestre['a45'] : '0' }}  </td> <td class="col-1" id="Ta46"> {{   isset($aproveitamentoITrimestre['a46']) ? $aproveitamentoITrimestre['a46'] : '0' }}  </td> <td class="col-1" id="Ta47"> {{  isset($aproveitamentoITrimestre['a47']) ? $aproveitamentoITrimestre['a47'] : '0' }}  </td> <td class="col-1" id="Ta48"> {{  isset($aproveitamentoITrimestre['a48']) ? $aproveitamentoITrimestre['a48'] : '0' }}  </td> <td class="col-1" id="Ta49"> {{ isset($aproveitamentoITrimestre['a49']) ? $aproveitamentoITrimestre['a49'] : '0' }}  </td> <td class="col-1" id="Ta410"> {{  isset($aproveitamentoITrimestre['a410']) ? $aproveitamentoITrimestre['a410'] : '0' }}   </td> <td class="col-1" id="Ta411"> {{  isset($aproveitamentoITrimestre['a411']) ? $aproveitamentoITrimestre['a411'] : '0' }}   </td> <td class="col-1" id="Ta412"> {{ isset($aproveitamentoITrimestre['a412']) ? $aproveitamentoITrimestre['a412'] : '0' }}   </td> <td class="col-1" id="Ta413"> {{   isset($aproveitamentoITrimestre['a413']) ? $aproveitamentoITrimestre['a413'] : '0' }}  </td> <td class="col-1" id="Ta414"> {{   isset($aproveitamentoITrimestre['a414']) ? $aproveitamentoITrimestre['a414'] : '0' }}  </td>
-                                                          </tr>
-                                                          <tr>
-                                                              <th scope="row">5ª</th>   <td class="col-1" id="Ta51"> {{ isset($aproveitamentoITrimestre['a51']) ? $aproveitamentoITrimestre['a51'] : '0' }}  </td> <td class="col-1" id="Ta52"> {{   isset($aproveitamentoITrimestre['a52']) ? $aproveitamentoITrimestre['a52'] : '0' }}  </td> <td class="col-1" id="Ta53"> {{  isset($aproveitamentoITrimestre['a53']) ? $aproveitamentoITrimestre['a53'] : '0' }}  </td> <td class="col-1" id="Ta54"> {{  isset($aproveitamentoITrimestre['a54']) ? $aproveitamentoITrimestre['a54'] : '0' }}  </td> <td class="col-1" id="Ta55"> {{ isset($aproveitamentoITrimestre['a55']) ? $aproveitamentoITrimestre['a55'] : '0' }}  </td> <td class="col-1" id="Ta56"> {{   isset($aproveitamentoITrimestre['a56']) ? $aproveitamentoITrimestre['a56'] : '0' }}  </td> <td class="col-1" id="Ta57"> {{  isset($aproveitamentoITrimestre['a57']) ? $aproveitamentoITrimestre['a57'] : '0' }}  </td> <td class="col-1" id="Ta58"> {{  isset($aproveitamentoITrimestre['a58']) ? $aproveitamentoITrimestre['a58'] : '0' }}  </td> <td class="col-1" id="Ta59"> {{ isset($aproveitamentoITrimestre['a59']) ? $aproveitamentoITrimestre['a59'] : '0' }}  </td> <td class="col-1" id="Ta510"> {{  isset($aproveitamentoITrimestre['a510']) ? $aproveitamentoITrimestre['a510'] : '0' }}   </td> <td class="col-1" id="Ta511"> {{  isset($aproveitamentoITrimestre['a511']) ? $aproveitamentoITrimestre['a511'] : '0' }}   </td> <td class="col-1" id="Ta512"> {{ isset($aproveitamentoITrimestre['a512']) ? $aproveitamentoITrimestre['a512'] : '0' }}   </td> <td class="col-1" id="Ta513"> {{   isset($aproveitamentoITrimestre['a513']) ? $aproveitamentoITrimestre['a513'] : '0' }}  </td> <td class="col-1" id="Ta514"> {{   isset($aproveitamentoITrimestre['a514']) ? $aproveitamentoITrimestre['a514'] : '0' }}  </td>
-                                                          </tr>
-                                                          <tr>
-                                                              <th scope="row">6ª</th>   <td class="col-1" id="Ta61"> {{ isset($aproveitamentoITrimestre['a61']) ? $aproveitamentoITrimestre['a61'] : '0' }}  </td> <td class="col-1" id="Ta62"> {{   isset($aproveitamentoITrimestre['a62']) ? $aproveitamentoITrimestre['a62'] : '0' }}  </td> <td class="col-1" id="Ta63"> {{  isset($aproveitamentoITrimestre['a63']) ? $aproveitamentoITrimestre['a63'] : '0' }}  </td> <td class="col-1" id="Ta64"> {{  isset($aproveitamentoITrimestre['a64']) ? $aproveitamentoITrimestre['a64'] : '0' }}  </td> <td class="col-1" id="Ta65"> {{ isset($aproveitamentoITrimestre['a65']) ? $aproveitamentoITrimestre['a65'] : '0' }}  </td> <td class="col-1" id="Ta66"> {{   isset($aproveitamentoITrimestre['a66']) ? $aproveitamentoITrimestre['a66'] : '0' }}  </td> <td class="col-1" id="Ta67"> {{  isset($aproveitamentoITrimestre['a67']) ? $aproveitamentoITrimestre['a67'] : '0' }}  </td> <td class="col-1" id="Ta68"> {{  isset($aproveitamentoITrimestre['a68']) ? $aproveitamentoITrimestre['a68'] : '0' }}  </td> <td class="col-1" id="Ta69"> {{ isset($aproveitamentoITrimestre['a69']) ? $aproveitamentoITrimestre['a69'] : '0' }}  </td> <td class="col-1" id="Ta610"> {{  isset($aproveitamentoITrimestre['a610']) ? $aproveitamentoITrimestre['a610'] : '0' }}   </td> <td class="col-1" id="Ta611"> {{  isset($aproveitamentoITrimestre['a611']) ? $aproveitamentoITrimestre['a611'] : '0' }}   </td> <td class="col-1" id="Ta612"> {{ isset($aproveitamentoITrimestre['a612']) ? $aproveitamentoITrimestre['a612'] : '0' }}   </td> <td class="col-1" id="Ta613"> {{   isset($aproveitamentoITrimestre['a613']) ? $aproveitamentoITrimestre['a613'] : '0' }}  </td> <td class="col-1" id="Ta614"> {{   isset($aproveitamentoITrimestre['a614']) ? $aproveitamentoITrimestre['a614'] : '0' }}  </td>
-                                                          </tr>
-                                                          
-                                                        </tbody>
-                                                        <tfoot>
-                                                          <tr class="bg-warning">
-                                                            <th scope="row">Total</th>    <td id="TmatriculadosIAMF"> {{ isset($aproveitamentoITrimestre['matriculadosIAMF']) ? $aproveitamentoITrimestre['matriculadosIAMF'] : '0'}}   </td><td id="TmatriculadosIAF"> {{ isset($aproveitamentoITrimestre['matriculadosIAF']) ? $aproveitamentoITrimestre['matriculadosIAF'] : '0'}}   </td><td id="TmatriculadosFAMF">  {{ isset($aproveitamentoITrimestre['matriculadosFAMF']) ? $aproveitamentoITrimestre['matriculadosFAMF'] : '0'}}   </td><td id="TmatriculadosFAF">  {{ isset($aproveitamentoITrimestre['matriculadosFAF']) ? $aproveitamentoITrimestre['matriculadosFAF'] : '0'}}  </td><td id="TaprovadosMF"> {{ isset($aproveitamentoITrimestre['aprovadosMF']) ? $aproveitamentoITrimestre['aprovadosMF'] : '0'}}    </td><td id="TaprovadosF"> {{ isset($aproveitamentoITrimestre['aprovadosF']) ? $aproveitamentoITrimestre['aprovadosF'] : '0'}}    </td> <td id="TreprovadosMF">  {{ isset($aproveitamentoITrimestre['reprovadosMF']) ? $aproveitamentoITrimestre['reprovadosMF'] : '0'}}   </td> <td id="TreprovadosF"> {{ isset($aproveitamentoITrimestre['reprovadosF']) ? $aproveitamentoITrimestre['reprovadosF'] : '0'}}  </td> <td id="TtransferidosEMF"> {{ isset($aproveitamentoITrimestre['transferidosEMF']) ? $aproveitamentoITrimestre['transferidosEMF'] : '0'}}   </td> <td id="TtransferidosEF"> {{ isset($aproveitamentoITrimestre['transferidosEF']) ? $aproveitamentoITrimestre['transferidosEF'] : '0'}}   </td> <td id="TtransferidosSMF">  {{ isset($aproveitamentoITrimestre['transferidosSMF']) ? $aproveitamentoITrimestre['transferidosSMF'] : '0'}}   </td> <td id="TtransferidosSF">  {{ isset($aproveitamentoITrimestre['transferidosSF']) ? $aproveitamentoITrimestre['transferidosSF'] : '0'}}  </td> <td id="TdesistentesMF">  {{ isset($aproveitamentoITrimestre['desistentesMF']) ? $aproveitamentoITrimestre['desistentesMF'] : '0'}}   </td> <td id="TdesistentesF">  {{ isset($aproveitamentoITrimestre['desistentesF']) ? $aproveitamentoITrimestre['desistentesF'] : '0'}}   </td>
-                                                          </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                  </div>
-                                                </div>
-                                                <div class="card-footer">
+                                                                        <td class="d-none">
+                                                                        <button class="btn btn-warning w-100 m-1" data-toggle="modal" data-target="#addAproveitamento{{ $aproveitamentoI->id }}" >
+                                                                        Editar
+                                                                        </button>
 
-                                                </div>
-                                              </div>
-                                            @else
-                                            <h4 class="text-info"> Não Foram Submetidos Formulário para o I Trimestre. </h4>
-                                            @endif
+                                                                        <div class="modal fade" id="addAproveitamento{{ $aproveitamentoI->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                                      <div class="modal-dialog" role="document">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h6 class="modal-title" id="exampleModalLabel">  Editar Aproveitamento da Classe {{ $aproveitamentoI->classe }} do I Trimestre </h6>
+                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
 
-                                            <!-- /.CardContet -->
-                                        </div>
-                                      <!--/tab-pane-->
-                                      <!--tab-pane-->
-                                        <div class="tab-pane" id="IITrimestre">
-                                            <!-- Formulario II Trimestre -->
-                                            @if (isset($aproveitamentoIITrimestre))
-                                              <div class="card card-primary">
-                                                <div class="card-header">
-                                                  <h3 class="card-title">
-                                                    Aproveitamento escolar do II Trimestre
-                                                  </h3>
-                                                </div>
-                                                <div class="card-body">
-                                                <div class="table-responsive">
-                                                  <table class="table table-hover table-bordered border-secondary table-striped" style="text-align:center;">
-                                                      <thead class="bg-primary">
-                                                        <tr>
-                                                          <th scope="col" rowspan="2" colspan="1" style=" vertical-align:middle" >Alunos</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Matriculados no Início do Ano Lectivo</th><!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Matriculados no Final do Ano Lectivo</th><!--<th scope="col">Matriculados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <!--<th scope="col">Total</th>-->
-                                                        </tr>
-                                                        <tr>
-                                                          <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
-                                                        </tr>
-                                                        <tr>
-                                                          <th scope="col">Classe</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
-                                                        </tr>
-                                                      </thead>
-                                                      <tbody>
-                                                        <tr>
-                                                            <th scope="row">1ª</th>   <td class="col-1" id="Ta11"> {{ isset($aproveitamentoIITrimestre['a11']) ? $aproveitamentoIITrimestre['a11'] : '0' }} </td> <td class="col-1" id="Ta12"> {{  isset($aproveitamentoIITrimestre['a12']) ? $aproveitamentoIITrimestre['a12'] : '0' }}  </td> <td class="col-1" id="Ta13"> {{  isset($aproveitamentoIITrimestre['a13']) ? $aproveitamentoIITrimestre['a13'] : '0' }}  </td> <td class="col-1" id="Ta14"> {{ isset($aproveitamentoIITrimestre['a14']) ? $aproveitamentoIITrimestre['a14'] : '0' }}  </td> <td class="col-1" id="Ta15"> {{   isset($aproveitamentoIITrimestre['a15']) ? $aproveitamentoIITrimestre['a15'] : '0' }}  </td> <td class="col-1" id="Ta16"> {{  isset($aproveitamentoIITrimestre['a16']) ? $aproveitamentoIITrimestre['a16'] : '0' }}  </td> <td class="col-1" id="Ta17"> {{  isset($aproveitamentoIITrimestre['a17']) ? $aproveitamentoIITrimestre['a17'] : '0' }}  </td> <td class="col-1" id="Ta18"> {{ isset($aproveitamentoIITrimestre['a18']) ? $aproveitamentoIITrimestre['a18'] : '0' }}  </td> <td class="col-1" id="Ta19"> {{   isset($aproveitamentoIITrimestre['a19']) ? $aproveitamentoIITrimestre['a19'] : '0' }}  </td> <td class="col-1" id="Ta110"> {{   isset($aproveitamentoIITrimestre['a110']) ? $aproveitamentoIITrimestre['a110'] : '0' }}   </td> <td class="col-1" id="Ta111"> {{  isset($aproveitamentoIITrimestre['a111']) ? $aproveitamentoIITrimestre['a111'] : '0' }}   </td> <td class="col-1" id="Ta112"> {{  isset($aproveitamentoIITrimestre['a112']) ? $aproveitamentoIITrimestre['a112'] : '0' }}   </td> <td class="col-1" id="Ta113"> {{ isset($aproveitamentoIITrimestre['a113']) ? $aproveitamentoIITrimestre['a113'] : '0' }}  </td> <td class="col-1" id="Ta114"> {{  isset($aproveitamentoIITrimestre['a114']) ? $aproveitamentoIITrimestre['a114'] : '0' }}  </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2ª</th>   <td class="col-1" id="Ta21"> {{ isset($aproveitamentoIITrimestre['a21']) ? $aproveitamentoIITrimestre['a21'] : '0' }}  </td> <td class="col-1" id="Ta22"> {{   isset($aproveitamentoIITrimestre['a22']) ? $aproveitamentoIITrimestre['a22'] : '0' }}  </td> <td class="col-1" id="Ta23"> {{  isset($aproveitamentoIITrimestre['a23']) ? $aproveitamentoIITrimestre['a23'] : '0' }}  </td> <td class="col-1" id="Ta24"> {{  isset($aproveitamentoIITrimestre['a24']) ? $aproveitamentoIITrimestre['a24'] : '0' }}  </td> <td class="col-1" id="Ta25"> {{ isset($aproveitamentoIITrimestre['a25']) ? $aproveitamentoIITrimestre['a25'] : '0' }}  </td> <td class="col-1" id="Ta26"> {{   isset($aproveitamentoIITrimestre['a26']) ? $aproveitamentoIITrimestre['a26'] : '0' }}  </td> <td class="col-1" id="Ta27"> {{  isset($aproveitamentoIITrimestre['a27']) ? $aproveitamentoIITrimestre['a27'] : '0' }}  </td> <td class="col-1" id="Ta28"> {{  isset($aproveitamentoIITrimestre['a28']) ? $aproveitamentoIITrimestre['a28'] : '0' }}  </td> <td class="col-1" id="Ta29"> {{ isset($aproveitamentoIITrimestre['a29']) ? $aproveitamentoIITrimestre['a29'] : '0' }}  </td> <td class="col-1" id="Ta210"> {{  isset($aproveitamentoIITrimestre['a210']) ? $aproveitamentoIITrimestre['a210'] : '0' }}   </td> <td class="col-1" id="Ta211"> {{  isset($aproveitamentoIITrimestre['a211']) ? $aproveitamentoIITrimestre['a211'] : '0' }}   </td> <td class="col-1" id="Ta212"> {{ isset($aproveitamentoIITrimestre['a212']) ? $aproveitamentoIITrimestre['a212'] : '0' }}   </td> <td class="col-1" id="Ta213"> {{   isset($aproveitamentoIITrimestre['a213']) ? $aproveitamentoIITrimestre['a213'] : '0' }}  </td> <td class="col-1" id="Ta214"> {{   isset($aproveitamentoIITrimestre['a214']) ? $aproveitamentoIITrimestre['a214'] : '0' }}  </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">3ª</th>   <td class="col-1" id="Ta31"> {{ isset($aproveitamentoIITrimestre['a31']) ? $aproveitamentoIITrimestre['a31'] : '0' }}  </td> <td class="col-1" id="Ta32"> {{   isset($aproveitamentoIITrimestre['a32']) ? $aproveitamentoIITrimestre['a32'] : '0' }}  </td> <td class="col-1" id="Ta33"> {{  isset($aproveitamentoIITrimestre['a33']) ? $aproveitamentoIITrimestre['a33'] : '0' }}  </td> <td class="col-1" id="Ta34"> {{  isset($aproveitamentoIITrimestre['a34']) ? $aproveitamentoIITrimestre['a34'] : '0' }}  </td> <td class="col-1" id="Ta35"> {{ isset($aproveitamentoIITrimestre['a35']) ? $aproveitamentoIITrimestre['a35'] : '0' }}  </td> <td class="col-1" id="Ta36"> {{   isset($aproveitamentoIITrimestre['a36']) ? $aproveitamentoIITrimestre['a36'] : '0' }}  </td> <td class="col-1" id="Ta37"> {{  isset($aproveitamentoIITrimestre['a37']) ? $aproveitamentoIITrimestre['a37'] : '0' }}  </td> <td class="col-1" id="Ta38"> {{  isset($aproveitamentoIITrimestre['a38']) ? $aproveitamentoIITrimestre['a38'] : '0' }}  </td> <td class="col-1" id="Ta39"> {{ isset($aproveitamentoIITrimestre['a39']) ? $aproveitamentoIITrimestre['a39'] : '0' }}  </td> <td class="col-1" id="Ta310"> {{  isset($aproveitamentoIITrimestre['a310']) ? $aproveitamentoIITrimestre['a310'] : '0' }}   </td> <td class="col-1" id="Ta311"> {{  isset($aproveitamentoIITrimestre['a311']) ? $aproveitamentoIITrimestre['a311'] : '0' }}   </td> <td class="col-1" id="Ta312"> {{ isset($aproveitamentoIITrimestre['a312']) ? $aproveitamentoIITrimestre['a312'] : '0' }}   </td> <td class="col-1" id="Ta313"> {{   isset($aproveitamentoIITrimestre['a313']) ? $aproveitamentoIITrimestre['a313'] : '0' }}  </td> <td class="col-1" id="Ta314"> {{   isset($aproveitamentoIITrimestre['a314']) ? $aproveitamentoIITrimestre['a314'] : '0' }}  </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">4ª</th>   <td class="col-1" id="Ta41"> {{ isset($aproveitamentoIITrimestre['a41']) ? $aproveitamentoIITrimestre['a41'] : '0' }}  </td> <td class="col-1" id="Ta42"> {{   isset($aproveitamentoIITrimestre['a42']) ? $aproveitamentoIITrimestre['a42'] : '0' }}  </td> <td class="col-1" id="Ta43"> {{  isset($aproveitamentoIITrimestre['a43']) ? $aproveitamentoIITrimestre['a43'] : '0' }}  </td> <td class="col-1" id="Ta44"> {{  isset($aproveitamentoIITrimestre['a44']) ? $aproveitamentoIITrimestre['a44'] : '0' }}  </td> <td class="col-1" id="Ta45"> {{ isset($aproveitamentoIITrimestre['a45']) ? $aproveitamentoIITrimestre['a45'] : '0' }}  </td> <td class="col-1" id="Ta46"> {{   isset($aproveitamentoIITrimestre['a46']) ? $aproveitamentoIITrimestre['a46'] : '0' }}  </td> <td class="col-1" id="Ta47"> {{  isset($aproveitamentoIITrimestre['a47']) ? $aproveitamentoIITrimestre['a47'] : '0' }}  </td> <td class="col-1" id="Ta48"> {{  isset($aproveitamentoIITrimestre['a48']) ? $aproveitamentoIITrimestre['a48'] : '0' }}  </td> <td class="col-1" id="Ta49"> {{ isset($aproveitamentoIITrimestre['a49']) ? $aproveitamentoIITrimestre['a49'] : '0' }}  </td> <td class="col-1" id="Ta410"> {{  isset($aproveitamentoIITrimestre['a410']) ? $aproveitamentoIITrimestre['a410'] : '0' }}   </td> <td class="col-1" id="Ta411"> {{  isset($aproveitamentoIITrimestre['a411']) ? $aproveitamentoIITrimestre['a411'] : '0' }}   </td> <td class="col-1" id="Ta412"> {{ isset($aproveitamentoIITrimestre['a412']) ? $aproveitamentoIITrimestre['a412'] : '0' }}   </td> <td class="col-1" id="Ta413"> {{   isset($aproveitamentoIITrimestre['a413']) ? $aproveitamentoIITrimestre['a413'] : '0' }}  </td> <td class="col-1" id="Ta414"> {{   isset($aproveitamentoIITrimestre['a414']) ? $aproveitamentoIITrimestre['a414'] : '0' }}  </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">5ª</th>   <td class="col-1" id="Ta51"> {{ isset($aproveitamentoIITrimestre['a51']) ? $aproveitamentoIITrimestre['a51'] : '0' }}  </td> <td class="col-1" id="Ta52"> {{   isset($aproveitamentoIITrimestre['a52']) ? $aproveitamentoIITrimestre['a52'] : '0' }}  </td> <td class="col-1" id="Ta53"> {{  isset($aproveitamentoIITrimestre['a53']) ? $aproveitamentoIITrimestre['a53'] : '0' }}  </td> <td class="col-1" id="Ta54"> {{  isset($aproveitamentoIITrimestre['a54']) ? $aproveitamentoIITrimestre['a54'] : '0' }}  </td> <td class="col-1" id="Ta55"> {{ isset($aproveitamentoIITrimestre['a55']) ? $aproveitamentoIITrimestre['a55'] : '0' }}  </td> <td class="col-1" id="Ta56"> {{   isset($aproveitamentoIITrimestre['a56']) ? $aproveitamentoIITrimestre['a56'] : '0' }}  </td> <td class="col-1" id="Ta57"> {{  isset($aproveitamentoIITrimestre['a57']) ? $aproveitamentoIITrimestre['a57'] : '0' }}  </td> <td class="col-1" id="Ta58"> {{  isset($aproveitamentoIITrimestre['a58']) ? $aproveitamentoIITrimestre['a58'] : '0' }}  </td> <td class="col-1" id="Ta59"> {{ isset($aproveitamentoIITrimestre['a59']) ? $aproveitamentoIITrimestre['a59'] : '0' }}  </td> <td class="col-1" id="Ta510"> {{  isset($aproveitamentoIITrimestre['a510']) ? $aproveitamentoIITrimestre['a510'] : '0' }}   </td> <td class="col-1" id="Ta511"> {{  isset($aproveitamentoIITrimestre['a511']) ? $aproveitamentoIITrimestre['a511'] : '0' }}   </td> <td class="col-1" id="Ta512"> {{ isset($aproveitamentoIITrimestre['a512']) ? $aproveitamentoIITrimestre['a512'] : '0' }}   </td> <td class="col-1" id="Ta513"> {{   isset($aproveitamentoIITrimestre['a513']) ? $aproveitamentoIITrimestre['a513'] : '0' }}  </td> <td class="col-1" id="Ta514"> {{   isset($aproveitamentoIITrimestre['a514']) ? $aproveitamentoIITrimestre['a514'] : '0' }}  </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">6ª</th>   <td class="col-1" id="Ta61"> {{ isset($aproveitamentoIITrimestre['a61']) ? $aproveitamentoIITrimestre['a61'] : '0' }}  </td> <td class="col-1" id="Ta62"> {{   isset($aproveitamentoIITrimestre['a62']) ? $aproveitamentoIITrimestre['a62'] : '0' }}  </td> <td class="col-1" id="Ta63"> {{  isset($aproveitamentoIITrimestre['a63']) ? $aproveitamentoIITrimestre['a63'] : '0' }}  </td> <td class="col-1" id="Ta64"> {{  isset($aproveitamentoIITrimestre['a64']) ? $aproveitamentoIITrimestre['a64'] : '0' }}  </td> <td class="col-1" id="Ta65"> {{ isset($aproveitamentoIITrimestre['a65']) ? $aproveitamentoIITrimestre['a65'] : '0' }}  </td> <td class="col-1" id="Ta66"> {{   isset($aproveitamentoIITrimestre['a66']) ? $aproveitamentoIITrimestre['a66'] : '0' }}  </td> <td class="col-1" id="Ta67"> {{  isset($aproveitamentoIITrimestre['a67']) ? $aproveitamentoIITrimestre['a67'] : '0' }}  </td> <td class="col-1" id="Ta68"> {{  isset($aproveitamentoIITrimestre['a68']) ? $aproveitamentoIITrimestre['a68'] : '0' }}  </td> <td class="col-1" id="Ta69"> {{ isset($aproveitamentoIITrimestre['a69']) ? $aproveitamentoIITrimestre['a69'] : '0' }}  </td> <td class="col-1" id="Ta610"> {{  isset($aproveitamentoIITrimestre['a610']) ? $aproveitamentoIITrimestre['a610'] : '0' }}   </td> <td class="col-1" id="Ta611"> {{  isset($aproveitamentoIITrimestre['a611']) ? $aproveitamentoIITrimestre['a611'] : '0' }}   </td> <td class="col-1" id="Ta612"> {{ isset($aproveitamentoIITrimestre['a612']) ? $aproveitamentoIITrimestre['a612'] : '0' }}   </td> <td class="col-1" id="Ta613"> {{   isset($aproveitamentoIITrimestre['a613']) ? $aproveitamentoIITrimestre['a613'] : '0' }}  </td> <td class="col-1" id="Ta614"> {{   isset($aproveitamentoIITrimestre['a614']) ? $aproveitamentoIITrimestre['a614'] : '0' }}  </td>
-                                                        </tr>
-                                                        
+                                                                                                    <!-- Formulário dentro da modal -->
+                                                                                                    <form class="d-none" method="POST" enctype="multipart/form-data" action="{{ route('store.aproveitamento') }}">
+                                                                                                        @csrf
+                                                                                                        @method('POST')
+                                                                                                        <div class="form-group">
+                                                                                                          <label for="classe">Classe </label>
+                                                                                                          <select name="classe" id="classe" class="form-control" required>
+                                                                                                            <option value="{{ isset($aproveitamentoI->classe) ? $aproveitamentoI->classe : 'Seleccione uma Classe' }}"> {{ isset($aproveitamentoI->classe) ? $aproveitamentoI->classe : 'Seleccione uma Classe' }}</option>
+                                                                                                            <option value="Iniciação">Iniciação</option>
+                                                                                                            <option value="1ª">1ª Classe</option>
+                                                                                                            <option value="2ª">2ª Classe</option>
+                                                                                                            <option value="3ª">3ª Classe</option>
+                                                                                                            <option value="4ª">4ª Classe</option>
+                                                                                                            <option value="5ª">5ª Classe</option>
+                                                                                                            <option value="6ª">6ª Classe</option>
+                                                                                                          </select>
+                                                                                                        </div>
+                                                                                                        <div class="form-group">
+                                                                                                            <label for="matriculadosMF">Matriculados, Masculinos e Femininos no Trimestre </label>
+                                                                                                            <input type="number" name="matriculadosMF" class="form-control" value="{{ isset($aproveitamentoI->matriculadosMF) ? $aproveitamentoI->matriculadosMF : '' }}" required>
+                                                                                                            <label for="matriculadosF">Matriculados, Femininos no Trimestre</label>
+                                                                                                            <input type="number" name="matriculadosF" class="form-control" value="{{ isset($aproveitamentoI->matriculadosF) ? $aproveitamentoI->matriculadosF : '' }}" required>
+                                                                                                        
+                                                                        
+
+                                                                                                            <label for="aprovadosMF">Aprovados, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="aprovadosMF" class="form-control" value="{{ isset($aproveitamentoI->aprovadosMF) ? $aproveitamentoI->aprovadosMF : '' }}" required>
+                                                                                                            <label for="aprovadosF">Aprovados, Femininos</label>
+                                                                                                            <input type="number" name="aprovadosF" class="form-control" value="{{ isset($aproveitamentoI->aprovadosF) ? $aproveitamentoI->aprovadosF : '' }}" required>
+                                                                                                            <label for="reprovadosMF">Reprovados, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="reprovadosMF" class="form-control" value="{{ isset($aproveitamentoI->reprovadosMF) ? $aproveitamentoI->reprovadosMF : '' }}" required>
+                                                                                                            <label for="reprovadosF">Reprovados, Femininos</label>
+                                                                                                            <input type="number" name="reprovadosF" class="form-control" value="{{ isset($aproveitamentoI->reprovadosF) ? $aproveitamentoI->reprovadosF : '' }}" required>
+                                                                                                            <label for="transferidosEMF">Transferidos (Entrada), Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="transferidosEMF" class="form-control" value="{{ isset($aproveitamentoI->transferidosEMF) ? $aproveitamentoI->transferidosEMF : '' }}" required>
+                                                                                                            <label for="transferidosEF">Transferidos (Entrada), Femininos</label>
+                                                                                                            <input type="number" name="transferidosEF" class="form-control" value="{{ isset($aproveitamentoI->transferidosEF) ? $aproveitamentoI->transferidosEF : '' }}" required>
+                                                                                                            
+                                                                                                            <label for="transferidosSMF">Transferidos (Saída), Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="transferidosSMF" class="form-control" value="{{ isset($aproveitamentoI->transferidosSMF) ? $aproveitamentoI->transferidosSMF : '' }}" required>
+                                                                                                            <label for="transferidosSF">Transferidos (Saída), Femininos</label>
+                                                                                                            <input type="number" name="transferidosSF" class="form-control" value="{{ isset($aproveitamentoI->transferidosSF) ? $aproveitamentoI->transferidosSF : '' }}" required>
+
+                                                                                                            <label for="desistentesMF">Desistentes, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="desistentesMF" class="form-control" value="{{ isset($aproveitamentoI->desistentesMF) ? $aproveitamentoI->desistentesMF : '' }}" required>
+                                                                                                            <label for="desistentesF">Desistentes, Femininos</label>
+                                                                                                            <input type="number" name="desistentesF" class="form-control" value="{{ isset($aproveitamentoI->desistentesF) ? $aproveitamentoI->desistentesF : '' }}" required>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                        <div class="form-group">
+                                                                                                          <input type="hidden" name="trimestre" value="I">
+                                                                                                          <input type="hidden" name="anoLectivo" value="{{ date('Y') }}">
+                                                                                                          <input type="hidden" name="idUnidadeOrganica" value="{{ $unidadeOrganicaSelected->id }}">
+                                                                                                          <input type="hidden" name="idFuncionario" value="{{ $funcionarioLogado->id }}">
+                                                                                                        </div>
+                                                                                                        <div class="form-check">
+                                                                                                            <input type="checkbox" name="confirmar" class="form-check-input" required>
+                                                                                                            <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                              <button type="submit" class="btn btn-primary">Inserir Formulário</button>
+                                                                                                        </div>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                      </div>
+                                                                        </div>
+
+                                                                          <form class="d-none" action="{{ route('eliminar.objecto') }}" method="POST" id="deleteForm{{ $aproveitamentoI->id }}">
+                                                                              @csrf
+                                                                              @method('DELETE')
+                                                                              <input type="hidden" name="id" value="{{ $aproveitamentoI->id }}">
+                                                                              <button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar Pessoa?', 'Sim, Deletar!', 'Não, Cancelar!')">Deletar</button>
+                                                                          </form>
+                                                                        </td>
+                                                                    </tr>
+                                                      @endforeach
                                                       </tbody>
                                                       <tfoot>
-                                                        <tr class="bg-warning">
-                                                          <th scope="row">Total</th>    <td id="TmatriculadosIAMF"> {{ isset($aproveitamentoIITrimestre['matriculadosIAMF']) ? $aproveitamentoIITrimestre['matriculadosIAMF'] : '0'}}   </td><td id="TmatriculadosIAF"> {{ isset($aproveitamentoIITrimestre['matriculadosIAF']) ? $aproveitamentoIITrimestre['matriculadosIAF'] : '0'}}   </td><td id="TmatriculadosFAMF">  {{ isset($aproveitamentoIITrimestre['matriculadosFAMF']) ? $aproveitamentoIITrimestre['matriculadosFAMF'] : '0'}}   </td><td id="TmatriculadosFAF">  {{ isset($aproveitamentoIITrimestre['matriculadosFAF']) ? $aproveitamentoIITrimestre['matriculadosFAF'] : '0'}}  </td><td id="TaprovadosMF"> {{ isset($aproveitamentoIITrimestre['aprovadosMF']) ? $aproveitamentoIITrimestre['aprovadosMF'] : '0'}}    </td><td id="TaprovadosF"> {{ isset($aproveitamentoIITrimestre['aprovadosF']) ? $aproveitamentoIITrimestre['aprovadosF'] : '0'}}    </td> <td id="TreprovadosMF">  {{ isset($aproveitamentoIITrimestre['reprovadosMF']) ? $aproveitamentoIITrimestre['reprovadosMF'] : '0'}}   </td> <td id="TreprovadosF"> {{ isset($aproveitamentoIITrimestre['reprovadosF']) ? $aproveitamentoIITrimestre['reprovadosF'] : '0'}}  </td> <td id="TtransferidosEMF"> {{ isset($aproveitamentoIITrimestre['transferidosEMF']) ? $aproveitamentoIITrimestre['transferidosEMF'] : '0'}}   </td> <td id="TtransferidosEF"> {{ isset($aproveitamentoIITrimestre['transferidosEF']) ? $aproveitamentoIITrimestre['transferidosEF'] : '0'}}   </td> <td id="TtransferidosSMF">  {{ isset($aproveitamentoIITrimestre['transferidosSMF']) ? $aproveitamentoIITrimestre['transferidosSMF'] : '0'}}   </td> <td id="TtransferidosSF">  {{ isset($aproveitamentoIITrimestre['transferidosSF']) ? $aproveitamentoIITrimestre['transferidosSF'] : '0'}}  </td> <td id="TdesistentesMF">  {{ isset($aproveitamentoIITrimestre['desistentesMF']) ? $aproveitamentoIITrimestre['desistentesMF'] : '0'}}   </td> <td id="TdesistentesF">  {{ isset($aproveitamentoIITrimestre['desistentesF']) ? $aproveitamentoIITrimestre['desistentesF'] : '0'}}   </td>
-                                                        </tr>
+                                          
+                                                        <thead class="bg-secondary d-none">
+                                                          <tr>
+                                                            <th scope="col" rowspan="3" colspan="1" style=" vertical-align:middle" >Classe</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Incio do Trimestre</th><!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Final do Trimestre</th><!--<th scope="col">Matriculados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <th class="d-none" scope="col" colspan="1" rowspan="3" style="vertical-align: middle;">Opções</th><!--<th scope="col">Total</th>-->
+                                                          </tr>
+                                                          <tr>
+                                                            <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
+                                                          </tr>
+                                                          <tr>
+                                                            <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
+                                                          </tr>
+                                                        </thead>
+
                                                       </tfoot>
-                                                  </table>
-                                                </div>
-                                                </div>
-                                                <div class="card-footer">
+                                                    </table>
+                                                    </div>
+                                                  </div>
+                                                  <div class="card-footer">
+                                                      <button class="btn btn-primary w-100 m-1 d-none" data-toggle="modal" data-target="#addAproveitamentoI" >
+                                                        Inserir
+                                                      </button>
 
-                                                </div>
-                                              </div>
-                                            @else
-                                            <h4 class="text-info"> Não Foram Submetidos Formulário para o II Trimestre. </h4>
-                                            @endif
+                                                      <div class="modal fade" id="addAproveitamentoI" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                          <div class="modal-content">
+                                                                              <div class="modal-header">
+                                                                                  <h6 class="modal-title" id="exampleModalLabel">Formulario de Aproveitamento do I Trimestre do ano Lectivo {{ date('Y') }}</h6>
+                                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                      <span aria-hidden="true">&times;</span>
+                                                                                  </button>
+                                                                              </div>
+                                                                              <div class="modal-body">
 
-                                            <!-- /.CardContet -->
-                             
-                                        </div>
-                                      <!-- /tab-pane -->
-                                      <!--tab-pane -->
+                                                                                  <!-- Formulário dentro da modal -->
+                                                                                  <form method="POST" enctype="multipart/form-data" action="{{ route('store.aproveitamento') }}">
+                                                                                      @csrf
+                                                                                      @method('POST')
+                                                                                      <div class="form-group">
+                                                                                        <label for="classe">Classe </label>
+                                                                                        <select name="classe" id="classe" class="form-control" required>
+                                                                                          <option value="Iniciação">Iniciação</option>
+                                                                                          <option value="1ª">1ª Classe</option>
+                                                                                          <option value="2ª">2ª Classe</option>
+                                                                                          <option value="3ª">3ª Classe</option>
+                                                                                          <option value="4ª">4ª Classe</option>
+                                                                                          <option value="5ª">5ª Classe</option>
+                                                                                          <option value="6ª">6ª Classe</option>
+                                                                                        </select>
+                                                                                      </div>
+                                                                                      <div class="form-group">
+                                                                                          <label for="matriculadosMF">Matriculados, Masculinos e Femininos no Trimestre </label>
+                                                                                          <input type="number" name="matriculadosMF" class="form-control" required>
+                                                                                          <label for="matriculadosF">Matriculados, Femininos no Trimestre</label>
+                                                                                          <input type="number" name="matriculadosF" class="form-control" required>
+                                                                                      
+                                                      
+
+                                                                                          <label for="aprovadosMF">Aprovados, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="aprovadosMF" class="form-control" required>
+                                                                                          <label for="aprovadosF">Aprovados, Femininos</label>
+                                                                                          <input type="number" name="aprovadosF" class="form-control" required>
+                                                                                          <label for="reprovadosMF">Reprovados, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="reprovadosMF" class="form-control" required>
+                                                                                          <label for="reprovadosF">Reprovados, Femininos</label>
+                                                                                          <input type="number" name="reprovadosF" class="form-control" required>
+                                                                                          <label for="transferidosEMF">Transferidos (Entrada), Masculinos e Femininos</label>
+                                                                                          <input type="number" name="transferidosEMF" class="form-control" required>
+                                                                                          <label for="transferidosEF">Transferidos (Entrada), Femininos</label>
+                                                                                          <input type="number" name="transferidosEF" class="form-control" required>
+                                                                                          
+                                                                                          <label for="transferidosSMF">Transferidos (Saída), Masculinos e Femininos</label>
+                                                                                          <input type="number" name="transferidosSMF" class="form-control" required>
+                                                                                          <label for="transferidosSF">Transferidos (Saída), Femininos</label>
+                                                                                          <input type="number" name="transferidosSF" class="form-control" required>
+
+                                                                                          <label for="desistentesMF">Desistentes, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="desistentesMF" class="form-control" required>
+                                                                                          <label for="desistentesF">Desistentes, Femininos</label>
+                                                                                          <input type="number" name="desistentesF" class="form-control" required>
+                                                                                          
+                                                                                      </div>
+                                                                                      <div class="form-group">
+                                                                                        <input type="hidden" name="trimestre" value="I">
+                                                                                        <input type="hidden" name="anoLectivo" value="{{ date('Y') }}">
+                                                                                        <input type="hidden" name="idUnidadeOrganica" value="{{ $unidadeOrganicaSelected->id }}">
+                                                                                        <input type="hidden" name="idFuncionario" value="{{ $funcionarioLogado->id }}">
+                                                                                      </div>
+                                                                                      <div class="form-check">
+                                                                                          <input type="checkbox" name="confirmar" class="form-check-input" required>
+                                                                                          <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
+                                                                                      </div>
+                                                                                      <div class="modal-footer">
+                                                                                            <button type="submit" class="btn btn-primary">Inserir Formulário</button>
+                                                                                      </div>
+                                                                                  </form>
+                                                                              </div>
+                                                                          </div>
+                                                                    </div>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            <!--/ Formulario I  Trimestre -->
+                                          </div>
+                                        <!--/tab-pane-->
+                                        <!--tab-pane-->
+                                          <div class="tab-pane" id="IITrimestre">
+                                              <!-- Formulario II  Trimestre -->
+                                                <div class="card card-primary">
+                                                  <div class="card-header">
+                                                    <h3 class="card-title">
+                                                      Aproveitamento escolar do II Trimestre
+                                                    </h3>
+                                                  </div>
+                                                  <div class="card-body">
+                                                    <div class="table-responsive">
+                                                    <table id="tabelaII" class="table table-bordered table-striped">
+                                            
+                                                        <thead class="bg-secondary">
+                                                          <tr>
+                                                            <th scope="col" rowspan="3" colspan="1" style=" vertical-align:middle" >Classe</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Trimestre</th> <!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <th class="d-none" scope="col" colspan="1" rowspan="3" style="vertical-align: middle;">Opções</th><!--<th scope="col">Total</th>-->
+                                                          </tr>
+                                                          <tr>
+                                                            <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
+                                                          </tr>
+                                                          <tr>
+                                                            <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
+                                                          </tr>
+                                                        </thead>
+                                                
+                                                      <tbody>
+                                                      <!--Gerando a Tabela de forma Dinamica-->
+                                                      @foreach ($aproveitamentosII as $aproveitamentoII)
+                                                      <!--Invocando outro elementos/ Tabelas -->
+                                                  
+                                                                    <tr class="">
+                                                                        <td>{{$aproveitamentoII->classe }}</td>
+                                                                        <td>{{$aproveitamentoII->matriculadosMF }}</td>
+                                                                        <td>{{$aproveitamentoII->matriculadosF }}</td>
+                                                                  
+                                                                        <td>{{$aproveitamentoII->aprovadosMF }}</td>
+                                                                        <td>{{$aproveitamentoII->aprovadosF }}</td>
+                                                                        <td>{{$aproveitamentoII->reprovadosMF }}</td>
+                                                                        <td>{{$aproveitamentoII->reprovadosF }}</td>
+                                                                        <td>{{$aproveitamentoII->transferidosEMF }}</td>
+                                                                        <td>{{$aproveitamentoII->transferidosEF }}</td>
+                                                                        <td>{{$aproveitamentoII->transferidosSMF }}</td>
+                                                                        <td>{{$aproveitamentoII->transferidosSF }}</td>
+                                                                        <td>{{$aproveitamentoII->desistentesMF }}</td>
+                                                                        <td>{{$aproveitamentoII->desistentesF }}</td>
+                                          
+
+                                                                        <td class="d-none">
+                                                                        <button class="btn btn-warning w-100 m-1 d-none" data-toggle="modal" data-target="#addAproveitamento{{ $aproveitamentoII->id }}editar" >
+                                                                        Editar
+                                                                        </button>
+
+                                                                        <div class="modal fade" id="addAproveitamento{{ $aproveitamentoII->id }}editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                                      <div class="modal-dialog" role="document">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h6 class="modal-title" id="exampleModalLabel">  Editar Aproveitamento da Classe {{ $aproveitamentoII->classe }} do II Trimestre da Classe {{ $aproveitamentoII->classe }} do II Trimestre</h6>
+                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+
+                                                                                                    <!-- Formulário dentro da modal -->
+                                                                                                    <form method="POST" enctype="multipart/form-data" action="{{ route('update.aproveitamento', ['id' => $aproveitamentoII->id ]) }}">
+                                                                                                        @csrf
+                                                                                                        @method('POST')
+                                                                                                        <div class="form-group">
+                                                                                                          <label for="classe">Classe </label>
+                                                                                                          <select name="classe" id="classe" class="form-control" required>
+                                                                                                            <option value="{{ isset($aproveitamentoII->classe) ? $aproveitamentoII->classe : 'Seleccione uma Classe' }}"> {{ isset($aproveitamentoII->classe) ? $aproveitamentoII->classe : 'Seleccione uma Classe' }}</option>
+                                                                                                            <option value="Iniciação">Iniciação</option>
+                                                                                                            <option value="1ª">1ª Classe</option>
+                                                                                                            <option value="2ª">2ª Classe</option>
+                                                                                                            <option value="3ª">3ª Classe</option>
+                                                                                                            <option value="4ª">4ª Classe</option>
+                                                                                                            <option value="5ª">5ª Classe</option>
+                                                                                                            <option value="6ª">6ª Classe</option>
+                                                                                                          </select>
+                                                                                                        </div>
+                                                                                                        <div class="form-group">
+                                                                                                            <label for="matriculadosMF">Matriculados, Masculinos e Femininos no Trimestre </label>
+                                                                                                            <input type="number" name="matriculadosMF" class="form-control" value="{{ isset($aproveitamentoII->matriculadosMF) ? $aproveitamentoII->matriculadosMF : '' }}" required>
+                                                                                                            <label for="matriculadosF">Matriculados, Femininos no Trimestre</label>
+                                                                                                            <input type="number" name="matriculadosF" class="form-control" value="{{ isset($aproveitamentoII->matriculadosF) ? $aproveitamentoII->matriculadosF : '' }}" required>
+                                                                                                        
+                                                                        
+
+                                                                                                            <label for="aprovadosMF">Aprovados, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="aprovadosMF" class="form-control" value="{{ isset($aproveitamentoII->aprovadosMF) ? $aproveitamentoII->aprovadosMF : '' }}" required>
+                                                                                                            <label for="aprovadosF">Aprovados, Femininos</label>
+                                                                                                            <input type="number" name="aprovadosF" class="form-control" value="{{ isset($aproveitamentoII->aprovadosF) ? $aproveitamentoII->aprovadosF : '' }}" required>
+                                                                                                            <label for="reprovadosMF">Reprovados, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="reprovadosMF" class="form-control" value="{{ isset($aproveitamentoII->reprovadosMF) ? $aproveitamentoII->reprovadosMF : '' }}" required>
+                                                                                                            <label for="reprovadosF">Reprovados, Femininos</label>
+                                                                                                            <input type="number" name="reprovadosF" class="form-control" value="{{ isset($aproveitamentoII->reprovadosF) ? $aproveitamentoII->reprovadosF : '' }}" required>
+                                                                                                            <label for="transferidosEMF">Transferidos (Entrada), Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="transferidosEMF" class="form-control" value="{{ isset($aproveitamentoII->transferidosEMF) ? $aproveitamentoII->transferidosEMF : '' }}" required>
+                                                                                                            <label for="transferidosEF">Transferidos (Entrada), Femininos</label>
+                                                                                                            <input type="number" name="transferidosEF" class="form-control" value="{{ isset($aproveitamentoII->transferidosEF) ? $aproveitamentoII->transferidosEF : '' }}" required>
+                                                                                                            
+                                                                                                            <label for="transferidosSMF">Transferidos (Saída), Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="transferidosSMF" class="form-control" value="{{ isset($aproveitamentoII->transferidosSMF) ? $aproveitamentoII->transferidosSMF : '' }}" required>
+                                                                                                            <label for="transferidosSF">Transferidos (Saída), Femininos</label>
+                                                                                                            <input type="number" name="transferidosSF" class="form-control" value="{{ isset($aproveitamentoII->transferidosSF) ? $aproveitamentoII->transferidosSF : '' }}" required>
+
+                                                                                                            <label for="desistentesMF">Desistentes, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="desistentesMF" class="form-control" value="{{ isset($aproveitamentoII->desistentesMF) ? $aproveitamentoII->desistentesMF : '' }}" required>
+                                                                                                            <label for="desistentesF">Desistentes, Femininos</label>
+                                                                                                            <input type="number" name="desistentesF" class="form-control" value="{{ isset($aproveitamentoII->desistentesF) ? $aproveitamentoII->desistentesF : '' }}" required>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                        <div class="form-group">
+                                                                                                          <input type="hidden" name="trimestre" value="II">
+                                                                                                          <input type="hidden" name="anoLectivo" value="{{ date('Y') }}">
+                                                                                                          <input type="hidden" name="idUnidadeOrganica" value="{{ $unidadeOrganicaSelected->id }}">
+                                                                                                          <input type="hidden" name="idFuncionario" value="{{ $funcionarioLogado->id }}">
+                                                                                                        </div>
+                                                                                                        <div class="form-check">
+                                                                                                            <input type="checkbox" name="confirmar" class="form-check-input" required>
+                                                                                                            <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                              <button type="submit" class="btn btn-primary">Inserir Formulário</button>
+                                                                                                        </div>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                      </div>
+                                                                        </div>
+
+                                                                          <form class="d-none" action="{{ route('eliminar.objecto') }}" method="POST" id="deleteForm{{ $aproveitamentoII->id }}">
+                                                                              @csrf
+                                                                              @method('DELETE')
+                                                                              <input type="hidden" name="id" value="{{ $aproveitamentoII->id }}">
+                                                                              <button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar Pessoa?', 'Sim, Deletar!', 'Não, Cancelar!')">Deletar</button>
+                                                                          </form>
+                                                                        </td>
+                                                                    </tr>
+                                                      @endforeach
+                                                      </tbody>
+                                                      <tfoot>
+                                          
+                                                        <thead class="bg-secondary d-none">
+                                                          <tr>
+                                                            <th scope="col" rowspan="3" colspan="1" style=" vertical-align:middle" >Classe</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Incio do Trimestre</th><!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Final do Trimestre</th><!--<th scope="col">Matriculados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <th class="d-none" scope="col" colspan="1" rowspan="3" style="vertical-align: middle;">Opções</th><!--<th scope="col">Total</th>-->
+                                                          </tr>
+                                                          <tr>
+                                                            <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
+                                                          </tr>
+                                                          <tr>
+                                                            <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
+                                                          </tr>
+                                                        </thead>
+
+                                                      </tfoot>
+                                                    </table>
+                                                    </div>
+                                                  </div>
+                                                  <div class="card-footer">
+                                                      <button class="btn btn-primary w-100 m-1 d-none" data-toggle="modal" data-target="#addAproveitamentoII" >
+                                                        Inserir
+                                                      </button>
+
+                                                      <div class="modal fade" id="addAproveitamentoII" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                          <div class="modal-content">
+                                                                              <div class="modal-header">
+                                                                                  <h6 class="modal-title" id="exampleModalLabel">Formulario de Aproveitamento do II Trimestre do ano Lectivo {{ date('Y') }}</h6>
+                                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                      <span aria-hidden="true">&times;</span>
+                                                                                  </button>
+                                                                              </div>
+                                                                              <div class="modal-body">
+
+                                                                                  <!-- Formulário dentro da modal -->
+                                                                                  <form method="POST" enctype="multipart/form-data" action="{{ route('store.aproveitamento') }}">
+                                                                                      @csrf
+                                                                                      @method('POST')
+                                                                                      <div class="form-group">
+                                                                                        <label for="classe">Classe </label>
+                                                                                        <select name="classe" id="classe" class="form-control" required>
+                                                                                          <option value="Iniciação">Iniciação</option>
+                                                                                          <option value="1ª">1ª Classe</option>
+                                                                                          <option value="2ª">2ª Classe</option>
+                                                                                          <option value="3ª">3ª Classe</option>
+                                                                                          <option value="4ª">4ª Classe</option>
+                                                                                          <option value="5ª">5ª Classe</option>
+                                                                                          <option value="6ª">6ª Classe</option>
+                                                                                        </select>
+                                                                                      </div>
+                                                                                      <div class="form-group">
+                                                                                          <label for="matriculadosMF">Matriculados, Masculinos e Femininos no Trimestre </label>
+                                                                                          <input type="number" name="matriculadosMF" class="form-control" required>
+                                                                                          <label for="matriculadosF">Matriculados, Femininos no Trimestre</label>
+                                                                                          <input type="number" name="matriculadosF" class="form-control" required>
+                                                                                      
+                                                      
+
+                                                                                          <label for="aprovadosMF">Aprovados, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="aprovadosMF" class="form-control" required>
+                                                                                          <label for="aprovadosF">Aprovados, Femininos</label>
+                                                                                          <input type="number" name="aprovadosF" class="form-control" required>
+                                                                                          <label for="reprovadosMF">Reprovados, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="reprovadosMF" class="form-control" required>
+                                                                                          <label for="reprovadosF">Reprovados, Femininos</label>
+                                                                                          <input type="number" name="reprovadosF" class="form-control" required>
+                                                                                          <label for="transferidosEMF">Transferidos (Entrada), Masculinos e Femininos</label>
+                                                                                          <input type="number" name="transferidosEMF" class="form-control" required>
+                                                                                          <label for="transferidosEF">Transferidos (Entrada), Femininos</label>
+                                                                                          <input type="number" name="transferidosEF" class="form-control" required>
+                                                                                          
+                                                                                          <label for="transferidosSMF">Transferidos (Saída), Masculinos e Femininos</label>
+                                                                                          <input type="number" name="transferidosSMF" class="form-control" required>
+                                                                                          <label for="transferidosSF">Transferidos (Saída), Femininos</label>
+                                                                                          <input type="number" name="transferidosSF" class="form-control" required>
+
+                                                                                          <label for="desistentesMF">Desistentes, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="desistentesMF" class="form-control" required>
+                                                                                          <label for="desistentesF">Desistentes, Femininos</label>
+                                                                                          <input type="number" name="desistentesF" class="form-control" required>
+                                                                                          
+                                                                                      </div>
+                                                                                      <div class="form-group">
+                                                                                        <input type="hidden" name="trimestre" value="II">
+                                                                                        <input type="hidden" name="anoLectivo" value="{{ date('Y') }}">
+                                                                                        <input type="hidden" name="idUnidadeOrganica" value="{{ $unidadeOrganicaSelected->id }}">
+                                                                                        <input type="hidden" name="idFuncionario" value="{{ $funcionarioLogado->id }}">
+                                                                                      </div>
+                                                                                      <div class="form-check">
+                                                                                          <input type="checkbox" name="confirmar" class="form-check-input" required>
+                                                                                          <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
+                                                                                      </div>
+                                                                                      <div class="modal-footer">
+                                                                                            <button type="submit" class="btn btn-primary">Inserir Formulário</button>
+                                                                                      </div>
+                                                                                  </form>
+                                                                              </div>
+                                                                          </div>
+                                                                    </div>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                              <!--/ Formulario I  Trimestre -->
+                                          </div>
+                                        <!-- /tab-pane -->
+                                        <!--tab-pane -->
                                           <div class="tab-pane" id="IIITrimestre">
-                                            <!-- Formulario III  Trimestre -->
-                                            @if (isset($aproveitamentoIIITrimestre))
-                                              <div class="card card-primary">
-                                                <div class="card-header">
-                                                  <h3 class="card-title">
-                                                    Aproveitamento escolar do III Trimestre
-                                                  </h3>
-                                                </div>
-                                                <div class="card-body">
-                                                  <div class="table-responsive">
-                                                    <table class="table table-hover table-bordered border-secondary table-striped" style="text-align:center;">
-                                                        <thead class="bg-primary">
+                                              <!-- Formulario III  Trimestre -->
+                                                <div class="card card-primary">
+                                                  <div class="card-header">
+                                                    <h3 class="card-title">
+                                                      Aproveitamento escolar do III Trimestre
+                                                    </h3>
+                                                  </div>
+                                                  <div class="card-body">
+                                                    <div class="table-responsive">
+                                                    <table id="tabelaIII" class="table table-bordered table-striped">
+                                            
+                                                        <thead class="bg-secondary">
                                                           <tr>
-                                                            <th scope="col" rowspan="2" colspan="1" style=" vertical-align:middle" >Alunos</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Matriculados no Início do Ano Lectivo</th><!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Matriculados no Final do Ano Lectivo</th><!--<th scope="col">Matriculados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <!--<th scope="col">Total</th>-->
+                                                            <th scope="col" rowspan="3" colspan="1" style=" vertical-align:middle" >Classe</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Trimestre</th> <!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <th class="d-none" scope="col" colspan="1" rowspan="3" style="vertical-align: middle;">Opções</th><!--<th scope="col">Total</th>-->
                                                           </tr>
                                                           <tr>
                                                             <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
                                                           </tr>
                                                           <tr>
-                                                            <th scope="col">Classe</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
+                                                            <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
                                                           </tr>
                                                         </thead>
-                                                        <tbody>
+                                                
+                                                      <tbody>
+                                                      <!--Gerando a Tabela de forma Dinamica-->
+                                                      @foreach ($aproveitamentosIII as $aproveitamentoIII)
+                                                      <!--Invocando outro elementos/ Tabelas -->
+                                                  
+                                                                    <tr class="">
+                                                                        <td>{{$aproveitamentoIII->classe }}</td>
+                                                                        <td>{{$aproveitamentoIII->matriculadosMF }}</td>
+                                                                        <td>{{$aproveitamentoIII->matriculadosF }}</td>
+                                                                  
+                                                                        <td>{{$aproveitamentoIII->aprovadosMF }}</td>
+                                                                        <td>{{$aproveitamentoIII->aprovadosF }}</td>
+                                                                        <td>{{$aproveitamentoIII->reprovadosMF }}</td>
+                                                                        <td>{{$aproveitamentoIII->reprovadosF }}</td>
+                                                                        <td>{{$aproveitamentoIII->transferidosEMF }}</td>
+                                                                        <td>{{$aproveitamentoIII->transferidosEF }}</td>
+                                                                        <td>{{$aproveitamentoIII->transferidosSMF }}</td>
+                                                                        <td>{{$aproveitamentoIII->transferidosSF }}</td>
+                                                                        <td>{{$aproveitamentoIII->desistentesMF }}</td>
+                                                                        <td>{{$aproveitamentoIII->desistentesF }}</td>
+                                          
+
+                                                                        <td class="d-none">
+                                                                        <button class="btn btn-warning w-100 m-1" data-toggle="modal" data-target="#addAproveitamento{{ $aproveitamentoIII->id }}editar" >
+                                                                        Editar
+                                                                        </button>
+
+                                                                        <div class="modal fade" id="addAproveitamento{{ $aproveitamentoIII->id }}editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                                      <div class="modal-dialog" role="document">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h6 class="modal-title" id="exampleModalLabel">  Editar Aproveitamento da Classe {{ $aproveitamentoIII->classe }} do III Trimestre da Classe {{ $aproveitamentoIII->classe }} do III Trimestre</h6>
+                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+
+                                                                                                    <!-- Formulário dentro da modal -->
+                                                                                                    <form method="POST" enctype="multipart/form-data" action="{{ route('update.aproveitamento', ['id' => $aproveitamentoIII->id ]) }}">
+                                                                                                        @csrf
+                                                                                                        @method('POST')
+                                                                                                        <div class="form-group">
+                                                                                                          <label for="classe">Classe </label>
+                                                                                                          <select name="classe" id="classe" class="form-control" required>
+                                                                                                            <option value="{{ isset($aproveitamentoIII->classe) ? $aproveitamentoIII->classe : 'Seleccione uma Classe' }}"> {{ isset($aproveitamentoIII->classe) ? $aproveitamentoIII->classe : 'Seleccione uma Classe' }}</option>
+                                                                                                            <option value="Iniciação">Iniciação</option>
+                                                                                                            <option value="1ª">1ª Classe</option>
+                                                                                                            <option value="2ª">2ª Classe</option>
+                                                                                                            <option value="3ª">3ª Classe</option>
+                                                                                                            <option value="4ª">4ª Classe</option>
+                                                                                                            <option value="5ª">5ª Classe</option>
+                                                                                                            <option value="6ª">6ª Classe</option>
+                                                                                                          </select>
+                                                                                                        </div>
+                                                                                                        <div class="form-group">
+                                                                                                            <label for="matriculadosMF">Matriculados, Masculinos e Femininos no Trimestre </label>
+                                                                                                            <input type="number" name="matriculadosMF" class="form-control" value="{{ isset($aproveitamentoIII->matriculadosMF) ? $aproveitamentoIII->matriculadosMF : '' }}" required>
+                                                                                                            <label for="matriculadosF">Matriculados, Femininos no Trimestre</label>
+                                                                                                            <input type="number" name="matriculadosF" class="form-control" value="{{ isset($aproveitamentoIII->matriculadosF) ? $aproveitamentoIII->matriculadosF : '' }}" required>
+                                                                                                        
+                                                                        
+
+                                                                                                            <label for="aprovadosMF">Aprovados, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="aprovadosMF" class="form-control" value="{{ isset($aproveitamentoIII->aprovadosMF) ? $aproveitamentoIII->aprovadosMF : '' }}" required>
+                                                                                                            <label for="aprovadosF">Aprovados, Femininos</label>
+                                                                                                            <input type="number" name="aprovadosF" class="form-control" value="{{ isset($aproveitamentoIII->aprovadosF) ? $aproveitamentoIII->aprovadosF : '' }}" required>
+                                                                                                            <label for="reprovadosMF">Reprovados, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="reprovadosMF" class="form-control" value="{{ isset($aproveitamentoIII->reprovadosMF) ? $aproveitamentoIII->reprovadosMF : '' }}" required>
+                                                                                                            <label for="reprovadosF">Reprovados, Femininos</label>
+                                                                                                            <input type="number" name="reprovadosF" class="form-control" value="{{ isset($aproveitamentoIII->reprovadosF) ? $aproveitamentoIII->reprovadosF : '' }}" required>
+                                                                                                            <label for="transferidosEMF">Transferidos (Entrada), Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="transferidosEMF" class="form-control" value="{{ isset($aproveitamentoIII->transferidosEMF) ? $aproveitamentoIII->transferidosEMF : '' }}" required>
+                                                                                                            <label for="transferidosEF">Transferidos (Entrada), Femininos</label>
+                                                                                                            <input type="number" name="transferidosEF" class="form-control" value="{{ isset($aproveitamentoIII->transferidosEF) ? $aproveitamentoIII->transferidosEF : '' }}" required>
+                                                                                                            
+                                                                                                            <label for="transferidosSMF">Transferidos (Saída), Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="transferidosSMF" class="form-control" value="{{ isset($aproveitamentoIII->transferidosSMF) ? $aproveitamentoIII->transferidosSMF : '' }}" required>
+                                                                                                            <label for="transferidosSF">Transferidos (Saída), Femininos</label>
+                                                                                                            <input type="number" name="transferidosSF" class="form-control" value="{{ isset($aproveitamentoIII->transferidosSF) ? $aproveitamentoIII->transferidosSF : '' }}" required>
+
+                                                                                                            <label for="desistentesMF">Desistentes, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="desistentesMF" class="form-control" value="{{ isset($aproveitamentoIII->desistentesMF) ? $aproveitamentoIII->desistentesMF : '' }}" required>
+                                                                                                            <label for="desistentesF">Desistentes, Femininos</label>
+                                                                                                            <input type="number" name="desistentesF" class="form-control" value="{{ isset($aproveitamentoIII->desistentesF) ? $aproveitamentoIII->desistentesF : '' }}" required>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                        <div class="form-group">
+                                                                                                          <input type="hidden" name="trimestre" value="III">
+                                                                                                          <input type="hidden" name="anoLectivo" value="{{ date('Y') }}">
+                                                                                                          <input type="hidden" name="idUnidadeOrganica" value="{{ $unidadeOrganicaSelected->id }}">
+                                                                                                          <input type="hidden" name="idFuncionario" value="{{ $funcionarioLogado->id }}">
+                                                                                                        </div>
+                                                                                                        <div class="form-check">
+                                                                                                            <input type="checkbox" name="confirmar" class="form-check-input" required>
+                                                                                                            <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                              <button type="submit" class="btn btn-primary">Inserir Formulário</button>
+                                                                                                        </div>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                      </div>
+                                                                        </div>
+
+                                                                          <form class="d-none" action="{{ route('eliminar.objecto') }}" method="POST" id="deleteForm{{ $aproveitamentoIII->id }}">
+                                                                              @csrf
+                                                                              @method('DELETE')
+                                                                              <input type="hidden" name="id" value="{{ $aproveitamentoIII->id }}">
+                                                                              <button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar Pessoa?', 'Sim, Deletar!', 'Não, Cancelar!')">Deletar</button>
+                                                                          </form>
+                                                                        </td>
+                                                                    </tr>
+                                                      @endforeach
+                                                      </tbody>
+                                                      <tfoot>
+                                          
+                                                        <thead class="bg-secondary d-none">
                                                           <tr>
-                                                              <th scope="row">1ª</th>   <td class="col-1" id="Ta11"> {{ isset($aproveitamentoIIITrimestre['a11']) ? $aproveitamentoIIITrimestre['a11'] : '0' }} </td> <td class="col-1" id="Ta12"> {{  isset($aproveitamentoIIITrimestre['a12']) ? $aproveitamentoIIITrimestre['a12'] : '0' }}  </td> <td class="col-1" id="Ta13"> {{  isset($aproveitamentoIIITrimestre['a13']) ? $aproveitamentoIIITrimestre['a13'] : '0' }}  </td> <td class="col-1" id="Ta14"> {{ isset($aproveitamentoIIITrimestre['a14']) ? $aproveitamentoIIITrimestre['a14'] : '0' }}  </td> <td class="col-1" id="Ta15"> {{   isset($aproveitamentoIIITrimestre['a15']) ? $aproveitamentoIIITrimestre['a15'] : '0' }}  </td> <td class="col-1" id="Ta16"> {{  isset($aproveitamentoIIITrimestre['a16']) ? $aproveitamentoIIITrimestre['a16'] : '0' }}  </td> <td class="col-1" id="Ta17"> {{  isset($aproveitamentoIIITrimestre['a17']) ? $aproveitamentoIIITrimestre['a17'] : '0' }}  </td> <td class="col-1" id="Ta18"> {{ isset($aproveitamentoIIITrimestre['a18']) ? $aproveitamentoIIITrimestre['a18'] : '0' }}  </td> <td class="col-1" id="Ta19"> {{   isset($aproveitamentoIIITrimestre['a19']) ? $aproveitamentoIIITrimestre['a19'] : '0' }}  </td> <td class="col-1" id="Ta110"> {{   isset($aproveitamentoIIITrimestre['a110']) ? $aproveitamentoIIITrimestre['a110'] : '0' }}   </td> <td class="col-1" id="Ta111"> {{  isset($aproveitamentoIIITrimestre['a111']) ? $aproveitamentoIIITrimestre['a111'] : '0' }}   </td> <td class="col-1" id="Ta112"> {{  isset($aproveitamentoIIITrimestre['a112']) ? $aproveitamentoIIITrimestre['a112'] : '0' }}   </td> <td class="col-1" id="Ta113"> {{ isset($aproveitamentoIIITrimestre['a113']) ? $aproveitamentoIIITrimestre['a113'] : '0' }}  </td> <td class="col-1" id="Ta114"> {{  isset($aproveitamentoIIITrimestre['a114']) ? $aproveitamentoIIITrimestre['a114'] : '0' }}  </td>
+                                                            <th scope="col" rowspan="3" colspan="1" style=" vertical-align:middle" >Classe</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Incio do Trimestre</th><!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Final do Trimestre</th><!--<th scope="col">Matriculados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <th class="d-none" scope="col" colspan="1" rowspan="3" style="vertical-align: middle;">Opções</th><!--<th scope="col">Total</th>-->
                                                           </tr>
                                                           <tr>
-                                                              <th scope="row">2ª</th>   <td class="col-1" id="Ta21"> {{ isset($aproveitamentoIIITrimestre['a21']) ? $aproveitamentoIIITrimestre['a21'] : '0' }}  </td> <td class="col-1" id="Ta22"> {{   isset($aproveitamentoIIITrimestre['a22']) ? $aproveitamentoIIITrimestre['a22'] : '0' }}  </td> <td class="col-1" id="Ta23"> {{  isset($aproveitamentoIIITrimestre['a23']) ? $aproveitamentoIIITrimestre['a23'] : '0' }}  </td> <td class="col-1" id="Ta24"> {{  isset($aproveitamentoIIITrimestre['a24']) ? $aproveitamentoIIITrimestre['a24'] : '0' }}  </td> <td class="col-1" id="Ta25"> {{ isset($aproveitamentoIIITrimestre['a25']) ? $aproveitamentoIIITrimestre['a25'] : '0' }}  </td> <td class="col-1" id="Ta26"> {{   isset($aproveitamentoIIITrimestre['a26']) ? $aproveitamentoIIITrimestre['a26'] : '0' }}  </td> <td class="col-1" id="Ta27"> {{  isset($aproveitamentoIIITrimestre['a27']) ? $aproveitamentoIIITrimestre['a27'] : '0' }}  </td> <td class="col-1" id="Ta28"> {{  isset($aproveitamentoIIITrimestre['a28']) ? $aproveitamentoIIITrimestre['a28'] : '0' }}  </td> <td class="col-1" id="Ta29"> {{ isset($aproveitamentoIIITrimestre['a29']) ? $aproveitamentoIIITrimestre['a29'] : '0' }}  </td> <td class="col-1" id="Ta210"> {{  isset($aproveitamentoIIITrimestre['a210']) ? $aproveitamentoIIITrimestre['a210'] : '0' }}   </td> <td class="col-1" id="Ta211"> {{  isset($aproveitamentoIIITrimestre['a211']) ? $aproveitamentoIIITrimestre['a211'] : '0' }}   </td> <td class="col-1" id="Ta212"> {{ isset($aproveitamentoIIITrimestre['a212']) ? $aproveitamentoIIITrimestre['a212'] : '0' }}   </td> <td class="col-1" id="Ta213"> {{   isset($aproveitamentoIIITrimestre['a213']) ? $aproveitamentoIIITrimestre['a213'] : '0' }}  </td> <td class="col-1" id="Ta214"> {{   isset($aproveitamentoIIITrimestre['a214']) ? $aproveitamentoIIITrimestre['a214'] : '0' }}  </td>
+                                                            <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
                                                           </tr>
                                                           <tr>
-                                                              <th scope="row">3ª</th>   <td class="col-1" id="Ta31"> {{ isset($aproveitamentoIIITrimestre['a31']) ? $aproveitamentoIIITrimestre['a31'] : '0' }}  </td> <td class="col-1" id="Ta32"> {{   isset($aproveitamentoIIITrimestre['a32']) ? $aproveitamentoIIITrimestre['a32'] : '0' }}  </td> <td class="col-1" id="Ta33"> {{  isset($aproveitamentoIIITrimestre['a33']) ? $aproveitamentoIIITrimestre['a33'] : '0' }}  </td> <td class="col-1" id="Ta34"> {{  isset($aproveitamentoIIITrimestre['a34']) ? $aproveitamentoIIITrimestre['a34'] : '0' }}  </td> <td class="col-1" id="Ta35"> {{ isset($aproveitamentoIIITrimestre['a35']) ? $aproveitamentoIIITrimestre['a35'] : '0' }}  </td> <td class="col-1" id="Ta36"> {{   isset($aproveitamentoIIITrimestre['a36']) ? $aproveitamentoIIITrimestre['a36'] : '0' }}  </td> <td class="col-1" id="Ta37"> {{  isset($aproveitamentoIIITrimestre['a37']) ? $aproveitamentoIIITrimestre['a37'] : '0' }}  </td> <td class="col-1" id="Ta38"> {{  isset($aproveitamentoIIITrimestre['a38']) ? $aproveitamentoIIITrimestre['a38'] : '0' }}  </td> <td class="col-1" id="Ta39"> {{ isset($aproveitamentoIIITrimestre['a39']) ? $aproveitamentoIIITrimestre['a39'] : '0' }}  </td> <td class="col-1" id="Ta310"> {{  isset($aproveitamentoIIITrimestre['a310']) ? $aproveitamentoIIITrimestre['a310'] : '0' }}   </td> <td class="col-1" id="Ta311"> {{  isset($aproveitamentoIIITrimestre['a311']) ? $aproveitamentoIIITrimestre['a311'] : '0' }}   </td> <td class="col-1" id="Ta312"> {{ isset($aproveitamentoIIITrimestre['a312']) ? $aproveitamentoIIITrimestre['a312'] : '0' }}   </td> <td class="col-1" id="Ta313"> {{   isset($aproveitamentoIIITrimestre['a313']) ? $aproveitamentoIIITrimestre['a313'] : '0' }}  </td> <td class="col-1" id="Ta314"> {{   isset($aproveitamentoIIITrimestre['a314']) ? $aproveitamentoIIITrimestre['a314'] : '0' }}  </td>
+                                                            <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
                                                           </tr>
-                                                          <tr>
-                                                              <th scope="row">4ª</th>   <td class="col-1" id="Ta41"> {{ isset($aproveitamentoIIITrimestre['a41']) ? $aproveitamentoIIITrimestre['a41'] : '0' }}  </td> <td class="col-1" id="Ta42"> {{   isset($aproveitamentoIIITrimestre['a42']) ? $aproveitamentoIIITrimestre['a42'] : '0' }}  </td> <td class="col-1" id="Ta43"> {{  isset($aproveitamentoIIITrimestre['a43']) ? $aproveitamentoIIITrimestre['a43'] : '0' }}  </td> <td class="col-1" id="Ta44"> {{  isset($aproveitamentoIIITrimestre['a44']) ? $aproveitamentoIIITrimestre['a44'] : '0' }}  </td> <td class="col-1" id="Ta45"> {{ isset($aproveitamentoIIITrimestre['a45']) ? $aproveitamentoIIITrimestre['a45'] : '0' }}  </td> <td class="col-1" id="Ta46"> {{   isset($aproveitamentoIIITrimestre['a46']) ? $aproveitamentoIIITrimestre['a46'] : '0' }}  </td> <td class="col-1" id="Ta47"> {{  isset($aproveitamentoIIITrimestre['a47']) ? $aproveitamentoIIITrimestre['a47'] : '0' }}  </td> <td class="col-1" id="Ta48"> {{  isset($aproveitamentoIIITrimestre['a48']) ? $aproveitamentoIIITrimestre['a48'] : '0' }}  </td> <td class="col-1" id="Ta49"> {{ isset($aproveitamentoIIITrimestre['a49']) ? $aproveitamentoIIITrimestre['a49'] : '0' }}  </td> <td class="col-1" id="Ta410"> {{  isset($aproveitamentoIIITrimestre['a410']) ? $aproveitamentoIIITrimestre['a410'] : '0' }}   </td> <td class="col-1" id="Ta411"> {{  isset($aproveitamentoIIITrimestre['a411']) ? $aproveitamentoIIITrimestre['a411'] : '0' }}   </td> <td class="col-1" id="Ta412"> {{ isset($aproveitamentoIIITrimestre['a412']) ? $aproveitamentoIIITrimestre['a412'] : '0' }}   </td> <td class="col-1" id="Ta413"> {{   isset($aproveitamentoIIITrimestre['a413']) ? $aproveitamentoIIITrimestre['a413'] : '0' }}  </td> <td class="col-1" id="Ta414"> {{   isset($aproveitamentoIIITrimestre['a414']) ? $aproveitamentoIIITrimestre['a414'] : '0' }}  </td>
-                                                          </tr>
-                                                          <tr>
-                                                              <th scope="row">5ª</th>   <td class="col-1" id="Ta51"> {{ isset($aproveitamentoIIITrimestre['a51']) ? $aproveitamentoIIITrimestre['a51'] : '0' }}  </td> <td class="col-1" id="Ta52"> {{   isset($aproveitamentoIIITrimestre['a52']) ? $aproveitamentoIIITrimestre['a52'] : '0' }}  </td> <td class="col-1" id="Ta53"> {{  isset($aproveitamentoIIITrimestre['a53']) ? $aproveitamentoIIITrimestre['a53'] : '0' }}  </td> <td class="col-1" id="Ta54"> {{  isset($aproveitamentoIIITrimestre['a54']) ? $aproveitamentoIIITrimestre['a54'] : '0' }}  </td> <td class="col-1" id="Ta55"> {{ isset($aproveitamentoIIITrimestre['a55']) ? $aproveitamentoIIITrimestre['a55'] : '0' }}  </td> <td class="col-1" id="Ta56"> {{   isset($aproveitamentoIIITrimestre['a56']) ? $aproveitamentoIIITrimestre['a56'] : '0' }}  </td> <td class="col-1" id="Ta57"> {{  isset($aproveitamentoIIITrimestre['a57']) ? $aproveitamentoIIITrimestre['a57'] : '0' }}  </td> <td class="col-1" id="Ta58"> {{  isset($aproveitamentoIIITrimestre['a58']) ? $aproveitamentoIIITrimestre['a58'] : '0' }}  </td> <td class="col-1" id="Ta59"> {{ isset($aproveitamentoIIITrimestre['a59']) ? $aproveitamentoIIITrimestre['a59'] : '0' }}  </td> <td class="col-1" id="Ta510"> {{  isset($aproveitamentoIIITrimestre['a510']) ? $aproveitamentoIIITrimestre['a510'] : '0' }}   </td> <td class="col-1" id="Ta511"> {{  isset($aproveitamentoIIITrimestre['a511']) ? $aproveitamentoIIITrimestre['a511'] : '0' }}   </td> <td class="col-1" id="Ta512"> {{ isset($aproveitamentoIIITrimestre['a512']) ? $aproveitamentoIIITrimestre['a512'] : '0' }}   </td> <td class="col-1" id="Ta513"> {{   isset($aproveitamentoIIITrimestre['a513']) ? $aproveitamentoIIITrimestre['a513'] : '0' }}  </td> <td class="col-1" id="Ta514"> {{   isset($aproveitamentoIIITrimestre['a514']) ? $aproveitamentoIIITrimestre['a514'] : '0' }}  </td>
-                                                          </tr>
-                                                          <tr>
-                                                              <th scope="row">6ª</th>   <td class="col-1" id="Ta61"> {{ isset($aproveitamentoIIITrimestre['a61']) ? $aproveitamentoIIITrimestre['a61'] : '0' }}  </td> <td class="col-1" id="Ta62"> {{   isset($aproveitamentoIIITrimestre['a62']) ? $aproveitamentoIIITrimestre['a62'] : '0' }}  </td> <td class="col-1" id="Ta63"> {{  isset($aproveitamentoIIITrimestre['a63']) ? $aproveitamentoIIITrimestre['a63'] : '0' }}  </td> <td class="col-1" id="Ta64"> {{  isset($aproveitamentoIIITrimestre['a64']) ? $aproveitamentoIIITrimestre['a64'] : '0' }}  </td> <td class="col-1" id="Ta65"> {{ isset($aproveitamentoIIITrimestre['a65']) ? $aproveitamentoIIITrimestre['a65'] : '0' }}  </td> <td class="col-1" id="Ta66"> {{   isset($aproveitamentoIIITrimestre['a66']) ? $aproveitamentoIIITrimestre['a66'] : '0' }}  </td> <td class="col-1" id="Ta67"> {{  isset($aproveitamentoIIITrimestre['a67']) ? $aproveitamentoIIITrimestre['a67'] : '0' }}  </td> <td class="col-1" id="Ta68"> {{  isset($aproveitamentoIIITrimestre['a68']) ? $aproveitamentoIIITrimestre['a68'] : '0' }}  </td> <td class="col-1" id="Ta69"> {{ isset($aproveitamentoIIITrimestre['a69']) ? $aproveitamentoIIITrimestre['a69'] : '0' }}  </td> <td class="col-1" id="Ta610"> {{  isset($aproveitamentoIIITrimestre['a610']) ? $aproveitamentoIIITrimestre['a610'] : '0' }}   </td> <td class="col-1" id="Ta611"> {{  isset($aproveitamentoIIITrimestre['a611']) ? $aproveitamentoIIITrimestre['a611'] : '0' }}   </td> <td class="col-1" id="Ta612"> {{ isset($aproveitamentoIIITrimestre['a612']) ? $aproveitamentoIIITrimestre['a612'] : '0' }}   </td> <td class="col-1" id="Ta613"> {{   isset($aproveitamentoIIITrimestre['a613']) ? $aproveitamentoIIITrimestre['a613'] : '0' }}  </td> <td class="col-1" id="Ta614"> {{   isset($aproveitamentoIIITrimestre['a614']) ? $aproveitamentoIIITrimestre['a614'] : '0' }}  </td>
-                                                          </tr>
-                                                          
-                                                        </tbody>
-                                                        <tfoot>
-                                                          <tr class="bg-warning">
-                                                            <th scope="row">Total</th>    <td id="TmatriculadosIAMF"> {{ isset($aproveitamentoIIITrimestre['matriculadosIAMF']) ? $aproveitamentoIIITrimestre['matriculadosIAMF'] : '0'}}   </td><td id="TmatriculadosIAF"> {{ isset($aproveitamentoIIITrimestre['matriculadosIAF']) ? $aproveitamentoIIITrimestre['matriculadosIAF'] : '0'}}   </td><td id="TmatriculadosFAMF">  {{ isset($aproveitamentoIIITrimestre['matriculadosFAMF']) ? $aproveitamentoIIITrimestre['matriculadosFAMF'] : '0'}}   </td><td id="TmatriculadosFAF">  {{ isset($aproveitamentoIIITrimestre['matriculadosFAF']) ? $aproveitamentoIIITrimestre['matriculadosFAF'] : '0'}}  </td><td id="TaprovadosMF"> {{ isset($aproveitamentoIIITrimestre['aprovadosMF']) ? $aproveitamentoIIITrimestre['aprovadosMF'] : '0'}}    </td><td id="TaprovadosF"> {{ isset($aproveitamentoIIITrimestre['aprovadosF']) ? $aproveitamentoIIITrimestre['aprovadosF'] : '0'}}    </td> <td id="TreprovadosMF">  {{ isset($aproveitamentoIIITrimestre['reprovadosMF']) ? $aproveitamentoIIITrimestre['reprovadosMF'] : '0'}}   </td> <td id="TreprovadosF"> {{ isset($aproveitamentoIIITrimestre['reprovadosF']) ? $aproveitamentoIIITrimestre['reprovadosF'] : '0'}}  </td> <td id="TtransferidosEMF"> {{ isset($aproveitamentoIIITrimestre['transferidosEMF']) ? $aproveitamentoIIITrimestre['transferidosEMF'] : '0'}}   </td> <td id="TtransferidosEF"> {{ isset($aproveitamentoIIITrimestre['transferidosEF']) ? $aproveitamentoIIITrimestre['transferidosEF'] : '0'}}   </td> <td id="TtransferidosSMF">  {{ isset($aproveitamentoIIITrimestre['transferidosSMF']) ? $aproveitamentoIIITrimestre['transferidosSMF'] : '0'}}   </td> <td id="TtransferidosSF">  {{ isset($aproveitamentoIIITrimestre['transferidosSF']) ? $aproveitamentoIIITrimestre['transferidosSF'] : '0'}}  </td> <td id="TdesistentesMF">  {{ isset($aproveitamentoIIITrimestre['desistentesMF']) ? $aproveitamentoIIITrimestre['desistentesMF'] : '0'}}   </td> <td id="TdesistentesF">  {{ isset($aproveitamentoIIITrimestre['desistentesF']) ? $aproveitamentoIIITrimestre['desistentesF'] : '0'}}   </td>
-                                                          </tr>
-                                                        </tfoot>
+                                                        </thead>
+
+                                                      </tfoot>
                                                     </table>
+                                                    </div>
+                                                  </div>
+                                                  <div class="card-footer">
+                                                      <button class="btn btn-primary w-100 m-1 d-none" data-toggle="modal" data-target="#addAproveitamentoIII" >
+                                                        Inserir
+                                                      </button>
+
+                                                      <div class="modal fade" id="addAproveitamentoIII" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                          <div class="modal-content">
+                                                                              <div class="modal-header">
+                                                                                  <h6 class="modal-title" id="exampleModalLabel">Formulario de Aproveitamento do III Trimestre do ano Lectivo {{ date('Y') }}</h6>
+                                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                      <span aria-hidden="true">&times;</span>
+                                                                                  </button>
+                                                                              </div>
+                                                                              <div class="modal-body">
+
+                                                                                  <!-- Formulário dentro da modal -->
+                                                                                  <form method="POST" enctype="multipart/form-data" action="{{ route('store.aproveitamento') }}">
+                                                                                      @csrf
+                                                                                      @method('POST')
+                                                                                      <div class="form-group">
+                                                                                        <label for="classe">Classe </label>
+                                                                                        <select name="classe" id="classe" class="form-control" required>
+                                                                                          <option value="Iniciação">Iniciação</option>
+                                                                                          <option value="1ª">1ª Classe</option>
+                                                                                          <option value="2ª">2ª Classe</option>
+                                                                                          <option value="3ª">3ª Classe</option>
+                                                                                          <option value="4ª">4ª Classe</option>
+                                                                                          <option value="5ª">5ª Classe</option>
+                                                                                          <option value="6ª">6ª Classe</option>
+                                                                                        </select>
+                                                                                      </div>
+                                                                                      <div class="form-group">
+                                                                                          <label for="matriculadosMF">Matriculados, Masculinos e Femininos no Trimestre </label>
+                                                                                          <input type="number" name="matriculadosMF" class="form-control" required>
+                                                                                          <label for="matriculadosF">Matriculados, Femininos no Trimestre</label>
+                                                                                          <input type="number" name="matriculadosF" class="form-control" required>
+                                                                                      
+                                                      
+
+                                                                                          <label for="aprovadosMF">Aprovados, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="aprovadosMF" class="form-control" required>
+                                                                                          <label for="aprovadosF">Aprovados, Femininos</label>
+                                                                                          <input type="number" name="aprovadosF" class="form-control" required>
+                                                                                          <label for="reprovadosMF">Reprovados, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="reprovadosMF" class="form-control" required>
+                                                                                          <label for="reprovadosF">Reprovados, Femininos</label>
+                                                                                          <input type="number" name="reprovadosF" class="form-control" required>
+                                                                                          <label for="transferidosEMF">Transferidos (Entrada), Masculinos e Femininos</label>
+                                                                                          <input type="number" name="transferidosEMF" class="form-control" required>
+                                                                                          <label for="transferidosEF">Transferidos (Entrada), Femininos</label>
+                                                                                          <input type="number" name="transferidosEF" class="form-control" required>
+                                                                                          
+                                                                                          <label for="transferidosSMF">Transferidos (Saída), Masculinos e Femininos</label>
+                                                                                          <input type="number" name="transferidosSMF" class="form-control" required>
+                                                                                          <label for="transferidosSF">Transferidos (Saída), Femininos</label>
+                                                                                          <input type="number" name="transferidosSF" class="form-control" required>
+
+                                                                                          <label for="desistentesMF">Desistentes, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="desistentesMF" class="form-control" required>
+                                                                                          <label for="desistentesF">Desistentes, Femininos</label>
+                                                                                          <input type="number" name="desistentesF" class="form-control" required>
+                                                                                          
+                                                                                      </div>
+                                                                                      <div class="form-group">
+                                                                                        <input type="hidden" name="trimestre" value="III">
+                                                                                        <input type="hidden" name="anoLectivo" value="{{ date('Y') }}">
+                                                                                        <input type="hidden" name="idUnidadeOrganica" value="{{ $unidadeOrganicaSelected->id }}">
+                                                                                        <input type="hidden" name="idFuncionario" value="{{ $funcionarioLogado->id }}">
+                                                                                      </div>
+                                                                                      <div class="form-check">
+                                                                                          <input type="checkbox" name="confirmar" class="form-check-input" required>
+                                                                                          <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
+                                                                                      </div>
+                                                                                      <div class="modal-footer">
+                                                                                            <button type="submit" class="btn btn-primary">Inserir Formulário</button>
+                                                                                      </div>
+                                                                                  </form>
+                                                                              </div>
+                                                                          </div>
+                                                                    </div>
+                                                      </div>
                                                   </div>
                                                 </div>
-                                                <div class="card-footer">
-
-                                                </div>
-                                              </div>
-                                            @else
-                                            <h4 class="text-info"> Não Foram Submetidos Formulário para o III Trimestre. </h4>
-                                            @endif                                    
-                                       
-                                           
-
-                                            <!-- /.CardContet -->
-                                        
+                                              <!--/ Formulario I  Trimestre -->
                                           </div>
-                                      <!-- /tab-pane -->
-                                            <!--tab-pane -->
+                                        <!-- /tab-pane -->
+                                        <!--tab-pane -->
                                           <div class="tab-pane" id="Final">
-                                            <!-- Formulario Ginal -->
-                                            @if (isset($aproveitamentoFinal))
-                                              <div class="card card-primary">
-                                                <div class="card-header">
-                                                  <h3 class="card-title">
-                                                    Aproveitamento escolar Final
-                                                  </h3>
-                                                </div>
-                                                <div class="card-body">
-                                                  <div class="table-responsive">
-                                                    <table class="table table-hover table-bordered border-secondary table-striped" style="text-align:center;">
-                                                        <thead class="bg-primary">
+                                              <!-- Formulario II  Trimestre -->
+                                                <div class="card card-primary">
+                                                  <div class="card-header">
+                                                    <h3 class="card-title">
+                                                      Aproveitamento escolar do Final Trimestre
+                                                    </h3>
+                                                  </div>
+                                                  <div class="card-body">
+                                                    <div class="table-responsive">
+                                                    <table id="tabelaFinal" class="table table-bordered table-striped">
+                                            
+                                                        <thead class="bg-secondary">
                                                           <tr>
-                                                            <th scope="col" rowspan="2" colspan="1" style=" vertical-align:middle" >Alunos</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Matriculados no Início do Ano Lectivo</th><!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Matriculados no Final do Ano Lectivo</th><!--<th scope="col">Matriculados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <!--<th scope="col">Total</th>-->
+                                                            <th scope="col" rowspan="3" colspan="1" style=" vertical-align:middle" >Classe</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Trimestre</th> <!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <th scope="col" colspan="1" rowspan="3" style="vertical-align: middle;" class="d-none">Opções</th><!--<th scope="col">Total</th>-->
                                                           </tr>
                                                           <tr>
                                                             <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
                                                           </tr>
                                                           <tr>
-                                                            <th scope="col">Classe</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
+                                                            <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
                                                           </tr>
                                                         </thead>
-                                                        <tbody>
+                                                
+                                                      <tbody>
+                                                      <!--Gerando a Tabela de forma Dinamica-->
+                                                      @foreach ($aproveitamentosFinal as $aproveitamentoFinal)
+                                                      <!--Invocando outro elementos/ Tabelas -->
+                                                  
+                                                                    <tr class="">
+                                                                        <td>{{$aproveitamentoFinal->classe }}</td>
+                                                                        <td>{{$aproveitamentoFinal->matriculadosMF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->matriculadosF }}</td>
+                                                                  
+                                                                        <td>{{$aproveitamentoFinal->aprovadosMF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->aprovadosF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->reprovadosMF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->reprovadosF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->transferidosEMF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->transferidosEF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->transferidosSMF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->transferidosSF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->desistentesMF }}</td>
+                                                                        <td>{{$aproveitamentoFinal->desistentesF }}</td>
+                                          
+
+                                                                        <td class="d-none">
+                                                                        <button class="btn btn-warning w-100 m-1" data-toggle="modal" data-target="#addAproveitamento{{ $aproveitamentoFinal->id }}editar" >
+                                                                        Editar
+                                                                        </button>
+
+                                                                        <div class="modal fade" id="addAproveitamento{{ $aproveitamentoFinal->id }}editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                                      <div class="modal-dialog" role="document">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h6 class="modal-title" id="exampleModalLabel">  Editar Aproveitamento da Classe {{ $aproveitamentoFinal->classe }} do Final Trimestre da Classe {{ $aproveitamentoFinal->classe }} do Final Trimestre</h6>
+                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+
+                                                                                                    <!-- Formulário dentro da modal -->
+                                                                                                    <form method="POST" enctype="multipart/form-data" action="{{ route('update.aproveitamento', ['id' => $aproveitamentoFinal->id ]) }}">
+                                                                                                        @csrf
+                                                                                                        @method('POST')
+                                                                                                        <div class="form-group">
+                                                                                                          <label for="classe">Classe </label>
+                                                                                                          <select name="classe" id="classe" class="form-control" required>
+                                                                                                            <option value="{{ isset($aproveitamentoFinal->classe) ? $aproveitamentoFinal->classe : 'Seleccione uma Classe' }}"> {{ isset($aproveitamentoFinal->classe) ? $aproveitamentoFinal->classe : 'Seleccione uma Classe' }}</option>
+                                                                                                            <option value="Iniciação">Iniciação</option>
+                                                                                                            <option value="1ª">1ª Classe</option>
+                                                                                                            <option value="2ª">2ª Classe</option>
+                                                                                                            <option value="3ª">3ª Classe</option>
+                                                                                                            <option value="4ª">4ª Classe</option>
+                                                                                                            <option value="5ª">5ª Classe</option>
+                                                                                                            <option value="6ª">6ª Classe</option>
+                                                                                                          </select>
+                                                                                                        </div>
+                                                                                                        <div class="form-group">
+                                                                                                            <label for="matriculadosMF">Matriculados, Masculinos e Femininos no Trimestre </label>
+                                                                                                            <input type="number" name="matriculadosMF" class="form-control" value="{{ isset($aproveitamentoFinal->matriculadosMF) ? $aproveitamentoFinal->matriculadosMF : '' }}" required>
+                                                                                                            <label for="matriculadosF">Matriculados, Femininos no Trimestre</label>
+                                                                                                            <input type="number" name="matriculadosF" class="form-control" value="{{ isset($aproveitamentoFinal->matriculadosF) ? $aproveitamentoFinal->matriculadosF : '' }}" required>
+                                                                                                        
+                                                                        
+
+                                                                                                            <label for="aprovadosMF">Aprovados, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="aprovadosMF" class="form-control" value="{{ isset($aproveitamentoFinal->aprovadosMF) ? $aproveitamentoFinal->aprovadosMF : '' }}" required>
+                                                                                                            <label for="aprovadosF">Aprovados, Femininos</label>
+                                                                                                            <input type="number" name="aprovadosF" class="form-control" value="{{ isset($aproveitamentoFinal->aprovadosF) ? $aproveitamentoFinal->aprovadosF : '' }}" required>
+                                                                                                            <label for="reprovadosMF">Reprovados, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="reprovadosMF" class="form-control" value="{{ isset($aproveitamentoFinal->reprovadosMF) ? $aproveitamentoFinal->reprovadosMF : '' }}" required>
+                                                                                                            <label for="reprovadosF">Reprovados, Femininos</label>
+                                                                                                            <input type="number" name="reprovadosF" class="form-control" value="{{ isset($aproveitamentoFinal->reprovadosF) ? $aproveitamentoFinal->reprovadosF : '' }}" required>
+                                                                                                            <label for="transferidosEMF">Transferidos (Entrada), Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="transferidosEMF" class="form-control" value="{{ isset($aproveitamentoFinal->transferidosEMF) ? $aproveitamentoFinal->transferidosEMF : '' }}" required>
+                                                                                                            <label for="transferidosEF">Transferidos (Entrada), Femininos</label>
+                                                                                                            <input type="number" name="transferidosEF" class="form-control" value="{{ isset($aproveitamentoFinal->transferidosEF) ? $aproveitamentoFinal->transferidosEF : '' }}" required>
+                                                                                                            
+                                                                                                            <label for="transferidosSMF">Transferidos (Saída), Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="transferidosSMF" class="form-control" value="{{ isset($aproveitamentoFinal->transferidosSMF) ? $aproveitamentoFinal->transferidosSMF : '' }}" required>
+                                                                                                            <label for="transferidosSF">Transferidos (Saída), Femininos</label>
+                                                                                                            <input type="number" name="transferidosSF" class="form-control" value="{{ isset($aproveitamentoFinal->transferidosSF) ? $aproveitamentoFinal->transferidosSF : '' }}" required>
+
+                                                                                                            <label for="desistentesMF">Desistentes, Masculinos e Femininos</label>
+                                                                                                            <input type="number" name="desistentesMF" class="form-control" value="{{ isset($aproveitamentoFinal->desistentesMF) ? $aproveitamentoFinal->desistentesMF : '' }}" required>
+                                                                                                            <label for="desistentesF">Desistentes, Femininos</label>
+                                                                                                            <input type="number" name="desistentesF" class="form-control" value="{{ isset($aproveitamentoFinal->desistentesF) ? $aproveitamentoFinal->desistentesF : '' }}" required>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                        <div class="form-group">
+                                                                                                          <input type="hidden" name="trimestre" value="Final">
+                                                                                                          <input type="hidden" name="anoLectivo" value="{{ date('Y') }}">
+                                                                                                          <input type="hidden" name="idUnidadeOrganica" value="{{ $unidadeOrganicaSelected->id }}">
+                                                                                                          <input type="hidden" name="idFuncionario" value="{{ $funcionarioLogado->id }}">
+                                                                                                        </div>
+                                                                                                        <div class="form-check">
+                                                                                                            <input type="checkbox" name="confirmar" class="form-check-input" required>
+                                                                                                            <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                              <button type="submit" class="btn btn-primary">Inserir Formulário</button>
+                                                                                                        </div>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                      </div>
+                                                                        </div>
+
+                                                                          <form class="d-none" action="{{ route('eliminar.objecto') }}" method="POST" id="deleteForm{{ $aproveitamentoFinal->id }}">
+                                                                              @csrf
+                                                                              @method('DELETE')
+                                                                              <input type="hidden" name="id" value="{{ $aproveitamentoFinal->id }}">
+                                                                              <button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar Pessoa?', 'Sim, Deletar!', 'Não, Cancelar!')">Deletar</button>
+                                                                          </form>
+                                                                        </td>
+                                                                    </tr>
+                                                      @endforeach
+                                                      </tbody>
+                                                      <tfoot>
+                                          
+                                                        <thead class="bg-secondary d-none">
                                                           <tr>
-                                                              <th scope="row">1ª</th>   <td class="col-1" id="Ta11"> {{ isset($aproveitamentoFinal['a11']) ? $aproveitamentoFinal['a11'] : '0' }} </td> <td class="col-1" id="Ta12"> {{  isset($aproveitamentoFinal['a12']) ? $aproveitamentoFinal['a12'] : '0' }}  </td> <td class="col-1" id="Ta13"> {{  isset($aproveitamentoFinal['a13']) ? $aproveitamentoFinal['a13'] : '0' }}  </td> <td class="col-1" id="Ta14"> {{ isset($aproveitamentoFinal['a14']) ? $aproveitamentoFinal['a14'] : '0' }}  </td> <td class="col-1" id="Ta15"> {{   isset($aproveitamentoFinal['a15']) ? $aproveitamentoFinal['a15'] : '0' }}  </td> <td class="col-1" id="Ta16"> {{  isset($aproveitamentoFinal['a16']) ? $aproveitamentoFinal['a16'] : '0' }}  </td> <td class="col-1" id="Ta17"> {{  isset($aproveitamentoFinal['a17']) ? $aproveitamentoFinal['a17'] : '0' }}  </td> <td class="col-1" id="Ta18"> {{ isset($aproveitamentoFinal['a18']) ? $aproveitamentoFinal['a18'] : '0' }}  </td> <td class="col-1" id="Ta19"> {{   isset($aproveitamentoFinal['a19']) ? $aproveitamentoFinal['a19'] : '0' }}  </td> <td class="col-1" id="Ta110"> {{   isset($aproveitamentoFinal['a110']) ? $aproveitamentoFinal['a110'] : '0' }}   </td> <td class="col-1" id="Ta111"> {{  isset($aproveitamentoFinal['a111']) ? $aproveitamentoFinal['a111'] : '0' }}   </td> <td class="col-1" id="Ta112"> {{  isset($aproveitamentoFinal['a112']) ? $aproveitamentoFinal['a112'] : '0' }}   </td> <td class="col-1" id="Ta113"> {{ isset($aproveitamentoFinal['a113']) ? $aproveitamentoFinal['a113'] : '0' }}  </td> <td class="col-1" id="Ta114"> {{  isset($aproveitamentoFinal['a114']) ? $aproveitamentoFinal['a114'] : '0' }}  </td>
+                                                            <th scope="col" rowspan="3" colspan="1" style=" vertical-align:middle" >Classe</th><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Incio do Trimestre</th><!--<th scope="col">Matriculados</th>--> <th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Número de Alunos no Final do Trimestre</th><!--<th scope="col">Matriculados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Aprovados</th><!--<th scope="col">Aprovados</th>--><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Reprovados</th><!--<th scope="col">Reprovados</th>--><th scope="col" colspan="4" rowspan="1" style="vertical-align: middle;">Trasferidos</th><!--<th scope="col">Trasferidos</th><th scope="col">Trasferidos</th><th scope="col">Trasferidos</th> --><th scope="col" colspan="2" rowspan="2" style="vertical-align: middle;">Desistentes</th> <th class="d-none" scope="col" colspan="1" rowspan="3" style="vertical-align: middle;">Opções</th><!--<th scope="col">Total</th>-->
                                                           </tr>
                                                           <tr>
-                                                              <th scope="row">2ª</th>   <td class="col-1" id="Ta21"> {{ isset($aproveitamentoFinal['a21']) ? $aproveitamentoFinal['a21'] : '0' }}  </td> <td class="col-1" id="Ta22"> {{   isset($aproveitamentoFinal['a22']) ? $aproveitamentoFinal['a22'] : '0' }}  </td> <td class="col-1" id="Ta23"> {{  isset($aproveitamentoFinal['a23']) ? $aproveitamentoFinal['a23'] : '0' }}  </td> <td class="col-1" id="Ta24"> {{  isset($aproveitamentoFinal['a24']) ? $aproveitamentoFinal['a24'] : '0' }}  </td> <td class="col-1" id="Ta25"> {{ isset($aproveitamentoFinal['a25']) ? $aproveitamentoFinal['a25'] : '0' }}  </td> <td class="col-1" id="Ta26"> {{   isset($aproveitamentoFinal['a26']) ? $aproveitamentoFinal['a26'] : '0' }}  </td> <td class="col-1" id="Ta27"> {{  isset($aproveitamentoFinal['a27']) ? $aproveitamentoFinal['a27'] : '0' }}  </td> <td class="col-1" id="Ta28"> {{  isset($aproveitamentoFinal['a28']) ? $aproveitamentoFinal['a28'] : '0' }}  </td> <td class="col-1" id="Ta29"> {{ isset($aproveitamentoFinal['a29']) ? $aproveitamentoFinal['a29'] : '0' }}  </td> <td class="col-1" id="Ta210"> {{  isset($aproveitamentoFinal['a210']) ? $aproveitamentoFinal['a210'] : '0' }}   </td> <td class="col-1" id="Ta211"> {{  isset($aproveitamentoFinal['a211']) ? $aproveitamentoFinal['a211'] : '0' }}   </td> <td class="col-1" id="Ta212"> {{ isset($aproveitamentoFinal['a212']) ? $aproveitamentoFinal['a212'] : '0' }}   </td> <td class="col-1" id="Ta213"> {{   isset($aproveitamentoFinal['a213']) ? $aproveitamentoFinal['a213'] : '0' }}  </td> <td class="col-1" id="Ta214"> {{   isset($aproveitamentoFinal['a214']) ? $aproveitamentoFinal['a214'] : '0' }}  </td>
+                                                            <!--<th scope="col">Alunos</th> --><!--<th scope="col" colspan="2">Matriculados</th><th scope="col">Matriculados</th>--> <!--<th scope="col">Aprovados</th><th scope="col">Aprovados</th>--><!--<th scope="col">Reprovados</th><th scope="col">Reprovados</th>--><th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Entrada</th><!--<th scope="col">Entrada</th> --> <th scope="col" colspan="2" rowspan="1" style="vertical-align: middle;">Saida</th><!--<th scope="col">Saida</th>--><!--<th scope="col">Total</th> <th scope="col">Total</th>-->
                                                           </tr>
                                                           <tr>
-                                                              <th scope="row">3ª</th>   <td class="col-1" id="Ta31"> {{ isset($aproveitamentoFinal['a31']) ? $aproveitamentoFinal['a31'] : '0' }}  </td> <td class="col-1" id="Ta32"> {{   isset($aproveitamentoFinal['a32']) ? $aproveitamentoFinal['a32'] : '0' }}  </td> <td class="col-1" id="Ta33"> {{  isset($aproveitamentoFinal['a33']) ? $aproveitamentoFinal['a33'] : '0' }}  </td> <td class="col-1" id="Ta34"> {{  isset($aproveitamentoFinal['a34']) ? $aproveitamentoFinal['a34'] : '0' }}  </td> <td class="col-1" id="Ta35"> {{ isset($aproveitamentoFinal['a35']) ? $aproveitamentoFinal['a35'] : '0' }}  </td> <td class="col-1" id="Ta36"> {{   isset($aproveitamentoFinal['a36']) ? $aproveitamentoFinal['a36'] : '0' }}  </td> <td class="col-1" id="Ta37"> {{  isset($aproveitamentoFinal['a37']) ? $aproveitamentoFinal['a37'] : '0' }}  </td> <td class="col-1" id="Ta38"> {{  isset($aproveitamentoFinal['a38']) ? $aproveitamentoFinal['a38'] : '0' }}  </td> <td class="col-1" id="Ta39"> {{ isset($aproveitamentoFinal['a39']) ? $aproveitamentoFinal['a39'] : '0' }}  </td> <td class="col-1" id="Ta310"> {{  isset($aproveitamentoFinal['a310']) ? $aproveitamentoFinal['a310'] : '0' }}   </td> <td class="col-1" id="Ta311"> {{  isset($aproveitamentoFinal['a311']) ? $aproveitamentoFinal['a311'] : '0' }}   </td> <td class="col-1" id="Ta312"> {{ isset($aproveitamentoFinal['a312']) ? $aproveitamentoFinal['a312'] : '0' }}   </td> <td class="col-1" id="Ta313"> {{   isset($aproveitamentoFinal['a313']) ? $aproveitamentoFinal['a313'] : '0' }}  </td> <td class="col-1" id="Ta314"> {{   isset($aproveitamentoFinal['a314']) ? $aproveitamentoFinal['a314'] : '0' }}  </td>
+                                                            <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th> <th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th><th scope="col">F</th><th scope="col">MF</th> <th scope="col">F</th>
                                                           </tr>
-                                                          <tr>
-                                                              <th scope="row">4ª</th>   <td class="col-1" id="Ta41"> {{ isset($aproveitamentoFinal['a41']) ? $aproveitamentoFinal['a41'] : '0' }}  </td> <td class="col-1" id="Ta42"> {{   isset($aproveitamentoFinal['a42']) ? $aproveitamentoFinal['a42'] : '0' }}  </td> <td class="col-1" id="Ta43"> {{  isset($aproveitamentoFinal['a43']) ? $aproveitamentoFinal['a43'] : '0' }}  </td> <td class="col-1" id="Ta44"> {{  isset($aproveitamentoFinal['a44']) ? $aproveitamentoFinal['a44'] : '0' }}  </td> <td class="col-1" id="Ta45"> {{ isset($aproveitamentoFinal['a45']) ? $aproveitamentoFinal['a45'] : '0' }}  </td> <td class="col-1" id="Ta46"> {{   isset($aproveitamentoFinal['a46']) ? $aproveitamentoFinal['a46'] : '0' }}  </td> <td class="col-1" id="Ta47"> {{  isset($aproveitamentoFinal['a47']) ? $aproveitamentoFinal['a47'] : '0' }}  </td> <td class="col-1" id="Ta48"> {{  isset($aproveitamentoFinal['a48']) ? $aproveitamentoFinal['a48'] : '0' }}  </td> <td class="col-1" id="Ta49"> {{ isset($aproveitamentoFinal['a49']) ? $aproveitamentoFinal['a49'] : '0' }}  </td> <td class="col-1" id="Ta410"> {{  isset($aproveitamentoFinal['a410']) ? $aproveitamentoFinal['a410'] : '0' }}   </td> <td class="col-1" id="Ta411"> {{  isset($aproveitamentoFinal['a411']) ? $aproveitamentoFinal['a411'] : '0' }}   </td> <td class="col-1" id="Ta412"> {{ isset($aproveitamentoFinal['a412']) ? $aproveitamentoFinal['a412'] : '0' }}   </td> <td class="col-1" id="Ta413"> {{   isset($aproveitamentoFinal['a413']) ? $aproveitamentoFinal['a413'] : '0' }}  </td> <td class="col-1" id="Ta414"> {{   isset($aproveitamentoFinal['a414']) ? $aproveitamentoFinal['a414'] : '0' }}  </td>
-                                                          </tr>
-                                                          <tr>
-                                                              <th scope="row">5ª</th>   <td class="col-1" id="Ta51"> {{ isset($aproveitamentoFinal['a51']) ? $aproveitamentoFinal['a51'] : '0' }}  </td> <td class="col-1" id="Ta52"> {{   isset($aproveitamentoFinal['a52']) ? $aproveitamentoFinal['a52'] : '0' }}  </td> <td class="col-1" id="Ta53"> {{  isset($aproveitamentoFinal['a53']) ? $aproveitamentoFinal['a53'] : '0' }}  </td> <td class="col-1" id="Ta54"> {{  isset($aproveitamentoFinal['a54']) ? $aproveitamentoFinal['a54'] : '0' }}  </td> <td class="col-1" id="Ta55"> {{ isset($aproveitamentoFinal['a55']) ? $aproveitamentoFinal['a55'] : '0' }}  </td> <td class="col-1" id="Ta56"> {{   isset($aproveitamentoFinal['a56']) ? $aproveitamentoFinal['a56'] : '0' }}  </td> <td class="col-1" id="Ta57"> {{  isset($aproveitamentoFinal['a57']) ? $aproveitamentoFinal['a57'] : '0' }}  </td> <td class="col-1" id="Ta58"> {{  isset($aproveitamentoFinal['a58']) ? $aproveitamentoFinal['a58'] : '0' }}  </td> <td class="col-1" id="Ta59"> {{ isset($aproveitamentoFinal['a59']) ? $aproveitamentoFinal['a59'] : '0' }}  </td> <td class="col-1" id="Ta510"> {{  isset($aproveitamentoFinal['a510']) ? $aproveitamentoFinal['a510'] : '0' }}   </td> <td class="col-1" id="Ta511"> {{  isset($aproveitamentoFinal['a511']) ? $aproveitamentoFinal['a511'] : '0' }}   </td> <td class="col-1" id="Ta512"> {{ isset($aproveitamentoFinal['a512']) ? $aproveitamentoFinal['a512'] : '0' }}   </td> <td class="col-1" id="Ta513"> {{   isset($aproveitamentoFinal['a513']) ? $aproveitamentoFinal['a513'] : '0' }}  </td> <td class="col-1" id="Ta514"> {{   isset($aproveitamentoFinal['a514']) ? $aproveitamentoFinal['a514'] : '0' }}  </td>
-                                                          </tr>
-                                                          <tr>
-                                                              <th scope="row">6ª</th>   <td class="col-1" id="Ta61"> {{ isset($aproveitamentoFinal['a61']) ? $aproveitamentoFinal['a61'] : '0' }}  </td> <td class="col-1" id="Ta62"> {{   isset($aproveitamentoFinal['a62']) ? $aproveitamentoFinal['a62'] : '0' }}  </td> <td class="col-1" id="Ta63"> {{  isset($aproveitamentoFinal['a63']) ? $aproveitamentoFinal['a63'] : '0' }}  </td> <td class="col-1" id="Ta64"> {{  isset($aproveitamentoFinal['a64']) ? $aproveitamentoFinal['a64'] : '0' }}  </td> <td class="col-1" id="Ta65"> {{ isset($aproveitamentoFinal['a65']) ? $aproveitamentoFinal['a65'] : '0' }}  </td> <td class="col-1" id="Ta66"> {{   isset($aproveitamentoFinal['a66']) ? $aproveitamentoFinal['a66'] : '0' }}  </td> <td class="col-1" id="Ta67"> {{  isset($aproveitamentoFinal['a67']) ? $aproveitamentoFinal['a67'] : '0' }}  </td> <td class="col-1" id="Ta68"> {{  isset($aproveitamentoFinal['a68']) ? $aproveitamentoFinal['a68'] : '0' }}  </td> <td class="col-1" id="Ta69"> {{ isset($aproveitamentoFinal['a69']) ? $aproveitamentoFinal['a69'] : '0' }}  </td> <td class="col-1" id="Ta610"> {{  isset($aproveitamentoFinal['a610']) ? $aproveitamentoFinal['a610'] : '0' }}   </td> <td class="col-1" id="Ta611"> {{  isset($aproveitamentoFinal['a611']) ? $aproveitamentoFinal['a611'] : '0' }}   </td> <td class="col-1" id="Ta612"> {{ isset($aproveitamentoFinal['a612']) ? $aproveitamentoFinal['a612'] : '0' }}   </td> <td class="col-1" id="Ta613"> {{   isset($aproveitamentoFinal['a613']) ? $aproveitamentoFinal['a613'] : '0' }}  </td> <td class="col-1" id="Ta614"> {{   isset($aproveitamentoFinal['a614']) ? $aproveitamentoFinal['a614'] : '0' }}  </td>
-                                                          </tr>
-                                                          
-                                                        </tbody>
-                                                        <tfoot>
-                                                          <tr class="bg-warning">
-                                                            <th scope="row">Total</th>    <td id="TmatriculadosIAMF"> {{ isset($aproveitamentoFinal['matriculadosIAMF']) ? $aproveitamentoFinal['matriculadosIAMF'] : '0'}}   </td><td id="TmatriculadosIAF"> {{ isset($aproveitamentoFinal['matriculadosIAF']) ? $aproveitamentoFinal['matriculadosIAF'] : '0'}}   </td><td id="TmatriculadosFAMF">  {{ isset($aproveitamentoFinal['matriculadosFAMF']) ? $aproveitamentoFinal['matriculadosFAMF'] : '0'}}   </td><td id="TmatriculadosFAF">  {{ isset($aproveitamentoFinal['matriculadosFAF']) ? $aproveitamentoFinal['matriculadosFAF'] : '0'}}  </td><td id="TaprovadosMF"> {{ isset($aproveitamentoFinal['aprovadosMF']) ? $aproveitamentoFinal['aprovadosMF'] : '0'}}    </td><td id="TaprovadosF"> {{ isset($aproveitamentoFinal['aprovadosF']) ? $aproveitamentoFinal['aprovadosF'] : '0'}}    </td> <td id="TreprovadosMF">  {{ isset($aproveitamentoFinal['reprovadosMF']) ? $aproveitamentoFinal['reprovadosMF'] : '0'}}   </td> <td id="TreprovadosF"> {{ isset($aproveitamentoFinal['reprovadosF']) ? $aproveitamentoFinal['reprovadosF'] : '0'}}  </td> <td id="TtransferidosEMF"> {{ isset($aproveitamentoFinal['transferidosEMF']) ? $aproveitamentoFinal['transferidosEMF'] : '0'}}   </td> <td id="TtransferidosEF"> {{ isset($aproveitamentoFinal['transferidosEF']) ? $aproveitamentoFinal['transferidosEF'] : '0'}}   </td> <td id="TtransferidosSMF">  {{ isset($aproveitamentoFinal['transferidosSMF']) ? $aproveitamentoFinal['transferidosSMF'] : '0'}}   </td> <td id="TtransferidosSF">  {{ isset($aproveitamentoFinal['transferidosSF']) ? $aproveitamentoFinal['transferidosSF'] : '0'}}  </td> <td id="TdesistentesMF">  {{ isset($aproveitamentoFinal['desistentesMF']) ? $aproveitamentoFinal['desistentesMF'] : '0'}}   </td> <td id="TdesistentesF">  {{ isset($aproveitamentoFinal['desistentesF']) ? $aproveitamentoFinal['desistentesF'] : '0'}}   </td>
-                                                          </tr>
-                                                        </tfoot>
+                                                        </thead>
+
+                                                      </tfoot>
                                                     </table>
+                                                    </div>
+                                                  </div>
+                                                  <div class="card-footer">
+                                                      <button class="btn btn-primary w-100 m-1 d-none" data-toggle="modal" data-target="#addAproveitamentoFinal" >
+                                                        Inserir
+                                                      </button>
+
+                                                      <div class="modal fade" id="addAproveitamentoFinal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                          <div class="modal-content">
+                                                                              <div class="modal-header">
+                                                                                  <h6 class="modal-title" id="exampleModalLabel">Formulario de Aproveitamento do Final do ano Lectivo {{ date('Y') }}</h6>
+                                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                      <span aria-hidden="true">&times;</span>
+                                                                                  </button>
+                                                                              </div>
+                                                                              <div class="modal-body">
+
+                                                                                  <!-- Formulário dentro da modal -->
+                                                                                  <form method="POST" enctype="multipart/form-data" action="{{ route('store.aproveitamento') }}">
+                                                                                      @csrf
+                                                                                      @method('POST')
+                                                                                      <div class="form-group">
+                                                                                        <label for="classe">Classe </label>
+                                                                                        <select name="classe" id="classe" class="form-control" required>
+                                                                                          <option value="Iniciação">Iniciação</option>
+                                                                                          <option value="1ª">1ª Classe</option>
+                                                                                          <option value="2ª">2ª Classe</option>
+                                                                                          <option value="3ª">3ª Classe</option>
+                                                                                          <option value="4ª">4ª Classe</option>
+                                                                                          <option value="5ª">5ª Classe</option>
+                                                                                          <option value="6ª">6ª Classe</option>
+                                                                                        </select>
+                                                                                      </div>
+                                                                                      <div class="form-group">
+                                                                                          <label for="matriculadosMF">Matriculados, Masculinos e Femininos no Trimestre </label>
+                                                                                          <input type="number" name="matriculadosMF" class="form-control" required>
+                                                                                          <label for="matriculadosF">Matriculados, Femininos no Trimestre</label>
+                                                                                          <input type="number" name="matriculadosF" class="form-control" required>
+                                                                                      
+                                                      
+
+                                                                                          <label for="aprovadosMF">Aprovados, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="aprovadosMF" class="form-control" required>
+                                                                                          <label for="aprovadosF">Aprovados, Femininos</label>
+                                                                                          <input type="number" name="aprovadosF" class="form-control" required>
+                                                                                          <label for="reprovadosMF">Reprovados, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="reprovadosMF" class="form-control" required>
+                                                                                          <label for="reprovadosF">Reprovados, Femininos</label>
+                                                                                          <input type="number" name="reprovadosF" class="form-control" required>
+                                                                                          <label for="transferidosEMF">Transferidos (Entrada), Masculinos e Femininos</label>
+                                                                                          <input type="number" name="transferidosEMF" class="form-control" required>
+                                                                                          <label for="transferidosEF">Transferidos (Entrada), Femininos</label>
+                                                                                          <input type="number" name="transferidosEF" class="form-control" required>
+                                                                                          
+                                                                                          <label for="transferidosSMF">Transferidos (Saída), Masculinos e Femininos</label>
+                                                                                          <input type="number" name="transferidosSMF" class="form-control" required>
+                                                                                          <label for="transferidosSF">Transferidos (Saída), Femininos</label>
+                                                                                          <input type="number" name="transferidosSF" class="form-control" required>
+
+                                                                                          <label for="desistentesMF">Desistentes, Masculinos e Femininos</label>
+                                                                                          <input type="number" name="desistentesMF" class="form-control" required>
+                                                                                          <label for="desistentesF">Desistentes, Femininos</label>
+                                                                                          <input type="number" name="desistentesF" class="form-control" required>
+                                                                                          
+                                                                                      </div>
+                                                                                      <div class="form-group">
+                                                                                        <input type="hidden" name="trimestre" value="Final">
+                                                                                        <input type="hidden" name="anoLectivo" value="{{ date('Y') }}">
+                                                                                        <input type="hidden" name="idUnidadeOrganica" value="{{ $unidadeOrganicaSelected->id }}">
+                                                                                        <input type="hidden" name="idFuncionario" value="{{ $funcionarioLogado->id }}">
+                                                                                      </div>
+                                                                                      <div class="form-check">
+                                                                                          <input type="checkbox" name="confirmar" class="form-check-input" required>
+                                                                                          <label class="form-check-label" for="confirmar">Clique para Confirmar</label>
+                                                                                      </div>
+                                                                                      <div class="modal-footer">
+                                                                                            <button type="submit" class="btn btn-primary">Inserir Formulário</button>
+                                                                                      </div>
+                                                                                  </form>
+                                                                              </div>
+                                                                          </div>
+                                                                    </div>
+                                                      </div>
                                                   </div>
                                                 </div>
-                                                <div class="card-footer">
-
-                                                </div>
-                                              </div>
-                                            @else
-                                            <h4 class="text-info"> Não Foram Submetidos o Formulário Final. </h4>
-                                            @endif                                    
-                                       
-                                           
-
-                                            <!-- /.CardContet -->
-                                        
+                                              <!--/ Formulario I  Trimestre -->
                                           </div>
-                                      <!-- /tab-pane -->
+                                        <!-- /tab-pane -->
                                   
                                 </div>
                               </div>
@@ -704,4 +1426,55 @@
             })
           </script>
       <!--/Aproveitamento Grafico-->
+
+
+
+       <!-- Scripts de Gerenciamento de tabelas de aproveitamento por Classes em uma unidade organica -->
+
+       <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- DataTables  & Plugins -->
+            <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+            <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+            <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+            <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+            <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+            <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+            <script src="../../plugins/jszip/jszip.min.js"></script>
+            <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+            <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+            <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+            <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+            <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+            <!--Algoritmo interactivo no processo de delectar Objectos em SweetAlert 2-->
+            <script src="{{ asset('plugins/sweetalert2/alerta-deletar.js')}}"></script>
+
+
+       <!--I Trimenstre-->
+       <script>
+                //I Trimenstre
+                  $(function () {
+                    $("#tabelaI").DataTable({
+                      "responsive": true, "lengthChange": false, "autoWidth": false,
+                      "buttons": ["excel", "pdf", "colvis"]
+                    }).buttons().container().appendTo('#tabelaI_wrapper .col-md-6:eq(0)');
+
+                //  II Trimenstre
+                  $("#tabelaII").DataTable({
+                    "responsive": true, "lengthChange": false, "autoWidth": false,
+                    "buttons": ["excel", "pdf", "colvis"]
+                  }).buttons().container().appendTo('#tabelaII_wrapper .col-md-6:eq(0)');
+
+                //  III Trimenstre
+                $("#tabelaIII").DataTable({
+                      "responsive": true, "lengthChange": false, "autoWidth": false,
+                      "buttons": ["excel", "pdf", "colvis"]
+                    }).buttons().container().appendTo('#tabelaIII_wrapper .col-md-6:eq(0)');
+                //  Final Trimenstre
+                $("#tabelaFinal").DataTable({
+                        "responsive": true, "lengthChange": false, "autoWidth": false,
+                        "buttons": ["excel", "pdf", "colvis"]
+                      }).buttons().container().appendTo('#tabelaFinal_wrapper .col-md-6:eq(0)');
+                  });
+                
+              </script>
     @endsection

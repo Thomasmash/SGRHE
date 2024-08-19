@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ArquivoController;
+use App\Http\Controllers\AproveitamentoController;
 use App\Http\Controllers\AssinaturaController;
 use App\Http\Controllers\AvaliacaoDesempenhoFuncionarioController;
 use App\Http\Controllers\CargoController;
@@ -222,6 +223,8 @@ Route::any('/ver/fotos/{idUnidadeOrganica}',[UnidadeOrganicaController::class,'g
 
 //Dados Estatistios de Unidades Organicas
 Route::any('formulario/aproveitamento/', [UnidadeOrganicaDadosController::class,'cadastrarFormulario'])->name('cadastrar.formulario'); //So directores de Escola Podem Cadastrar dados com as suas contas
+Route::any('aproveitamento/store/', [AproveitamentoController::class,'store'])->name('store.aproveitamento'); 
+Route::any('aproveitamento/updade/{id}', [AproveitamentoController::class,'update'])->name('update.aproveitamento'); 
 
 
 // #######      Operacoes com a Entidade/Tabela Cargo       #########
