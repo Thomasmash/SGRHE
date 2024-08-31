@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('aproveitamentos', function (Blueprint $table) {
             $table->id()->comment('Identificador único do processo');
-   
+
+            $table->string('anoLectivo')->comment('Ano Lectivo')->nullable();
             $table->string('classe')->comment('Classe do aproveitamento');
             $table->string('trimestre')->comment('Trimestre do aproveitamento');
-            $table->integer('matriculadosMF')->comment('Matriculados Masculinos  e Femininos no Trimestre');
-            $table->integer('matriculadosF')->comment('Matriculados Femininos no Trimestre');
+            $table->integer('matriculadosMF')->comment('Matriculados Masculinos  e Femininos no Trimestre')->nullable();
+            $table->integer('matriculadosF')->comment('Matriculados Femininos no Trimestre')->nullable();
             $table->integer('aprovadosMF')->comment('Aprovados Masculinos e Femininos');
             $table->integer('aprovadosF')->comment('Aprovados e Femininos');
             $table->integer('reprovadosMF')->comment('Reprovados Masculinos e Femininos');

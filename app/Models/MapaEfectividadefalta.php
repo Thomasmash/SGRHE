@@ -18,5 +18,6 @@ class MapaEfectividadefalta extends Model
         'faltasJustificadas',
         'faltasInjustificadas',
         'categoria',
+        'idFuncionario',
     ];
 }

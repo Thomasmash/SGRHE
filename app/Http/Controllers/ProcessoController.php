@@ -152,78 +152,7 @@ class ProcessoController extends Controller
         }
     }
 
-    /*
-    public function parecer(Request $request)
-    {
-       dd($request->all());
-        //Compilando o Documento Ratificado
-        //Reconversao do Submit do formularo armazenado no banco de dados
-        $D = $request->Request;
-        //Converetr o Request String Em Request Array
-        parse_str($D, $Request);
-        //dd($Request['seccao']);
-        $funcionario = Funcionario::where('id', $Request['idFuncionarioSolicitante'])->first();
-        $pessoa = Pessoa::where('id', $funcionario->idPessoa)->first();
-        $cargo =  Cargo::where('id', $funcionario->idCargo)->first();
-        $categoriaFuncionario = categoriaFuncionario::where('id', $funcionario->idCategoriaFuncionario)->first();
-        $unidadeOrganica = UnidadeOrganica::where('id', $funcionario->idUnidadeOrganica)->first();
-        $idProcesso = $request['idProcesso'];
-        $categoria = $Request['categoria'];
-       // dd($categoria);
-        //Carregar a View
-        //Definir Ratificador
-        $idRatificador = session()->only(['funcionario'])['funcionario']->id;
-        $Documento = PDF::loadView("sgrhe/modelos/$categoria",compact('Request','pessoa','funcionario','cargo','categoriaFuncionario','idRatificador','unidadeOrganica','idProcesso'));      
-        //Renderizar a View
-        $Documento->render();
-        //Nomear o Nome do Novo ficheiro PDF
-        $nomeFuncionario = Pessoa::find($funcionario->idPessoa)->nomeCompleto;
-        $fileName = $nomeFuncionario.'-'.$categoria.date('dmYHis').'.pdf';
-        //Retornar o Domunento Gerado 
-       // return response($Documento->output(), 200, ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename="'.$fileName.'"']);
-        //return $Documento->download('file.pdf');
-        //Armazenar o Conteudo PDF em uma Variavel
-        $pdfContent = $Documento->output();
-        $caminho = 'funcionarios/'.$funcionario->idPessoa.'/'.$categoria.'/'.$fileName;
-        // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
-        $save = Storage::disk('local')->put($caminho, $pdfContent);
-        $Arquivo = Arquivo::create([
-            'titulo' => md5($fileName),
-            'categoria' => $categoria,
-            'descricao' => http_build_query($request->all()),
-            'arquivo' => $fileName,
-            'caminho' => $caminho,
-            'idFuncionario' => $funcionario->id,
-        ]);
-        if ($Arquivo) {
-            $idArquivo = Arquivo::where('idFuncionario', $funcionario->id)->where('categoria', $categoria)->latest()->first()->id;
-            $Processo = Processo::where('id', $request['idProcesso'])->first();
-            //dd($Processo);
-            if ($save) {
-                $estado = $request->input('parecer');
-                if ($request->input('parecer') == 'Favoravel') {
-                    $estado = 'Aprovado';
-                } 
-                DB::beginTransaction();
-                $Processo->update([
-                    'idArquivo' => $idArquivo,
-                    'ratificador' => session()->only(['funcionario'])['funcionario']->id,
-                    'estado' => $estado,
-                    'deferimento' => $request->input('parecer'),
-                    
-                ]);
-                DB::commit();
-                return redirect()->back()->with('success', 'Ratificado com sucesso!');
-            }
-           DB::rollBack();
-           return redirect()->back()->with('error', 'Erro ao Salvar o registro!');
-        }
-        DB::rollBack();
-        return redirect()->back()->with('error', 'Erro ao Ratificar!');
-    
-        //Registro o Processo no Bango de dados e Salvamento do Arquivo Gerado no Banco de Dados 
-    }
-*/
+   
 
     public function ratificar(Request $request)
     {
@@ -473,50 +402,6 @@ class ProcessoController extends Controller
                 return redirect()->back()->with('error', 'O Funcionário '.Pessoa::find($funcionario->idPessoa)->nomecompleto.', já tem um Despacho de Nomeação pendente!'); 
             }
         }
-
-
-
-/*
-    public function gerarDocumento(Request $request, string $idFuncionarioSolicitante)
-    {
-
-        $funcionario = Funcionario::where('id', $idFuncionarioSolicitante)->first();
-        $pessoa = Pessoa::where('id', $funcionario->idPessoa)->first();
-        $cargo =  Cargo::where('id', $funcionario->idCargo)->first();
-        $categoriaFuncionario = categoriaFuncionario::where('id', $funcionario->idCategoriaFuncionario)->first();
-        $Request = $request->all();
-        //dd($dados);
-        $pdf = PDF::loadView("sgrhe/modelos/$request->categoria",compact('Request','pessoa','funcionario','cargo','categoriaFuncionario'));      
-        //return $pdf->download('apenso.pdf');
-        return view("sgrhe/modelos/$request->categoria",compact('Request','pessoa','funcionario','cargo','categoriaFuncionario'));
-        //Registro o Processo no Bango de dados e Salvamento do Arquivo Gerado no Banco de Dados 
-    }
-
-    //Funcao geradora de Documento Universal via Request
-    public function gerarDocFormRequest(Request $request)
-    {
-        
-        $Request = $request->all();
-        //dd($dados);
-        $pdf = PDF::loadView("sgrhe/modelos/$request->categoria",compact('Request'));      
-        //return $pdf->download('apenso.pdf');
-        return view("sgrhe/modelos/$request->categoria",compact('Request','pessoa','funcionario','cargo','categoriaFuncionario'));
-        //Registro o Processo no Bango de dados e Salvamento do Arquivo Gerado no Banco de Dados 
-    }
-        //Funcao geradora de Documento Universal via Request
-    public function gerarDoc(string $Request)
-    {
-        dd($Request);
-        //$pdf = PDF::loadView("sgrhe/modelos/$request->categoria",compact('Request'));      
-        //return $pdf->download('apenso.pdf');
-      //  return view("sgrhe/modelos/$request->categoria",compact('Request','pessoa','funcionario','cargo','categoriaFuncionario'));
-        //Registro o Processo no Bango de dados e Salvamento do Arquivo Gerado no Banco de Dados 
-    }
-    */
-
-
-
-
 
     public function cancelar(string $idProcesso)
     {

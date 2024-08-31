@@ -192,13 +192,13 @@
                   </form> 
                 </div>
               </div>
-            <!--Tota de Alunos -->
+            <!--Tota de Alunos {{ $aproveitamentosI->sum('matriculadosMF') }}-->
              <div class="col-lg-3 col-6">
                 <div class="small-box bg-light">
                   <div class="inner">
-                    <h3>{{ $matriculadosIAMF }} Alunos</h3>
-                    <p><span style="font-size: 30px;"> {{ $matriculadosIAMF == 0 ? 'Sem Dados' : round(($matriculadosIAF*100)/$matriculadosIAMF, 2).'%' }} </span> Femininos: {{ $matriculadosIAF}} Alunas</p>
-                    <p><span style="font-size: 30px;"> {{ $matriculadosIAMF == 0 ? 'Sem Dados' : round((($matriculadosIAMF-$matriculadosIAF)*100)/$matriculadosIAMF, 2).'%' }}</span> Mascilinos: {{ $matriculadosIAMF-$matriculadosIAF}} Alunas</p>
+                    <h3>{{ $aproveitamentosI->sum('matriculadosMF') }} Alunos</h3>
+                    <p><span style="font-size: 30px;"> {{ $aproveitamentosI->sum('matriculadosMF') == 0 ? 'Sem Dados' : round(($aproveitamentosI->sum('matriculadosF')*100)/$aproveitamentosI->sum('matriculadosMF'), 2).'%' }} </span> Femininos: {{ $aproveitamentosI->sum('matriculadosF')}} Alunas</p>
+                    <p><span style="font-size: 30px;"> {{ $aproveitamentosI->sum('matriculadosMF') == 0 ? 'Sem Dados' : round((($aproveitamentosI->sum('matriculadosMF')-$aproveitamentosI->sum('matriculadosF'))*100)/$aproveitamentosI->sum('matriculadosMF'), 2).'%' }}</span> Mascilinos: {{ $aproveitamentosI->sum('matriculadosMF')-$aproveitamentosI->sum('matriculadosF')}} Alunas</p>
                   </div>
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -210,44 +210,32 @@
               <!-- ./col -->
             </div>
    
-   
-              <section class="col-lg-7 connectedSortable">
-                <!-- Custom tabs (Charts with tabs)-->
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">
-                      <i class="fas fa-chart-pie mr-1"></i>
-                     Aproveitamento
-                    </h3>
-                    <div class="card-tools d-block">
-                      <ul class="nav nav-pills ml-auto">
-                        <li class="nav-item ">
-                          <a class="nav-link active" href="#sales-chart" data-toggle="tab">Gráfico de Barras</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link " href="#revenue-chart" data-toggle="tab">Gráfico</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div><!-- /.card-header -->
-                  <div class="card-body">
-                    <div class="tab-content p-0">
-                      <!-- Morris chart - Sales -->
-                      <div class="chart tab-pane active" id="sales-chart" style="position: relative; height: 300px;"> 
-                      <canvas id="doubleDatasetChart" width="400" height="200"></canvas>
+            <div class="row">
+                    <section class="col-lg-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">
+                            <br>
+                            <p>
+                            <i class="fas fa-chart-pie mr-1"></i> Aproveitamento Escolar
+                            </p>
+                            <br>
+                          </h3>
+                          <div class="card-tools">
+                            <br>
+                            <button id="line-btn" class="btn btn-primary">Grafico de Linhas</button>
+                            <button id="bar-btn" class="btn btn-primary">Grafico de Barras</button>
+                            <button id="pie-btn" class="btn btn-primary d-none">Pie Chart</button>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart tab-pane active" id="sales-chart" style="width: 100%; height: 400px;"> 
+                              <canvas id="doubleDatasetChart" ></canvas>
+                            </div>
+                        </div>
                       </div>
-                      <div class="chart tab-pane " id="revenue-chart" style="position: relative; height: 300px;">
-                        <canvas id="revenue-chart-canvas" width="400" height="200" ></canvas>
-                      </div>
-                    </div>
-                  </div><!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-
-   
-
-              <!-- /. -->
-              </section>
+                    </section>
+                  </div>
                   <!-- /.Left col -->
                   <!-- right col (We are only adding the ID to make the widgets sortable)-->
                   <section class="col-lg-5 connectedSortable">
@@ -367,7 +355,7 @@
                                             </div>
                                             <div class="card-body">
                                               <div class="table-responsive">
-                                                <table class="table table-hover table-bordered border-secondary table-striped" style="text-align:center;">
+                                                <table class="table table-hover table-bordered border-secondary table-striped">
                                                   <thead>
                                                     <tr>
                                                       <th>Unidade Organica</th>
@@ -376,6 +364,7 @@
                                                       <th>Director</th>
                                                       <th>Telefone</th>
                                                       <th>Status</th>
+                                                      <th>Opções</th>
                                                     </tr>
                                                   </thead>
                                                   <tbody>
@@ -399,6 +388,13 @@
                                                         <td class=" text-success">
                                                           Formulário Submetido
                                                         </td>
+                                                        <td>
+                                                        <form action="{{ route('unidadeOrganica.show', ['idUnidadeOrganica' => $SubControlInI->id]) }}" method="POST" style="display: inline;">
+                                                          @csrf
+                                                          @method('PUT')
+                                                            <button type="submit" class="btn btn-primary w-100 m-1">Ver Unidade Orgânica</button>
+                                                        </form>
+                                                        </td>
                                                       </tr>
                                                     @endforeach
                                                     @foreach($SubControlNonIs as $SubControlNonI)
@@ -420,6 +416,13 @@
                                                         </td>
                                                         <td class=" text-danger">
                                                           Não Submeteu o Formulário
+                                                        </td>
+                                                        <td>
+                                                        <form action="{{ route('unidadeOrganica.show', ['idUnidadeOrganica' => $SubControlNonI->id]) }}" method="POST" style="display: inline;">
+                                                          @csrf
+                                                          @method('PUT')
+                                                            <button type="submit" class="btn btn-primary w-100 m-1">Ver Unidade Orgânica</button>
+                                                        </form>
                                                         </td>
                                                       </tr>
                                                     @endforeach
@@ -447,6 +450,7 @@
                                                       <th>Director</th>
                                                       <th>Telefone</th>
                                                       <th>Status</th>
+                                                      <th>Opções</th>
                                                     </tr>
                                                   </thead>
                                                   <tbody>
@@ -470,6 +474,13 @@
                                                         <td class=" text-success">
                                                           Formulário Submetido
                                                         </td>
+                                                        <td>
+                                                        <form action="{{ route('unidadeOrganica.show', ['idUnidadeOrganica' => $SubControlInII->id]) }}" method="POST" style="display: inline;">
+                                                          @csrf
+                                                          @method('PUT')
+                                                            <button type="submit" class="btn btn-primary w-100 m-1">Ver Unidade Orgânica</button>
+                                                        </form>
+                                                        </td>
                                                       </tr>
                                                     @endforeach
                                                     @foreach($SubControlNonIIs as $SubControlNonII)
@@ -491,6 +502,13 @@
                                                         </td>
                                                         <td class=" text-danger">
                                                           Não Submeteu o Formulário
+                                                        </td>
+                                                        <td>
+                                                        <form action="{{ route('unidadeOrganica.show', ['idUnidadeOrganica' => $SubControlNonII->id]) }}" method="POST" style="display: inline;">
+                                                          @csrf
+                                                          @method('PUT')
+                                                            <button type="submit" class="btn btn-primary w-100 m-1">Ver Unidade Orgânica</button>
+                                                        </form>
                                                         </td>
                                                       </tr>
                                                     @endforeach
@@ -518,6 +536,7 @@
                                                       <th>Director</th>
                                                       <th>Telefone</th>
                                                       <th>Status</th>
+                                                      <th>Opções</th>
                                                     </tr>
                                                   </thead>
                                                   <tbody>
@@ -541,6 +560,13 @@
                                                         <td class=" text-success">
                                                           Formulário Submetido
                                                         </td>
+                                                        <td>
+                                                        <form action="{{ route('unidadeOrganica.show', ['idUnidadeOrganica' => $SubControlInIII->id]) }}" method="POST" style="display: inline;">
+                                                          @csrf
+                                                          @method('PUT')
+                                                            <button type="submit" class="btn btn-primary w-100 m-1">Ver Unidade Orgânica</button>
+                                                        </form>
+                                                        </td>
                                                       </tr>
                                                     @endforeach
                                                     @foreach($SubControlNonIIIs as $SubControlNonIII)
@@ -562,6 +588,13 @@
                                                         </td>
                                                         <td class=" text-danger">
                                                           Não Submeteu o Formulário
+                                                        </td>
+                                                        <td>
+                                                        <form action="{{ route('unidadeOrganica.show', ['idUnidadeOrganica' => $SubControlNonIII->id]) }}" method="POST" style="display: inline;">
+                                                          @csrf
+                                                          @method('PUT')
+                                                            <button type="submit" class="btn btn-primary w-100 m-1">Ver Unidade Orgânica</button>
+                                                        </form>
                                                         </td>
                                                       </tr>
                                                     @endforeach
@@ -589,6 +622,7 @@
                                                       <th>Director</th>
                                                       <th>Telefone</th>
                                                       <th>Status</th>
+                                                      <th>Opções</th>
                                                     </tr>
                                                   </thead>
                                                   <tbody>
@@ -612,6 +646,13 @@
                                                         <td class=" text-success">
                                                           Formulário Submetido
                                                         </td>
+                                                        <td>
+                                                        <form action="{{ route('unidadeOrganica.show', ['idUnidadeOrganica' => $SubControlInFinal->id]) }}" method="POST" style="display: inline;">
+                                                          @csrf
+                                                          @method('PUT')
+                                                            <button type="submit" class="btn btn-primary w-100 m-1">Ver Unidade Orgânica</button>
+                                                        </form>
+                                                        </td>
                                                       </tr>
                                                     @endforeach
                                                     @foreach($SubControlNonFinals as $SubControlNonFinal)
@@ -633,6 +674,13 @@
                                                         </td>
                                                         <td class=" text-danger">
                                                           Não Submeteu o Formulário
+                                                        </td>
+                                                        <td>
+                                                        <form action="{{ route('unidadeOrganica.show', ['idUnidadeOrganica' => $SubControlNonFinal->id]) }}" method="POST" style="display: inline;">
+                                                          @csrf
+                                                          @method('PUT')
+                                                            <button type="submit" class="btn btn-primary w-100 m-1">Ver Unidade Orgânica</button>
+                                                        </form>
                                                         </td>
                                                       </tr>
                                                     @endforeach
@@ -658,128 +706,139 @@
     </div>
   @endsection
   @section('scripts')
-      <!-- ChartJS -->
-      <script src="{{ asset('plugins/chart.js/Chart.min.js') }} "></script>
-      <!-- Sparkline -->
-      <script src="{{ asset('plugins/sparklines/sparkline.js') }} "></script>
-      <!-- Summernote / Calendar -->
-      <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }} "></script>
-      <!-- jQuery Knob Chart -->
-      <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }} "></script>
-      <!-- JQVMap -->
-      <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }} "></script>
-      <script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }} "></script>
-      <script src="{{ asset('plugins/jqvmap/maps/continents/jquery.vmap.africa.js') }} "></script>
-          <!--/Aproveitamento Grafico-->
-        <!--Grafico de Barras -->
-        <script>
-              // Sample data
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- DataTables  & Plugins -->
+            <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+            <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+            <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+            <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+            <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+            <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+            <script src="../../plugins/jszip/jszip.min.js"></script>
+            <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+            <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+            <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+            <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+            <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+            <!--Algoritmo interactivo no processo de delectar Objectos em SweetAlert 2-->
+            <script src="{{ asset('plugins/sweetalert2/alerta-deletar.js')}}"></script>  
+            <!-- ChartJS -->
+            <script src="{{ asset('plugins/chart.js/Chart.min.js') }} "></script>
+            <!-- Sparkline -->
+            <script src="{{ asset('plugins/sparklines/sparkline.js') }} "></script>
+            <!-- Summernote / Calendar -->
+            <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }} "></script>
+            <!-- jQuery Knob Chart -->
+            <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }} "></script>
+            <!-- JQVMap -->
+            <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }} "></script>
+            <script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }} "></script>
+            <script src="{{ asset('plugins/jqvmap/maps/continents/jquery.vmap.africa.js') }} "></script>
+            <!--Aproveitamento Graficos-->
+            <script>
+              // Estrutura dos 
               const data = {
-                  labels: ['I Trimestre', 'II Trimestre', 'III Trimestre', 'Final'],
-                  datasets: [
-                      {
-                          label: 'Aprovados',
-                          data: [("{{ isset($aprovadosMFI) ? $aprovadosMFI : '0' }}"*100)/("{{ isset($matriculadosIAMFI) ? $matriculadosIAMFI : '0'}}"), ("{{ isset($aprovadosMFII) ? $aprovadosMFII : '0' }}"*100)/("{{ isset($matriculadosIAMFII) ? $matriculadosIAMFII : '0'}}"), ("{{ isset($aprovadosMFIII) ? $aprovadosMFIII : '0' }}"*100)/("{{ isset($matriculadosIAMFIII) ? $matriculadosIAMFIII : '0'}}") , ("{{ isset($aprovadosMFFinal) ? $aprovadosMFFinal : '0' }}"*100)/("{{ isset($matriculadosIAMFFinal) ? $matriculadosIAMFFinal : '0'}}")],
-                          backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                          borderColor: 'rgba(75, 192, 192, 1)',
-                          borderWidth: 2,
-                      },
-                      {
-                          label: 'Reprovados',
-                          
-                          data: [("{{ isset($reprovadosMFI) ? $reprovadosMFI : '0' }}"*100)/("{{ isset($matriculadosIAMFI) ? $matriculadosIAMFI : '0'}}"), ("{{ isset($reprovadosMFII) ? $reprovadosMFII : '0' }}"*100)/("{{ isset($matriculadosIAMFII) ? $matriculadosIAMFII : '0'}}"), ("{{ isset($reprovadosMFIII) ? $reprovadosMFIII : '0' }}"*100)/("{{ isset($matriculadosIAMFIII) ? $matriculadosIAMFIII : '0'}}") , ("{{ isset($reprovadosMFFinal) ? $reprovadosMFFinal : '0' }}"*100)/("{{ isset($matriculadosIAMFFinal) ? $matriculadosIAMFFinal : '0'}}")],
-                          backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                          borderColor: 'rgba(255, 99, 132, 1)',
-                          borderWidth: 2,
-                      },
-                  ],
+                labels: ['I Trimestre', 'II Trimestre', 'III Trimestre', 'Final'],
+                datasets: [
+                  {
+                    label: 'Aprovados',
+                    data: [ ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosI->sum('aprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosII->sum('aprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosIII->sum('aprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosFinal->sum('aprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}")],
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 5,
+                  },
+                  {
+                    label: 'Reprovados',
+                    data: [ ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosI->sum('reprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosII->sum('reprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosIII->sum('reprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosFinal->sum('reprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}")],
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 3,
+                  },
+                ],
               };
 
               // Chart configuration
-              const config = {
-                  type: 'bar',
-                  data: data,
-                  options: {
-                      scales: {
-                          x: {
-                              stacked: true,
-                          },
-                          y: {
-                              stacked: true,
-                              beginAtZero: true,
-                          },
-                      },
+              let config = {
+                type: 'line',
+                data: data,
+                options: {
+                  scales: {
+                    x: {
+                      stacked: true,
+                    },
+                    y: {
+                      stacked: true,
+                      beginAtZero: true,
+                    },
                   },
+                  responsive: true, // adiciona essa propriedade para tornar o gráfico responsivo
+                  maintainAspectRatio: false, // adiciona essa propriedade para permitir que o gráfico se adapte à largura do container
+                  layout: {
+                    padding: {
+                      left: 0,
+                      right: 0,
+                      top: 0,
+                      bottom: 0,
+                    },
+                  },
+                },
               };
-              
 
               // Create the chart
               const ctx = document.getElementById('doubleDatasetChart').getContext('2d');
-              new Chart(ctx, config);
-          </script>
-        <!--Grafico em Linha -->
-          <script>
-              /* Chart.js Charts */
-            // Aproveitamento Grafico
-            var salesChartCanvas = document.getElementById('revenue-chart-canvas').getContext('2d')
-            // $('#revenue-chart').get(0).getContext('2d');
+              let chart = new Chart(ctx, config);
 
-            var salesChartData = {
-              labels: ['I Trimestre', 'II Trimestre', 'III Trimestre', 'Final'],
-              datasets: [
-                {
-                  label: 'Aprovados',
-                  backgroundColor: 'rgba(60,141,188,0.9)',
-                  borderColor: 'rgba(60,141,188,0.8)',
-                  pointRadius: true,
-                  pointColor: '#3b8bba',
-                  pointStrokeColor: 'rgba(60,141,188,1)',
-                  pointHighlightFill: '#fff',
-                  pointHighlightStroke: 'rgba(60,141,188,1)',
-                  data: [("{{ isset($aprovadosMFI) ? $aprovadosMFI : '0' }}"*100)/("{{ isset($matriculadosIAMFI) ? $matriculadosIAMFI : '0'}}"), ("{{ isset($aprovadosMFII) ? $aprovadosMFII : '0' }}"*100)/("{{ isset($matriculadosIAMFII) ? $matriculadosIAMFII : '0'}}"), ("{{ isset($aprovadosMFIII) ? $aprovadosMFIII : '0' }}"*100)/("{{ isset($matriculadosIAMFIII) ? $matriculadosIAMFIII : '0'}}") , ("{{ isset($aprovadosMFFinal) ? $aprovadosMFFinal : '0' }}"*100)/("{{ isset($matriculadosIAMFFinal) ? $matriculadosIAMFFinal : '0'}}")],
-                },
-                {
-                  label: 'Reprovados',
-                  backgroundColor: 'rgba(210, 214, 222, 1)',
-                  borderColor: 'rgba(210, 214, 222, 1)',
-                  pointRadius: true,
-                  pointColor: 'rgba(210, 214, 222, 1)',
-                  pointStrokeColor: '#c1c7d1',
-                  pointHighlightFill: '#fff',
-                  pointHighlightStroke: 'rgba(220,220,220,1)',
-                  data: [("{{ isset($reprovadosMFI) ? $reprovadosMFI : '0' }}"*100)/("{{ isset($matriculadosIAMFI) ? $matriculadosIAMFI : '0'}}"), ("{{ isset($reprovadosMFII) ? $reprovadosMFII : '0' }}"*100)/("{{ isset($matriculadosIAMFII) ? $matriculadosIAMFII : '0'}}"), ("{{ isset($reprovadosMFIII) ? $reprovadosMFIII : '0' }}"*100)/("{{ isset($matriculadosIAMFIII) ? $matriculadosIAMFIII : '0'}}") , ("{{ isset($reprovadosMFFinal) ? $reprovadosMFFinal : '0' }}"*100)/("{{ isset($matriculadosIAMFFinal) ? $matriculadosIAMFFinal : '0'}}")],
-                }
-              ]
-            }
+              // Add event listeners to the buttons
+              document.getElementById('line-btn').addEventListener('click', () => {
+                config.type = 'line';
+                chart.destroy();
+                chart = new Chart(ctx, config);
+              });
 
-            var salesChartOptions = {
-              maintainAspectRatio: true,
-              responsive: true,
-              legend: {
-                display: true
-              },
-              scales: {
-                xAxes: [{
-                  gridLines: {
-                    display: true
-                  }
-                }],
-                yAxes: [{
-                  gridLines: {
-                    display: true
-                  }
-                }]
-              }
-            }
+              document.getElementById('bar-btn').addEventListener('click', () => {
+                config.type = 'bar';
+                chart.destroy();
+                chart = new Chart(ctx, config);
+              });
 
-            // This will get the first returned node in the jQuery collection.
-            // eslint-disable-next-line no-unused-vars
-            var salesChart = new Chart(salesChartCanvas, { // lgtm[js/unused-local-variable]
-              type: 'line',
-              data: salesChartData,
-              options: salesChartOptions
-            })
-          </script>
-      <!--/Aproveitamento Grafico-->
+              document.getElementById('pie-btn').addEventListener('click', () => {
+                config.type = 'pie';
+                chart.destroy();
+                chart = new Chart(ctx, config);
+              });
+            </script>   
+            <!--/Aproveitamento Graficos-->
+
+            <!-- Scripts de Gerenciamento de tabelas de aproveitamento por Classes em uma unidade organica -->
+               <!--I Trimenstre-->
+               <script>
+                //I Trimenstre
+                  $(function () {
+                    $("#tabelaI").DataTable({
+                      "responsive": true, "lengthChange": false, "autoWidth": false,
+                      "buttons": ["excel", "pdf", "colvis"]
+                    }).buttons().container().appendTo('#tabelaI_wrapper .col-md-6:eq(0)');
+
+                //  II Trimenstre
+                  $("#tabelaII").DataTable({
+                    "responsive": true, "lengthChange": false, "autoWidth": false,
+                    "buttons": ["excel", "pdf", "colvis"]
+                  }).buttons().container().appendTo('#tabelaII_wrapper .col-md-6:eq(0)');
+
+                //  III Trimenstre
+                $("#tabelaIII").DataTable({
+                      "responsive": true, "lengthChange": false, "autoWidth": false,
+                      "buttons": ["excel", "pdf", "colvis"]
+                    }).buttons().container().appendTo('#tabelaIII_wrapper .col-md-6:eq(0)');
+                //  Final Trimenstre
+                $("#tabelaFinal").DataTable({
+                        "responsive": true, "lengthChange": false, "autoWidth": false,
+                        "buttons": ["excel", "pdf", "colvis"]
+                      }).buttons().container().appendTo('#tabelaFinal_wrapper .col-md-6:eq(0)');
+                  });
+                
+              </script>
+            <!-- Scripts de Gerenciamento de tabelas de aproveitamento por Classes em uma unidade organica -->
+  
 
     @endsection

@@ -39,7 +39,9 @@ return new class extends Migration
 
             // Faltas injustificadas
             $table->integer('faltasInjustificadas')->nullable()->comment('Faltas injustificadas');
-
+            $table->unsignedBigInteger('idFuncionario')->nullable()->comment('Chave estrangeira que referencia ao funcionario criador');
+            $table->foreign('idFuncionario')->references('id')->on('funcionarios')->comment('Relação com a tabela de funcionários');
+          
             // Timestamps
             $table->timestamps();
         });

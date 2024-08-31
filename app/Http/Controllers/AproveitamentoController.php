@@ -31,8 +31,8 @@ class AproveitamentoController extends Controller
     {
                 // dd($request->all());
                 $request->validate([
-                    'matriculadosMF' => ['integer', 'min:0'],
-                    'matriculadosF' => ['integer', 'min:0'],
+                //  'matriculadosMF' => ['integer', 'min:0'],
+                //  'matriculadosF' => ['integer', 'min:0'],
                     'aprovadosMF' => ['integer', 'min:0'],
                     'aprovadosF' => ['integer', 'min:0'],
                     'reprovadosMF' => ['integer', 'min:0'],
@@ -44,8 +44,8 @@ class AproveitamentoController extends Controller
                     'desistentesMF' => ['integer', 'min:0'],
                     'desistentesF' => ['integer', 'min:0'],
                 ], [
-                    'matriculadosMF' => 'Campo Matriculados MF valido só para valores inteiros positivos!',
-                    'matriculadosF' => 'Campo Matriculado F valido só para valores inteiros positivos!',
+                // 'matriculadosMF' => 'Campo Matriculados MF valido só para valores inteiros positivos!',
+                // 'matriculadosF' => 'Campo Matriculado F valido só para valores inteiros positivos!',
                     'aprovadosMF' => 'Campo Aprovados MF valido só para valores inteiros positivos!',
                     'aprovadosF' => 'Campo Aprovados F valido só para valores inteiros positivos!',
                     'reprovadosMF' => 'Campo Reprovados MF valido só para valores inteiros positivos!',
@@ -59,6 +59,7 @@ class AproveitamentoController extends Controller
                     ]);
                 DB::beginTransaction();
                 $aproveitamento = Aproveitamento::create([
+                    'anoLectivo' => $request->anoLectivo, 
                     'classe' => $request->classe,                    
                     'trimestre' => $request->trimestre,                   
                     'matriculadosMF' => $request->matriculadosMF,                    
@@ -108,8 +109,8 @@ class AproveitamentoController extends Controller
     {
              // dd($request->all());
              $request->validate([
-                'matriculadosMF' => ['integer', 'min:0'],
-                'matriculadosF' => ['integer', 'min:0'],
+                //'matriculadosMF' => ['integer', 'min:0'],
+                //'matriculadosF' => ['integer', 'min:0'],
                 'aprovadosMF' => ['integer', 'min:0'],
                 'aprovadosF' => ['integer', 'min:0'],
                 'reprovadosMF' => ['integer', 'min:0'],
@@ -121,8 +122,8 @@ class AproveitamentoController extends Controller
                 'desistentesMF' => ['integer', 'min:0'],
                 'desistentesF' => ['integer', 'min:0'],
             ], [
-                'matriculadosMF' => 'Campo Matriculados MF valido só para valores inteiros positivos!',
-                'matriculadosF' => 'Campo Matriculado F valido só para valores inteiros positivos!',
+               // 'matriculadosMF' => 'Campo Matriculados MF valido só para valores inteiros positivos!',
+               // 'matriculadosF' => 'Campo Matriculado F valido só para valores inteiros positivos!',
                 'aprovadosMF' => 'Campo Aprovados MF valido só para valores inteiros positivos!',
                 'aprovadosF' => 'Campo Aprovados F valido só para valores inteiros positivos!',
                 'reprovadosMF' => 'Campo Reprovados MF valido só para valores inteiros positivos!',

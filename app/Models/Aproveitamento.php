@@ -11,6 +11,7 @@ class Aproveitamento extends Model
     protected $table = 'aproveitamentos'; // Nome da tabela
 
     protected $fillable = [
+        'anoLectivo',
         'classe',                    
         'trimestre',                   
         'matriculadosMF',                    

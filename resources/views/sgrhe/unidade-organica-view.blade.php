@@ -115,92 +115,76 @@
                         </form> 
                       </div>
                     </div>
-                    <!--Alunos-->
-                      <div class="col-lg-3 col-6 {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}">
+                    <!-- Alunos Masculinos e Femininos -->
+                      <div class="col-lg-3 col-6 ">
                         <div class="small-box bg-info">
                           <div class="inner">
-                            <h3> {{ isset($ultimoMapaAproveitamento) ? $ultimoMapaAproveitamento->matriculadosIAMF : 'Sem Dados' }} </h3>
+                            <h3> {{ $aproveitamentosI->sum('matriculadosMF') }} </h3>
                             <p>Alunos</p>
                           </div>
                           <div class="icon">
-                            <i class="ion ion-bag"></i>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="m226.53 56.41l-96-32a8 8 0 0 0-5.06 0l-96 32A8 8 0 0 0 24 64v80a8 8 0 0 0 16 0V75.1l33.59 11.19a64 64 0 0 0 20.65 88.05c-18 7.06-33.56 19.83-44.94 37.29a8 8 0 1 0 13.4 8.74C77.77 197.25 101.57 184 128 184s50.23 13.25 65.3 36.37a8 8 0 0 0 13.4-8.74c-11.38-17.46-27-30.23-44.94-37.29a64 64 0 0 0 20.65-88l44.12-14.7a8 8 0 0 0 0-15.18ZM176 120a48 48 0 1 1-86.65-28.45l36.12 12a8 8 0 0 0 5.06 0l36.12-12A47.89 47.89 0 0 1 176 120"/></svg>
                           </div>
                           <a href="#" class="small-box-footer">Ver mais <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                       </div>
-                    <!--/Alunos-->
-                    <!--Alunos Femininos-->
-                      <div class="col-lg-3 col-6 {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}">
+                    <!-- /Alunos Masculinos e Femininos -->
+                    <!-- Alunos Femininos -->
+                      <div class="col-lg-3 col-6">
                         <div class="small-box bg-success">
                           <div class="inner">
-                            <h3>{{ isset($ultimoMapaAproveitamento) ? $ultimoMapaAproveitamento->matriculadosIAF : 'Sem Dados' }}</h3>
+                            <h3>{{ $aproveitamentosI->sum('matriculadosF') }}</h3>
                             <p>Femininos</p>
                           </div>
                           <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.75 13a1.25 1.25 0 1 1 2.5 0a1.25 1.25 0 0 1-2.5 0M22 12v10H2V12C2 6.5 6.5 2 12 2s10 4.5 10 10M4 12c0 4.41 3.59 8 8 8s8-3.59 8-8c0-.79-.12-1.55-.33-2.26A9.97 9.97 0 0 1 9.26 5.77c-.98 2.39-2.85 4.32-5.21 5.37c-.05.28-.05.57-.05.86m5 2.25a1.25 1.25 0 1 0 0-2.5a1.25 1.25 0 0 0 0 2.5"/></svg>
                           </div>
                           <a href="#" class="small-box-footer">Ver mais <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                       </div>
-                    <!--/Alunos Feminino-->
+                    <!-- /Alunos Femininos -->
                     <!--Alunos Masculinos-->
                       <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-danger">
                           <div class="inner">
-                            <h3>{{ isset($ultimoMapaAproveitamento) ? $ultimoMapaAproveitamento->matriculadosIAMF-$ultimoMapaAproveitamento->matriculadosIAF : 'Sem Dados' }}</h3>
+                            <h3>{{ $aproveitamentosI->sum('matriculadosMF')-$aproveitamentosI->sum('matriculadosF') }}</h3>
                             <p>Masculinos</p>
                           </div>
                           <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M9 11.75A1.25 1.25 0 0 0 7.75 13A1.25 1.25 0 0 0 9 14.25A1.25 1.25 0 0 0 10.25 13A1.25 1.25 0 0 0 9 11.75m6 0A1.25 1.25 0 0 0 13.75 13A1.25 1.25 0 0 0 15 14.25A1.25 1.25 0 0 0 16.25 13A1.25 1.25 0 0 0 15 11.75M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 18c-4.41 0-8-3.59-8-8c0-.29 0-.58.05-.86c2.36-1.05 4.23-2.98 5.21-5.37a9.97 9.97 0 0 0 10.41 3.97c.21.71.33 1.47.33 2.26c0 4.41-3.59 8-8 8"/></svg>
                           </div>
                           <a href="#" class="small-box-footer">Ver mais <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                       </div>
-                    <!--/Alunos Masculinos-->
+                    <!--Alunos Masculinos-->
                   </div>
-                  <!-- /.row -->
-                  <!-- Main row -->
                   <div class="row">
-                    <!-- Left col -->
-                    <section class="col-lg-7 {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }} {{ ($unidadeOrganicaSelected->nivelEnsino === 'Não Definido, ') ? 'd-none' : ''}}">
-                      <!-- Custom tabs (Charts with tabs)-->
+                    <section class="col-lg-12 connectedSortable {{ $unidadeOrganicaSelected->nivelEnsino != 'Primário' ? 'd-none' : ''  }}">
                       <div class="card">
                         <div class="card-header">
                           <h3 class="card-title">
-                            <i class="fas fa-chart-pie mr-1"></i>
-                          Aproveitamento Escolar
+                            <br>
+                            <p>
+                            <i class="fas fa-chart-pie mr-1"></i> Aproveitamento Escolar
+                            </p>
+                            <br>
                           </h3>
                           <div class="card-tools">
-                            <ul class="nav nav-pills ml-auto">
-                              <li class="nav-item">
-                                <a class="nav-link active" href="#sales-chart" data-toggle="tab">Gráfico de Barras</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link " href="#revenue-chart" data-toggle="tab">Gráfico</a>
-                              </li>
-                            </ul>
+                            <br>
+                            <button id="line-btn" class="btn btn-primary">Grafico de Linhas</button>
+                            <button id="bar-btn" class="btn btn-primary">Grafico de Barras</button>
+                            <button id="pie-btn" class="btn btn-primary d-none">Pie Chart</button>
                           </div>
-                        </div><!-- /.card-header -->
+                        </div>
                         <div class="card-body">
-                          <div class="tab-content p-0">
-                            <!-- Morris chart - Sales -->
-                            <div class="chart tab-pane active" id="sales-chart" style="position: relative; height: 300px;"> 
-                            <canvas id="doubleDatasetChart" width="400" height="200"></canvas>
+                            <div class="chart tab-pane active" id="sales-chart" style="width: 100%; height: 400px;"> 
+                              <canvas id="doubleDatasetChart" ></canvas>
                             </div>
-                            <div class="chart tab-pane " id="revenue-chart" style="position: relative; height: 300px;">
-                              <canvas id="revenue-chart-canvas" width="400" height="200"></canvas>
-                            </div>
-                          </div>
-                        </div><!-- /.card-body -->
+                        </div>
                       </div>
-                      <!-- /.card -->
-
-                      <!-- /.card -->
                     </section>
-                    <!-- /.Left col -->
                   </div>
-                  <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->
               </section>
             <!-- /.content -->
@@ -1303,135 +1287,7 @@
     
   @endsection
   @section('scripts')
-      <!-- ChartJS -->
-      <script src="{{ asset('plugins/chart.js/Chart.min.js') }} "></script>
-      <!-- Sparkline -->
-      <script src="{{ asset('plugins/sparklines/sparkline.js') }} "></script>
-      <!-- Summernote / Calendar -->
-      <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }} "></script>
-      <!-- jQuery Knob Chart -->
-      <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }} "></script>
-      <!-- JQVMap -->
-      <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }} "></script>
-      <script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }} "></script>
-      <script src="{{ asset('plugins/jqvmap/maps/continents/jquery.vmap.africa.js') }} "></script>
-       <!--/Aproveitamento Grafico-->
-        <!--Grafico de Barras -->
-        <script>
-              // Sample data
-              const data = {
-                  labels: ['I Trimestre', 'II Trimestre', 'III Trimestre', 'Final'],
-                  datasets: [
-                      {
-                          label: 'Aprovados',
-                          data: [("{{ isset($aproveitamentoITrimestre['aprovadosMF']) ? $aproveitamentoITrimestre['aprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoITrimestre['matriculadosIAMF']) ? $aproveitamentoITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoIITrimestre['aprovadosMF']) ? $aproveitamentoIITrimestre['aprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoIITrimestre['matriculadosIAMF']) ? $aproveitamentoIITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoIIITrimestre['aprovadosMF']) ? $aproveitamentoIIITrimestre['aprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoIIITrimestre['matriculadosIAMF']) ? $aproveitamentoIIITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoFinal['aprovadosMF']) ? $aproveitamentoFinal['aprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoFinal['matriculadosIAMF']) ? $aproveitamentoFinal['matriculadosIAMF'] : '0'}}")],
-                          backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                          borderColor: 'rgba(75, 192, 192, 1)',
-                          borderWidth: 2,
-                      },
-                      {
-                          label: 'Reprovados',
-                          
-                          data: [("{{ isset($aproveitamentoITrimestre['reprovadosMF']) ? $aproveitamentoITrimestre['reprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoITrimestre['matriculadosIAMF']) ? $aproveitamentoITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoIITrimestre['reprovadosMF']) ? $aproveitamentoIITrimestre['reprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoIITrimestre['matriculadosIAMF']) ? $aproveitamentoIITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoIIITrimestre['reprovadosMF']) ? $aproveitamentoIIITrimestre['reprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoIIITrimestre['matriculadosIAMF']) ? $aproveitamentoIIITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoFinal['reprovadosMF']) ? $aproveitamentoFinal['reprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoFinal['matriculadosIAMF']) ? $aproveitamentoFinal['matriculadosIAMF'] : '0'}}")],
-                          backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                          borderColor: 'rgba(255, 99, 132, 1)',
-                          borderWidth: 2,
-                      },
-                  ],
-              };
-
-              // Chart configuration
-              const config = {
-                  type: 'bar',
-                  data: data,
-                  options: {
-                      scales: {
-                          x: {
-                              stacked: true,
-                          },
-                          y: {
-                              stacked: true,
-                              beginAtZero: true,
-                          },
-                      },
-                  },
-              };
-              
-
-              // Create the chart
-              const ctx = document.getElementById('doubleDatasetChart').getContext('2d');
-              new Chart(ctx, config);
-          </script>
-        <!--Grafico em Linha -->
-          <script>
-              /* Chart.js Charts */
-            // Aproveitamento Grafico
-            var salesChartCanvas = document.getElementById('revenue-chart-canvas').getContext('2d')
-            // $('#revenue-chart').get(0).getContext('2d');
-
-            var salesChartData = {
-              labels: ['I Trimestre', 'II Trimestre', 'III Trimestre', 'Final'],
-              datasets: [
-                {
-                  label: 'Aprovados',
-                  backgroundColor: 'rgba(60,141,188,0.9)',
-                  borderColor: 'rgba(60,141,188,0.8)',
-                  pointRadius: true,
-                  pointColor: '#3b8bba',
-                  pointStrokeColor: 'rgba(60,141,188,1)',
-                  pointHighlightFill: '#fff',
-                  pointHighlightStroke: 'rgba(60,141,188,1)',
-                  data: [("{{ isset($aproveitamentoITrimestre['aprovadosMF']) ? $aproveitamentoITrimestre['aprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoITrimestre['matriculadosIAMF']) ? $aproveitamentoITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoIITrimestre['aprovadosMF']) ? $aproveitamentoIITrimestre['aprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoIITrimestre['matriculadosIAMF']) ? $aproveitamentoIITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoIIITrimestre['aprovadosMF']) ? $aproveitamentoIIITrimestre['aprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoIIITrimestre['matriculadosIAMF']) ? $aproveitamentoIIITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoFinal['aprovadosMF']) ? $aproveitamentoFinal['aprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoFinal['matriculadosIAMF']) ? $aproveitamentoFinal['matriculadosIAMF'] : '0'}}")],
-                },
-                {
-                  label: 'Reprovados',
-                  backgroundColor: 'rgba(210, 214, 222, 1)',
-                  borderColor: 'rgba(210, 214, 222, 1)',
-                  pointRadius: true,
-                  pointColor: 'rgba(210, 214, 222, 1)',
-                  pointStrokeColor: '#c1c7d1',
-                  pointHighlightFill: '#fff',
-                  pointHighlightStroke: 'rgba(220,220,220,1)',
-                  data: [("{{ isset($aproveitamentoITrimestre['reprovadosMF']) ? $aproveitamentoITrimestre['reprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoITrimestre['matriculadosIAMF']) ? $aproveitamentoITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoIITrimestre['reprovadosMF']) ? $aproveitamentoIITrimestre['reprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoIITrimestre['matriculadosIAMF']) ? $aproveitamentoIITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoIIITrimestre['reprovadosMF']) ? $aproveitamentoIIITrimestre['reprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoIIITrimestre['matriculadosIAMF']) ? $aproveitamentoIIITrimestre['matriculadosIAMF'] : '0'}}"), ("{{ isset($aproveitamentoFinal['reprovadosMF']) ? $aproveitamentoFinal['reprovadosMF'] : '0' }}"*100)/("{{ isset($aproveitamentoFinal['matriculadosIAMF']) ? $aproveitamentoFinal['matriculadosIAMF'] : '0'}}")],
-                }
-              ]
-            }
-
-            var salesChartOptions = {
-              maintainAspectRatio: true,
-              responsive: true,
-              legend: {
-                display: true
-              },
-              scales: {
-                xAxes: [{
-                  gridLines: {
-                    display: true
-                  }
-                }],
-                yAxes: [{
-                  gridLines: {
-                    display: true
-                  }
-                }]
-              }
-            }
-
-            // This will get the first returned node in the jQuery collection.
-            // eslint-disable-next-line no-unused-vars
-            var salesChart = new Chart(salesChartCanvas, { // lgtm[js/unused-local-variable]
-              type: 'line',
-              data: salesChartData,
-              options: salesChartOptions
-            })
-          </script>
-      <!--/Aproveitamento Grafico-->
-
-
-
-       <!-- Scripts de Gerenciamento de tabelas de aproveitamento por Classes em uma unidade organica -->
-
-       <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
             <!-- DataTables  & Plugins -->
             <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
             <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -1446,11 +1302,97 @@
             <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
             <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
             <!--Algoritmo interactivo no processo de delectar Objectos em SweetAlert 2-->
-            <script src="{{ asset('plugins/sweetalert2/alerta-deletar.js')}}"></script>
+            <script src="{{ asset('plugins/sweetalert2/alerta-deletar.js')}}"></script>  
+            <!-- ChartJS -->
+            <script src="{{ asset('plugins/chart.js/Chart.min.js') }} "></script>
+            <!-- Sparkline -->
+            <script src="{{ asset('plugins/sparklines/sparkline.js') }} "></script>
+            <!-- Summernote / Calendar -->
+            <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }} "></script>
+            <!-- jQuery Knob Chart -->
+            <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }} "></script>
+            <!-- JQVMap -->
+            <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }} "></script>
+            <script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }} "></script>
+            <script src="{{ asset('plugins/jqvmap/maps/continents/jquery.vmap.africa.js') }} "></script>
+            <!--Aproveitamento Graficos-->
+            <script>
+              // Estrutura dos 
+              const data = {
+                labels: ['I Trimestre', 'II Trimestre', 'III Trimestre', 'Final'],
+                datasets: [
+                  {
+                    label: 'Aprovados',
+                    data: [ ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosI->sum('aprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosII->sum('aprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosIII->sum('aprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosFinal->sum('aprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}")],
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 5,
+                  },
+                  {
+                    label: 'Reprovados',
+                    data: [ ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosI->sum('reprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosII->sum('reprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosIII->sum('reprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}"), ("{{ $aproveitamentosI->sum('matriculadosMF') != 0 ? round($aproveitamentosFinal->sum('reprovadosMF')*100/($aproveitamentosI->sum('matriculadosMF')), 1) : 0 }}")],
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 3,
+                  },
+                ],
+              };
 
+              // Chart configuration
+              let config = {
+                type: 'line',
+                data: data,
+                options: {
+                  scales: {
+                    x: {
+                      stacked: true,
+                    },
+                    y: {
+                      stacked: true,
+                      beginAtZero: true,
+                    },
+                  },
+                  responsive: true, // adiciona essa propriedade para tornar o gráfico responsivo
+                  maintainAspectRatio: false, // adiciona essa propriedade para permitir que o gráfico se adapte à largura do container
+                  layout: {
+                    padding: {
+                      left: 0,
+                      right: 0,
+                      top: 0,
+                      bottom: 0,
+                    },
+                  },
+                },
+              };
 
-       <!--I Trimenstre-->
-       <script>
+              // Create the chart
+              const ctx = document.getElementById('doubleDatasetChart').getContext('2d');
+              let chart = new Chart(ctx, config);
+
+              // Add event listeners to the buttons
+              document.getElementById('line-btn').addEventListener('click', () => {
+                config.type = 'line';
+                chart.destroy();
+                chart = new Chart(ctx, config);
+              });
+
+              document.getElementById('bar-btn').addEventListener('click', () => {
+                config.type = 'bar';
+                chart.destroy();
+                chart = new Chart(ctx, config);
+              });
+
+              document.getElementById('pie-btn').addEventListener('click', () => {
+                config.type = 'pie';
+                chart.destroy();
+                chart = new Chart(ctx, config);
+              });
+            </script>   
+            <!--/Aproveitamento Graficos-->
+
+            <!-- Scripts de Gerenciamento de tabelas de aproveitamento por Classes em uma unidade organica -->
+               <!--I Trimenstre-->
+               <script>
                 //I Trimenstre
                   $(function () {
                     $("#tabelaI").DataTable({
@@ -1477,4 +1419,6 @@
                   });
                 
               </script>
+            <!-- Scripts de Gerenciamento de tabelas de aproveitamento por Classes em uma unidade organica -->
+
     @endsection

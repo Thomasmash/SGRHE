@@ -13,5 +13,6 @@ class MapaEfectividade extends Model
     protected $fillable = [
         'dataPeriodo',
         'estado',
+        'idFuncionario',
     ];
 }

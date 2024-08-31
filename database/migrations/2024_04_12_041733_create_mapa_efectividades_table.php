@@ -20,7 +20,8 @@ return new class extends Migration
 
             // Estado do mapa de efectividade
             $table->string('estado')->comment('Estado do mapa de efectividade');
-
+            $table->unsignedBigInteger('idFuncionario')->nullable()->comment('Chave estrangeira que referencia ao funcionario criador');
+            $table->foreign('idFuncionario')->references('id')->on('funcionarios')->comment('Relação com a tabela de funcionários');
             // Timestamps
             $table->timestamps();
         });

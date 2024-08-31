@@ -16,69 +16,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ArquivoController extends Controller
 {
-    /*
-
-    public function homologar(Request $request)
-    {
-        dd($request->all());
-        $idFuncionario = $request['idFuncionario'];
-        $categoria = $request['categoria'];
-        $arquivo = $request->file('arquivo');
-        $nomeArquivo = 'arquivoHabilitacao.'.$arquivo->extension();
-        $caminho = 'funcionarios/'.$idFuncionario.'/'.$categoria.'/'.$nomeArquivo;
-        // Armazenar o arquivo no subdiretório dentro da pasta 'local Especifico'
-        //Procurar um outro metodo para o put que guarada com nme personalizado
-        Storage::disk('local')->put($caminho, file_get_contents($arquivo));
-        $arquivo = Arquivo::where('idFuncionario',$idFuncionario)->where('categoria',$categoria);
-        $habilitacao  = Habilitacao::where('idFuncionario',$idFuncionario);
-        if ($arquivo->doesntExist()) {
-      // dd($arquivo->first());
-        Arquivo::create([
-            'titulo' => md5($nomeArquivo.date('d-m-y')),
-            'categoria' => $categoria,
-            'descricao' => 'N/D',
-            'arquivo' => $nomeArquivo,
-            'caminho' => $caminho,
-            'idFuncionario' => $idFuncionario,
-        ]);
-        $idArquivo = Arquivo::where('idFuncionario',$idFuncionario)->where('categoria',$categoria)->first();
-        //dd($idArquivo);
-        Habilitacao::create([
-            'nivel' => $request->input('nivel'),
-            'curso' => $request->input('curso'),
-            'instituicao' => $request->input('instituicao'),
-            'notaFinal'=> $request->input('notaFinal'),
-            'anoConclusao' => $request->input('anoConclusao'),
-            'status' => $request->input('status'),
-            'idFuncionario' => $idFuncionario,
-            'idArquivo' => $idArquivo->id 
-        ]);
-        return redirect()->back()->with('success', 'Actualizado com sucesso!');
-      }
-        // Atualizar simbolicamente o conteudo da coluna 'caminho'
-        $arquivo->update([
-            'titulo' => md5($nomeArquivo.date('d-m-y')),
-            'categoria' => $categoria,
-            'descricao' => 'N/D',
-            'arquivo' => $nomeArquivo,
-            'caminho' => $caminho,
-            'idFuncionario' => $idFuncionario,
-        ]);
-        $habilitacao->update([
-            'nivel' => $request->input('nivel'),
-            'curso' => $request->input('curso'),
-            'instituicao' => $request->input('instituicao'),
-            'notaFinal'=> $request->input('notaFinal'),
-            'anoConclusao' => $request->input('anoConclusao'),
-            'status' => $request->input('status'),
-            'idFuncionario' => $idFuncionario,
-        ]);
-        return redirect()->back()->with('success', 'Actualizado com sucesso!');
-  
-    return redirect()->back()->with('error', 'Erros ao Actualizar!');//Aplicar Rediret with erro end success  
-    }
-  
-*/
 
   
   public function fotoPerfilActualizar(Request $request)
