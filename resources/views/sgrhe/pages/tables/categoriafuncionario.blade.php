@@ -80,7 +80,7 @@
                               </tbody>
                               <tfoot>
                               <tr>
-                                <td>{{ $loop->index+1 }}</td>
+                                <th>Nº</th>
                                 <th>Categoria de Funcionário (id)</th>
                                 <th>Categoria</th>
                                 <th>Grau</th>

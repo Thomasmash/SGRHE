@@ -116,7 +116,7 @@
                       </div>
                     </div>
                     <!-- Alunos Masculinos e Femininos -->
-                      <div class="col-lg-3 col-6 ">
+                      <div class="col-lg-3 col-6 {{ $unidadeOrganicaSelected->nivelEnsino === 'N/D'  ? 'd-none' : ''  }} ">
                         <div class="small-box bg-info">
                           <div class="inner">
                             <h3> {{ $aproveitamentosI->sum('matriculadosMF') }} </h3>
@@ -130,7 +130,7 @@
                       </div>
                     <!-- /Alunos Masculinos e Femininos -->
                     <!-- Alunos Femininos -->
-                      <div class="col-lg-3 col-6">
+                      <div class="col-lg-3 col-6 {{ $unidadeOrganicaSelected->nivelEnsino === 'N/D'  ? 'd-none' : ''  }} ">
                         <div class="small-box bg-success">
                           <div class="inner">
                             <h3>{{ $aproveitamentosI->sum('matriculadosF') }}</h3>
@@ -144,7 +144,7 @@
                       </div>
                     <!-- /Alunos Femininos -->
                     <!--Alunos Masculinos-->
-                      <div class="col-lg-3 col-6">
+                      <div class="col-lg-3 col-6 {{ $unidadeOrganicaSelected->nivelEnsino === 'N/D'  ? 'd-none' : ''  }} ">
                         <!-- small box -->
                         <div class="small-box bg-danger">
                           <div class="inner">

@@ -18,8 +18,8 @@ class CargoController extends Controller
     }
     public function index()
     {
-        $dados = Cargo::all();
-       // dd($dados->all());
+        $dados = Cargo::where('id', '!=', 1)->get();
+        // dd($dados->all());
         return view('sgrhe/pages/tables/cargo',compact('dados'));
     
     }

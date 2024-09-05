@@ -198,7 +198,7 @@
                   <div class="inner">
                     <h3>{{ $aproveitamentosI->sum('matriculadosMF') }} Alunos</h3>
                     <p><span style="font-size: 30px;"> {{ $aproveitamentosI->sum('matriculadosMF') == 0 ? 'Sem Dados' : round(($aproveitamentosI->sum('matriculadosF')*100)/$aproveitamentosI->sum('matriculadosMF'), 2).'%' }} </span> Femininos: {{ $aproveitamentosI->sum('matriculadosF')}} Alunas</p>
-                    <p><span style="font-size: 30px;"> {{ $aproveitamentosI->sum('matriculadosMF') == 0 ? 'Sem Dados' : round((($aproveitamentosI->sum('matriculadosMF')-$aproveitamentosI->sum('matriculadosF'))*100)/$aproveitamentosI->sum('matriculadosMF'), 2).'%' }}</span> Mascilinos: {{ $aproveitamentosI->sum('matriculadosMF')-$aproveitamentosI->sum('matriculadosF')}} Alunas</p>
+                    <p><span style="font-size: 30px;"> {{ $aproveitamentosI->sum('matriculadosMF') == 0 ? 'Sem Dados' : round((($aproveitamentosI->sum('matriculadosMF')-$aproveitamentosI->sum('matriculadosF'))*100)/$aproveitamentosI->sum('matriculadosMF'), 2).'%' }}</span> Masculinos: {{ $aproveitamentosI->sum('matriculadosMF')-$aproveitamentosI->sum('matriculadosF')}} Alunos</p>
                   </div>
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
