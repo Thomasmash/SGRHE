@@ -434,7 +434,15 @@
                                     Regulamento Interno DME
                                   </p>
                                 </a>
-                          </li>
+                        </li>
+                        <li class="nav-item">
+                                <a href="{{ route('auditoria') }}"  class="nav-link {{ request()->routeIs('auditoria') ? 'active' : ''}}">
+                                <i class="bi bi-data"></i>  
+                                <p class="item-1">
+                                    Auditoria
+                                  </p>
+                                </a>
+                        </li>
                       <!--/.Serviços-->
                     
             </li>

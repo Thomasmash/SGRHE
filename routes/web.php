@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\ArquivoController;
 use App\Http\Controllers\AproveitamentoController;
 use App\Http\Controllers\AssinaturaController;
@@ -340,7 +342,7 @@ Route::any('/add/efectividade/', [MapaEfectividadeController::class, 'addFuncion
 Route::any('/faltas/efectividade/', [MapaEfectividadeController::class, 'aplicarFaltas'])->name('aplicar.faltas');
 Route::any('/remover/efectividade/', [MapaEfectividadeController::class, 'removerDoMapaEfectividade'])->name('remover.do.mapa.efectividade');
 Route::any('/efectivar/mapa/', [MapaEfectividadeController::class, 'efectivarMapaEfectividade'])->name('efectivar.mapa.efectividade');
-
+Route::any('/auditoria_do_sistema/', [AuditoriaController::class, 'index'])->name('auditoria');
 
 // Rota para carregar os cargos por Seccao
 Route::get('/funcionarios/{idSeccaoSelecionada}', [CargoController::class, 'getFuncionarios']);
