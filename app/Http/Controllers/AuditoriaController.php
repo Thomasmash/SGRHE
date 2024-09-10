@@ -13,7 +13,7 @@ class AuditoriaController extends Controller
     public function index()
     {
         $dados = Audit::all();
-       // dd($dados[0]->id);
+        //dd($dados);
         $titulo = 'Auditoria';
         return view('sgrhe/pages/audit/auditoria', compact('dados','titulo'));
     }

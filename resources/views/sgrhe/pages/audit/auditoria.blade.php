@@ -51,7 +51,7 @@
                                 <thead>
                                 <tr>
                                   <th>Nº</th>
-                                  <th>Data Criação</th>
+                                  <th>Data</th>
                                   <th>Usuário</th>
                                   <th>Número Agente</th>
                                   <th>Tipo de Evento</th>
@@ -60,8 +60,8 @@
                                   <th>User Agent/Browser</th>
                                   <th>Endereço IP</th>
                                   <th>URL</th>
-                                  <th>Auditables</th>
-                                  <th class="d-none">Opções</th>
+                                  <th>Dados Auditados</th>
+                                  <th class="{{ (( $cargoLogado->permissoes === 'Admin' ) || ( $cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === 'RHPE' )) ? '' : 'd-none' }} " >Opções</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -76,24 +76,49 @@
                                                   <td>{{ $funcionario->nomeCompleto }}</td>
                                                   <td>{{ $dado->user->numeroAgente }}</td>
                                                   <td>{{ $dado->event }}</td>
-                                                  <td>{{ $dado->id }}</td>
-                                                  <td>{{ $dado->id }}</td>
+                                                  <td>
+                                                  @if( $dado->event === "updated" )
+                                                      @foreach ( $dado->getModified() as $campo => $valor )
+                                                          @if(isset($valor['old']))
+                                                              <span class="font-weight-bold">{{ $campo }}</span>: {{ $valor['old'] }} </br>
+                                                          @else
+                                                          N/D <br>
+                                                          @endif
+
+                                                      @endforeach
+                                                  @else
+                                                    N/D <br>
+                                                  @endif
+                                                  </td>
+                                                  <td>
+                                                  @if( $dado->event === "updated" )
+                                                      @foreach ( $dado->getModified() as $campo => $valor )
+                                                          @if(isset($valor['new']))
+                                                              <span class="font-weight-bold">{{ $campo }}</span>: {{ $valor['new'] }} </br>
+                                                          @else
+                                                          N/D <br>
+                                                          @endif
+
+                                                      @endforeach
+                                                  @else
+                                                    N/D <br>
+                                                  @endif
+                                                  
+                                                  </td>
                                                   <td>{{ $dado->user_agent }}</td>
                                                   <td>{{ $dado->ip_address }}</td>
                                                   <td>{{ $dado->url }}</td>
-                                                  <td>{{ $dado->auditable }}</td>
-                                                  <td class="d-none">
-                                                    
+                                                  <td><p class="text-break">{{ $dado->auditable }}</p></td>
+                                                  <td class=" {{ (( $cargoLogado->permissoes === 'Admin' ) || ( $cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === 'RHPE' )) ? '' : 'd-none' }} " >
                                                       @if ( ($cargoLogado->permissoes === "Admin") || ($cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === "RHPE") )
                                                       <form action="{{ route('eliminar.objecto') }}" method="POST" id="deleteForm{{ $dado->id }}">
                                                           @csrf
                                                           @method('DELETE')
                                                           <input type="hidden" name="id" value="{{ $dado->id }}">
                                                           <input type="hidden" name="categoria" value="auditoria">
-                                                          <button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar  Funcionário?', 'Sim, Deletar!', 'Não, Cancelar!')">Deletar</button>
+                                                          <button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar limpar Auditoria?', 'Sim, Deletar!', 'Não, Cancelar!')">Limpar dados</button>
                                                       </form>
                                                       @endif
-                                              
                                                   </td>
                                               </tr>
                                 @endforeach
@@ -101,7 +126,7 @@
                                 <tfoot>
                                 <tr>
                                   <th>Nº</th>
-                                  <th>Data Criação</th>
+                                  <th>Data</th>
                                   <th>Usuário</th>
                                   <th>Número Agente</th>
                                   <th>Tipo de Evento</th>
@@ -110,8 +135,8 @@
                                   <th>User Agent/Browser</th>
                                   <th>Endereço IP</th>
                                   <th>URL</th>
-                                  <th>Auditables</th>
-                                  <th class="d-none">Opções</th>
+                                  <th>Dados Auditados</th>
+                                  <th class="{{ (( $cargoLogado->permissoes === 'Admin' ) || ( $cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === 'RHPE' )) ? '' : 'd-none' }} ">Opções</th>
                                 </tr>
                                 </tfoot>
                               </table>
