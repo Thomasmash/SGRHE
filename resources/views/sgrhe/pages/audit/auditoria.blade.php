@@ -60,8 +60,7 @@
                                   <th>User Agent/Browser</th>
                                   <th>Endereço IP</th>
                                   <th>URL</th>
-                                  <th>Dados Auditados</th>
-                                  <th class="{{ (( $cargoLogado->permissoes === 'Admin' ) || ( $cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === 'RHPE' )) ? '' : 'd-none' }} " >Opções</th>
+                                  <th>Dados Auditados</th> 
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -109,17 +108,6 @@
                                                   <td>{{ $dado->ip_address }}</td>
                                                   <td>{{ $dado->url }}</td>
                                                   <td><p class="text-break">{{ $dado->auditable }}</p></td>
-                                                  <td class=" {{ (( $cargoLogado->permissoes === 'Admin' ) || ( $cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === 'RHPE' )) ? '' : 'd-none' }} " >
-                                                      @if ( ($cargoLogado->permissoes === "Admin") || ($cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === "RHPE") )
-                                                      <form action="{{ route('eliminar.objecto') }}" method="POST" id="deleteForm{{ $dado->id }}">
-                                                          @csrf
-                                                          @method('DELETE')
-                                                          <input type="hidden" name="id" value="{{ $dado->id }}">
-                                                          <input type="hidden" name="categoria" value="auditoria">
-                                                          <button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar limpar Auditoria?', 'Sim, Deletar!', 'Não, Cancelar!')">Limpar dados</button>
-                                                      </form>
-                                                      @endif
-                                                  </td>
                                               </tr>
                                 @endforeach
                                 </tbody>
@@ -136,7 +124,6 @@
                                   <th>Endereço IP</th>
                                   <th>URL</th>
                                   <th>Dados Auditados</th>
-                                  <th class="{{ (( $cargoLogado->permissoes === 'Admin' ) || ( $cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === 'RHPE' )) ? '' : 'd-none' }} ">Opções</th>
                                 </tr>
                                 </tfoot>
                               </table>

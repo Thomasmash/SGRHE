@@ -45,7 +45,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="descricao">Descrição</label>
-                                <input type="text" name="descricao" class="form-control" id="descricao" placeholder="Descricao do Cargo" value="{{isset($UnidadeOrganica) ? $UnidadeOrganica->descricao : '' }}">
+                                <input type="text" name="descricao" class="form-control" id="descricao" placeholder="Descricao da Unidade Orgânica" value="{{isset($UnidadeOrganica) ? $UnidadeOrganica->descricao : '' }}">
                               </div>
                               <div class="form-group">
                                 <label for="eqt">EQT</label>
