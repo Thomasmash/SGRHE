@@ -32,24 +32,24 @@ class DashboardController extends Controller
                 } 
                           //Trimestre I
                           $SubControlI = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'I')->groupBy('idUnidadeOrganica')->get();
-                          $SubControlNonIs = UnidadeOrganica::whereNotIn('id', $SubControlI)->get();
-                          $SubControlInIs = UnidadeOrganica::whereIn('id', $SubControlI)->get();
+                          $SubControlNonIs = UnidadeOrganica::whereNotIn('id', $SubControlI)->where('id', '!=', 1)->get();
+                          $SubControlInIs = UnidadeOrganica::whereIn('id', $SubControlI)->where('id', '!=', 1)->get();
                           
                           
                           //Trimestre II
                           $SubControlII = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'II')->groupBy('idUnidadeOrganica')->get();
-                          $SubControlNonIIs = UnidadeOrganica::whereNotIn('id', $SubControlII)->get();
-                          $SubControlInIIs = UnidadeOrganica::whereIn('id', $SubControlII)->get();
+                          $SubControlNonIIs = UnidadeOrganica::whereNotIn('id', $SubControlII)->where('id', '!=', 1)->get();
+                          $SubControlInIIs = UnidadeOrganica::whereIn('id', $SubControlII)->where('id', '!=', 1)->get();
                           
                           //Trimestre III
                           $SubControlIII = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'III')->groupBy('idUnidadeOrganica')->get();
-                          $SubControlNonIIIs = UnidadeOrganica::whereNotIn('id', $SubControlIII)->get();
-                          $SubControlInIIIs = UnidadeOrganica::whereIn('id', $SubControlIII)->get();
+                          $SubControlNonIIIs = UnidadeOrganica::whereNotIn('id', $SubControlIII)->where('id', '!=', 1)->get();
+                          $SubControlInIIIs = UnidadeOrganica::whereIn('id', $SubControlIII)->where('id', '!=', 1)->get();
                           
                           //Trimestre Final
                           $SubControlFinal = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'Final')->groupBy('idUnidadeOrganica')->get();
-                          $SubControlNonFinals = UnidadeOrganica::whereNotIn('id', $SubControlFinal)->get();
-                          $SubControlInFinals = UnidadeOrganica::whereIn('id', $SubControlFinal)->get();
+                          $SubControlNonFinals = UnidadeOrganica::whereNotIn('id', $SubControlFinal)->where('id', '!=', 1)->get();
+                          $SubControlInFinals = UnidadeOrganica::whereIn('id', $SubControlFinal)->where('id', '!=', 1)->get();
 
                             //dd($SubControlInIs);
                             $dataActual = now();
@@ -63,7 +63,8 @@ class DashboardController extends Controller
                             $aproveitamentosII = Aproveitamento::where('trimestre', 'II')->where('anoLectivo', $anoLectivo)->orderBy('classe', 'desc')->get();
                             $aproveitamentosIII = Aproveitamento::where('trimestre', 'III')->where('anoLectivo', $anoLectivo)->orderBy('classe', 'desc')->get();
                             $aproveitamentosFinal = Aproveitamento::where('trimestre', 'Final')->where('anoLectivo', $anoLectivo)->orderBy('classe', 'desc')->get();
-          
+                            
+                        
                 return view('/dashboard',compact('anoLectivo','aproveitamentosI','aproveitamentosII','aproveitamentosIII','aproveitamentosFinal','SubControlInIs','SubControlNonIs','SubControlInIIs','SubControlNonIIs','SubControlInIIIs','SubControlNonIIIs','SubControlInFinals','SubControlNonFinals','unidadesOrganicas','funcionarios'));
             }else{
                 //Redirecionando para a routa de Dashboard Escola se For director de escola ou tecnico da Escola

@@ -435,7 +435,7 @@
                                   </p>
                                 </a>
                         </li>
-                        <li class="nav-item">
+                        <li class=" {{ $permissoes === 'Admin' ? '' : 'd-none' }} nav-item">
                                 <a href="{{ route('auditoria') }}"  class="nav-link {{ request()->routeIs('auditoria') ? 'active' : ''}}">
                                 <i class="bi bi-clipboard-data-fill"></i>
                                 <p class="item-1">

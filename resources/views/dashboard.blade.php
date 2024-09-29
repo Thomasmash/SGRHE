@@ -360,6 +360,7 @@
                                                     <tr>
                                                       <th>Unidade Organica</th>
                                                       <th>Nível de Ensino</th>
+                                                      <th>Alunos</th>
                                                       <th>Localidade</th>
                                                       <th>Director</th>
                                                       <th>Telefone</th>
@@ -376,11 +377,20 @@
                                                         <td>
                                                           {{$SubControlInI->nivelEnsino}}
                                                         </td>
+
+
+                                                        <td>
+                                                          <span class="font-weight-bold"> Matriculados MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosMF') }}<br>
+                                                          <span class="font-weight-bold"> Matriculado M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosF') }}<br>
+                                                          <span class="font-weight-bold"> Matriculados F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosF') }}<br>                                                      
+                                                        </td>
+                                                        
+                                                        
                                                         <td>
                                                           {{$SubControlInI->localidade}}
                                                         </td>
                                                         <td>
-                                                          {{'N/D'}}
+                                                          N/D
                                                         </td>
                                                         <td>
                                                           {{$SubControlInI->telefone}}
@@ -406,10 +416,13 @@
                                                           {{$SubControlNonI->nivelEnsino}}
                                                         </td>
                                                         <td>
+                                                          N/D
+                                                        </td>
+                                                        <td>
                                                           {{$SubControlNonI->localidade}}
                                                         </td>
                                                         <td>
-                                                          {{'N/D'}}
+                                                          N/D
                                                         </td>
                                                         <td>
                                                           {{$SubControlNonI->telefone}}
@@ -441,11 +454,12 @@
                                             </div>
                                             <div class="card-body">
                                               <div class="table-responsive">
-                                                <table class="table table-hover table-bordered border-secondary table-striped" style="text-align:center;">
+                                                <table class="table table-hover table-bordered border-secondary table-striped">
                                                   <thead>
                                                     <tr>
                                                       <th>Unidade Organica</th>
                                                       <th>Nível de Ensino</th>
+                                                      <th>Alunos</th>
                                                       <th>Localidade</th>
                                                       <th>Director</th>
                                                       <th>Telefone</th>
@@ -463,10 +477,15 @@
                                                           {{$SubControlInII->nivelEnsino}}
                                                         </td>
                                                         <td>
+                                                          <span class="font-weight-bold"> Matriculados MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosMF') }}<br>
+                                                          <span class="font-weight-bold"> Matriculado M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosF') }}<br>
+                                                          <span class="font-weight-bold"> Matriculados F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosF') }}<br>                                                      
+                                                        </td>
+                                                        <td>
                                                           {{$SubControlInII->localidade}}
                                                         </td>
                                                         <td>
-                                                          {{'N/D'}}
+                                                          N/D
                                                         </td>
                                                         <td>
                                                           {{$SubControlInII->telefone}}
@@ -491,11 +510,16 @@
                                                         <td>
                                                           {{$SubControlNonII->nivelEnsino}}
                                                         </td>
+
+                                                        <td>
+                                                          N/D
+                                                        </td>
+
                                                         <td>
                                                           {{$SubControlNonII->localidade}}
                                                         </td>
                                                         <td>
-                                                          {{'N/D'}}
+                                                          N/D
                                                         </td>
                                                         <td>
                                                           {{$SubControlNonII->telefone}}
@@ -527,11 +551,12 @@
                                             </div>
                                             <div class="card-body">
                                               <div class="table-responsive">
-                                                <table class="table table-hover table-bordered border-secondary table-striped" style="text-align:center;">
+                                                <table class="table table-hover table-bordered border-secondary table-striped">
                                                   <thead>
                                                     <tr>
                                                       <th>Unidade Organica</th>
                                                       <th>Nível de Ensino</th>
+                                                      <th>Alunos</th>
                                                       <th>Localidade</th>
                                                       <th>Director</th>
                                                       <th>Telefone</th>
@@ -549,10 +574,15 @@
                                                           {{$SubControlInIII->nivelEnsino}}
                                                         </td>
                                                         <td>
+                                                          <span class="font-weight-bold"> Matriculados MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosMF') }}<br>
+                                                          <span class="font-weight-bold"> Matriculado M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosF') }}<br>
+                                                          <span class="font-weight-bold"> Matriculados F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosF') }}<br>                                                      
+                                                        </td>
+                                                        <td>
                                                           {{$SubControlInIII->localidade}}
                                                         </td>
                                                         <td>
-                                                          {{'N/D'}}
+                                                          N/D
                                                         </td>
                                                         <td>
                                                           {{$SubControlInIII->telefone}}
@@ -578,10 +608,13 @@
                                                           {{$SubControlNonIII->nivelEnsino}}
                                                         </td>
                                                         <td>
+                                                          N/D
+                                                        </td>
+                                                        <td>
                                                           {{$SubControlNonIII->localidade}}
                                                         </td>
                                                         <td>
-                                                          {{'N/D'}}
+                                                          N/D
                                                         </td>
                                                         <td>
                                                           {{$SubControlNonIII->telefone}}
@@ -613,11 +646,12 @@
                                             </div>
                                             <div class="card-body ">
                                               <div class="table-responsive">
-                                                <table class="table table-hover table-bordered border-secondary table-striped" style="text-align:center;">
+                                                <table class="table table-hover table-bordered border-secondary table-striped">
                                                   <thead>
                                                     <tr>
                                                       <th>Unidade Organica</th>
                                                       <th>Nível de Ensino</th>
+                                                      <th>Alunos</th>
                                                       <th>Localidade</th>
                                                       <th>Director</th>
                                                       <th>Telefone</th>
@@ -634,11 +668,23 @@
                                                         <td>
                                                           {{$SubControlInFinal->nivelEnsino}}
                                                         </td>
+
+
+
+                                                        <td>
+                                                          <span class="font-weight-bold"> Matriculados MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosMF') }}<br>
+                                                          <span class="font-weight-bold"> Matriculado M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosF') }}<br>
+                                                          <span class="font-weight-bold"> Matriculados F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosF') }}<br>                                                      
+                                                        </td>
+
+
+
+
                                                         <td>
                                                           {{$SubControlInFinal->localidade}}
                                                         </td>
                                                         <td>
-                                                          {{'N/D'}}
+                                                          N/D
                                                         </td>
                                                         <td>
                                                           {{$SubControlInFinal->telefone}}
@@ -664,10 +710,13 @@
                                                           {{$SubControlNonFinal->nivelEnsino}}
                                                         </td>
                                                         <td>
+                                                          N/D
+                                                        </td>
+                                                        <td>
                                                           {{$SubControlNonFinal->localidade}}
                                                         </td>
                                                         <td>
-                                                          {{'N/D'}}
+                                                          N/D
                                                         </td>
                                                         <td>
                                                           {{$SubControlNonFinal->telefone}}
