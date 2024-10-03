@@ -76,7 +76,7 @@
                                                   <td>{{ $dado->user->numeroAgente }}</td>
                                                   <td>{{ $dado->event }}</td>
                                                   <td>
-                                                  @if( $dado->event === "updated" )
+                                                  @if( $dado->event === "updated" || $dado->event === "deleted")
                                                       @foreach ( $dado->getModified() as $campo => $valor )
                                                           @if(isset($valor['old']))
                                                               <span class="font-weight-bold">{{ $campo }}</span>: {{ $valor['old'] }} </br>

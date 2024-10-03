@@ -23,42 +23,35 @@ class DashboardController extends Controller
                      //Carregando os Dados do Dashboard
                 $unidadesOrganicas = UnidadeOrganica::where('id', '!=', 1)->get();
                 $funcionarios = Funcionario::where('id', '!=', 1)->get();
-                $dataActual = now();
+               
                 //Determinar o Ano Lectivo sabendo que Ele comeca sempre em setembro
+                $dataActual = now();
                 if ($dataActual->format('n') > 9) {
                     $anoLectivo = $dataActual->format('Y').'/'.($dataActual->format('Y') + 1);
                 }else {
                     $anoLectivo = ($dataActual->format('Y') - 1).'/'.$dataActual->format('Y');
                 } 
-                          //Trimestre I
-                          $SubControlI = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'I')->groupBy('idUnidadeOrganica')->get();
-                          $SubControlNonIs = UnidadeOrganica::whereNotIn('id', $SubControlI)->where('id', '!=', 1)->get();
-                          $SubControlInIs = UnidadeOrganica::whereIn('id', $SubControlI)->where('id', '!=', 1)->get();
-                          
-                          
-                          //Trimestre II
-                          $SubControlII = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'II')->groupBy('idUnidadeOrganica')->get();
-                          $SubControlNonIIs = UnidadeOrganica::whereNotIn('id', $SubControlII)->where('id', '!=', 1)->get();
-                          $SubControlInIIs = UnidadeOrganica::whereIn('id', $SubControlII)->where('id', '!=', 1)->get();
-                          
-                          //Trimestre III
-                          $SubControlIII = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'III')->groupBy('idUnidadeOrganica')->get();
-                          $SubControlNonIIIs = UnidadeOrganica::whereNotIn('id', $SubControlIII)->where('id', '!=', 1)->get();
-                          $SubControlInIIIs = UnidadeOrganica::whereIn('id', $SubControlIII)->where('id', '!=', 1)->get();
-                          
-                          //Trimestre Final
-                          $SubControlFinal = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'Final')->groupBy('idUnidadeOrganica')->get();
-                          $SubControlNonFinals = UnidadeOrganica::whereNotIn('id', $SubControlFinal)->where('id', '!=', 1)->get();
-                          $SubControlInFinals = UnidadeOrganica::whereIn('id', $SubControlFinal)->where('id', '!=', 1)->get();
+                            //Trimestre I
+                            $SubControlI = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'I')->where('anoLectivo', $anoLectivo)->groupBy('idUnidadeOrganica')->get();
+                            $SubControlNonIs = UnidadeOrganica::whereNotIn('id', $SubControlI)->where('id', '!=', 1)->get();
+                            $SubControlInIs = UnidadeOrganica::whereIn('id', $SubControlI)->where('id', '!=', 1)->get();
+                            
+                            
+                            //Trimestre II
+                            $SubControlII = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'II')->where('anoLectivo', $anoLectivo)->groupBy('idUnidadeOrganica')->get();
+                            $SubControlNonIIs = UnidadeOrganica::whereNotIn('id', $SubControlII)->where('id', '!=', 1)->get();
+                            $SubControlInIIs = UnidadeOrganica::whereIn('id', $SubControlII)->where('id', '!=', 1)->get();
+                            
+                            //Trimestre III
+                            $SubControlIII = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'III')->where('anoLectivo', $anoLectivo)->groupBy('idUnidadeOrganica')->get();
+                            $SubControlNonIIIs = UnidadeOrganica::whereNotIn('id', $SubControlIII)->where('id', '!=', 1)->get();
+                            $SubControlInIIIs = UnidadeOrganica::whereIn('id', $SubControlIII)->where('id', '!=', 1)->get();
+                            
+                            //Trimestre Final
+                            $SubControlFinal = Aproveitamento::select('idUnidadeOrganica')->where('trimestre', 'Final')->where('anoLectivo', $anoLectivo)->groupBy('idUnidadeOrganica')->get();
+                            $SubControlNonFinals = UnidadeOrganica::whereNotIn('id', $SubControlFinal)->where('id', '!=', 1)->get();
+                            $SubControlInFinals = UnidadeOrganica::whereIn('id', $SubControlFinal)->where('id', '!=', 1)->get();
 
-                            //dd($SubControlInIs);
-                            $dataActual = now();
-                            //Determinar o Ano Lectivo sabendo que Ele comeca sempre em setembro
-                            if ($dataActual->format('n') > 9) {
-                                $anoLectivo = $dataActual->format('Y').'/'.($dataActual->format('Y') + 1);
-                            }else {
-                                $anoLectivo = ($dataActual->format('Y') - 1).'/'.$dataActual->format('Y');
-                            } 
                             $aproveitamentosI = Aproveitamento::where('trimestre', 'I')->where('anoLectivo', $anoLectivo)->orderBy('classe', 'desc')->get();
                             $aproveitamentosII = Aproveitamento::where('trimestre', 'II')->where('anoLectivo', $anoLectivo)->orderBy('classe', 'desc')->get();
                             $aproveitamentosIII = Aproveitamento::where('trimestre', 'III')->where('anoLectivo', $anoLectivo)->orderBy('classe', 'desc')->get();

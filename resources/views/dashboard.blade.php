@@ -15,7 +15,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0">Dashboard</h1>
+                <h1 class="m-0">Dashboard Ano Lectivo {{ $anoLectivo }}</h1>
               
               </div><!-- /.col -->
               <div class="col-sm-6">
@@ -350,7 +350,7 @@
                                           <div class="card-info">
                                             <div class="card-header">
                                               <h3 class="car-title">
-                                                Status de Submisão de Formuário por Unidade Orgânica 
+                                                Status de Submisão de Formuário de Aproveitamento {{ $anoLectivo }}
                                               </h3>
                                             </div>
                                             <div class="card-body">
@@ -380,9 +380,9 @@
 
 
                                                         <td>
-                                                          <span class="font-weight-bold"> Matriculados MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosMF') }}<br>
-                                                          <span class="font-weight-bold"> Matriculado M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosF') }}<br>
-                                                          <span class="font-weight-bold"> Matriculados F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosF') }}<br>                                                      
+                                                          <span class="font-weight-bold">MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosMF') }}<br>
+                                                          <span class="font-weight-bold">M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosF') }}<br>
+                                                          <span class="font-weight-bold">F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInI->id)->sum('matriculadosF') }}<br>                                                      
                                                         </td>
                                                         
                                                         
@@ -477,9 +477,9 @@
                                                           {{$SubControlInII->nivelEnsino}}
                                                         </td>
                                                         <td>
-                                                          <span class="font-weight-bold"> Matriculados MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosMF') }}<br>
-                                                          <span class="font-weight-bold"> Matriculado M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosF') }}<br>
-                                                          <span class="font-weight-bold"> Matriculados F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosF') }}<br>                                                      
+                                                          <span class="font-weight-bold">MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosMF') }}<br>
+                                                          <span class="font-weight-bold">M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosF') }}<br>
+                                                          <span class="font-weight-bold">F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInII->id)->sum('matriculadosF') }}<br>                                                      
                                                         </td>
                                                         <td>
                                                           {{$SubControlInII->localidade}}
@@ -574,9 +574,9 @@
                                                           {{$SubControlInIII->nivelEnsino}}
                                                         </td>
                                                         <td>
-                                                          <span class="font-weight-bold"> Matriculados MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosMF') }}<br>
-                                                          <span class="font-weight-bold"> Matriculado M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosF') }}<br>
-                                                          <span class="font-weight-bold"> Matriculados F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosF') }}<br>                                                      
+                                                          <span class="font-weight-bold">MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosMF') }}<br>
+                                                          <span class="font-weight-bold">M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosF') }}<br>
+                                                          <span class="font-weight-bold">F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInIII->id)->sum('matriculadosF') }}<br>                                                      
                                                         </td>
                                                         <td>
                                                           {{$SubControlInIII->localidade}}
@@ -672,9 +672,9 @@
 
 
                                                         <td>
-                                                          <span class="font-weight-bold"> Matriculados MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosMF') }}<br>
-                                                          <span class="font-weight-bold"> Matriculado M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosF') }}<br>
-                                                          <span class="font-weight-bold"> Matriculados F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosF') }}<br>                                                      
+                                                          <span class="font-weight-bold">MF:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosMF') }}<br>
+                                                          <span class="font-weight-bold">M:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosMF')-$aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosF') }}<br>
+                                                          <span class="font-weight-bold">F:</span> {{ $aproveitamentosI->where('idUnidadeOrganica', $SubControlInFinal->id)->sum('matriculadosF') }}<br>                                                      
                                                         </td>
 
 
