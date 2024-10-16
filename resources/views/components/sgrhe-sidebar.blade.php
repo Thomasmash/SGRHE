@@ -40,7 +40,7 @@
                                       <!--Se Nao existir foto de Perfil-->
                                       
                                       <img class="profile-user-img img-fluid img-circle"
-                                      src="{{ route('Avatar.Usuario') }}"
+                                      src="{{ route('Avatar.UsuarioM') }}"
                                               alt="User profile picture">
                                       @endif
                                               

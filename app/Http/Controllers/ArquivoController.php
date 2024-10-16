@@ -277,14 +277,21 @@ class ArquivoController extends Controller
     }
 
            //User Avatar SGRHE
-    public function avatarUsuario()
+ 
+    public function avatarUsuarioF()
     {
-        $imagem ="img/avatar.png";
-        $arquivo = Storage::disk('public')->get($imagem);
-        $mimetype = Storage::mimeType($imagem);
-        return response()->make($arquivo,200,['Content-Type' => $mimetype]); 
+        $imagem = "/var/www/SGRHE/public/img/avatarF.jpg";
+        $arquivo = file_get_contents($imagem);
+        $mimetype = mime_content_type($imagem);
+        return response()->make($arquivo, 200, ['Content-Type' => $mimetype]);
     }
-
+    public function avatarUsuarioM()
+    {
+        $imagem = "/var/www/SGRHE/public/img/avatarM.jpg";
+        $arquivo = file_get_contents($imagem);
+        $mimetype = mime_content_type($imagem);
+        return response()->make($arquivo, 200, ['Content-Type' => $mimetype]);
+    }
 
     public function uploadFile( Request $request)
     {

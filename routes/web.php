@@ -264,7 +264,8 @@ Route::delete('/delete-arquivo/{id}',[ArquivoController::class,'destroy'])->name
 Route::post('/foto/perfil/actualizar',[ArquivoController::class,'fotoPerfilActualizar'])->name('foto.perfil.actualizar');
 //Renderizar IMG
 //Rota para renderizar a imagem user Avatar
-Route::any('/avatar-usuario',[ArquivoController::class,'avatarUsuario'])->name('Avatar.Usuario');
+Route::any('/avatar-usuarioM',[ArquivoController::class,'avatarUsuarioM'])->name('Avatar.UsuarioM');
+Route::any('/avatar-usuarioF',[ArquivoController::class,'avatarUsuarioF'])->name('Avatar.UsuarioF');
 //Rota para Renderizar qualquer imagem com aenas o caminho Imagem
 Route::any('/exibir-imagem/{imagem}',[ArquivoController::class,'exibirImagem'])->name('Exibir.Imagem');
 //Exibir Ficheiros

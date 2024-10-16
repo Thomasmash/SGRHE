@@ -6,7 +6,7 @@
   @section('titulo' , 'Linha de Tempo - '.$pessoa->nomeCompleto )
         @section('header')
         <?php
-        dd('Cheguei ate aqui');
+        //dd('Cheguei ate aqui');
         ?>
              <!--Estilizacao do Previw foto de Perfil-->
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
