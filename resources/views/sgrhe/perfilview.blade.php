@@ -91,10 +91,15 @@
                                       alt="User profile picture">
                               @else
                               <!--Se Nao existir foto de Perfil-->
-                            
-                              <img class="profile-user-img img-fluid img-circle"
-                              src="{{ route('Avatar.Usuario') }}"
-                                      alt="User profile picture">
+                                @if(true)
+                                <img class="profile-user-img img-fluid img-circle"
+                                src="{{ route('Avatar.UsuarioM') }}"
+                                        alt="User profile picture">
+                                @else
+                                <img class="profile-user-img img-fluid img-circle"
+                                src="{{ route('Avatar.UsuarioF') }}"
+                                        alt="User profile picture">
+                                @endif
                               @endif
                                       
                               <!--Edicao e Corte de imagen -->

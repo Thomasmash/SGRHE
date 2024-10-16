@@ -38,10 +38,15 @@
                                               alt="User profile picture">
                                       @else
                                       <!--Se Nao existir foto de Perfil-->
-                                      
-                                      <img class="profile-user-img img-fluid img-circle"
-                                      src="{{ route('Avatar.UsuarioM') }}"
-                                              alt="User profile picture">
+                                        @if(false)
+                                        <img class="profile-user-img img-fluid img-circle"
+                                        src="{{ route('Avatar.UsuarioM') }}"
+                                                alt="User profile picture">
+                                        @else
+                                        <img class="profile-user-img img-fluid img-circle"
+                                        src="{{ route('Avatar.UsuarioF') }}"
+                                                alt="User profile picture">
+                                        @endif
                                       @endif
                                               
                                 </div>

@@ -280,14 +280,14 @@ class ArquivoController extends Controller
  
     public function avatarUsuarioF()
     {
-        $imagem = "/var/www/SGRHE/public/img/avatarF.jpg";
+        $imagem = "/var/www/SGRHE/public/img/avatar/feminino/avatar1.jpg";
         $arquivo = file_get_contents($imagem);
         $mimetype = mime_content_type($imagem);
         return response()->make($arquivo, 200, ['Content-Type' => $mimetype]);
     }
     public function avatarUsuarioM()
     {
-        $imagem = "/var/www/SGRHE/public/img/avatarM.jpg";
+        $imagem = "/var/www/SGRHE/public/img/avatar/masculino/avatar1.jpg";
         $arquivo = file_get_contents($imagem);
         $mimetype = mime_content_type($imagem);
         return response()->make($arquivo, 200, ['Content-Type' => $mimetype]);
