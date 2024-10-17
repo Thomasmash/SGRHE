@@ -38,7 +38,7 @@
                                               alt="User profile picture">
                                       @else
                                       <!--Se Nao existir foto de Perfil-->
-                                        @if(true)
+                                        @if(($pessoaLogado->genero === 'Masculino') || ($pessoaLogado->genero === 'N/D'))
                                         <img class="profile-user-img img-fluid img-circle"
                                         src="{{ route('Avatar.UsuarioM') }}"
                                                 alt="User profile picture">
