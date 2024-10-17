@@ -120,7 +120,7 @@
               <div class="col-lg-3 col-6">
                 <div class="small-box bg-info">
                   <div class="inner">
-                    <h3>{{ $unidadesOrganicas->count() }}</h3>
+                    <h3>{{ $unidadesOrganicas->count()-1 }}</h3>
                     <p>Unidades Orgânicas</p>
                   </div>
                   <div class="icon">
