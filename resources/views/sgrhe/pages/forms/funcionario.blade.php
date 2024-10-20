@@ -249,7 +249,7 @@
             const idSeccaoSelecionada = document.getElementById('seccaoSelect').value;
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            fetch(`/funcionarios/${idSeccaoSelecionada}`, {
+            fetch(`/cargos/${idSeccaoSelecionada}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

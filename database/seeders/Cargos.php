@@ -38,7 +38,19 @@ class Cargos extends Seeder
             'codNome' => 'DirectorEscola',
             'designacao' =>'Director da Escola',
             'permissoes' => '3',
-            'descrisao' => ' Create Read, Solicitar, Emitir Documentos Como: Dados doa Escola...'
+            'descrisao' => ' Create Read, Solicitar, Emitir Documentos Como: Dados do Escola...'
+        ]);  
+        DB::table('cargos')->insert([
+            'codNome' => 'ChefeSecretaria',
+            'designacao' =>'Chefe de Secretaria',
+            'permissoes' => '3',
+            'descrisao' => ' Create Read, Solicitar, Emitir Documentos Como: Dados do Escola...'
+        ]);  
+        DB::table('cargos')->insert([
+            'codNome' => 'Secretario',
+            'designacao' =>'Secretario',
+            'permissoes' => '3',
+            'descrisao' => ' Create Read, Solicitar, Emitir Documentos Como: Dados do Escola...'
         ]);  
         DB::table('cargos')->insert([
             'codNome' => 'TecnicoDM',

@@ -346,5 +346,5 @@ Route::any('/efectivar/mapa/', [MapaEfectividadeController::class, 'efectivarMap
 Route::any('/auditoria_do_sistema/', [AuditoriaController::class, 'index'])->name('auditoria');
 
 // Rota para carregar os cargos por Seccao
-Route::get('/funcionarios/{idSeccaoSelecionada}', [CargoController::class, 'getFuncionarios']);
+Route::get('/cargos/{idSeccaoSelecionada}', [CargoController::class, 'getCargos']);
 });

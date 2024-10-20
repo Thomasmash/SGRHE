@@ -21,7 +21,7 @@ class Admin extends Seeder
             'eqt' => 'Admin',
             'decretoCriacao' => 'Admin',
             'localidade' => 'Admin',
-            'telefone' => '922275032',
+            'telefone' => '000000001',
             'email' => 'admin@gmail.com',
         ]);
          //pessoas
@@ -73,15 +73,15 @@ class Admin extends Seeder
         ]); 
          //funcionario
          DB::table('funcionarios')->insert([
-            'numeroAgente' => '12345678',
+            'numeroAgente' => '00000001',
             'dataAdmissao' => '1999-01-01',
-            'iban' => 'AO06 0000 0000 0000 0000 0000 0',
+            'iban' => '0000 0000 0000 0000 0000 1',
           //  'email' => 'admin@gmail.com',
             'idPessoa' => '1', 
             'idUnidadeOrganica' => '1',
             'idCargo' => '1', 
             'idCategoriaFuncionario' => '1',
-            'numeroTelefone' => '922275032',
+            'numeroTelefone' => '000000001',
             'idSeccao' => '1',
         ]);
         

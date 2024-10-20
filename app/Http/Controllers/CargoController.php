@@ -99,7 +99,7 @@ class CargoController extends Controller
     }
 
 
-   public function getFuncionarios(string $idSeccaoSelecionada){
+   public function getCargos(string $idSeccaoSelecionada){
 			$seccao = Seccao::find($idSeccaoSelecionada);
             $cargos = Cargo::where('id', '!=', 1)->where('permissoes', '<=', $seccao->permissoes)->get(); // Obtém todos os funcionários
 			//dd($cargos);
