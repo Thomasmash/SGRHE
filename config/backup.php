@@ -105,7 +105,7 @@ return [
          * If 'database' (default), the dumped filename will contain the database name.
          * If 'connection', the dumped filename will contain the connection name.
          */
-        'database_dump_filename_base' => 'sgrhe',
+        'database_dump_filename_base' => env('DATABASE_DUMP_FILENAME_BASE'),
 
         /*
          * The file extension used for the database dump files.
@@ -196,12 +196,12 @@ return [
      */
     'notifications' => [
         'notifications' => [
-            \Spatie\Backup\Notifications\Notifications\BackupHasFailedNotification::class => ['sgrhe2024@gmail.com'],
-            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFoundNotification::class => ['sgrhe2024@gmail.com'],
-            \Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification::class => ['sgrhe2024@gmail.com'],
-            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessfulNotification::class => ['sgrhe2024@gmail.com'],
-            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFoundNotification::class => ['sgrhe2024@gmail.com'],
-            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessfulNotification::class => ['sgrhe2024@gmail.com'],
+            \Spatie\Backup\Notifications\Notifications\BackupHasFailedNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFoundNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessfulNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFoundNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessfulNotification::class => ['mail'],
         ],
 
         /*
@@ -211,7 +211,7 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'thomasmash42@gmail.com',
+            'to' => env('MAIL_TO_ADDRESS'),
             'from' => [
                 'address' => env('MAIL_FROM_ADDRESS'),
                 'name' => env('MAIL_FROM_NAME'),
