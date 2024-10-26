@@ -3,17 +3,14 @@
 return [
 
     'backup' => [
-
         /*
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('APP_NAME', 'laravel-backup'),
+        'name' => env('APP_NAME'),
 
         'source' => [
-
             'files' => [
-
                 /*
                  * The list of directories and files that will be included in the backup.
                  */
@@ -34,7 +31,7 @@ return [
                 /*
                  * Determines if symlinks should be followed.
                  */
-                'follow_links' => true ,
+                'follow_links' => false,
 
                 /*
                  * Determines if it should avoid unreadable folders.
@@ -103,6 +100,14 @@ return [
         'database_dump_file_timestamp_format' => null,
 
         /*
+         * The base of the dump filename, either 'database' or 'connection'
+         *
+         * If 'database' (default), the dumped filename will contain the database name.
+         * If 'connection', the dumped filename will contain the connection name.
+         */
+        'database_dump_filename_base' => 'sgrhe',
+
+        /*
          * The file extension used for the database dump files.
          *
          * If not specified, the file extension will be .archive for MongoDB and .sql for all other databases
@@ -140,7 +145,7 @@ return [
             /*
              * The filename prefix used for the backup zip file.
              */
-            'filename_prefix' => '',
+            'filename_prefix' => 'Backup',
 
             /*
              * The disk names on which the backups will be stored.
@@ -170,12 +175,12 @@ return [
          */
         'encryption' => 'default',
 
-        /**
+        /*
          * The number of attempts, in case the backup command encounters an exception
          */
         'tries' => 1,
 
-        /**
+        /*
          * The number of seconds to wait before attempting a new backup if the previous try failed
          * Set to `0` for none
          */
@@ -190,14 +195,13 @@ return [
      * the `Spatie\Backup\Notifications\Notifications` classes.
      */
     'notifications' => [
-
         'notifications' => [
-            \Spatie\Backup\Notifications\Notifications\BackupHasFailedNotification::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFoundNotification::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessfulNotification::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFoundNotification::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessfulNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\BackupHasFailedNotification::class => ['sgrhe2024@gmail.com'],
+            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFoundNotification::class => ['sgrhe2024@gmail.com'],
+            \Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification::class => ['sgrhe2024@gmail.com'],
+            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessfulNotification::class => ['sgrhe2024@gmail.com'],
+            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFoundNotification::class => ['sgrhe2024@gmail.com'],
+            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessfulNotification::class => ['sgrhe2024@gmail.com'],
         ],
 
         /*
@@ -207,11 +211,10 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'your@example.com',
-
+            'to' => 'thomasmash42@gmail.com',
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'Example'),
+                'address' => env('MAIL_FROM_ADDRESS'),
+                'name' => env('MAIL_FROM_NAME'),
             ],
         ],
 
@@ -226,7 +229,6 @@ return [
             'username' => null,
 
             'icon' => null,
-
         ],
 
         'discord' => [
@@ -251,7 +253,7 @@ return [
      */
     'monitor_backups' => [
         [
-            'name' => env('APP_NAME', 'laravel-backup'),
+            'name' => env('APP_NAME'),
             'disks' => ['local'],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,
@@ -284,7 +286,6 @@ return [
         'strategy' => \Spatie\Backup\Tasks\Cleanup\Strategies\DefaultStrategy::class,
 
         'default_strategy' => [
-
             /*
              * The number of days for which backups must be kept.
              */
@@ -319,16 +320,17 @@ return [
             /*
              * After cleaning up the backups remove the oldest backup until
              * this amount of megabytes has been reached.
+             * Set null for unlimited size.
              */
             'delete_oldest_backups_when_using_more_megabytes_than' => 5000,
         ],
 
-        /**
+        /*
          * The number of attempts, in case the cleanup command encounters an exception
          */
         'tries' => 1,
 
-        /**
+        /*
          * The number of seconds to wait before attempting a new cleanup if the previous try failed
          * Set to `0` for none
          */
