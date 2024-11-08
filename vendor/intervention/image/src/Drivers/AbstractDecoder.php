@@ -6,52 +6,13 @@ namespace Intervention\Image\Drivers;
 
 use Exception;
 use Intervention\Image\Collection;
-use Intervention\Image\Exceptions\DecoderException;
 use Intervention\Image\Interfaces\CollectionInterface;
-use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\DecoderInterface;
-use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Traits\CanBuildFilePointer;
 
-abstract class AbstractDecoder extends DriverSpecialized implements DecoderInterface
+abstract class AbstractDecoder implements DecoderInterface
 {
     use CanBuildFilePointer;
-
-    public function __construct(protected ?AbstractDecoder $successor = null)
-    {
-    }
-
-    /**
-     * Try to decode given input to image or color object
-     *
-     * @param mixed $input
-     * @return ImageInterface|ColorInterface
-     * @throws DecoderException
-     */
-    final public function handle(mixed $input): ImageInterface|ColorInterface
-    {
-        try {
-            $decoded = $this->decode($input);
-        } catch (DecoderException $e) {
-            if (!$this->hasSuccessor()) {
-                throw new DecoderException($e->getMessage());
-            }
-
-            return $this->successor->handle($input);
-        }
-
-        return $decoded;
-    }
-
-    /**
-     * Determine if current decoder has a successor
-     *
-     * @return bool
-     */
-    protected function hasSuccessor(): bool
-    {
-        return $this->successor !== null;
-    }
 
     /**
      * Determine if the given input is GIF data format
@@ -68,21 +29,56 @@ abstract class AbstractDecoder extends DriverSpecialized implements DecoderInter
     }
 
     /**
-     * Extract and return EXIF data from given image data string
+     * Determine if given input is a path to an existing regular file
      *
-     * @param string $image_data
-     * @return CollectionInterface
+     * @param mixed $input
+     * @return bool
      */
-    protected function extractExifData(string $image_data): CollectionInterface
+    protected function isFile(mixed $input): bool
+    {
+        if (!is_string($input)) {
+            return false;
+        }
+
+        if (strlen($input) > PHP_MAXPATHLEN) {
+            return false;
+        }
+
+        try {
+            if (!@is_file($input)) {
+                return false;
+            }
+        } catch (Exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Extract and return EXIF data from given input which can be binary image
+     * data or a file path.
+     *
+     * @param string $path_or_data
+     * @return CollectionInterface<string, mixed>
+     */
+    protected function extractExifData(string $path_or_data): CollectionInterface
     {
         if (!function_exists('exif_read_data')) {
             return new Collection();
         }
 
         try {
-            $pointer = $this->buildFilePointer($image_data);
-            $data = @exif_read_data($pointer, null, true);
-            fclose($pointer);
+            $source = match (true) {
+                $this->isFile($path_or_data) => $path_or_data, // path
+                default => $this->buildFilePointer($path_or_data), // data
+            };
+
+            // extract exif data
+            $data = @exif_read_data($source, null, true);
+            if (is_resource($source)) {
+                fclose($source);
+            }
         } catch (Exception) {
             $data = [];
         }
@@ -120,10 +116,18 @@ abstract class AbstractDecoder extends DriverSpecialized implements DecoderInter
 
         return new class ($matches, $result)
         {
-            private $matches;
-            private $result;
+            /**
+             * @var array<mixed>
+             */
+            private array $matches;
+            private int|false $result;
 
-            public function __construct($matches, $result)
+            /**
+             * @param array<mixed> $matches
+             * @param int|false $result
+             * @return void
+             */
+            public function __construct(array $matches, int|false $result)
             {
                 $this->matches = $matches;
                 $this->result = $result;
@@ -146,15 +150,6 @@ abstract class AbstractDecoder extends DriverSpecialized implements DecoderInter
             public function hasMediaType(): bool
             {
                 return !empty($this->mediaType());
-            }
-
-            public function parameters(): array
-            {
-                if (isset($this->matches['parameters']) && !empty($this->matches['parameters'])) {
-                    return explode(';', trim($this->matches['parameters'], ';'));
-                }
-
-                return [];
             }
 
             public function isBase64Encoded(): bool

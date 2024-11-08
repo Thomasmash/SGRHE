@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoriaFuncionarioController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\EnderecoController;
+use App\Http\Controllers\BackupController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\HabilitacaoController;
 use App\Http\Controllers\MapaEfectividadeController;
@@ -319,9 +320,7 @@ Route::any('/file/upload', [AssinaturaController::class,'uploadFile'])->name('fi
 //Gerar Qualquer documento
 Route::any('/gerar/docs/', [ProcessoController::class,'gerarDoc'])->name('gerar.docs');
 //Configuaracoes
-Route::get('/configuracao/perfil/', function(){
-        return view('sgrhe/perfil-config');
-})->name('configuracao.perfil');
+Route::get('/configuracao/perfil/', [PerfilController::class,'configPerfilOnSistem'])->name('configuracao.perfil');
 
 //Configuracao de Usuario obs nao do perfil que e diferente 
 Route::any('/configuracao/usuario', [PerfilController::class, 'config'])->name('config.usuario');
@@ -334,6 +333,16 @@ Route::any('/objecto/eliminar/', [ObjectController::class, 'eliminar'])->name('e
 Route::any('/documento/create', [DocumentoController::class, 'inserirDocumento'])->name('inserir.documento');
 Route::any('/exibir/documento/{documento}',[DocumentoController::class,'exibirDocumento'])->name('exibir.doc');
 
+//Gestão de Backups
+
+//Deletar Backup
+Route::any('/backup/eliminar/', [BackupController::class, 'eliminar'])->name('eliminar.backup');
+//Criar Backup
+Route::any('/backup/criar/', [BackupController::class, 'criar'])->name('criar.backup');
+//Agendar Backup
+Route::any('/backup/agendar/', [BackupController::class, 'agendar'])->name('agendar.backup');
+//Limpar agendar Backup
+Route::any('/backup/limpar/agendas/', [BackupController::class, 'limparAgenda'])->name('limpar.agendar.backup');
 
 //Operacoes com Mapas de Efectividades
 Route::any('/index/mapas/efectividades/', [MapaEfectividadeController::class, 'indexMapasEfectividade'])->name('mapas.efectividade');

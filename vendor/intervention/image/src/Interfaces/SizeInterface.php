@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
+use Intervention\Image\Exceptions\GeometryException;
+
 interface SizeInterface
 {
     /**
@@ -33,7 +35,7 @@ interface SizeInterface
      * @param int $width
      * @return SizeInterface
      */
-    public function setWidth(int $width): SizeInterface;
+    public function setWidth(int $width): self;
 
     /**
      * Set height
@@ -41,7 +43,7 @@ interface SizeInterface
      * @param int $height
      * @return SizeInterface
      */
-    public function setHeight(int $height): SizeInterface;
+    public function setHeight(int $height): self;
 
     /**
      * Set pivot point
@@ -49,7 +51,7 @@ interface SizeInterface
      * @param PointInterface $pivot
      * @return SizeInterface
      */
-    public function setPivot(PointInterface $pivot): SizeInterface;
+    public function setPivot(PointInterface $pivot): self;
 
     /**
      * Calculate aspect ratio of the current size
@@ -64,7 +66,7 @@ interface SizeInterface
      * @param SizeInterface $size
      * @return bool
      */
-    public function fitsInto(SizeInterface $size): bool;
+    public function fitsInto(self $size): bool;
 
     /**
      * Determine if size is in landscape format
@@ -88,22 +90,70 @@ interface SizeInterface
      * @param int $offset_y
      * @return SizeInterface
      */
-    public function movePivot(string $position, int $offset_x = 0, int $offset_y = 0): SizeInterface;
-    public function alignPivotTo(SizeInterface $size, string $position): SizeInterface;
+    public function movePivot(string $position, int $offset_x = 0, int $offset_y = 0): self;
+
+    /**
+     * Align pivot of current object to given position
+     *
+     * @param SizeInterface $size
+     * @param string $position
+     * @return SizeInterface
+     */
+    public function alignPivotTo(self $size, string $position): self;
 
     /**
      * Calculate the relative position to another Size
      * based on the pivot point settings of both sizes.
      *
-     * @param  SizeInterface $size
+     * @param SizeInterface $size
      * @return PointInterface
      */
-    public function relativePositionTo(SizeInterface $size): PointInterface;
-    public function resize(?int $width = null, ?int $height = null): SizeInterface;
-    public function resizeDown(?int $width = null, ?int $height = null): SizeInterface;
-    public function scale(?int $width = null, ?int $height = null): SizeInterface;
-    public function scaleDown(?int $width = null, ?int $height = null): SizeInterface;
-    public function cover(int $width, int $height): SizeInterface;
-    public function contain(int $width, int $height): SizeInterface;
-    public function containMax(int $width, int $height): SizeInterface;
+    public function relativePositionTo(self $size): PointInterface;
+
+    /**
+     * @see ImageInterface::resize()
+     *
+     * @throws GeometryException
+     */
+    public function resize(?int $width = null, ?int $height = null): self;
+
+    /**
+     * @see ImageInterface::resizeDown()
+     *
+     * @throws GeometryException
+     */
+    public function resizeDown(?int $width = null, ?int $height = null): self;
+
+    /**
+     * @see ImageInterface::scale()
+     *
+     * @throws GeometryException
+     */
+    public function scale(?int $width = null, ?int $height = null): self;
+
+    /**
+     * @see ImageInterface::scaleDown()
+     *
+     * @throws GeometryException
+     */
+    public function scaleDown(?int $width = null, ?int $height = null): self;
+
+    /**
+     * @see ImageInterface::cover()
+     *
+     * @throws GeometryException
+     */
+    public function cover(int $width, int $height): self;
+
+    /**
+     * @see ImageInterface::contain()
+     *
+     * @throws GeometryException
+     */
+    public function contain(int $width, int $height): self;
+
+    /**
+     * @throws GeometryException
+     */
+    public function containMax(int $width, int $height): self;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Blocks;
 
 use Intervention\Gif\AbstractExtension;
@@ -11,14 +13,14 @@ class PlainTextExtension extends AbstractExtension
     /**
      * Array of text
      *
-     * @var array
+     * @var array<string>
      */
     protected array $text = [];
 
     /**
      * Get current text
      *
-     * @return array
+     * @return array<string>
      */
     public function getText(): array
     {
@@ -40,7 +42,7 @@ class PlainTextExtension extends AbstractExtension
     /**
      * Set text array of extension
      *
-     * @param array $text
+     * @param array<string> $text
      */
     public function setText(array $text): self
     {

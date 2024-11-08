@@ -4,16 +4,32 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Encoders;
 
+use Error;
+use Intervention\Image\Drivers\AbstractEncoder;
 use Intervention\Image\Exceptions\EncoderException;
 use Intervention\Image\Interfaces\EncodedImageInterface;
 use Intervention\Image\Interfaces\EncoderInterface;
 use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\MediaType;
 
-class MediaTypeEncoder extends SpecializableEncoder implements EncoderInterface
+class MediaTypeEncoder extends AbstractEncoder
 {
-    public function __construct(protected ?string $type = null, ...$options)
+    /**
+     * Encoder options
+     *
+     * @var array<string, mixed>
+     */
+    protected array $options = [];
+
+    /**
+     * Create new encoder instance
+     *
+     * @param null|string|MediaType $mediaType Target media type for example "image/jpeg"
+     * @return void
+     */
+    public function __construct(public null|string|MediaType $mediaType = null, mixed ...$options)
     {
-        parent::__construct(...$options);
+        $this->options = $options;
     }
 
     /**
@@ -23,33 +39,28 @@ class MediaTypeEncoder extends SpecializableEncoder implements EncoderInterface
      */
     public function encode(ImageInterface $image): EncodedImageInterface
     {
-        $type = is_null($this->type) ? $image->origin()->mediaType() : $this->type;
+        $mediaType = is_null($this->mediaType) ? $image->origin()->mediaType() : $this->mediaType;
 
         return $image->encode(
-            $this->encoderByMediaType($type)
+            $this->encoderByMediaType($mediaType)
         );
     }
 
     /**
      * Return new encoder by given media (MIME) type
      *
-     * @param string $type
-     * @return EncoderInterface
+     * @param string|MediaType $mediaType
      * @throws EncoderException
+     * @return EncoderInterface
      */
-    protected function encoderByMediaType(string $type): EncoderInterface
+    protected function encoderByMediaType(string|MediaType $mediaType): EncoderInterface
     {
-        return match (strtolower($type)) {
-            'image/webp' => new WebpEncoder(quality: $this->quality),
-            'image/avif' => new AvifEncoder(quality: $this->quality),
-            'image/jpeg' => new JpegEncoder(quality: $this->quality),
-            'image/bmp' => new BmpEncoder(),
-            'image/gif' => new GifEncoder(),
-            'image/png' => new PngEncoder(),
-            'image/tiff' => new TiffEncoder(quality: $this->quality),
-            'image/jp2', 'image/jpx', 'image/jpm' => new Jpeg2000Encoder(quality: $this->quality),
-            'image/heic', 'image/heif', => new HeicEncoder(quality: $this->quality),
-            default => throw new EncoderException('No encoder found for media type (' . $type . ').'),
-        };
+        try {
+            $mediaType = is_string($mediaType) ? MediaType::from($mediaType) : $mediaType;
+        } catch (Error) {
+            throw new EncoderException('No encoder found for media type (' . $mediaType . ').');
+        }
+
+        return $mediaType->format()->encoder(...$this->options);
     }
 }

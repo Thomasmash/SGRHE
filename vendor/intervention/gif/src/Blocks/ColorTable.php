@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Blocks;
 
 use Intervention\Gif\AbstractEntity;
@@ -9,7 +11,7 @@ class ColorTable extends AbstractEntity
     /**
      * Create new instance
      *
-     * @param array $colors
+     * @param array<Color> $colors
      * @return void
      */
     public function __construct(protected array $colors = [])
@@ -19,7 +21,7 @@ class ColorTable extends AbstractEntity
     /**
      * Return array of current colors
      *
-     * @return array
+     * @return array<Color>
      */
     public function getColors(): array
     {
@@ -32,6 +34,7 @@ class ColorTable extends AbstractEntity
      * @param int $r
      * @param int $g
      * @param int $b
+     * @return self
      */
     public function addRgb(int $r, int $g, int $b): self
     {
@@ -44,6 +47,7 @@ class ColorTable extends AbstractEntity
      * Add color to table
      *
      * @param Color $color
+     * @return self
      */
     public function addColor(Color $color): self
     {
@@ -55,7 +59,8 @@ class ColorTable extends AbstractEntity
     /**
      * Reset colors to array of color objects
      *
-     * @param array $colors
+     * @param array<Color> $colors
+     * @return self
      */
     public function setColors(array $colors): self
     {
@@ -140,7 +145,7 @@ class ColorTable extends AbstractEntity
      */
     public function getByteSize(): int
     {
-        if (! $this->hasColors()) {
+        if (!$this->hasColors()) {
             return 0;
         }
 

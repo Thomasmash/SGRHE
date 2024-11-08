@@ -4,43 +4,44 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
-use Imagick;
 use ImagickDraw;
-use ImagickPixel;
-use Intervention\Image\Drivers\AbstractTextModifier;
+use ImagickDrawException;
+use ImagickException;
+use Intervention\Image\Drivers\Imagick\FontProcessor;
+use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Exceptions\FontException;
+use Intervention\Image\Exceptions\RuntimeException;
 use Intervention\Image\Geometry\Point;
-use Intervention\Image\Geometry\Polygon;
-use Intervention\Image\Geometry\Rectangle;
 use Intervention\Image\Interfaces\FontInterface;
+use Intervention\Image\Interfaces\FrameInterface;
 use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\Interfaces\PointInterface;
+use Intervention\Image\Interfaces\SpecializedInterface;
+use Intervention\Image\Modifiers\TextModifier as GenericTextModifier;
+use Intervention\Image\Typography\Line;
 
-/**
- * @property Point $position
- * @property string $text
- * @property FontInterface $font
- */
-class TextModifier extends AbstractTextModifier
+class TextModifier extends GenericTextModifier implements SpecializedInterface
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @see ModifierInterface::apply()
+     */
     public function apply(ImageInterface $image): ImageInterface
     {
-        $lines = $this->alignedTextBlock($this->position, $this->text);
-
-        $color = $this->driver()->colorProcessor($image->colorspace())->colorToNative(
-            $this->driver()->handleInput($this->font->color())
-        );
-
-        $draw = $this->toImagickDraw($color);
+        $lines = $this->processor()->textBlock($this->text, $this->font, $this->position);
+        $drawText = $this->imagickDrawText($image, $this->font);
+        $drawStroke = $this->imagickDrawStroke($image, $this->font);
 
         foreach ($image as $frame) {
             foreach ($lines as $line) {
-                $frame->native()->annotateImage(
-                    $draw,
-                    $line->position()->x(),
-                    $line->position()->y(),
-                    $this->font->angle(),
-                    (string) $line
-                );
+                foreach ($this->strokeOffsets($this->font) as $offset) {
+                    // Draw the stroke outline under the actual text
+                    $this->maybeDrawTextline($frame, $line, $drawStroke, $offset);
+                }
+
+                // Draw the actual text
+                $this->maybeDrawTextline($frame, $line, $drawText);
             }
         }
 
@@ -48,45 +49,104 @@ class TextModifier extends AbstractTextModifier
     }
 
     /**
-     * Calculate box size of current font
+     * Create an ImagickDraw object to draw text on the image
      *
-     * @return Polygon
+     * @param ImageInterface $image
+     * @param FontInterface $font
+     * @throws RuntimeException
+     * @throws ColorException
+     * @throws FontException
+     * @throws ImagickDrawException
+     * @throws ImagickException
+     * @return ImagickDraw
      */
-    protected function boxSize(string $text): Polygon
+    private function imagickDrawText(ImageInterface $image, FontInterface $font): ImagickDraw
     {
-        // no text - no box size
-        if (mb_strlen($text) === 0) {
-            return (new Rectangle(0, 0));
+        $color = $this->driver()->handleInput($font->color());
+
+        if ($font->hasStrokeEffect() && $color->isTransparent()) {
+            throw new ColorException(
+                'The text color must be fully opaque when using the stroke effect.'
+            );
         }
 
-        $draw = $this->toImagickDraw();
-        $draw->setStrokeAntialias(true);
-        $draw->setTextAntialias(true);
-        $dimensions = (new Imagick())->queryFontMetrics($draw, $text);
+        $color = $this->driver()->colorProcessor($image->colorspace())->colorToNative($color);
 
-        return (new Rectangle(
-            intval(round($dimensions['textWidth'])),
-            intval(round($dimensions['ascender'] + $dimensions['descender'])),
-        ));
+        return $this->processor()->toImagickDraw($font, $color);
     }
 
-    private function toImagickDraw(?ImagickPixel $color = null): ImagickDraw
+    /**
+     * Create a ImagickDraw object to draw the outline stroke effect on the Image
+     *
+     * @param ImageInterface $image
+     * @param FontInterface $font
+     * @throws RuntimeException
+     * @throws ColorException
+     * @throws FontException
+     * @throws ImagickDrawException
+     * @throws ImagickException
+     * @return null|ImagickDraw
+     */
+    private function imagickDrawStroke(ImageInterface $image, FontInterface $font): ?ImagickDraw
     {
-        if (!$this->font->hasFilename()) {
-            throw new FontException('No font file specified.');
+        if (!$font->hasStrokeEffect()) {
+            return null;
         }
 
-        $draw = new ImagickDraw();
-        $draw->setStrokeAntialias(true);
-        $draw->setTextAntialias(true);
-        $draw->setFont($this->font->filename());
-        $draw->setFontSize($this->font->size());
-        $draw->setTextAlignment(Imagick::ALIGN_LEFT);
+        $color = $this->driver()->handleInput($font->strokeColor());
 
-        if ($color) {
-            $draw->setFillColor($color);
+        if ($color->isTransparent()) {
+            throw new ColorException(
+                'The stroke color must be fully opaque.'
+            );
         }
 
-        return $draw;
+        $color = $this->driver()->colorProcessor($image->colorspace())->colorToNative($color);
+
+        return $this->processor()->toImagickDraw($font, $color);
+    }
+
+    /**
+     * Maybe draw given line of text on frame instance depending on given
+     * ImageDraw instance. Optionally move line position by given offset.
+     *
+     * @param FrameInterface $frame
+     * @param Line $textline
+     * @param null|ImagickDraw $draw
+     * @param PointInterface $offset
+     * @return void
+     */
+    private function maybeDrawTextline(
+        FrameInterface $frame,
+        Line $textline,
+        ?ImagickDraw $draw = null,
+        PointInterface $offset = new Point(),
+    ): void {
+        if ($draw !== null) {
+            $frame->native()->annotateImage(
+                $draw,
+                $textline->position()->x() + $offset->x(),
+                $textline->position()->y() + $offset->y(),
+                $this->font->angle(),
+                (string) $textline
+            );
+        }
+    }
+
+    /**
+     * Return imagick font processor
+     *
+     * @throws FontException
+     * @return FontProcessor
+     */
+    private function processor(): FontProcessor
+    {
+        $processor = $this->driver()->fontProcessor();
+
+        if (!($processor instanceof FontProcessor)) {
+            throw new FontException('Font processor does not match the driver.');
+        }
+
+        return $processor;
     }
 }

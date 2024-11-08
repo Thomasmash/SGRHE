@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\Exceptions\DecoderException;
@@ -10,6 +12,7 @@ class HeaderDecoder extends AbstractDecoder
     /**
      * Decode current sourc
      *
+     * @throws DecoderException
      * @return Header
      */
     public function decode(): Header
@@ -23,6 +26,7 @@ class HeaderDecoder extends AbstractDecoder
     /**
      * Decode version string
      *
+     * @throws DecoderException
      * @return string
      */
     protected function decodeVersion(): string

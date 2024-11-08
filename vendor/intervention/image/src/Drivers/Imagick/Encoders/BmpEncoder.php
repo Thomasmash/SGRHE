@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Encoders;
 
 use Imagick;
-use Intervention\Image\Drivers\DriverSpecializedEncoder;
 use Intervention\Image\EncodedImage;
+use Intervention\Image\Encoders\BmpEncoder as GenericBmpEncoder;
+use Intervention\Image\Interfaces\EncodedImageInterface;
 use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\Interfaces\SpecializedInterface;
 
-class BmpEncoder extends DriverSpecializedEncoder
+class BmpEncoder extends GenericBmpEncoder implements SpecializedInterface
 {
-    public function encode(ImageInterface $image): EncodedImage
+    public function encode(ImageInterface $image): EncodedImageInterface
     {
-        $format = 'bmp';
+        $format = 'BMP';
         $compression = Imagick::COMPRESSION_NO;
 
         $imagick = $image->core()->native();

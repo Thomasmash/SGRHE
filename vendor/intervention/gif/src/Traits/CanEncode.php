@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Traits;
 
 use Intervention\Gif\Encoders\AbstractEncoder;
@@ -10,6 +12,7 @@ trait CanEncode
     /**
      * Encode current entity
      *
+     * @throws EncoderException
      * @return string
      */
     public function encode(): string
@@ -20,6 +23,7 @@ trait CanEncode
     /**
      * Get encoder object for current entity
      *
+     * @throws EncoderException
      * @return AbstractEncoder
      */
     protected function getEncoder(): AbstractEncoder
@@ -27,7 +31,7 @@ trait CanEncode
         $classname = $this->getEncoderClassname();
 
         if (!class_exists($classname)) {
-            throw new EncoderException("Encoder for '" . get_class($this) . "' not found.");
+            throw new EncoderException("Encoder for '" . $this::class . "' not found.");
         }
 
         return new $classname($this);

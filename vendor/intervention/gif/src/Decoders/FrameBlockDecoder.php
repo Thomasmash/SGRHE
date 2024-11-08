@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\AbstractExtension;
@@ -15,6 +17,12 @@ use Intervention\Gif\Exceptions\DecoderException;
 
 class FrameBlockDecoder extends AbstractDecoder
 {
+    /**
+     * Decode FrameBlock
+     *
+     * @throws DecoderException
+     * @return FrameBlock
+     */
     public function decode(): FrameBlock
     {
         $frame = new FrameBlock();

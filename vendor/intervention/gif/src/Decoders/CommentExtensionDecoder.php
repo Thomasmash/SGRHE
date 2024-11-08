@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\Blocks\CommentExtension;
@@ -26,7 +28,7 @@ class CommentExtensionDecoder extends AbstractDecoder
     /**
      * Decode comment from current source
      *
-     * @return array
+     * @return array<string>
      */
     protected function decodeComments(): array
     {
@@ -46,7 +48,7 @@ class CommentExtensionDecoder extends AbstractDecoder
     /**
      * Decode blocksize of following comment
      *
-     * @param  string $byte
+     * @param string $byte
      * @return int
      */
     protected function decodeBlocksize(string $byte): int

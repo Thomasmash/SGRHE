@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Geometry;
 
+use Intervention\Image\Exceptions\GeometryException;
 use Intervention\Image\Geometry\Tools\RectangleResizer;
-use Intervention\Image\Interfaces\DrawableInterface;
 use Intervention\Image\Interfaces\PointInterface;
 use Intervention\Image\Interfaces\SizeInterface;
 
-class Rectangle extends Polygon implements SizeInterface, DrawableInterface
+class Rectangle extends Polygon implements SizeInterface
 {
     /**
      * Create new rectangle instance
@@ -282,43 +282,86 @@ class Rectangle extends Polygon implements SizeInterface, DrawableInterface
         return $this->points[2];
     }
 
-    protected function resizer(?int $width = null, ?int $height = null): RectangleResizer
-    {
-        return new RectangleResizer($width, $height);
-    }
-
+    /**
+     * @see SizeInterface::resize()
+     *
+     * @throws GeometryException
+     */
     public function resize(?int $width = null, ?int $height = null): SizeInterface
     {
         return $this->resizer($width, $height)->resize($this);
     }
 
+    /**
+     * @see SizeInterface::resizeDown()
+     *
+     * @throws GeometryException
+     */
     public function resizeDown(?int $width = null, ?int $height = null): SizeInterface
     {
         return $this->resizer($width, $height)->resizeDown($this);
     }
 
+    /**
+     * @see SizeInterface::scale()
+     *
+     * @throws GeometryException
+     */
     public function scale(?int $width = null, ?int $height = null): SizeInterface
     {
         return $this->resizer($width, $height)->scale($this);
     }
 
+    /**
+     * @see SizeInterface::scaleDown()
+     *
+     * @throws GeometryException
+     */
     public function scaleDown(?int $width = null, ?int $height = null): SizeInterface
     {
         return $this->resizer($width, $height)->scaleDown($this);
     }
 
+    /**
+     * @see SizeInterface::cover()
+     *
+     * @throws GeometryException
+     */
     public function cover(int $width, int $height): SizeInterface
     {
         return $this->resizer($width, $height)->cover($this);
     }
 
+    /**
+     * @see SizeInterface::contain()
+     *
+     * @throws GeometryException
+     */
     public function contain(int $width, int $height): SizeInterface
     {
         return $this->resizer($width, $height)->contain($this);
     }
 
+    /**
+     * @see SizeInterface::containMax()
+     *
+     * @throws GeometryException
+     */
     public function containMax(int $width, int $height): SizeInterface
     {
         return $this->resizer($width, $height)->containDown($this);
+    }
+
+    /**
+     * Create resizer instance with given target size
+     *
+     * @param null|int $width
+     * @param null|int $height
+     * @throws GeometryException
+     * @return RectangleResizer
+     */
+    protected function resizer(?int $width = null, ?int $height = null): RectangleResizer
+    {
+        return new RectangleResizer($width, $height);
     }
 }

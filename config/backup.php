@@ -97,7 +97,7 @@ return [
         /*
          * If specified, the database dumped file name will contain a timestamp (e.g.: 'Y-m-d-H-i-s').
          */
-        'database_dump_file_timestamp_format' => null,
+        'database_dump_file_timestamp_format' => true,
 
         /*
          * The base of the dump filename, either 'database' or 'connection'
@@ -158,7 +158,7 @@ return [
         /*
          * The directory where the temporary files will be stored.
          */
-        'temporary_directory' => storage_path('app/backup-temp'),
+        'temporary_directory' => storage_path('app/backup/backup-temp'),
 
         /*
          * The password to be used for archive encryption.

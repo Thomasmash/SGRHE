@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Image;
 
 use Intervention\Image\Exceptions\NotWritableException;
+use Intervention\Image\Exceptions\RuntimeException;
 use Intervention\Image\Interfaces\FileInterface;
 use Intervention\Image\Traits\CanBuildFilePointer;
 
@@ -13,20 +14,25 @@ class File implements FileInterface
     use CanBuildFilePointer;
 
     /**
+     * @var resource
+     */
+    protected $pointer;
+
+    /**
      * Create new instance
      *
-     * @param  string $data
+     * @param string|resource|null $data
+     * @throws RuntimeException
      */
-    public function __construct(protected string $data)
+    public function __construct(mixed $data = null)
     {
+        $this->pointer = $this->buildFilePointer($data);
     }
 
     /**
-     * Save encoded image data in file system
+     * {@inheritdoc}
      *
-     * @codeCoverageIgnore
-     * @param  string $filepath
-     * @return void
+     * @see FileInterface::save()
      */
     public function save(string $filepath): void
     {
@@ -44,8 +50,14 @@ class File implements FileInterface
             );
         }
 
+        if (is_file($filepath) && !is_writable($filepath)) {
+            throw new NotWritableException(
+                "Can't write image. Path ({$filepath}) is not writable."
+            );
+        }
+
         // write data
-        $saved = @file_put_contents($filepath, (string) $this);
+        $saved = @file_put_contents($filepath, $this->pointer);
         if ($saved === false) {
             throw new NotWritableException(
                 "Can't write image data to path ({$filepath})."
@@ -54,39 +66,43 @@ class File implements FileInterface
     }
 
     /**
-     * Cast encoded image object to string
+     * {@inheritdoc}
      *
-     * @return string
+     * @see FilterInterface::toString()
      */
     public function toString(): string
     {
-        return $this->data;
+        return stream_get_contents($this->pointer, offset: 0);
     }
 
     /**
-     * Create file pointer from encoded image
+     * {@inheritdoc}
      *
-     * @return resource
+     * @see FilterInterface::toFilePointer()
      */
     public function toFilePointer()
     {
-        return $this->buildFilePointer($this->toString());
+        rewind($this->pointer);
+
+        return $this->pointer;
     }
 
     /**
-     * Return byte size of encoded image
+     * {@inheritdoc}
      *
-     * @return int
+     * @see FileInterface::size()
      */
     public function size(): int
     {
-        return mb_strlen($this->data);
+        $info = fstat($this->pointer);
+
+        return intval($info['size']);
     }
 
     /**
-     * Cast encoded image object to string
+     * {@inheritdoc}
      *
-     * @return string
+     * @see FileInterface::__toString()
      */
     public function __toString(): string
     {

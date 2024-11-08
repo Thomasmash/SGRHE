@@ -266,7 +266,7 @@ class ProcessoController extends Controller
         //dd($Request);
         //Nomear o Nome do Novo ficheiro PDF
         $nomeFuncionario = Pessoa::find($funcionario->idPessoa)->nomeCompleto;
-        $fileName = $nomeFuncionario.'-'.$categoria.'.pdf';
+        $fileName = now().' - '.$categoria.' - '.$nomeFuncionario.'.pdf';
         //Retornar o Domunento Gerado 
        // return view("sgrhe/modelos/$categoria",compact('Request','pessoa','funcionario','cargo','categoriaFuncionario'));
         return response($Documento->output(), 200, ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename="'.$fileName.'"']);

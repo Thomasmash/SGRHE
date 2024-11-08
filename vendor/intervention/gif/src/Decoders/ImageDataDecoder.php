@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\ImageData;
+use Intervention\Gif\Exceptions\FormatException;
 
 class ImageDataDecoder extends AbstractDecoder
 {
     /**
      * Decode current source
      *
+     * @throws FormatException
      * @return ImageData
      */
     public function decode(): ImageData

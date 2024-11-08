@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\Blocks\PlainTextExtension;
@@ -40,7 +42,7 @@ class PlainTextExtensionDecoder extends AbstractDecoder
     /**
      * Decode text sub blocks
      *
-     * @return array
+     * @return array<string>
      */
     protected function decodeTextBlocks(): array
     {

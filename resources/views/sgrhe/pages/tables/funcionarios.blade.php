@@ -7,12 +7,12 @@
         @section('header')
         <!--Style Local-->
           <!-- DataTables -->
-          <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-          <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-          <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+          <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+          <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+          <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
           <!-- Theme style -->
-          <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-          <link rel="stylesheet" href="../../resources/css/app.css">
+          <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+          <link rel="stylesheet" href="{{ asset('resources/css/app.css') }}">
         @endsection
         @section('conteudo_principal')
           <!-- Content Wrapper. Contains page content //23121997 -->
@@ -164,7 +164,7 @@
                                                       @if ( ($cargoLogado->permissoes === "Admin") || ($cargoLogado->permissoes >= 4 && $seccaoLogado->codNome === "RHPE") )
                                                       <form action="{{ route('formulario.avaliar.funcionario') }}" method="GET" style="display: inline;">
                                                         @csrf
-                                                        <input type="hidden" name="idFuncionario" value="{{ $funcionario->id }}">
+                                                        <input type="hidden" name="idFuncionario" value="{{ $funcionario->id_funcionario }}">
                                                         <button type="submit" class="btn btn-primary w-100 m-1">Avaliar Desenpenho</button>
                                                       </form>
                                                       <form action="{{ route('estado.funcionario') }}" method="POST" id="deleteForm{{ $funcionario->id_funcionario }}">
@@ -227,18 +227,18 @@
           @endsection
     @section('scripts')
       <!-- DataTables  & Plugins -->
-      <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-      <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-      <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-      <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-      <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-      <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-      <script src="../../plugins/jszip/jszip.min.js"></script>
-      <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-      <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-      <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-      <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-      <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+      <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+      <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+      <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+      <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+      <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+      <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+      <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+      <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+      <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+      <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+      <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+      <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
       <!--Algoritmo interactivo no processo de delectar Objectos em SweetAlert 2 //23121997-->
       <script src="{{ asset('plugins/sweetalert2/alerta-deletar.js') }}"></script>
       <script>

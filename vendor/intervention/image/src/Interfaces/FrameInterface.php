@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
+use Intervention\Image\Exceptions\RuntimeException;
+
 interface FrameInterface
 {
     /**
@@ -19,12 +21,13 @@ interface FrameInterface
      * @param mixed $native
      * @return FrameInterface
      */
-    public function setNative($native): FrameInterface;
+    public function setNative($native): self;
 
     /**
      * Transform frame into an image
      *
      * @param DriverInterface $driver
+     * @throws RuntimeException
      * @return ImageInterface
      */
     public function toImage(DriverInterface $driver): ImageInterface;
@@ -49,7 +52,7 @@ interface FrameInterface
      * @param float $delay
      * @return FrameInterface
      */
-    public function setDelay(float $delay): FrameInterface;
+    public function setDelay(float $delay): self;
 
     /**
      * Get disposal method of current frame
@@ -63,7 +66,7 @@ interface FrameInterface
      *
      * @return FrameInterface
      */
-    public function setDispose(int $dispose): FrameInterface;
+    public function setDispose(int $dispose): self;
 
     /**
      * Set pixel offset of current frame
@@ -72,7 +75,7 @@ interface FrameInterface
      * @param int $top
      * @return FrameInterface
      */
-    public function setOffset(int $left, int $top): FrameInterface;
+    public function setOffset(int $left, int $top): self;
 
     /**
      * Get left offset in pixels
@@ -87,7 +90,7 @@ interface FrameInterface
      * @param int $offset
      * @return FrameInterface
      */
-    public function setOffsetLeft(int $offset): FrameInterface;
+    public function setOffsetLeft(int $offset): self;
 
     /**
      * Get top pixel offset of current frame
@@ -102,5 +105,5 @@ interface FrameInterface
      * @param int $offset
      * @return FrameInterface
      */
-    public function setOffsetTop(int $offset): FrameInterface;
+    public function setOffsetTop(int $offset): self;
 }

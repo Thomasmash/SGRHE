@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Encoders;
 
 use Intervention\Gif\AbstractEntity;
@@ -21,6 +23,7 @@ class ImageDataEncoder extends AbstractEncoder
     /**
      * Encode current source
      *
+     * @throws EncoderException
      * @return string
      */
     public function encode(): string

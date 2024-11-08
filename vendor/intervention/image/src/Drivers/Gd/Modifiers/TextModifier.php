@@ -4,52 +4,76 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Drivers\AbstractTextModifier;
+use Intervention\Image\Exceptions\ColorException;
+use Intervention\Image\Exceptions\RuntimeException;
 use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Geometry\Point;
-use Intervention\Image\Geometry\Polygon;
-use Intervention\Image\Geometry\Rectangle;
-use Intervention\Image\Interfaces\FontInterface;
+use Intervention\Image\Interfaces\SpecializedInterface;
+use Intervention\Image\Modifiers\TextModifier as GenericTextModifier;
 
-/**
- * @property Point $position
- * @property string $text
- * @property FontInterface $font
- */
-class TextModifier extends AbstractTextModifier
+class TextModifier extends GenericTextModifier implements SpecializedInterface
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @see ModifierInterface::apply()
+     */
     public function apply(ImageInterface $image): ImageInterface
     {
-        $lines = $this->alignedTextBlock($this->position, $this->text);
+        $fontProcessor = $this->driver()->fontProcessor();
+        $lines = $fontProcessor->textBlock($this->text, $this->font, $this->position);
 
-        $color = $this->driver()->colorProcessor($image->colorspace())->colorToNative(
-            $this->driver()->handleInput($this->font->color())
-        );
+        // decode text colors
+        $textColor = $this->gdTextColor($image);
+        $strokeColor = $this->gdStrokeColor($image);
 
         foreach ($image as $frame) {
+            imagealphablending($frame->native(), true);
             if ($this->font->hasFilename()) {
                 foreach ($lines as $line) {
-                    imagealphablending($frame->native(), true);
+                    foreach ($this->strokeOffsets($this->font) as $offset) {
+                        imagettftext(
+                            $frame->native(),
+                            $fontProcessor->nativeFontSize($this->font),
+                            $this->font->angle() * -1,
+                            $line->position()->x() + $offset->x(),
+                            $line->position()->y() + $offset->y(),
+                            $strokeColor,
+                            $this->font->filename(),
+                            (string) $line
+                        );
+                    }
+
                     imagettftext(
                         $frame->native(),
-                        $this->adjustedFontSize(),
+                        $fontProcessor->nativeFontSize($this->font),
                         $this->font->angle() * -1,
                         $line->position()->x(),
                         $line->position()->y(),
-                        $color,
+                        $textColor,
                         $this->font->filename(),
                         (string) $line
                     );
                 }
             } else {
                 foreach ($lines as $line) {
+                    foreach ($this->strokeOffsets($this->font) as $offset) {
+                        imagestring(
+                            $frame->native(),
+                            $this->gdFont(),
+                            $line->position()->x() + $offset->x(),
+                            $line->position()->y() + $offset->y(),
+                            (string) $line,
+                            $strokeColor
+                        );
+                    }
+
                     imagestring(
                         $frame->native(),
-                        $this->getGdFont(),
+                        $this->gdFont(),
                         $line->position()->x(),
                         $line->position()->y(),
                         (string) $line,
-                        $color
+                        $textColor
                     );
                 }
             }
@@ -59,78 +83,60 @@ class TextModifier extends AbstractTextModifier
     }
 
     /**
-     * Calculate size of bounding box of given text
+     * Decode text color in GD compatible format
      *
-     * @return Polygon
+     * @param ImageInterface $image
+     * @return int
+     * @throws RuntimeException
+     * @throws ColorException
      */
-    protected function boxSize(string $text): Polygon
+    protected function gdTextColor(ImageInterface $image): int
     {
-        if (!$this->font->hasFilename()) {
-            // calculate box size from gd font
-            $box = new Rectangle(0, 0);
-            $chars = mb_strlen($text);
-            if ($chars > 0) {
-                $box->setWidth($chars * $this->getGdFontWidth());
-                $box->setHeight($this->getGdFontHeight());
-            }
-            return $box;
+        return $this
+            ->driver()
+            ->colorProcessor($image->colorspace())
+            ->colorToNative(parent::textColor());
+    }
+
+    /**
+     * Decode color for stroke (outline) effect in GD compatible format
+     *
+     * @param ImageInterface $image
+     * @return int
+     * @throws RuntimeException
+     * @throws ColorException
+     */
+    protected function gdStrokeColor(ImageInterface $image): int
+    {
+        if (!$this->font->hasStrokeEffect()) {
+            return 0;
         }
 
-        // calculate box size from font file with angle 0
-        $box = imageftbbox(
-            $this->adjustedFontSize(),
-            0,
-            $this->font->filename(),
-            $text
-        );
+        $color = parent::strokeColor();
 
-        // build polygon from points
-        $polygon = new Polygon();
-        $polygon->addPoint(new Point($box[6], $box[7]));
-        $polygon->addPoint(new Point($box[4], $box[5]));
-        $polygon->addPoint(new Point($box[2], $box[3]));
-        $polygon->addPoint(new Point($box[0], $box[1]));
+        if ($color->isTransparent()) {
+            throw new ColorException(
+                'The stroke color must be fully opaque.'
+            );
+        }
 
-        return $polygon;
+        return $this
+            ->driver()
+            ->colorProcessor($image->colorspace())
+            ->colorToNative($color);
     }
 
-    private function adjustedFontSize(): float
-    {
-        return floatval(ceil($this->font->size() * .75));
-    }
-
-    private function getGdFont(): int
+    /**
+     * Return GD's internal font size (if no ttf file is set)
+     *
+     * @return int
+     */
+    private function gdFont(): int
     {
         if (is_numeric($this->font->filename())) {
             return intval($this->font->filename());
         }
 
         return 1;
-    }
-
-    private function getGdFontWidth(): int
-    {
-        return $this->getGdFont() + 4;
-    }
-
-    private function getGdFontHeight(): int
-    {
-        switch ($this->getGdFont()) {
-            case 2:
-                return 14;
-
-            case 3:
-                return 14;
-
-            case 4:
-                return 16;
-
-            case 5:
-                return 16;
-
-            default:
-            case 1:
-                return 8;
-        }
     }
 }

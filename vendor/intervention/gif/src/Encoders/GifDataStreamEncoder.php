@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Encoders;
 
 use Intervention\Gif\GifDataStream;
@@ -28,6 +30,7 @@ class GifDataStreamEncoder extends AbstractEncoder
             $this->source->getLogicalScreenDescriptor()->encode(),
             $this->maybeEncodeGlobalColorTable(),
             $this->encodeFrames(),
+            $this->encodeComments(),
             $this->source->getTrailer()->encode(),
         ]);
     }
@@ -51,5 +54,17 @@ class GifDataStreamEncoder extends AbstractEncoder
         return implode('', array_map(function ($frame) {
             return $frame->encode();
         }, $this->source->getFrames()));
+    }
+
+    /**
+     * Encode comment extension blocks of source
+     *
+     * @return string
+     */
+    protected function encodeComments(): string
+    {
+        return implode('', array_map(function ($commentExtension) {
+            return $commentExtension->encode();
+        }, $this->source->getComments()));
     }
 }

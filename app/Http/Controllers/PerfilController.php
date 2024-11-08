@@ -15,6 +15,11 @@ use App\Models\Processo;
 use App\Models\Seccao;
 use App\Models\UnidadeOrganica;
 use Illuminate\Http\Request;
+use Illuminate\Console\Command;
+use Spatie\Backup\Tasks\Backup\BackupJobFactory;
+use Spatie\Backup\Tasks\Monitor\BackupMonitor;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class PerfilController extends Controller
 {
@@ -78,38 +83,36 @@ class PerfilController extends Controller
         return view('sgrhe/perfilview-timeline',compact('funcionario','pessoa','parente','naturalidade','endereco','cargo','unidadeOrganica','categoriaFuncionario','arquivos','processos','processosMy'));
     }
 
-
+//Configuracao do Perfil Fora do Sistema
     public function config()
     {
-       //  dd('Cheguei ate aqui');
+       //dd('Cheguei ate aqui');
         return view('profile/config-usuario');
     }
-
-    /**
-     * Display the specified resource.
-     */
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+//Configuracao do Sistema Dentro do Sistema
+    public function configPerfilOnSistem()
     {
-        //
+		 // Definindo o Directorio de backup
+        $path = storage_path('app/sgrhe/SGRHE'); 
+
+        // Obtenha todos os arquivos do diretório
+        $files = File::files($path);
+
+        // Crie um array para armazenar os dados dos arquivos
+        $backups = [];
+
+        foreach ($files as $file) {
+            $backups[] = [
+                'name' => $file->getFilename(),
+                'created_at' => $file->getCTime(), // Data de criação em timestamp
+                'size' => $file->getSize(), // Tamanho do arquivo
+            ];
+        }
+		
+		$agendamento = json_decode(Storage::disk('local')->get('agendamendo.json'), true);
+		//dd($agendamento);
+		return view('sgrhe/perfil-config', compact('backups', 'agendamento'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

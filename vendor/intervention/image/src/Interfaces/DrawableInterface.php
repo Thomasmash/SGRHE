@@ -14,12 +14,20 @@ interface DrawableInterface
     public function position(): PointInterface;
 
     /**
-     * Set the background color of the drawable object
+     * Set position of the drawable object
      *
-     * @param  mixed $color
+     * @param PointInterface $position
      * @return DrawableInterface
      */
-    public function setBackgroundColor(mixed $color): DrawableInterface;
+    public function setPosition(PointInterface $position): self;
+
+    /**
+     * Set the background color of the drawable object
+     *
+     * @param mixed $color
+     * @return DrawableInterface
+     */
+    public function setBackgroundColor(mixed $color): self;
 
     /**
      * Return background color of drawable object
@@ -42,7 +50,7 @@ interface DrawableInterface
      * @param int $size
      * @return DrawableInterface
      */
-    public function setBorder(mixed $color, int $size = 1): DrawableInterface;
+    public function setBorder(mixed $color, int $size = 1): self;
 
     /**
      * Set border size of the drawable object
@@ -50,7 +58,7 @@ interface DrawableInterface
      * @param int $size
      * @return DrawableInterface
      */
-    public function setBorderSize(int $size): DrawableInterface;
+    public function setBorderSize(int $size): self;
 
     /**
      * Set border color of the drawable object
@@ -58,7 +66,7 @@ interface DrawableInterface
      * @param mixed $color
      * @return DrawableInterface
      */
-    public function setBorderColor(mixed $color): DrawableInterface;
+    public function setBorderColor(mixed $color): self;
 
     /**
      * Get border size

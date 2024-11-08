@@ -1,8 +1,8 @@
 <?php
 
-namespace Intervention\Gif\Decoders;
+declare(strict_types=1);
 
-use Intervention\Gif\Decoders\ApplicationExtensionDecoder;
+namespace Intervention\Gif\Decoders;
 
 class NetscapeApplicationExtensionDecoder extends ApplicationExtensionDecoder
 {

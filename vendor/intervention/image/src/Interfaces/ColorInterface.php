@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
+use Intervention\Image\Exceptions\ColorException;
+use Intervention\Image\Exceptions\RuntimeException;
+
 interface ColorInterface
 {
     /**
-     * Static color factory method that passed input to color decoding input handler
+     * Static color factory method that takes any supported color format
+     * and returns a corresponding color object
      *
      * @param mixed $input
+     * @throws RuntimeException
      * @return ColorInterface
-     * @throws \Intervention\Image\Exceptions\DecoderException
      */
-    public static function create(mixed $input): ColorInterface;
+    public static function create(mixed $input): self;
 
     /**
      * Return colorspace of current color
@@ -39,7 +43,7 @@ interface ColorInterface
     /**
      * Cast color object to array
      *
-     * @return array
+     * @return array<int>
      */
     public function toArray(): array;
 
@@ -53,14 +57,22 @@ interface ColorInterface
     /**
      * Return array of all color channels
      *
-     * @return array
+     * @return array<ColorChannelInterface>
      */
     public function channels(): array;
 
     /**
+     * Return array of normalized color channel values
+     *
+     * @return array<float>
+     */
+    public function normalize(): array;
+
+    /**
      * Retrieve the color channel by its classname
      *
-     * @param  string $classname
+     * @param string $classname
+     * @throws ColorException
      * @return ColorChannelInterface
      */
     public function channel(string $classname): ColorChannelInterface;
@@ -70,7 +82,7 @@ interface ColorInterface
      *
      * @return ColorInterface
      */
-    public function convertTo(string|ColorspaceInterface $colorspace): ColorInterface;
+    public function convertTo(string|ColorspaceInterface $colorspace): self;
 
     /**
      * Determine if the current color is gray
@@ -78,4 +90,18 @@ interface ColorInterface
      * @return bool
      */
     public function isGreyscale(): bool;
+
+    /**
+     * Determine if the current color is (semi) transparent
+     *
+     * @return bool
+     */
+    public function isTransparent(): bool;
+
+    /**
+     * Determine whether the current color is completely transparent
+     *
+     * @return bool
+     */
+    public function isClear(): bool;
 }

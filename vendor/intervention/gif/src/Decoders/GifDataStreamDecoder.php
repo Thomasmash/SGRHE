@@ -1,12 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Decoders;
 
+use Intervention\Gif\AbstractExtension;
 use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Blocks\CommentExtension;
 use Intervention\Gif\Blocks\FrameBlock;
 use Intervention\Gif\Blocks\Header;
 use Intervention\Gif\Blocks\LogicalScreenDescriptor;
 use Intervention\Gif\Blocks\Trailer;
+use Intervention\Gif\Exceptions\DecoderException;
 use Intervention\Gif\GifDataStream;
 
 class GifDataStreamDecoder extends AbstractDecoder
@@ -14,6 +19,7 @@ class GifDataStreamDecoder extends AbstractDecoder
     /**
      * Decode current source to GifDataStream
      *
+     * @throws DecoderException
      * @return GifDataStream
      */
     public function decode(): GifDataStream
@@ -36,7 +42,16 @@ class GifDataStreamDecoder extends AbstractDecoder
         }
 
         while ($this->viewNextByte() != Trailer::MARKER) {
-            $gif->addFrame(FrameBlock::decode($this->handle));
+            match ($this->viewNextBytes(2)) {
+                // trailing "global" comment blocks which are not part of "FrameBlock"
+                AbstractExtension::MARKER . CommentExtension::LABEL
+                => $gif->addComment(
+                    CommentExtension::decode($this->handle)
+                ),
+                default => $gif->addFrame(
+                    FrameBlock::decode($this->handle)
+                ),
+            };
         }
 
         return $gif;

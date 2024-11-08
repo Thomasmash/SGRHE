@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif;
 
 use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Blocks\CommentExtension;
 use Intervention\Gif\Blocks\FrameBlock;
 use Intervention\Gif\Blocks\Header;
 use Intervention\Gif\Blocks\LogicalScreenDescriptor;
@@ -13,12 +16,20 @@ class GifDataStream extends AbstractEntity
 {
     /**
      * Create new instance
+     *
+     * @param Header $header
+     * @param LogicalScreenDescriptor $logicalScreenDescriptor
+     * @param null|ColorTable $globalColorTable
+     * @param array<FrameBlock> $frames
+     * @param array<CommentExtension> $comments
+     * @return void
      */
     public function __construct(
         protected Header $header = new Header(),
         protected LogicalScreenDescriptor $logicalScreenDescriptor = new LogicalScreenDescriptor(),
         protected ?ColorTable $globalColorTable = null,
-        protected array $frames = []
+        protected array $frames = [],
+        protected array $comments = []
     ) {
     }
 
@@ -113,11 +124,21 @@ class GifDataStream extends AbstractEntity
     /**
      * Get array of frames
      *
-     * @return array
+     * @return array<FrameBlock>
      */
     public function getFrames(): array
     {
         return $this->frames;
+    }
+
+    /**
+     * Return array of "global" comments
+     *
+     * @return array<CommentExtension>
+     */
+    public function getComments(): array
+    {
+        return $this->comments;
     }
 
     /**
@@ -148,9 +169,22 @@ class GifDataStream extends AbstractEntity
     }
 
     /**
+     * Add comment extension
+     *
+     * @param CommentExtension $comment
+     * @return GifDataStream
+     */
+    public function addComment(CommentExtension $comment): self
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
      * Set the current data
      *
-     * @param array $frames
+     * @param array<FrameBlock> $frames
      */
     public function setFrames(array $frames): self
     {

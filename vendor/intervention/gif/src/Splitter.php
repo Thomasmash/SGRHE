@@ -1,24 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif;
 
 use ArrayIterator;
+use GdImage;
+use Intervention\Gif\Exceptions\EncoderException;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * @implements IteratorAggregate<GifDataStream>
+ */
 class Splitter implements IteratorAggregate
 {
     /**
-     * Single frames
+     * Single frames resolved to GifDataStream
      *
-     * @var array
+     * @var array<GifDataStream>
      */
     protected array $frames = [];
 
     /**
      * Delays of each frame
      *
-     * @var array
+     * @var array<int>
      */
     protected array $delays = [];
 
@@ -34,7 +41,7 @@ class Splitter implements IteratorAggregate
     /**
      * Iterator
      *
-     * @return Traversable
+     * @return Traversable<GifDataStream>
      */
     public function getIterator(): Traversable
     {
@@ -44,7 +51,7 @@ class Splitter implements IteratorAggregate
     /**
      * Get frames
      *
-     * @return array
+     * @return array<GifDataStream>
      */
     public function getFrames(): array
     {
@@ -54,7 +61,7 @@ class Splitter implements IteratorAggregate
     /**
      * Get delays
      *
-     * @return array
+     * @return array<int>
      */
     public function getDelays(): array
     {
@@ -66,7 +73,7 @@ class Splitter implements IteratorAggregate
      *
      * @param GifDataStream $stream
      */
-    public function setStream(GifDataStream $stream): Splitter
+    public function setStream(GifDataStream $stream): self
     {
         $this->stream = $stream;
 
@@ -76,10 +83,10 @@ class Splitter implements IteratorAggregate
     /**
      * Static constructor method
      *
-     * @param  GifDataStream $stream
+     * @param GifDataStream $stream
      * @return Splitter
      */
-    public static function create(GifDataStream $stream): Splitter
+    public static function create(GifDataStream $stream): self
     {
         return new self($stream);
     }
@@ -130,7 +137,10 @@ class Splitter implements IteratorAggregate
             $gif->addFrame($frame);
 
             $this->frames[] = $gif;
-            $this->delays[] = $frame->getGraphicControlExtension()->getDelay();
+            $this->delays[] = match (is_object($frame->getGraphicControlExtension())) {
+                true => $frame->getGraphicControlExtension()->getDelay(),
+                default => 0,
+            };
         }
 
         return $this;
@@ -139,7 +149,8 @@ class Splitter implements IteratorAggregate
     /**
      * Return array of GD library resources for each frame
      *
-     * @return array
+     * @throws EncoderException
+     * @return array<GdImage>
      */
     public function toResources(): array
     {
@@ -160,11 +171,18 @@ class Splitter implements IteratorAggregate
     /**
      * Return array of coalesced GD library resources for each frame
      *
-     * @return array
+     * @throws EncoderException
+     * @return array<GdImage>
      */
     public function coalesceToResources(): array
     {
         $resources = $this->toResources();
+
+        // static gif files don't need to be coalesced
+        if (count($resources) === 1) {
+            return $resources;
+        }
+
         $width = imagesx($resources[0]);
         $height = imagesy($resources[0]);
         $transparent = imagecolortransparent($resources[0]);

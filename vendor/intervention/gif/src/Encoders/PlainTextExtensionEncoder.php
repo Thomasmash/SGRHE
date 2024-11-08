@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Encoders;
 
 use Intervention\Gif\Blocks\PlainTextExtension;
@@ -23,7 +25,7 @@ class PlainTextExtensionEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        if (! $this->source->hasText()) {
+        if (!$this->source->hasText()) {
             return '';
         }
 

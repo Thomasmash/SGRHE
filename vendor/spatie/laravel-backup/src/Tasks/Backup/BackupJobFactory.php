@@ -30,6 +30,9 @@ class BackupJobFactory
      * @param  array<int, string>  $dbConnectionNames
      * @return Collection<string, DbDumper>
      */
+	public static function bomdia(){
+		dd("Cheguei ate aqui no vendor");
+	}
     protected static function createDbDumpers(array $dbConnectionNames): Collection
     {
         return collect($dbConnectionNames)->mapWithKeys(

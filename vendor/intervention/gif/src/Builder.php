@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif;
 
 use Exception;
@@ -8,6 +10,8 @@ use Intervention\Gif\Blocks\GraphicControlExtension;
 use Intervention\Gif\Blocks\ImageDescriptor;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Blocks\TableBasedImage;
+use Intervention\Gif\Exceptions\DecoderException;
+use Intervention\Gif\Exceptions\EncoderException;
 use Intervention\Gif\Traits\CanHandleFiles;
 
 class Builder
@@ -51,8 +55,8 @@ class Builder
     /**
      * Create new canvas
      *
-     * @param  int         $width
-     * @param  int         $height
+     * @param int $width
+     * @param int $height
      * @return self
      */
     public static function canvas(int $width, int $height): self
@@ -90,14 +94,21 @@ class Builder
      * Create new animation frame from given source
      * which can be path to a file or GIF image data
      *
-     * @param string $source
+     * @param string|resource $source
      * @param float $delay time delay in seconds
      * @param int $left position offset in pixels from left
      * @param int $top position offset in pixels from top
+     * @param bool $interlaced
+     * @throws DecoderException
      * @return Builder
      */
-    public function addFrame(string $source, float $delay = 0, int $left = 0, int $top = 0): self
-    {
+    public function addFrame(
+        mixed $source,
+        float $delay = 0,
+        int $left = 0,
+        int $top = 0,
+        bool $interlaced = false
+    ): self {
         $frame = new FrameBlock();
         $source = Decoder::decode($source);
 
@@ -111,7 +122,7 @@ class Builder
 
         // store image
         $frame->setTableBasedImage(
-            $this->buildTableBasedImage($source, $left, $top)
+            $this->buildTableBasedImage($source, $left, $top, $interlaced)
         );
 
         // add frame
@@ -151,13 +162,18 @@ class Builder
     /**
      * Build table based image object from given source
      *
-     * @param  GifDataStream $source
-     * @param  int    $left
-     * @param  int    $top
+     * @param GifDataStream $source
+     * @param int $left
+     * @param int $top
+     * @param bool $interlaced
      * @return TableBasedImage
      */
-    protected function buildTableBasedImage(GifDataStream $source, int $left, int $top): TableBasedImage
-    {
+    protected function buildTableBasedImage(
+        GifDataStream $source,
+        int $left,
+        int $top,
+        bool $interlaced
+    ): TableBasedImage {
         $block = new TableBasedImage();
         $block->setImageDescriptor(new ImageDescriptor());
 
@@ -181,6 +197,9 @@ class Builder
         // set position
         $block->getImageDescriptor()->setPosition($left, $top);
 
+        // set interlaced flag
+        $block->getImageDescriptor()->setInterlaced($interlaced);
+
         // add image data from source
         $block->setImageData($source->getFirstFrame()->getImageData());
 
@@ -190,6 +209,7 @@ class Builder
     /**
      * Encode the current build
      *
+     * @throws EncoderException
      * @return string
      */
     public function encode(): string
