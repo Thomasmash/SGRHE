@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Storage;
 class Kernel extends ConsoleKernel
 {
     /**
-     * Define the application's command schedule.
+     * Define the application's command schedule. //23121997 
      */
     protected function schedule(Schedule $schedule): void
     {
-		if(Storage::disk('local')->exists('agendamendo.json')){
-			$agendamentoConfig = json_decode(Storage::disk('local')->get('agendamendo.json'), true);
+		if(Storage::disk('agenda_backup')->exists('agendamendo.json')){
+			$agendamentoConfig = json_decode(Storage::disk('agenda_backup')->get('agendamendo.json'), true);
 			switch($agendamentoConfig['frequency']){
 				case 'Minuto':
 				$schedule->command('backup:run')->everyMinute();
@@ -43,7 +43,7 @@ class Kernel extends ConsoleKernel
     }
 
     /**
-     * Register the commands for the application.
+     * Register the commands for the application. //23121997 
      */
     protected function commands(): void
     {

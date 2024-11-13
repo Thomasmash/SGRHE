@@ -239,7 +239,7 @@
       <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
       <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
       <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-      <!--Algoritmo interactivo no processo de delectar Objectos em SweetAlert 2 //23121997-->
+      <!-- Algoritmo interactivo no processo de delectar Objectos em SweetAlert 2 //23121997 -->
       <script src="{{ asset('plugins/sweetalert2/alerta-deletar.js') }}"></script>
       <script>
         $(function () {

@@ -14,8 +14,11 @@ return [
                 /*
                  * The list of directories and files that will be included in the backup.
                  */
-                'include' => [
-                    base_path(),
+                //Pasta do sistema 
+		
+			
+				'include' => [
+                   //base_path(),
                 ],
 
                 /*
@@ -23,10 +26,12 @@ return [
                  *
                  * Directories used by the backup process will automatically be excluded.
                  */
-                'exclude' => [
-                    base_path('vendor'),
-                    base_path('node_modules'),
+            
+				'exclude' => [
+                   // base_path('vendor'),
+                   // base_path('node_modules'),
                 ],
+			
 
                 /*
                  * Determines if symlinks should be followed.
@@ -44,6 +49,8 @@ return [
                  * Example: base_path()
                  */
                 'relative_path' => null,
+				
+				// Outras pastas Definidas
             ],
 
             /*
@@ -80,7 +87,7 @@ return [
                 'mysql',
             ],
         ],
-
+		
         /*
          * The database dump can be compressed to decrease disk space usage.
          *
@@ -146,13 +153,12 @@ return [
              * The filename prefix used for the backup zip file.
              */
             'filename_prefix' => 'Backup',
-
-            /*
-             * The disk names on which the backups will be stored.
+			
+			/*
+             * Local definido no file system para armazena r o backup
              */
-            'disks' => [
-                'local',
-            ],
+			
+			'disks' => ['backup'], // Use o disco que você definiu
         ],
 
         /*
@@ -254,7 +260,7 @@ return [
     'monitor_backups' => [
         [
             'name' => env('APP_NAME'),
-            'disks' => ['local'],
+            'disks' => ['backup'],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,
@@ -322,7 +328,7 @@ return [
              * this amount of megabytes has been reached.
              * Set null for unlimited size.
              */
-            'delete_oldest_backups_when_using_more_megabytes_than' => 5000,
+            'delete_oldest_backups_when_using_more_megabytes_than' => 1,
         ],
 
         /*

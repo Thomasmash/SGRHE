@@ -343,6 +343,8 @@ Route::any('/backup/criar/', [BackupController::class, 'criar'])->name('criar.ba
 Route::any('/backup/agendar/', [BackupController::class, 'agendar'])->name('agendar.backup');
 //Limpar agendar Backup
 Route::any('/backup/limpar/agendas/', [BackupController::class, 'limparAgenda'])->name('limpar.agendar.backup');
+//Restaurar ao Backup
+Route::any('/backup/restaurar/', [BackupController::class, 'restaurar'])->name('restaurar.backup');
 
 //Operacoes com Mapas de Efectividades
 Route::any('/index/mapas/efectividades/', [MapaEfectividadeController::class, 'indexMapasEfectividade'])->name('mapas.efectividade');
