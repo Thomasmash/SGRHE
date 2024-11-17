@@ -1,3 +1,14 @@
+<?php
+
+if (!function_exists('formatBytes')) {
+    function formatBytes($bytes, $decimals = 2) {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $factor = floor((strlen($bytes) - 1) / 3);
+        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . $units[$factor];
+    }
+}
+?>
+
 <!--Layout Principal-->
 @extends('layouts.app')
   @section('titulo' , 'Perfil - '.$pessoaLogado->nomeCompleto )
@@ -11,10 +22,11 @@
           <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
           <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
           <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-          <!-- Theme style -->
+          
+		  <!-- Theme style -->
           <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
           <link rel="stylesheet" href="{{ asset('resources/css/app.css') }}">
-		
+		  
         @endsection
         @section('conteudo_principal')
       <!-- Content Wrapper. Contains page content -->
@@ -50,7 +62,7 @@
                                 <li class="nav-item"><a class="nav-link" href="#sessoes" data-toggle="tab">Sessões em Browsers</a></li>
                                 <!--Essa Funcao é por enquanto Escluxiva do Admin para finc de Controle-->
                                 <li class="nav-item"><a class="nav-link" href="#delete" data-toggle="tab">Deletar a Conta</a></li>
-								                <li class="nav-item"><a class="nav-link" href="#backup" data-toggle="tab">Backup</a></li>
+								<li class="nav-item"><a class="nav-link" href="#backup" data-toggle="tab">Backup</a></li>
                               </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
@@ -116,7 +128,10 @@
                                                                     </div>
                                                                     <div class="mt-10 sm:mt-0">
                                                                       <div class="container mt-5">
-                                                                            <div class="container-fluid">
+                                                                            
+																			
+																			
+																			<div class="container-fluid">
                                                                               <div class="row">
                                                                                 <div class="col-md-12">
                                                                                   <div class="card card-primary">
@@ -153,16 +168,17 @@
                                                                                                     </select>
                                                                                                   </div>
                                                                                                 </div>
-                                                                                            </div>
+																								</div>
+																							</div>	
                                                                                           </div>
-                                                                                            <button type="submit" class="btn btn-secondary w-100 m-1">Agendar Backup</button>
+                                                                                            <button type="submit" class="btn btn-secondary w-100">Agendar Backup</button>
                                                                                         </form>
-                                                                                                <div class="card card-{{ $agendamento === null ? 'danger' : 'success'}} ml-1 mt-2" style="max-width: 18rem;">
+                                                                                                <div class="card card-{{ $agendamento === null ? 'danger' : 'success'}} w-100 mt-2">
                                                                                                   <div class="card-header">Informações</div>
                                                                                                   <div class="card-body">
                                                                                                   <h5 class="card-title">Agendado:</h5>
                                                                                                     @if( $agendamento != null )
-                                                                                                      <p class="card-text">Backup {{ $agendamento['frequency'] }} as {{ $agendamento['hora'] }} </p>
+                                                                                                      <p class="card-text font-weight-bold">Backup {{ $agendamento['frequency'] }} às {{ $agendamento['hora'] }} </p>
                                                                                                     @else
                                                                                                       <p class="card-text">Não existem backups agendados!</p>
                                                                                                     @endif
@@ -194,46 +210,46 @@
                                                                                       </form>
                                                                                       <table id="example1" class="table table-bordered table-striped">
                                                                                         <thead>
-                                                                                        <tr>
-                                                                                          <th>Nº</th>
-                                                                                          <th>Designação</th>
-                                                                                          <th>Data Criação</th>
-                                                                                          <th>Tamanho</th>
-                                                                                          <th>Opções</th>
-                                                                                        </tr>
+																							<tr>
+																							  <th>Nº</th>
+																							  <th>Designação</th>
+																							  <th>Data Criação</th>
+																							  <th>Tamanho</th>
+																							  <th>Opções</th>
+																							</tr>
                                                                                         </thead>
                                                                                         <tbody>
-                                                                                        <!--Gerando a Tabela de forma Dinamica //23121997-->
-                                                                                        @foreach ($backups as $backup)
-                                                                                                <tr>
-                                                                                                <td>{{ $loop->index+1}}</td>
-                                                                                                <td>{{ $backup['name'] }}</td>
-                                                                                                <td>{{ \Carbon\Carbon::createFromTimestamp($backup['created_at'])->format('d/m/Y H:i:s') }}</td>
-                                                                                                <td>{{ $backup['size'] }} KB</td>
-                                                                                                <td>
-                                                                                                    <form action="{{ route('eliminar.backup') }}" method="GET" style="display: inline;">
-																										@csrf
-																										<input type="hidden" name="nome" value="{{ $backup['name'] }}">
-																										<input type="hidden" name="dataCriacao" value="{{ \Carbon\Carbon::createFromTimestamp($backup['created_at'])->format('d/m/Y H:i:s') }}">
-																										<button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar  o backup?', 'Sim, Deletar!', 'Não, Cancelar!')">Delectar</button>
-                                                                                                    </form>
-                                                                                                    <form action="{{ route('restaurar.backup') }}" method="GET" style="display: inline;">
-																										@csrf
-																										<input type="hidden" name="nomeBackup" value="{{ $backup['name'] }}">
-																										<button type="submit" class="btn btn-success w-100 m-1">Restaurar</button>
-                                                                                                    </form>
-                                                                                                </td>
-                                                                                                </tr>
-                                                                                        @endforeach
+																							<!--Gerando a Tabela de forma Dinamica //23121997-->
+																							@foreach ($backups as $backup)
+																									<tr>
+																										<td>{{ $loop->index+1}}</td>
+																										<td>{{ $backup['name'] }}</td>
+																										<td>{{ \Carbon\Carbon::createFromTimestamp($backup['created_at'])->format('d/m/Y H:i:s') }}</td>
+																										<td>{{ formatBytes($backup['size']) }} </td>
+																										<td>
+																											<form action="{{ route('eliminar.backup') }}" method="GET" style="display: inline;">
+																												@csrf
+																												<input type="hidden" name="nome" value="{{ $backup['name'] }}">
+																												<input type="hidden" name="dataCriacao" value="{{ \Carbon\Carbon::createFromTimestamp($backup['created_at'])->format('d/m/Y H:i:s') }}">
+																												<button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar  o backup?', 'Sim, Deletar!', 'Não, Cancelar!')">Delectar</button>
+																											</form>
+																											<form action="{{ route('restaurar.backup') }}" method="GET" style="display: inline;">
+																												@csrf
+																												<input type="hidden" name="nomeBackup" value="{{ $backup['name'] }}">
+																												<button type="submit" class="btn btn-success w-100 m-1">Restaurar</button>
+																											</form>
+																										</td>
+																									</tr>
+																							@endforeach
                                                                                         </tbody>
                                                                                         <tfoot>
-                                                                                        <tr>
-                                                                                          <th>Nº</th>
-                                                                                          <th>Designação</th>
-                                                                                          <th>Data Criação</th>
-                                                                                          <th>Tamanho</th>
-                                                                                          <th>Opções</th>
-                                                                                        </tr>
+																							<tr>
+																							  <th>Nº</th>
+																							  <th>Designação</th>
+																							  <th>Data Criação</th>
+																							  <th>Tamanho</th>
+																							  <th>Opções</th>
+																							</tr>
                                                                                         </tfoot>
                                                                                       </table>
                                                                                     </div>

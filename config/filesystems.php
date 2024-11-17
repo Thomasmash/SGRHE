@@ -26,7 +26,7 @@ return [
     |
     | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
-    */
+    *///
 
     'disks' => [
 
@@ -51,6 +51,15 @@ return [
 			'root' => storage_path('app/backup'), // diretório dos backups
 			'throw' => false,
 		],
+		
+		//Definição do Local do dos Ficheiros do Sistema
+		
+		'sgrhe' => [
+			'driver' => 'local',
+			'root' => storage_path('app/sgrhe'), // diretório dos backups
+			'throw' => false,
+		],
+		
 		
 		'agenda_backup' => [
 			'driver' => 'local',

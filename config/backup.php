@@ -18,7 +18,10 @@ return [
 		
 			
 				'include' => [
+				//Directorio Raiz do sistema
                    //base_path(),
+				   //Directório de dados necessarios do Sistema 
+				   storage_path('app/sgrhe'),
                 ],
 
                 /*

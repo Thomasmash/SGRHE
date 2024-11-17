@@ -122,6 +122,11 @@ use Illuminate\Support\Facades\Auth;
             .notificacaoActiva {
                 text-color:red;
             }
+			
+		
+			td{			
+				justify-content: center;
+			  }
         </style>
 
 

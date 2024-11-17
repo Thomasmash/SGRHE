@@ -80,6 +80,10 @@ class BackupController extends Controller
 
             // Adicionar a lógica para restaurar o banco de dados, se necessário
              $this->restoreDatabase();
+			
+			// Restaura arquivos de uma pasta
+			$this->restoreFiles();
+
 
             return redirect()->back()->with('success', 'Restauração realizada com sucesso.');
         } catch (Exception $e) {
@@ -89,21 +93,13 @@ class BackupController extends Controller
 
 
 
-
-
-
-
-
-
-
-
     protected function unzipBackup($zipFilePath)
     {
         $zip = new ZipArchive;
 
         if ($zip->open($zipFilePath) === TRUE) {
             // Define o diretório de destino para descompactar
-            $extractPath = storage_path('app/backups/extracted/');
+            $extractPath = storage_path('app/backup/extracted/');
 
             // Cria o diretório de extração se não existir
             if (!File::exists($extractPath)) {
@@ -120,7 +116,7 @@ class BackupController extends Controller
 
  protected function restoreDatabase()
 {
-    $sqlFilePath = storage_path('app/backups/extracted/db-dumps/mysql-sgrhe-1.sql'); // Altere para o nome correto do arquivo SQL
+    $sqlFilePath = storage_path('app/backup/extracted/db-dumps/mysql-sgrhe-1.sql'); // Altere para o nome correto do arquivo SQL
 
     if (File::exists($sqlFilePath)) {
         $command = sprintf('mysql -u %s -p%s %s < %s',
@@ -135,6 +131,22 @@ class BackupController extends Controller
         throw new Exception('Arquivo SQL não encontrado para restaurar o banco de dados.');
     }
 }
+
+protected function restoreFiles()
+{
+	//dd('Restaurar');
 	
+    $sourceDir = storage_path('app/backup/extracted/var/www/SGRHE/storage/app/sgrhe'); // Altere para o diretório correto
+    $destinationDir = storage_path('app/sgrhe'); // Altere para o diretório de destino apropriado
+
+    // Verifica se o diretório de origem existe
+    if (File::exists($sourceDir)) {
+        // Copia os arquivos do diretório de origem para o diretório de destino
+        File::copyDirectory($sourceDir, $destinationDir);
+    } else {
+        throw new Exception('Diretório de arquivos não encontrado para restaurar.');
+    }
+}
+
 	//Outros Metodos
 }
