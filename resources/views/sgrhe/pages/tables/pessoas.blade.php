@@ -5,6 +5,7 @@
         <!--Style Local-->
         @endsection
         @section('conteudo_principal')
+		<div class="wrapper">
           <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
               <!-- Content Header (Page header) -->
@@ -65,21 +66,21 @@
                               @endphp
                                             <tr class=" {{ isset($isFuncionario) ? ' ' : 'font-weight-bold'}}">
                                                 <td>{{ $loop->index+1 }}</td>    
-                                                <td>{{ $pessoa->nomeCompleto }}</td>
-                                                <td>{{ $pessoa->genero }}</td>
-                                                <td>{{ $parente->nomePai}}</td>
-                                                <td>{{ $parente->nomeMae}}</td>
-                                                <td>{{ $pessoa->grupoSanguineo }}</td>
-                                                <td>{{ $pessoa->numeroBI }}</td>
+                                                <td>{{ $pessoa->nomeCompleto ?? 'N/D' }}</td>
+                                                <td>{{ $pessoa->genero ?? 'N/D' }}</td>
+                                                <td>{{ $parente->nomePai ?? 'N/D'}}</td>
+                                                <td>{{ $parente->nomeMae ?? 'N/D'}}</td>
+                                                <td>{{ $pessoa->grupoSanguineo ?? 'N/D' }}</td>
+                                                <td>{{ $pessoa->numeroBI ?? 'N/D' }}</td>
                                                 @php
                                                   $data = \Carbon\Carbon::parse($pessoa->validadeBI);
                                                   $class = $data->gt(now()) ? 'text-success' : 'text-danger';
                                                 @endphp
                                                 <td class="{{ $class }}">{{ \Carbon\Carbon::parse($pessoa->validadeBI)->format('d/m/Y')}}</td>
-                                                <td>{{ $pessoa->estadoCivil }}</td>
+                                                <td>{{ $pessoa->estadoCivil ?? 'N/D'}}</td>
                                                 <td>{{ \Carbon\Carbon::parse($pessoa->dataNascimento)->format('d/m/Y') }}</td>
-                                                <td>{{ $naturalidade->provincia}}</td>
-                                                <td>{{ $naturalidade->municipio}}</td>
+                                                <td>{{ $naturalidade->provincia ?? 'N/D'}}</td>
+                                                <td>{{ $naturalidade->municipio ?? 'N/D'}}</td>
                                                 <td>
                                                 <form class=" " action="{{ route('funcionarios.verificarPessoa') }}" method="GET" style="display: inline;">
                                                   @csrf
@@ -139,6 +140,7 @@
             <!-- /.content -->
             </div>
           <!-- /.content-wrapper -->
+		 </div>
           @endsection
     @section('scripts')
         <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

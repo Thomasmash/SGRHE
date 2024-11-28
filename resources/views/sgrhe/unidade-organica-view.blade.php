@@ -14,6 +14,7 @@
         @endsection
   @section('conteudo_principal')
   <x-sgrhe-preloader />
+  <div class="wrapper">
       <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
           <!-- Content Header (Page header) -->
@@ -38,6 +39,8 @@
                 <div class="container-fluid">
                   <!-- Small boxes (Stat box) -->
                   <div class="row">
+				  
+
                     <!-- Funcionário -->
                     <div class="col-lg-3 col-6">
                       <div class="small-box bg-primary">
@@ -1284,7 +1287,7 @@
         </div>
            <!-- /.content-wrapper -->
     </div>
-    
+   </div>
   @endsection
   @section('scripts')
             <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

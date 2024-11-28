@@ -404,36 +404,45 @@
                         </li>
                       <!--/.Cargos-->
               @endif
-                <!--Serviços Funcionalidade Blockeada -->
-                <li class=" d-none nav-item {{ request()->routeIs('habilitacaos.index') || request()->routeIs('habilitacaos.form') ? 'menu-open' : '' }}">
-                          <a href="#" class="nav-link {{ request()->routeIs('habilitacaos.index') || request()->routeIs('habilitacaos.form') ? 'active' : '' }}">
-                           <i class="bi bi-subtract"></i>
+						<!--Opcoes do Sistema -->
+						 <!--Opcoes do Sistema-->
+                        <li class=" {{ $permissoes === 'Admin' ? '' : 'd-none' }} nav-item {{ request()->routeIs('opcoes.sistema') || request()->routeIs('auditoria') || request()->routeIs('telemetria') ? 'menu-open' : '' }}">
+                          <a href="#" class="nav-link {{ request()->routeIs('opcoes.sistema') || request()->routeIs('auditoria') || request()->routeIs('telemetria')? 'active' : '' }}">
+                            <i class="bi bi-gear"></i>
                             <p class="item-1">
-                               Serviços
+                              Opções do Sistema
                               <i class="right fas fa-angle-left"></i>
                             </p>
                           </a>
                           <ul class="nav nav-treeview">
                             <li class="nav-item">
-                              <a href=""  class="nav-link {{ request()->routeIs('habilitacaos.form') ? 'active' : ''}}">
+                                <a href="{{ route('auditoria') }}"  class="nav-link {{ request()->routeIs('auditoria') ? 'active' : ''}}">
                                 <p class="item-2">
-                                <i class="bi bi-calendar2-range"></i>
-                                 Solicitar Licença
+									<i class="bi bi-clipboard-data-fill"></i>
+                                    Auditoria
+                                  </p>
+                                </a>
+							</li>
+							<li class="nav-item">
+                              <a href="{{route('opcoes.sistema')}}"  class="nav-link {{ request()->routeIs('opcoes.sistema') ? 'active' : ''}}">
+                                <p class="item-2">
+									<i class="bi bi-database-fill-lock"></i>
+									Opções de Backup
                                 </p>
                               </a>
                             </li>
-                            <li class="nav-item">
-                              <a href=""  class="nav-link {{ request()->routeIs('habilitacaos.form') ? 'active' : ''}}">
+							<li class="nav-item">
+                                <a href="{{ route('telemetria') }}"  class="nav-link {{ request()->routeIs('telemetria') ? 'active' : ''}}">
                                 <p class="item-2">
-                                <i class="bi bi-calendar2-range"></i>
-                                Outros
-                                </p>
-                              </a>
-                            </li>
-
+									<i class="bi bi-clipboard-data-fill"></i>
+                                    Telemetria
+                                  </p>
+                                </a>
+							</li>
                           </ul>
                         </li>
-                        <li class="nav-item">
+						
+						<li class="nav-item">
                                 <a href="{{ route('regulamento') }}"  class="nav-link {{ request()->routeIs('regulamento') ? 'active' : ''}}">
                                 <i class="bi bi-calendar2-range"></i>  
                                 <p class="item-1">
@@ -441,15 +450,6 @@
                                   </p>
                                 </a>
                         </li>
-                        <li class=" {{ $permissoes === 'Admin' ? '' : 'd-none' }} nav-item">
-                                <a href="{{ route('auditoria') }}"  class="nav-link {{ request()->routeIs('auditoria') ? 'active' : ''}}">
-                                <i class="bi bi-clipboard-data-fill"></i>
-                                <p class="item-1">
-                                    Auditoria
-                                  </p>
-                                </a>
-                        </li>
-                      <!--/.Serviços-->
                     
             </li>
           </ul>

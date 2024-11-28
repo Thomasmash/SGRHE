@@ -9,6 +9,7 @@
         <!--Style Local-->
         @endsection
         @section('conteudo_principal')
+		<div class="wrapper">
           <!-- Content Wrapper. Contains page content -->
           <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -95,9 +96,9 @@
                               <div class="form-group">
                                 <label for="genero"><span class="text-danger">*</span>Genero</label>
                                   <select name="genero" class="form-control select2" style="width: 100%;" required>
-                                      <option selected="{{isset($pessoa) ? $pessoa->genero : ''}}">{{isset($pessoa) ? $pessoa->genero : 'Seleccione o Sexo'}}</option>
+                                      <option selected="{{isset($pessoa) ? $pessoa->genero : ''}}">{{isset($pessoa) ? $pessoa->genero : 'Seleccione o Genero'}}</option>
                                       <option>Feminino</option>
-                                      <option>Masculino</option>
+                                      <option>Maculino</option>
                                   </select>
                               </div>
                           
@@ -124,7 +125,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="estadoCivil"><span class="text-danger">*</span>Estado Civil</label>
-                                  <select name="estadoCivil" class="form-control select2" style="width: 100%;" >
+                                  <select name="estadoCivil" class="form-control select2" style="width: 100%;" Required>
                                       <option value="{{isset($pessoa) ? $pessoa->estadoCivil : ''}}">{{isset($pessoa) ? $pessoa->estadoCivil : 'Seleccione o Estado Cívil'}}</option>
                                       <option>Casados(a)</option>
                                       <option>Solteiro(a)</option>
@@ -201,6 +202,7 @@
             <!-- /.content -->
           </div>
           <!-- /.content-wrapper -->
+		 </div>
         @endsection
     @section('scripts')
       <!--Sscripts para Popular o SelectOption das Procincias de Forma Dinamica-->

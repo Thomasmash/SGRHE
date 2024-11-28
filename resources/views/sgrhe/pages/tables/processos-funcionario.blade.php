@@ -17,6 +17,7 @@
           <link rel="stylesheet" href="../../resources/css/app.css">
         @endsection
         @section('conteudo_principal')
+		<div class="wrapper">
           <!-- Content Wrapper. Contains page content //23121997 -->
             <div class="content-wrapper">
               <!-- Content Header (Page header) -->
@@ -136,6 +137,7 @@
      
             </div>
           <!-- /.content-wrapper -->
+		 </div>
           @endsection
     @section('scripts')
       <!-- DataTables  & Plugins -->

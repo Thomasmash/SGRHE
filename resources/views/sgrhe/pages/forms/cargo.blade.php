@@ -5,6 +5,7 @@
         <!--Style Local-->
         @endsection
   @section('conteudo_principal')
+  <div class="wrapper">
       <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
           <!-- Content Header (Page header) -->
@@ -94,6 +95,7 @@
           </section>
         </div> 
        <!-- /.content-wrapper -->
+	   </div>
   @endsection
     @section('scripts')
       <script>

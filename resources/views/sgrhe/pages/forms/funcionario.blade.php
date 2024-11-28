@@ -5,6 +5,7 @@
         <!--Style Local-->
         @endsection
         @section('conteudo_principal')
+		<div class="wrapper">
           <!-- Content Wrapper. Contains page content -->
           <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -36,7 +37,7 @@
                   @csrf
                   <div class="form-group">
                       <label for="numeroBI">Insira o Numero do Bilhete de Identidade:</label>
-                      <input type="text" name="numeroBI" id="numeroBI" class="form-control" placeholder="Digite o numero do Bilhete da Pessoa que Necessita Cadastrar" required>
+                      <input type="text" name="numeroBI" id="numeroBI" class="form-control" placeholder="Digite o numero do Bilhete da Pessoa que Necessita Cadastrar" maxlength="14"  required>
                   </div>
                   <button class="btn btn-primary w-100" type="submit">Verificar Numero de BI</button>
               </form>
@@ -92,9 +93,9 @@
                                       <div class="form-group">
                                         <label for="idCategoriaFuncionario">Categoria Funcionário</label>
                                           <select name="idCategoriaFuncionario" class="form-control select2" required>
-                                            <option selected="selected" value="{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->id : '' }}">{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->categoria.' do '.$opcoesCategoriaFuncionario->grau : 'Escolha uma Categoria de Funcionário' }}</option>
+                                            <option selected="selected" value="{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->id : 'Escolha a Categoria do Funcionário' }}">{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->categoria.' do '.$opcoesCategoriaFuncionario->grau : 'Escolha uma Categoria de Funcionário' }}</option>
                                             @php
-                                              $opcoesCategoriaFuncionario = App\Models\CategoriaFuncionario::all();
+                                              $opcoesCategoriaFuncionario = App\Models\CategoriaFuncionario::where( 'id', '!=', 1 )->get();
                                             @endphp
                                             @foreach ($opcoesCategoriaFuncionario as $CategoriaFuncionario)
                                             <option value="{{ old('id',$CategoriaFuncionario->id ?? 'id') }}">{{ old('categoria',$CategoriaFuncionario->categoria.' do '.$CategoriaFuncionario->grau ?? 'categoria') }}</option>
@@ -130,9 +131,9 @@
                                   <div class="form-group">
                                         <label for="idUnidadeOrganica">Unidade Orgânica</label>
                                           <select name="idUnidadeOrganica" class="form-control select2" required>
-                                            <option selected="selected" value="{{ isset($opcoesUnidadeOrganica) ? $opcoesUnidadeOrganica->id : '' }}" >{{ isset($opcoesUnidadeOrganica) ? $opcoesUnidadeOrganica->designacao : 'Escolha uma Unidade Orgânica' }}</option>
+                                            <option selected="selected" value="{{ isset($opcoesUnidadeOrganica) ? $opcoesUnidadeOrganica->id : 'Selecione uma Unidade Orgânica' }}" >{{ isset($opcoesUnidadeOrganica) ? $opcoesUnidadeOrganica->designacao : 'Escolha uma Unidade Orgânica' }}</option>
                                             @php
-                                              $opcoesUnidadeOrganicas = App\Models\UnidadeOrganica::all();
+                                              $opcoesUnidadeOrganicas = App\Models\UnidadeOrganica::where( 'id', '!=', 1 )->get();
                                             @endphp
                                             @foreach ($opcoesUnidadeOrganicas as $UnidadeOrganica)
                                             <option value="{{ old('id',$UnidadeOrganica->id ?? 'id') }}">{{ old('designacao',$UnidadeOrganica->designacao ?? 'designacao') }}</option>
@@ -198,6 +199,7 @@
             <!-- /.content -->
           </div>
           <!-- /.content-wrapper -->
+		</div>
         @endsection
         @section('scripts')
 

@@ -6,7 +6,6 @@
       </li>
     </ul>
     <!--Configuara o Midle nav links-->
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
     <form method="POST" action="{{ route('logout') }}" x-data>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Log;
 
 use Exception;
 
@@ -66,67 +68,68 @@ class BackupController extends Controller
 		
 		
 		
-		 public function restaurar(Request $request)
-    {
-        try {
-            // Verifica se o arquivo de backup existe
-            $backupPath = storage_path('app/backup/SGRHE/'.$request->nomeBackup);
-
-            if (!File::exists($backupPath)) {
-                return redirect()->back()->withErrors(['message' => 'Backup não encontrado.']);
-            }
-            // Descompacta o arquivo ZIP
-            $this->unzipBackup($backupPath);
-
-            // Adicionar a lógica para restaurar o banco de dados, se necessário
-             $this->restoreDatabase();
-			
-			// Restaura arquivos de uma pasta
-			$this->restoreFiles();
-
-
-            return redirect()->back()->with('success', 'Restauração realizada com sucesso.');
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['message' => 'Erro ao restaurar o backup: ' . $e->getMessage()]);
-        }
-    }
-
-
-
-    protected function unzipBackup($zipFilePath)
-    {
-        $zip = new ZipArchive;
-
-        if ($zip->open($zipFilePath) === TRUE) {
-            // Define o diretório de destino para descompactar
-            $extractPath = storage_path('app/backup/extracted/');
-
-            // Cria o diretório de extração se não existir
-            if (!File::exists($extractPath)) {
-                File::makeDirectory($extractPath, 0755, true);
-            }
-
-            // Extrai o conteúdo do ZIP
-            $zip->extractTo($extractPath);
-            $zip->close();
-        } else {
-            throw new Exception('Não foi possível abrir o arquivo ZIP.');
-        }
-    }
-
- protected function restoreDatabase()
+	public function restaurar(Request $request)
 {
-    $sqlFilePath = storage_path('app/backup/extracted/db-dumps/mysql-sgrhe-1.sql'); // Altere para o nome correto do arquivo SQL
+    try {
+        // Validação do nome do arquivo
+        $request->validate([
+            'nomeBackup' => 'required|string',
+        ]);
+
+        // Verifica se o arquivo de backup existe
+        $backupPath = storage_path('app/backup/SGRHE/'.$request->nomeBackup);
+        if (!File::exists($backupPath)) {
+            return redirect()->back()->withErrors(['message' => 'Backup não encontrado.']);
+        }
+
+        // Descompacta o arquivo ZIP
+        $this->unzipBackup($backupPath);
+
+        // Restaura o banco de dados
+        $this->restoreDatabase();
+
+        // Restaura os arquivos
+        $this->restoreFiles();
+
+        return redirect()->back()->with('success', 'Restauração realizada com sucesso.');
+    } catch (Exception $e) {
+        // Captura e exibe a mensagem de erro
+        return redirect()->back()->withErrors(['message' => 'Erro ao restaurar o backup: ' . $e->getMessage()]);
+    }
+}
+
+protected function unzipBackup($zipFilePath)
+{
+    $zip = new ZipArchive;
+    if ($zip->open($zipFilePath) === TRUE) {
+        $extractPath = storage_path('app/backup/extracted/');
+        
+        // Cria o diretório de extração se não existir
+        if (!File::exists($extractPath)) {
+            File::makeDirectory($extractPath, 777, true);
+        }
+
+        // Extrai o conteúdo do ZIP
+        $zip->extractTo($extractPath);
+        $zip->close();
+    } else {
+        throw new Exception('Não foi possível abrir o arquivo ZIP.');
+    }
+}
+
+protected function restoreDatabase()
+{
+    // Caminho do arquivo SQL de backup
+    $sqlFilePath = storage_path('app/backup/extracted/db-dumps/mysql-sgrhe-1.sql');
 
     if (File::exists($sqlFilePath)) {
-        $command = sprintf('mysql -u %s -p%s %s < %s',
-            env('DB_USERNAME'),
-            env('DB_PASSWORD'),
-            env('DB_DATABASE'),
-            $sqlFilePath
-        );
-
-        exec($command);
+        // Utilizando DB Facade para executar a restauração
+        try {
+            // Alternativa mais segura ao exec() - Laravel DB Facade
+            DB::unprepared(file_get_contents($sqlFilePath));
+        } catch (\Exception $e) {
+            throw new Exception('Erro ao restaurar o banco de dados: ' . $e->getMessage());
+        }
     } else {
         throw new Exception('Arquivo SQL não encontrado para restaurar o banco de dados.');
     }
@@ -134,19 +137,37 @@ class BackupController extends Controller
 
 protected function restoreFiles()
 {
-	//dd('Restaurar');
-	
-    $sourceDir = storage_path('app/backup/extracted/var/www/SGRHE/storage/app/sgrhe'); // Altere para o diretório correto
-    $destinationDir = storage_path('app/sgrhe'); // Altere para o diretório de destino apropriado
+    // Diretórios de origem e destino
+    $sourceDir = storage_path('app/backup/extracted/var/www/SGRHE/storage/app/sgrhe');
+    $destinationDir = storage_path('app/sgrhe');
 
     // Verifica se o diretório de origem existe
     if (File::exists($sourceDir)) {
+
+        // Verifica se o diretório de destino existe
+        if (File::exists($destinationDir)) {
+            // Apaga o diretório de destino e todo seu conteúdo
+            File::deleteDirectory($destinationDir);
+        }
+
         // Copia os arquivos do diretório de origem para o diretório de destino
-        File::copyDirectory($sourceDir, $destinationDir);
+        try {
+            // Usando copyDirectory para copiar todo o conteúdo do diretório de origem para o destino
+	
+
+            //dd($sourceDir.$destinationDir);
+
+            File::moveDirectory($sourceDir, $destinationDir);
+			return redirect()->back()->with('success', 'Restauração realizada com sucesso.');
+        } catch (Exception $e) {
+            // Se houver algum erro ao copiar os arquivos, lança uma exceção com a mensagem de erro
+            throw new Exception('Erro ao restaurar os arquivos: ' . $e->getMessage());
+        }
+
     } else {
+        // Se o diretório de origem não existir, lança uma exceção com a mensagem de erro
         throw new Exception('Diretório de arquivos não encontrado para restaurar.');
     }
 }
-
 	//Outros Metodos
 }

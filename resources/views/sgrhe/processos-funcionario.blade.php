@@ -40,6 +40,7 @@
               <!-- Scripts -->
         @endsection
         @section('conteudo_principal')
+		<div class="wrapper">
       <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
           <!-- Content Header (Page header) -->
@@ -577,6 +578,7 @@
               <!--Modal Solicitar-->
                <x-sgrhe-modal-solicitar />
               <!--/Modal Solicitar-->
+			  </div>
         @endsection
   @section('scripts')
 

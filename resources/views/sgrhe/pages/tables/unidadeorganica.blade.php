@@ -13,6 +13,7 @@
           
         @endsection
         @section('conteudo_principal')
+		<div class="wrapper">
           <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
               <!-- Content Header (Page header) -->
@@ -163,6 +164,7 @@
             
             </div>
           <!-- /.content-wrapper -->
+		  </div>
           @endsection
     @section('scripts')
         <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>

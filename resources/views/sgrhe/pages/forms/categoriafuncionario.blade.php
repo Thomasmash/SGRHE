@@ -5,6 +5,7 @@
       
         @endsection
   @section('conteudo_principal')
+  <div class="wrapper">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -74,6 +75,7 @@
       </section>
       <!-- /.content -->
     </div>
+	</div>
   @endsection
   @section('scripts')
     <!--Sscripts para Popular o SelectOption das Procincias de Forma Dinamica-->

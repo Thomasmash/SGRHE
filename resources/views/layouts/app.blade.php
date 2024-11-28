@@ -1,17 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Auth;
- //Carregar dados de perfil de Usuário Logado no Sistema 
- /*
 
-    session(['FuncionarioLogado' => $funcionario]);
-    session(['CargoLogado' => App\Models\Cargo::find($funcionario->idCargo)->first()]);
-    session(['SeccaoLogado' => App\Models\Seccao::find($funcionario->idSeccao)->first()]);
-    session(['PessoaLogado' =>  App\Models\Pessoa::find($funcionario->idPessoa)->first()]);
-    session(['UnidadeOrganicaLogado' => App\Models\UnidadeOrganica::find($funcionario->idUnidadeOrganica)->first()]);
-    session(['FotoPerfilLogado' => isset(App\Models\Arquivo::where('idFuncionario', $funcionario->id)->where('categoria','FotoPerfil')->first()->caminho) ? App\Models\Arquivo::where('idFuncionario',$funcionario->id)->where('categoria','FotoPerfil')->first()->caminho : "null"]); 
-
-*/
-//Dados Essenssiais 
    //Se funionario nao registrado
    if (!isset($funcionarioLogado)) {
    dd('O funcionário logado não esta Registrado na Sua Direcção Municipal');
@@ -37,13 +26,6 @@ use Illuminate\Support\Facades\Auth;
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name', 'Laravel') }} - @yield('titulo') </title>
-         <!--
-        Google Font: Source Sans Pro
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
-        -->
 
         <!-- NPM-->
         <!-- Scripts -->
@@ -84,8 +66,6 @@ use Illuminate\Support\Facades\Auth;
         <!--Admin LTE -->
         <!-- Theme style -->
         <link rel="stylesheet" href=" {{ asset('dist/css/adminlte.min.css') }}">
-        <!-- JQVMap -->
-        <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }} ">
          <!-- overlayScrollbars -->
          <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 
@@ -127,6 +107,11 @@ use Illuminate\Support\Facades\Auth;
 			td{			
 				justify-content: center;
 			  }
+			  .clock {
+				font-size: 16px;
+				color: #bbbbb;
+				font-weight: bolder;
+			}
         </style>
 
 
@@ -178,51 +163,80 @@ use Illuminate\Support\Facades\Auth;
         <!--Alertas Menssagens de erros com Sweet Alerts Lib-->
         <script src="{{ asset('dist/js/sweet-alertt2.js') }}"></script>
         <!--Script para Ocultar o Nome do Funcionario quando o menu é escondido-->
-        <script>
-                // Ouvinte de eventos para o botão de alternância do menu
-                $('#pushmenu').click(function() {
-                    // Verifica se o menu está aberto ou fechado
-                    var menuAberto = $('#menu').hasClass('menu-open');
-                    // Se o menu estiver fechado, oculta o elemento filho
-                    if (menuAberto) {
-                        $('#elemento').hide();
-                    }
-                });
-        </script>
+			<script>
+					// Ouvinte de eventos para o botão de alternância do menu
+					$('#pushmenu').click(function() {
+						// Verifica se o menu está aberto ou fechado
+						var menuAberto = $('#menu').hasClass('menu-open');
+						// Se o menu estiver fechado, oculta o elemento filho
+						if (menuAberto) {
+							$('#elemento').hide();
+						}
+					});
+			</script>
+		
+			<!--Relogio-->
+			<script>
+				function updateClock() {
+					const clockElement = document.getElementById('clock');
+					
+					// Cria uma nova instância do Date para obter a hora atual
+					const now = new Date();
+					
+					// Obtém as horas, minutos e segundos
+					let hours = now.getHours();
+					let minutes = now.getMinutes();
+					let seconds = now.getSeconds();
+					
+					// Adiciona um 0 à esquerda se os minutos ou segundos forem menores que 10
+					hours = hours < 10 ? '0' + hours : hours;
+					minutes = minutes < 10 ? '0' + minutes : minutes;
+					seconds = seconds < 10 ? '0' + seconds : seconds;
+					
+					// Define o formato de hora como HH:mm:ss
+					clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+				}
+				
+				// Atualiza o relógio a cada segundo (1000ms)
+				setInterval(updateClock, 1000);
+				
+				// Chama a função uma vez para inicializar o relógio imediatamente
+				updateClock();
+			</script>
 
 
             <script>
-            // Função para alternar o estado do link
-            function toggleLink() {
-                var link = document.getElementById('toggleLink');
-                if (link.classList.contains('active')) {
-                link.classList.remove('active');
-                } else {
-                link.classList.add('active');
-                }
-            }
+				// Função para alternar o estado do link
+				function toggleLink() {
+					var link = document.getElementById('toggleLink');
+					if (link.classList.contains('active')) {
+					link.classList.remove('active');
+					} else {
+					link.classList.add('active');
+					}
+				}
 
-            // Função para alternar o estado do link seção
-            function toggleLinkSeccao() {
-                var linkSeccao = document.getElementById('toggleLinkSeccao');
-                if (linkSeccao.classList.contains('active')) {
-                linkSeccao.classList.remove('active');
-                } else {
-                linkSeccao.classList.add('active');
-                }
-            }
+				// Função para alternar o estado do link seção
+				function toggleLinkSeccao() {
+					var linkSeccao = document.getElementById('toggleLinkSeccao');
+					if (linkSeccao.classList.contains('active')) {
+					linkSeccao.classList.remove('active');
+					} else {
+					linkSeccao.classList.add('active');
+					}
+				}
 
-            // Chama as funções assim que a página é carregada
-            window.onload = function() {
-               // toggleLink(); // Primeira chamada para ativar o efeito fade
-				//toggleLinkSeccao(); // Primeira chamada para ativar o efeito fade
-                
-				setInterval(toggleLink, 500); // Chama a função a cada 500ms
-                setInterval(toggleLinkSeccao, 700); // Chama a função a cada 500ms
-            };
+				// Chama as funções assim que a página é carregada
+				window.onload = function() {
+				   // toggleLink(); // Primeira chamada para ativar o efeito fade
+					//toggleLinkSeccao(); // Primeira chamada para ativar o efeito fade
+					
+					setInterval(toggleLink, 500); // Chama a função a cada 500ms
+					setInterval(toggleLinkSeccao, 700); // Chama a função a cada 500ms
+				};
             </script>
 
-            <!--Evento para Mudar a Menssagem do Ipntut pos escolha do cheiro-->
+			
                 <!-- Adicione script para lidar com a dinamicidade do formulário -->
                 <script>
                         $(document).ready(function(){
@@ -232,31 +246,31 @@ use Illuminate\Support\Facades\Auth;
                         });
                     });
                 </script>
-            <!--/Evento para Mudar a Menssagem do Ipntut pos escolha do cheiro-->
+				<!--/Evento para Mudar a Menssagem do Ipntut pos escolha do -->
 
-            <script>
-                function toggleInfo() {
-                const btnToggles = document.querySelectorAll('.btn-toggle');
+				<script>
+					function toggleInfo() {
+					const btnToggles = document.querySelectorAll('.btn-toggle');
 
-                btnToggles.forEach((btnToggle) => {
-                    btnToggle.addEventListener('click', () => {
-                    const targetId = btnToggle.dataset.target;
-                    const infoToggle = document.getElementById(targetId);
+					btnToggles.forEach((btnToggle) => {
+						btnToggle.addEventListener('click', () => {
+						const targetId = btnToggle.dataset.target;
+						const infoToggle = document.getElementById(targetId);
 
-                    infoToggle.classList.toggle('visible');
-                    });
-                });
-                }
+						infoToggle.classList.toggle('visible');
+						});
+					});
+					}
 
-                toggleInfo();
-            </script>
+					toggleInfo();
+				</script>
 
 
         
-        @yield('scripts')
-        @stack('modals')
-        @livewireScripts
-        <!--Area de Mensagens de erros, alertas e avisos vindo do-->
+								@yield('scripts')
+								@stack('modals')
+								@livewireScripts
+	<!--Area de Mensagens de erros, alertas e avisos vindo do-->
                                                 @if ($errors->any())
                                                  <!--Mensagens com erros de valdacao de formulario-->
                                                     <script>                                              
@@ -345,6 +359,6 @@ use Illuminate\Support\Facades\Auth;
                                                         unset($feito);
                                                     @endphp                      
                                                 @endif
-        <!--/Area de Mensagens e erros--> 
+    <!--/Area de Mensagens e erros--> 
     </body>
 </html>

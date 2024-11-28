@@ -22,12 +22,14 @@ class PessoaController extends Controller
        $endereco = $id ? Endereco::where('idPessoa', $pessoa->id)->first():null;
        return view('sgrhe/pages/forms/pessoa',compact('pessoa','parente','naturalidade','endereco'));
     }
+	
     public function index()
     {
         $pessoas = Pessoa::where('id', '!=', 1)->get();
         //dd($pessoas->all());
         return view('sgrhe/pages/tables/pessoas',compact('pessoas'));
     }
+	
     public function store(Request $request) 
     {
        // dd($request->all());
@@ -116,6 +118,7 @@ class PessoaController extends Controller
     //Create
     public function update(Request $request, string $id)
     { 
+	
         $request->validate([
             'nomeCompleto' => ['string', 'max:255','required'],
             'dataNascimento' => ['date','required','before:' .now()->subYears(18)->format('Y-m-d')],

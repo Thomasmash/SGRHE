@@ -152,7 +152,7 @@ class FuncionarioController extends Controller
             'dataAdmissao' => ['date','required','before_or_equal:now'],
             'iban' => ['nullable','unique:funcionarios,iban'],
             //'email' => ['email','max:255','nullable','unique:funcionarios,email'],
-            'numeroTelefone' => ['between:9,14','unique:funcionarios,numeroTelefone'],    
+            'numeroTelefone' => ['nullable','between:9,14','unique:funcionarios,numeroTelefone'],    
             //'idPessoa'=> ['numeric','required','unique:funcionarios,idPessoa,except'.''],
             //'idUnidadeOrganica'=> ['numeric'],
             //'idCargo'=>['numeric'],
@@ -295,7 +295,7 @@ class FuncionarioController extends Controller
               'dataAdmissao' => ['date','required','before_or_equal:now'],
               'iban' => ['nullable','unique:funcionarios,iban,'.$id], 
               'email' => ['email','max:255','nullable','unique:funcionarios,email,'.$id],
-              //'numeroTelefone' => ['between:9,14','unique:funcionarios,numeroTelefone,'.$id],    
+              'numeroTelefone' => ['nullable','between:9,14','unique:funcionarios,numeroTelefone,'.$id],    
               ], [
                   'idCargo.unique' => 'O Cargo de Director Muninipal não está Disponível!',
                   'numeroAgente.unique' => 'O Número de agente ja está sendo utilizado por outro usuário!',

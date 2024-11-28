@@ -49,7 +49,8 @@
                                                                                          $idEndereco = App\Models\Endereco::where('idPessoa',  $pessoa->id)->first();
                                                                                          //echo($biArquivo->first()->caminho);
                                                                                       @endphp
-      <!-- Content Wrapper. Contains page content -->
+    <div class="wrapper">
+	  <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
           <!-- Content Header (Page header) -->
             <section class="content-header ">
@@ -90,6 +91,7 @@
                                       src="{{ route('Exibir.Imagem', ['imagem' => base64_encode($fotodeperfil->first()->caminho)]) }}"
                                       alt="User profile picture">
                               @else
+								  
                               <!--Se Nao existir foto de Perfil-->
                                         @if(($pessoa->genero === 'Masculino') || ($pessoa->genero === 'N/D'))
                                         <img class="profile-user-img img-fluid img-circle"
@@ -154,17 +156,19 @@
                           <p class="text-muted text-center">Agente: {{ $funcionario->numeroAgente }}</p>
                           <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                              <p><b>Nome do Pai:</b> {{ $parente->nomePai }} </p> 
-                              <p><b>Nome da Mãe:</b> {{ $parente->nomeMae }} </p>
-                              <p><b>Naturalidade (Província):</b> {{ $naturalidade->provincia }} </p> 
-                              <p><b>Naturalidade (Município):</b> {{ $naturalidade->municipio }} </p> 
-                              <p><b>Data de Admissão:</b> {{ \Carbon\Carbon::parse($funcionario->dataAdmissao)->format('d/m/Y') }} </p>          
-                              <p><b>Unidade Orgânica:</b> {{ $unidadeOrganica->designacao }} </p>
-							                <p><b>Categoria:</b> {{ $categoriaFuncionario->categoria." do ".$categoriaFuncionario->grau." Grau" }} </p>
-                              <p><b>Salário Base:</b> {{ $categoriaFuncionario->salariobase." Kz" }} </p>
-							                <p><b>Secção:</b> {{ $seccao->designacao }} </p>    							  
-                              <p><b>Cargo:</b> {{ $cargo->designacao }} </p>    
-                              <p><b>Telefone:</b> {{ $funcionario->numeroTelefone }} </p>
+								<p>	<b>Nome do Pai:</b> {{ $parente->nomePai ?? 'N/D' }} </p> 
+									<p><b>Nome da Mãe:</b> {{ $parente->nomeMae ?? 'N/D' }} </p>
+									<p><b>Naturalidade (Província):</b> {{ $naturalidade->provincia ?? 'N/D' }} </p>
+									<p><b>Naturalidade (Município):</b> {{ $naturalidade->municipio ?? 'N/D' }} </p>
+									<p><b>Data de Admissão:</b> {{ \Carbon\Carbon::parse($funcionario->dataAdmissao)->format('d/m/Y') ?? 'N/D' }} </p>
+									<p><b>Unidade Orgânica:</b> {{ $unidadeOrganica->designacao ?? 'N/D' }} </p>
+									<p><b>Categoria:</b> {{ $categoriaFuncionario->categoria ?? 'N/D' }} {{ $categoriaFuncionario->grau ? 'do '.$categoriaFuncionario->grau.' Grau' : '' }}</p>
+									<p><b>Salário Base:</b> {{ $categoriaFuncionario->salariobase ? $categoriaFuncionario->salariobase.' Kz' : 'N/D' }} </p>
+									<p><b>Secção:</b> {{ $seccao->designacao ?? 'N/D' }} </p>
+									<p><b>Cargo:</b> {{ $cargo->designacao ?? 'N/D' }} </p>
+									<p><b>Telefone:</b> {{ $funcionario->numeroTelefone ?? 'N/D' }}
+								</p>
+
                             </li>
                             <li class="list-group-item d-none" style="text-align: center;">
                               <img src="#" alt="">
@@ -244,8 +248,8 @@
                                                           @csrf
                                                           @method('POST')
                                                           <input type="hidden" name="id" value="{{ $funcionario->id }}">
-                                                          <select name="estado" id="" class="form-control select2">
-                                                            <option selected value="" class="w-100 m-1">Alterar o Estado do Funcionário</option>
+                                                          <select name="estado" id="" class="form-control selec2 m-1">
+                                                            <option selected value="" class="w-100 ">Alterar o Estado do Funcionário</option>
                                                             <option class="text-success font-weight-bold" value="Activo">Activo</option>
                                                             <option class="text-info font-weight-bold" value="Licenca">Licença</option>
                                                             <option class="text-secondary font-weight-bold" value="Aposentado">Aposentado</option>
@@ -347,7 +351,7 @@
                                                                                 
                                                                                     <div class="form-group">
                                                                                         <label for="numeroBI">Número de BI</label>
-                                                                                        <input type="text" class="form-control" id="numeroBI" name="numeroBI" placeholder="Introduza o Número de BI" required>
+                                                                                        <input type="text" class="form-control" id="numeroBI" name="numeroBI" maxlength="14" placeholder="Introduza o Número de BI" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="validadeBI" >Data de Validade / Válido até</label>
@@ -1087,10 +1091,14 @@
             </section>
           <!-- /.content -->
         </div>
+		
               <!--Modal Solicitar-->
                <x-sgrhe-modal-solicitar />
               <!--/Modal Solicitar-->
-        @endsection
+			  
+			  
+	</div>
+       @endsection
   @section('scripts')
 
       <!--Edicao de Corte de imagen -->

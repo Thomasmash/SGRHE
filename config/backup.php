@@ -14,7 +14,7 @@ return [
                 /*
                  * The list of directories and files that will be included in the backup.
                  */
-                //Pasta do sistema 
+                //Pasta do sistema para incluir no processo de Backup
 		
 			
 				'include' => [
@@ -331,7 +331,7 @@ return [
              * this amount of megabytes has been reached.
              * Set null for unlimited size.
              */
-            'delete_oldest_backups_when_using_more_megabytes_than' => 1,
+            'delete_oldest_backups_when_using_more_megabytes_than' => 1000,
         ],
 
         /*

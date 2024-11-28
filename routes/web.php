@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\BackupController;
+use App\Http\Controllers\TelemetriaController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\HabilitacaoController;
 use App\Http\Controllers\MapaEfectividadeController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\ProcessoController;
 use App\Http\Controllers\UnidadeOrganicaController;
 use App\Http\Controllers\UnidadeOrganicaDadosController;
+use App\Http\Controllers\ConfigSistemaController;
 use App\Models\Arquivo;
 use App\Models\AvaliacaoDesempenhoFuncionario;
 use App\Models\Cargo;
@@ -321,9 +323,12 @@ Route::any('/file/upload', [AssinaturaController::class,'uploadFile'])->name('fi
 Route::any('/gerar/docs/', [ProcessoController::class,'gerarDoc'])->name('gerar.docs');
 //Configuaracoes
 Route::get('/configuracao/perfil/', [PerfilController::class,'configPerfilOnSistem'])->name('configuracao.perfil');
-
+//Configurações do Sistema
+Route::get('/opcoes/sistema/', [ConfigSistemaController::class,'opcoesDoSistema'])->name('opcoes.sistema');
 //Configuracao de Usuario obs nao do perfil que e diferente 
 Route::any('/configuracao/usuario', [PerfilController::class, 'config'])->name('config.usuario');
+//Configuracao e opcoes de Telemetria 
+Route::any('/telemetria', [TelemetriaController::class, 'telemetria'])->name('telemetria');
 
 
 //Delete Item
