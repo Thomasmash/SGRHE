@@ -21,7 +21,7 @@ class BackupController extends Controller
 		    $frequency = $request->input('frequencia');
 			$hora = $request->input('hora'); 
 			$diaSemana = $request->input('dia-semana'); 
-			$diaMes = $request->input('dia-mes'); 
+			$diaMes = $request->input('dia-mes');
 			Storage::disk('agenda_backup')->put('agendamendo.json', json_encode(['frequency' => $frequency,'diaMes' => $diaMes,'diaSemana' => $diaSemana,'hora' => $hora]));
 			return redirect()->back()->with('success', 'Backup agendado com sucesso!');
 	   }	   
@@ -90,6 +90,12 @@ class BackupController extends Controller
 
         // Restaura os arquivos
         $this->restoreFiles();
+		//Registrar a Ultima Restauracao //231297
+		
+		$backupName = $request->input('frequencia');
+		
+		Storage::disk('restauro_backup')->put('backupRestaurado.json', json_encode(['nomeBackupRestaurado' => $request->nomeBackup, 'data' => date('d/m/Y H:i:s') ])); //Registrar o Backup restaurado como o ultimo 
+				
 		return response()->json(['message' => "O Backup ".$request->nomeBackup." foi restaurado com sucesso. Acutualize a página para continuar!"], 200);
         //return redirect()->back()->with('success', 'Restauração realizada com sucesso.');
     } catch (Exception $e) {

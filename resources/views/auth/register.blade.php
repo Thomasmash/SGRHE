@@ -13,20 +13,24 @@
 
             <div>
                 <x-label for="numeroAgente" value="{{ __('Número de Agente ') }}" />
-                <x-input id="numeroAgente" class="block mt-1 w-full" type="text" name="numeroAgente" :value="old('numeroAgente')" required autofocus autocomplete="name" />
+                <x-input id="numeroAgente" class="block mt-1 w-full" type="text" name="numeroAgente" :value="old('numeroAgente')" required autofocus autocomplete="name" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
             </div>
 
             <div class="mt-4">
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             </div>
-
-            <div class="mt-4">
+			<div class="mt-4">
+				<x-label for="politicas-seguranca">
+						<x-checkbox name="politicas-seguranca" id="politicas-seguranca" checked />
+						{!! __(' Políticas de password') !!}
+				</x-label>
+			</div>
+            <div class="mt-4">				
                 <x-label for="password" value="{{ __('Password') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
-
-            <div class="mt-4">
+            <div class="mt-4">				
                 <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
@@ -36,7 +40,6 @@
                     <x-label for="terms">
                         <div class="flex items-center">
                             <x-checkbox name="terms" id="terms" required />
-
                             <div class="ms-2">
                                 {!! __('Eu concordo com :Termos de Serviço e :Políticas de Privacidade', [
                                         'Termos de Serviço' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Termos de Serviço').'</a>',

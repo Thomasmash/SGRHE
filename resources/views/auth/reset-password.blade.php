@@ -15,7 +15,12 @@
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
             </div>
-
+            <div class="mt-4">
+				<x-label for="politicas-seguranca">
+						<x-checkbox name="politicas-seguranca" id="politicas-seguranca" checked />
+						{!! __(' Políticas de password') !!}
+			</x-label>
+			</div>
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />

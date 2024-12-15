@@ -47,9 +47,9 @@ class ConfigSistemaController extends Controller
 		usort($backups, function ($a, $b) {
 			return $b['created_at'] <=> $a['created_at']; // Ordem decrescente
 		});
-
+		$ultimoRestauro = json_decode(Storage::disk('restauro_backup')->get('backupRestaurado.json'), true);
 		$agendamento = json_decode(Storage::disk('agenda_backup')->get('agendamendo.json'), true);
-		//dd($agendamento);
-		return view('sgrhe/backup-config', compact('backups', 'agendamento'));
+		//dd($ultimoRestauro);
+		return view('sgrhe/backup-config', compact('backups', 'agendamento','ultimoRestauro'));
     }
 }

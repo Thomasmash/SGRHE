@@ -55,65 +55,127 @@ if (!function_exists('formatBytes')) {
                                                                               <div class="row">
                                                                                 <div class="col-md-12">
                                                                                   <div class="card card-primary">
-                                                                                    <div class="card-header">
-                                                                                      <h3>Agendar Backups</h3>
+                                                                                    <div class="card-header font-weight-bold">
+                                                                                      <h3>Backups</h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <form action="{{ route('agendar.backup') }}" method="GET" style="display: inline;">
-                                                                                          @csrf
-                                                                                          <div class="row">
-                                                                                            <div class="col-sm-12">
-                                                                                              <!-- checkbox -->
-                                                                                              <div class="form-group clearfix">
-                                                                                                <div class="icheck-primary d-inline">
-                                                                                                  <div class="form-group">
-                                                                                                    <!-- Agendar Backup //23121997  -->
-																							
-                                                                                                    <label for="seccaoSelect">Selecione a Frequência do Backup:</label>
-																									<!-- Select para Frequência -->
-																									<select name="frequencia" class="form-control" id="frequencia">
-																										<option selected="selected" value="Diario">Diário</option>
-																										<option value="Semanalmente">Semanal</option>
-																										<option value="Mensal">Mensal</option>
-																									</select>
-
-																									<!-- Select para Dias da Semana (inicialmente oculto) -->
-																									<div id="dias-semana" style="display: none;">
-																										<label for="dia-semana">Escolha o Dia da Semana</label>
-																										<select name="dia-semana" id="dia-semana" class="form-control">
-																											<option value="1">Segunda-feira</option>
-																											<option value="2">Terça-feira</option>
-																											<option value="3">Quarta-feira</option>
-																											<option value="4">Quinta-feira</option>
-																											<option value="5">Sexta-feira</option>
-																											<option value="6">Sábado</option>
-																											<option value="7">Domingo</option>
-																										</select>
+																								<!--Fazer Backup dos Dados Agora-->
+																								<form id="ajaxForm" action="{{ route('criar.backup') }}" method="GET" style="display: inline;">
+																									@csrf
+																									<button type="submit" class="btn btn-secondary w-100 mt-1 font-weight-bold">Fazer Backup Agora</button>
+																								</form>
+																								
+																								<!-- Indicador de carregamento -->
+																								<div id="loading" class="mt-3" style="display:none;">
+																									<div class="spinner-border text-primary" role="status">
+																										<span class="sr-only">Carregando...</span>
 																									</div>
-																									
-
-																									<!-- Input de Data (inicialmente oculto) -->
-																									<div id="data-mes" style="display: none;">
-																										<label for="dia-mes">Escolha o Dia do Mês</label>
-<input type="number" name="dia-mes" id="dia-mes" class="form-control">
-																									</div>
-																									<!-- Input de Hora -->
-																									<label for="timePicker">Selecione a Hora:</label>
-                                                                                                    <input type="time" class="form-control w-100 " id="timePicker" name="hora" required>
-																									
-                                                                                                  </div>
-                                                                                                </div>
+																									<p>Fazendo Backup dos Dados...</p>
 																								</div>
-																							</div>	
-                                                                                          </div>
-                                                                                            <button type="submit" class="btn btn-primary w-100">Agendar Backup</button>
-                                                                                        </form>
+
+																								<!-- Mensagem de sucesso -->
+																								<div id="successMessage" class="alert alert-success mt-3" style="display:none;"></div>
+
+																								<!-- Mensagem de erro -->
+																								<div id="errorMessage" class="alert alert-danger mt-3" style="display:none;"></div>
+	
+	
+																								<div class="card card-{{ $agendamento === null ? 'danger' : 'light'}} w-100 mt-2">
+																									<div class="card-header font-weight-bold">Agendar Backup</div>
+																										<div class="card-body">																											
+																											<form action="{{ route('agendar.backup') }}" method="GET" style="display: inline;">
+																												  @csrf
+																												  <div class="row">
+																													<div class="col-sm-12">
+																													  <!-- checkbox -->
+																													  <div class="form-group clearfix">
+																														<div class="icheck-primary d-inline">
+																														  <div class="form-group">
+																															<!-- Agendar Backup //23121997  -->
+																													
+																															<label for="seccaoSelect">Selecione a Frequência do Backup:</label>
+																															<!-- Select para Frequência -->
+																															<select name="frequencia" class="form-control" id="frequencia">
+																																<option selected="selected" value="Diario">Diário</option>
+																																<option value="Semanalmente">Semanal</option>
+																																<option value="Mensal">Mensal</option>
+																															</select>
+
+																															<!-- Select para Dias da Semana (inicialmente oculto) -->
+																															<div id="dias-semana" style="display: none;">
+																																<label for="dia-semana">Escolha o Dia da Semana</label>
+																																<select name="dia-semana" id="dia-semana" class="form-control">
+																																	<option value="1">Segunda-feira</option>
+																																	<option value="2">Terça-feira</option>
+																																	<option value="3">Quarta-feira</option>
+																																	<option value="4">Quinta-feira</option>
+																																	<option value="5">Sexta-feira</option>
+																																	<option value="6">Sábado</option>
+																																	<option value="7">Domingo</option>
+																																</select>
+																															</div>
+																															
+
+																															<!-- Input de Data (inicialmente oculto) -->
+																															<div id="data-mes" style="display: none;">
+																																<label for="dia-mes">Escolha o Dia do Mês</label>
+																																<input type="number" name="dia-mes" id="dia-mes" class="form-control">
+																															</div>
+																															<!-- Input de Hora -->
+																															<label for="timePicker">Selecione a Hora:</label>
+																															<input type="time" class="form-control w-100 " id="timePicker" name="hora" required>
+																															
+																														  </div>
+																														</div>
+																														</div>
+																													</div>	
+																												  </div>
+																													<button type="submit" class="btn btn-primary w-100">Agendar Backup</button>
+																											</form>
+																										</div>
+                                                                                                </div>
                                                                                                 <div class="card card-{{ $agendamento === null ? 'danger' : 'light'}} w-100 mt-2">
-                                                                                                  <div class="card-header">Informações</div>
+                                                                                                  <div class="card-header font-weight-bold">Backups Agendados</div>
                                                                                                   <div class="card-body">
                                                                                                   <h5 class="card-title">Agendado:</h5>
                                                                                                     @if( $agendamento != null )
-                                                                                                      <p class="card-text font-weight-bold">Backup {{ $agendamento['frequency'] }} às {{ $agendamento['hora'] }} </p>
+                                                                                                      <p class="card-text font-weight-bold">Backup {{ $agendamento['frequency'].' agendado, ' }}
+																									  
+																										<?php
+																											if(isset($agendamento['diaMes']) && $agendamento['frequency'] == 'Mensal'){
+																											 echo 'no dia '.$agendamento['diaMes'];
+																											}
+																										?>
+																										<?php
+																											if(isset($agendamento['diaSemana']) && $agendamento['frequency'] == 'Semanalmente'){																											
+																											switch($agendamento['diaSemana']){
+																												case "1":
+																													echo "Segunda-feira";
+																												break;
+																												case "2":
+																													echo "Terça-feira";
+																												break;
+																												case "3":
+																													echo "Quarta-feira";
+																												break;
+																												case "4":
+																													echo "Quinta-feira";
+																												break;
+																												case "5":
+																													echo "Sexta-feira";
+																												break;
+																												case "6":
+																													echo "Sábado";
+																												break;
+																												case "7":
+																													echo "Domingo";
+																												break;
+																											}
+																											
+																											}
+																										?>
+																									  
+																									  {{ 'às '.$agendamento['hora'] }} </p>
                                                                                                     @else
                                                                                                       <p class="card-text">Não existem backups agendados!</p>
                                                                                                     @endif
@@ -181,30 +243,15 @@ if (!function_exists('formatBytes')) {
 																										  <th>Opções</th>
 																										</tr>
 																									</tfoot>
-																								</table>
-																								<!--Fazer Backup dos Dados Agora-->
-																								<form id="ajaxForm" action="{{ route('criar.backup') }}" method="GET" style="display: inline;">
-																									@csrf
-																									<button type="submit" class="btn btn-primary w-100 mt-1">Fazer Backup</button>
-																								</form>
-																								
-																								<!-- Indicador de carregamento -->
-																								<div id="loading" class="mt-3" style="display:none;">
-																									<div class="spinner-border text-primary" role="status">
-																										<span class="sr-only">Carregando...</span>
-																									</div>
-																									<p>Fazendo Backup dos Dados...</p>
-																								</div>
-
-																								<!-- Mensagem de sucesso -->
-																								<div id="successMessage" class="alert alert-success mt-3" style="display:none;"></div>
-
-																								<!-- Mensagem de erro -->
-																								<div id="errorMessage" class="alert alert-danger mt-3" style="display:none;"></div>
-	
-	
-	
-	
+																								</table>																										
+																									<p class="card-text font-weight-bold">OBS:</p>
+																									   @if( $ultimoRestauro === null )
+																										<p class="card-text font-weight-bold">Sem histórico de restauro</p>
+																									   @else
+																										   <p class="card-text font-weight-bold">Último Backup Restaurado: {{ $ultimoRestauro['nomeBackupRestaurado'] }} </p>
+																									   
+																										   <p class="card-text font-weight-bold">Data do último restauro: {{ $ultimoRestauro['data'] }} </p>
+																									   @endif
 																							</div>
 																						</div>
 																					</div>
