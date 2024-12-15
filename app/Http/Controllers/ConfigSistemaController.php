@@ -33,17 +33,23 @@ class ConfigSistemaController extends Controller
         $files = File::files($directoryPath);
 	
         // Crie um array para armazenar os dados dos arquivos
-        $backups = [];
+		$backups = [];
 
-        foreach ($files as $file) {
-            $backups[] = [
-                'name' => $file->getFilename(),
-                'created_at' => $file->getCTime(), // Data de criação em timestamp
-                'size' => $file->getSize(), // Tamanho do arquivo
-            ];
-        }
+		foreach ($files as $file) {
+			$backups[] = [
+				'name' => $file->getFilename(),
+				'created_at' => $file->getCTime(), // Data de criação em timestamp
+				'size' => $file->getSize(), // Tamanho do arquivo
+			];
+		}
+
+		// Organizar os backups em ordem decrescente de data de criação
+		usort($backups, function ($a, $b) {
+			return $b['created_at'] <=> $a['created_at']; // Ordem decrescente
+		});
+
 		$agendamento = json_decode(Storage::disk('agenda_backup')->get('agendamendo.json'), true);
 		//dd($agendamento);
-		return view('sgrhe/sistema-config', compact('backups', 'agendamento'));
+		return view('sgrhe/backup-config', compact('backups', 'agendamento'));
     }
 }

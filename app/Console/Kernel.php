@@ -5,7 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Storage;
-
+use Carbon\Carbon;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -13,8 +13,22 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+		
 		if(Storage::disk('agenda_backup')->exists('agendamendo.json')){
 			$agendamentoConfig = json_decode(Storage::disk('agenda_backup')->get('agendamendo.json'), true);
+			//Ajustes de Fuso Horario UTC para Africa/Luanda
+			// Obtém a hora da requisição
+			$hora = $agendamentoConfig['hora'];
+
+			// Converte a hora recebida para um objeto Carbon
+			$horaCarbon = Carbon::parse($hora);
+
+			// Recuar uma hora
+			$horaRecuada = $horaCarbon->subHour();
+
+			// Se você quiser formatar a hora de volta para string
+			$horaRecuadaFormatada = $horaRecuada->format('H:i');
+	
 			switch($agendamentoConfig['frequency']){
 				case 'Minuto':
 				$schedule->command('backup:run')->everyMinute();
@@ -22,14 +36,14 @@ class Kernel extends ConsoleKernel
 				case 'Hora':
 				$schedule->command('backup:run')->hourly();
 				break;
-				case 'Diário':
-				$schedule->command('backup:run')->daily()->at($agendamentoConfig['hora']);
+				case 'Diario':
+				$schedule->command('backup:run')->daily()->at($horaRecuadaFormatada);
 				break;
-				case 'Semanal':
-				$schedule->command('backup:run')->weekly()->at($agendamentoConfig['hora']);
+				case 'Semanalmente':
+				$schedule->command('backup:run')->weeklyOn($agendamentoConfig['diaSemana'], $horaRecuadaFormatada);
 				break;
 				case 'Mensal':
-				$schedule->command('backup:run')->monthly()->at($agendamentoConfig['hora']);
+				$schedule->command('backup:run')->monthlyOn($agendamentoConfig['diaMes'], $horaRecuadaFormatada);
 				break;
 			}
 		}

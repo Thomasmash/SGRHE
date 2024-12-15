@@ -93,7 +93,7 @@
                                       <div class="form-group">
                                         <label for="idCategoriaFuncionario">Categoria Funcionário</label>
                                           <select name="idCategoriaFuncionario" class="form-control select2" required>
-                                            <option selected="selected" value="{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->id : 'Escolha a Categoria do Funcionário' }}">{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->categoria.' do '.$opcoesCategoriaFuncionario->grau : 'Escolha uma Categoria de Funcionário' }}</option>
+                                            <option selected="selected" value="{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->id : '' }}">{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->categoria.' do '.$opcoesCategoriaFuncionario->grau : 'Escolha uma Categoria de Funcionário' }}</option>
                                             @php
                                               $opcoesCategoriaFuncionario = App\Models\CategoriaFuncionario::where( 'id', '!=', 1 )->get();
                                             @endphp
@@ -131,7 +131,7 @@
                                   <div class="form-group">
                                         <label for="idUnidadeOrganica">Unidade Orgânica</label>
                                           <select name="idUnidadeOrganica" class="form-control select2" required>
-                                            <option selected="selected" value="{{ isset($opcoesUnidadeOrganica) ? $opcoesUnidadeOrganica->id : 'Selecione uma Unidade Orgânica' }}" >{{ isset($opcoesUnidadeOrganica) ? $opcoesUnidadeOrganica->designacao : 'Escolha uma Unidade Orgânica' }}</option>
+                                            <option selected="selected" value="{{ isset($opcoesUnidadeOrganica) ? $opcoesUnidadeOrganica->id : '' }}" >{{ isset($opcoesUnidadeOrganica) ? $opcoesUnidadeOrganica->designacao : 'Escolha uma Unidade Orgânica' }}</option>
                                             @php
                                               $opcoesUnidadeOrganicas = App\Models\UnidadeOrganica::where( 'id', '!=', 1 )->get();
                                             @endphp

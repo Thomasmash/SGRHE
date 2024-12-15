@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -17,13 +17,14 @@ class BackupController extends Controller
 {
     //Funções 
 	   public function agendar(Request $request){
-		    // dd($request->all());
+		    //dd($request->all());
 		    $frequency = $request->input('frequencia');
 			$hora = $request->input('hora'); 
-			Storage::disk('agenda_backup')->put('agendamendo.json', json_encode(['frequency' => $frequency,'hora' => $hora]));
+			$diaSemana = $request->input('dia-semana'); 
+			$diaMes = $request->input('dia-mes'); 
+			Storage::disk('agenda_backup')->put('agendamendo.json', json_encode(['frequency' => $frequency,'diaMes' => $diaMes,'diaSemana' => $diaSemana,'hora' => $hora]));
 			return redirect()->back()->with('success', 'Backup agendado com sucesso!');
-	   }
-	   
+	   }	   
 	   
 	   public function eliminar(Request $request){
 			//diretório onde os arquivos estão armazenados
@@ -48,11 +49,10 @@ class BackupController extends Controller
 			$output = trim(Artisan::output()); // Menssagens de Retorno do Artisan
 			
 			 if ($exitCode === 0) {
-				return redirect()->back()->with('success', 'Backup Feito com sucesso!');
+				 sleep(5);
+				return response()->json(['message' => 'Backup Feito com sucesso']);
 				 }else{
-					return redirect()->back()->with([
-						'error' => "Erro ao Realizar o Backup!",
-					]);
+					return response()->json(['message' => 'Erro ao realizar o Backup' ]);
 			 }
 		}
 		
@@ -90,8 +90,8 @@ class BackupController extends Controller
 
         // Restaura os arquivos
         $this->restoreFiles();
-
-        return redirect()->back()->with('success', 'Restauração realizada com sucesso.');
+		return response()->json(['message' => "O Backup ".$request->nomeBackup." foi restaurado com sucesso. Acutualize a página para continuar!"], 200);
+        //return redirect()->back()->with('success', 'Restauração realizada com sucesso.');
     } catch (Exception $e) {
         // Captura e exibe a mensagem de erro
         return redirect()->back()->withErrors(['message' => 'Erro ao restaurar o backup: ' . $e->getMessage()]);
@@ -158,7 +158,7 @@ protected function restoreFiles()
             //dd($sourceDir.$destinationDir);
 
             File::moveDirectory($sourceDir, $destinationDir);
-			return redirect()->back()->with('success', 'Restauração realizada com sucesso.');
+			//return redirect()->back()->with('success', 'Restauração realizada com sucesso.'); //231297
         } catch (Exception $e) {
             // Se houver algum erro ao copiar os arquivos, lança uma exceção com a mensagem de erro
             throw new Exception('Erro ao restaurar os arquivos: ' . $e->getMessage());

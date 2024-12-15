@@ -221,7 +221,7 @@
                 </div>
         </div>
         <div class="rodape">
-        <p style="font-size: x-small;">Status: {{ App\Models\Pessoa::find($funcionarioProcessador->idPessoa)->nomeCompleto }}, {{ App\Models\Processo::find($idProcesso)->updated_at}}.</p>
+        <p style="font-size: x-small;">Status: {{ App\Models\Pessoa::find($funcionarioProcessador->idPessoa)->nomeCompleto }}, {{ $MapaEfectividade->updated_at}}.</p>
                 <div class="foot-esquerda">
                         <p>Direcção Municipal do Púri</p>
                         <p>Rua A</p>

@@ -100,25 +100,11 @@
                                                                               <form action="{{ route('criar.mapa.efectividade') }}" method="POST">
                                                                                   @method('POST')
                                                                                   @csrf
-                                                                                  <label for="mes">Seleccione o Mês para o Plano de Efectividade</label>
-                                                                                  <select name="mes" id="" class="form-control" style="width: 100%;">
-                                                                                    <option value="janeiro">Janeiro</option>
-                                                                                    <option value="fevereiro">Fevereiro</option>
-                                                                                    <option value="marco">Março</option>
-                                                                                    <option value="abril">Abril</option>
-                                                                                    <option value="Janeiro">Maio</option>
-                                                                                    <option value="Janeiro">Junho</option>
-                                                                                    <option value="Janeiro">Julho</option>
-                                                                                    <option value="Janeiro">Agosto</option>
-                                                                                    <option value="Janeiro">Setembro</option>
-                                                                                    <option value="Janeiro">Outubro</option>
-                                                                                    <option value="Janeiro">Novenbro</option>
-                                                                                    <option value="Janeiro">Dezembro</option>
-                                                                                  </select>
-                                                                                  <label for="mes">Seleccione o Ano para o Plano de Efectividade</label>
-                                                                                  <input name="ano" class="form-control d-block" style="width: 100%;" type="number" min="2020" max="{{ date('Y') }}" step="1" value="" placeholder="{{ date('Y') }}"/>
-                                                                                  <label for="data"> Data</label>
-                                                                                  <input type="date" class="form-control" name="data">
+																				       <div class="mb-3">
+																							<label for="mesAno" class="form-label">Mês e Ano</label>
+																							<input type="month" id="mesAno" name="mesAno" class="form-control" 
+																								   min="{{date('Y')}}-01" max="{{date('Y')}}-12" value="{{date('Y')}}-12">
+																						</div>
                                                                                   <br>
                                                                                   <input type="submit" class="form-control btn btn-primary" style="width: 100%;" value="Abrir novo Mapa de Efectividade" >
                                                                                 <br>

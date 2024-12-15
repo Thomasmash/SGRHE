@@ -68,14 +68,39 @@ if (!function_exists('formatBytes')) {
                                                                                                 <div class="icheck-primary d-inline">
                                                                                                   <div class="form-group">
                                                                                                     <!-- Agendar Backup //23121997  -->
+																							
+                                                                                                    <label for="seccaoSelect">Selecione a Frequência do Backup:</label>
+																									<!-- Select para Frequência -->
+																									<select name="frequencia" class="form-control" id="frequencia">
+																										<option selected="selected" value="Diario">Diário</option>
+																										<option value="Semanalmente">Semanal</option>
+																										<option value="Mensal">Mensal</option>
+																									</select>
+
+																									<!-- Select para Dias da Semana (inicialmente oculto) -->
+																									<div id="dias-semana" style="display: none;">
+																										<label for="dia-semana">Escolha o Dia da Semana</label>
+																										<select name="dia-semana" id="dia-semana" class="form-control">
+																											<option value="1">Segunda-feira</option>
+																											<option value="2">Terça-feira</option>
+																											<option value="3">Quarta-feira</option>
+																											<option value="4">Quinta-feira</option>
+																											<option value="5">Sexta-feira</option>
+																											<option value="6">Sábado</option>
+																											<option value="7">Domingo</option>
+																										</select>
+																									</div>
+																									
+
+																									<!-- Input de Data (inicialmente oculto) -->
+																									<div id="data-mes" style="display: none;">
+																										<label for="dia-mes">Escolha o Dia do Mês</label>
+<input type="number" name="dia-mes" id="dia-mes" class="form-control">
+																									</div>
+																									<!-- Input de Hora -->
 																									<label for="timePicker">Selecione a Hora:</label>
                                                                                                     <input type="time" class="form-control w-100 " id="timePicker" name="hora" required>
-                                                                                                    <label for="seccaoSelect">Selecione a Frequência do Backup:</label>
-                                                                                                    <select name="frequencia" class="form-control">
-                                                                                                      <option selected="selected" value="Diário">Diário</option>
-                                                                                                      <option value="Semanalmente">Semana</option>
-                                                                                                      <option value="monthly">Mensal</option>
-                                                                                                    </select>
+																									
                                                                                                   </div>
                                                                                                 </div>
 																								</div>
@@ -137,7 +162,8 @@ if (!function_exists('formatBytes')) {
 																															<input type="hidden" name="dataCriacao" value="{{ \Carbon\Carbon::createFromTimestamp($backup['created_at'])->format('d/m/Y H:i:s') }}">
 																															<button type="submit" class="btn btn-danger w-100 m-1" onclick="confirmAndSubmit(event, 'Confirmar deletar  o backup?', 'Sim, Deletar!', 'Não, Cancelar!')">Delectar</button>
 																														</form>
-																														<form action="{{ route('restaurar.backup') }}" method="GET" style="display: inline;">
+																												<!-- Formulário de Restaurar -->
+																														<form id="FormRestaurar_{{ $backup['name'] }}" action="{{ route('restaurar.backup') }}" method="POST" style="display: inline;">
 																															@csrf
 																															<input type="hidden" name="nomeBackup" value="{{ $backup['name'] }}">
 																															<button type="submit" class="btn btn-success w-100 m-1">Restaurar</button>
@@ -157,10 +183,28 @@ if (!function_exists('formatBytes')) {
 																									</tfoot>
 																								</table>
 																								<!--Fazer Backup dos Dados Agora-->
-																								<form action="{{ route('criar.backup') }}" method="GET" style="display: inline;">
+																								<form id="ajaxForm" action="{{ route('criar.backup') }}" method="GET" style="display: inline;">
 																									@csrf
-																									<button type="submit" class="btn btn-primary w-100 mt-1">Fazer Backup Agora</button>
+																									<button type="submit" class="btn btn-primary w-100 mt-1">Fazer Backup</button>
 																								</form>
+																								
+																								<!-- Indicador de carregamento -->
+																								<div id="loading" class="mt-3" style="display:none;">
+																									<div class="spinner-border text-primary" role="status">
+																										<span class="sr-only">Carregando...</span>
+																									</div>
+																									<p>Fazendo Backup dos Dados...</p>
+																								</div>
+
+																								<!-- Mensagem de sucesso -->
+																								<div id="successMessage" class="alert alert-success mt-3" style="display:none;"></div>
+
+																								<!-- Mensagem de erro -->
+																								<div id="errorMessage" class="alert alert-danger mt-3" style="display:none;"></div>
+	
+	
+	
+	
 																							</div>
 																						</div>
 																					</div>
@@ -212,4 +256,142 @@ if (!function_exists('formatBytes')) {
           }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
       </script>
+	  
+	  <!--Ajax Requizicoes de fazer Backup e Restaurar  -->
+	  
+<script>
+    $(document).ready(function() {
+        $('#ajaxForm').on('submit', function(e) {
+            e.preventDefault(); // Impede o envio tradicional do formulário
+
+            // Exibe o indicador de carregamento
+            $('#loading').show();
+
+            // Faz a requisição Ajax
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    // Oculta o indicador de carregamento
+                    $('#loading').hide();
+
+                    // Exibe o SweetAlert de sucesso
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sucesso!',
+                        text: response.message,
+                    });
+                },
+                error: function(xhr) {
+                    // Oculta o indicador de carregamento
+                    $('#loading').hide();
+
+                    // Exibe o SweetAlert de erro
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro!',
+                        text: xhr.responseJSON.message || 'Ocorreu um erro inesperado.',
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        // Seleciona o formulário específico pelo ID dinâmico
+        $('form[id^="FormRestaurar_"]').on('submit', function(e) {
+            e.preventDefault();  // Impede o envio tradicional do formulário
+
+            // Exibe o indicador de carregamento
+            var form = $(this);
+            var button = form.find('button[type="submit"]');
+            $('#loading').show();  // Exibe o spinner de carregamento
+            $('#successMessage').hide();  // Oculta a mensagem de sucesso
+            $('#errorMessage').hide();    // Oculta a mensagem de erro
+
+            // Desabilita o botão enquanto o processo está em andamento
+            button.prop('disabled', true);
+            button.text('Restaurando...');
+
+            // Faz a requisição Ajax
+            $.ajax({
+                url: form.attr('action'),  // Pega a URL definida no action do formulário
+                type: 'POST',  // Método POST para enviar os dados
+                data: form.serialize(),  // Serializa os dados do formulário
+                success: function(response) {
+                    // Oculta o indicador de carregamento
+                    $('#loading').hide();
+
+                    // Exibe o SweetAlert de sucesso
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sucesso!',
+                        text: response.message || 'Backup restaurado com sucesso.',
+                    });
+
+                    // Exibe a mensagem de sucesso
+                    $('#successMessage').text(response.message).show();
+
+                    // Restaura o botão
+                    button.prop('disabled', false);
+                    button.text('Restaurar');
+                },
+                error: function(xhr) {
+                    // Oculta o indicador de carregamento
+                    $('#loading').hide();
+
+                    // Exibe o SweetAlert de erro
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro!',
+                        text: xhr.responseJSON.message || 'Ocorreu um erro inesperado.',
+                    });
+
+                    // Exibe a mensagem de erro
+                    $('#errorMessage').text(xhr.responseJSON.message || 'Erro ao restaurar o backup').show();
+
+                    // Restaura o botão
+                    button.prop('disabled', false);
+                    button.text('Restaurar');
+                }
+            });
+        });
+    });
+</script>
+
+
+<!--Logica de Cntrole dos inputs do furmulario de seleccao de backup-->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Pega o select de frequência, div com dias e div com data
+        var frequenciaSelect = document.getElementById("frequencia");
+        var diasSemanaDiv = document.getElementById("dias-semana");
+        var dataMesDiv = document.getElementById("data-mes");
+
+        // Função para mostrar ou ocultar o select de dias da semana ou o input de data
+        frequenciaSelect.addEventListener("change", function() {
+            var valorSelecionado = frequenciaSelect.value;
+
+            // Esconde todos os campos inicialmente
+            diasSemanaDiv.style.display = "none";
+            dataMesDiv.style.display = "none";
+
+            // Exibe o campo correspondente
+            if (valorSelecionado === "Semanalmente") {
+                diasSemanaDiv.style.display = "block";  // Exibe o select de dias da semana
+            } else if (valorSelecionado === "Mensal") {
+                dataMesDiv.style.display = "block";  // Exibe o input de data
+            }
+        });
+
+        // Disparar o evento de mudança quando a página carregar
+        frequenciaSelect.dispatchEvent(new Event("change"));
+    });
+</script>
+
  @endsection

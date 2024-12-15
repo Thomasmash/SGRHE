@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Models\MapaEfectividade;
+use App\Models\Funcionario;
 use App\Models\MapaEfectividadefalta;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Adapter\PDFLib;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MapaEfectividadeController extends Controller
 {
@@ -84,9 +87,11 @@ class MapaEfectividadeController extends Controller
      */
     public function criarMapaEfectividade(Request $request)
     {
-        //dd($request->all());
+		$verificarData=MapaEfectividade::where('dataPeriodo', $request->input('mesAno').'-1')->first();
+	if($verificarData!=null) return redirect()->back()->with('error','Já existe mapa de efectividade do referido mês!');
         $mapa = MapaEfectividade::create([
-            'dataPeriodo' => $request->input('data'),
+            'dataPeriodo' => $request->input('mesAno').'-1',
+			'idFuncionario' => Funcionario::where('numeroAgente',  Auth::user()->numeroAgente)->first()->id,
             'estado' => 'Aberto'
         ]);
         
@@ -102,15 +107,28 @@ class MapaEfectividadeController extends Controller
     //Listar Funcionarios
     public function indexFuncionarios()
     {
+		dd('V');
        //Operacoes de join para varias tabelas relacionadas com funcionarios
        $dados = DB::select('
-        select 
-        funcionarios.id as id_funcionario, pessoas.id as id_pessoas, unidade_organicas.id as id_unidade_organica, categoria_funcionarios.categoria as categoria_unidade_organica, 
-        funcionarios.*, pessoas.*, categoria_funcionarios.*, unidade_organicas.*
-            from funcionarios
-            join pessoas on pessoas.id=funcionarios.idPessoa
-            join categoria_funcionarios on categoria_funcionarios.id=funcionarios.idCategoriaFuncionario
-            join unidade_organicas on unidade_organicas.id=funcionarios.idUnidadeOrganica 
+       SELECT 
+				funcionarios.id AS id_funcionario,
+				pessoas.id AS id_pessoas,
+				unidade_organicas.id AS id_unidade_organica,
+				categoria_funcionarios.categoria AS categoria_unidade_organica, 
+				funcionarios.*, 
+				pessoas.*, 
+				categoria_funcionarios.*, 
+				unidade_organicas.*
+			FROM 
+				funcionarios
+			JOIN 
+				pessoas ON pessoas.id = funcionarios.idPessoa
+			JOIN 
+				categoria_funcionarios ON categoria_funcionarios.id = funcionarios.idCategoriaFuncionario
+			JOIN 
+				unidade_organicas ON unidade_organicas.id = funcionarios.idUnidadeOrganica
+			WHERE 
+				funcionarios.id != 1; 
        '); 
        return view('sgrhe/pages/tables/form-mapa-efectividade',compact('dados'));
     }
@@ -157,7 +175,8 @@ class MapaEfectividadeController extends Controller
 
     public function efectivarMapaEfectividade(Request $request)
     {
-        //dd($request->all());
+		$MapaEfectividade=MapaEfectividade::find($request->idMapaEfectividade);
+        $funcionarioProcessador = Funcionario::where('numeroAgente',  Auth::user()->numeroAgente)->first();
         $funcionarios = MapaEfectividadefalta::where('idMapaEfectividade', $request->idMapaEfectividade)->get();
         $numerOrdem = 1;
         $funcionarios = $funcionarios->mapWithKeys( function($funcionario)
@@ -166,7 +185,7 @@ class MapaEfectividadeController extends Controller
             return [$funcionario->getKey() => $funcionario];
         });
         $categoria = $request->categoria;
-        $Documento = PDF::loadView("sgrhe/modelos/$categoria",compact('funcionarios'));      
+        $Documento = PDF::loadView("sgrhe/modelos/$categoria",compact('funcionarios','funcionarioProcessador','MapaEfectividade'));      
         //Renderizar a View
         $Documento->render();
         //Nomear o Nome do Novo ficheiro PDF
