@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\CategoriaFuncionario;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
+
 class CategoriaFuncionarioController extends Controller
 {
     //FOrmulario Create Edit
@@ -24,12 +27,19 @@ class CategoriaFuncionarioController extends Controller
     public function store(Request $request)
     {
        // dd($request->all());
-         $validardados=$request->validate([
-            'categoria'=> ['string', 'max:255'],
-            'municipio'=> ['string', 'max:10'],
-            'salariobase'=> ['numeric']
-            
-        ]);
+			 $validardados = $request->validate([
+			'categoria' => [
+				'string',
+				'max:255',
+				Rule::unique('categoria_funcionarios')->where(function ($query) use ($request) {
+					return $query->where('categoria', $request->categoria)->where('grau', $request->municipio);
+				}),
+			],
+			'municipio' => ['string', 'max:10'],
+			'salariobase' => ['numeric'],
+		], [
+			'categoria.unique' => 'A categoria '.$request->categoria.' já foi registrada para este Grau.',
+		]);
 
         $categoriafuncionario = CategoriaFuncionario::create([
             'categoria'=> $request->input('categoria'),

@@ -13,8 +13,8 @@
         <form method="POST" action="{{ route('logout') }}" x-data>
             @csrf
             <button type="button" class="btn btn-danger" @click="confirmLogout">
-                Sair / Logout
-            </button>
+				Sair
+			</button>
         </form>
     </ul>
 </nav>

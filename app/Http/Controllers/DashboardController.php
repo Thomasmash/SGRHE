@@ -13,7 +13,7 @@ class DashboardController extends Controller
  
     public function index(){
         //Verificar Se O Usuario tem Perfil concluido
-     
+ 
         $agenteLogado = Auth::user()->numeroAgente;
         $agente =  Funcionario::where('numeroAgente',$agenteLogado)->exists();
         if ($agente) {
@@ -57,7 +57,7 @@ class DashboardController extends Controller
                             $aproveitamentosIII = Aproveitamento::where('trimestre', 'III')->where('anoLectivo', $anoLectivo)->orderBy('classe', 'desc')->get();
                             $aproveitamentosFinal = Aproveitamento::where('trimestre', 'Final')->where('anoLectivo', $anoLectivo)->orderBy('classe', 'desc')->get();
                             
-                        
+                       
                 return view('/dashboard',compact('anoLectivo','aproveitamentosI','aproveitamentosII','aproveitamentosIII','aproveitamentosFinal','SubControlInIs','SubControlNonIs','SubControlInIIs','SubControlNonIIs','SubControlInIIIs','SubControlNonIIIs','SubControlInFinals','SubControlNonFinals','unidadesOrganicas','funcionarios'));
             }else{
                 //Redirecionando para a routa de Dashboard Escola se For director de escola ou tecnico da Escola

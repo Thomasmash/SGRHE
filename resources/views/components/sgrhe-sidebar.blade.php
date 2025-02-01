@@ -404,6 +404,37 @@
                         </li>
                       <!--/.Cargos-->
               @endif
+			       @if ($permissoes === 'Admin' || ($permissoes >= 4 && $seccaoLogado->codNome === "RHPE") )
+                      <!--Seccao-->
+                        <li class="nav-item {{ request()->routeIs('cargos.index') || request()->routeIs('cargos.form') ? 'menu-open' : '' }}">
+                          <a href="#" class="nav-link {{ request()->routeIs('cargos.index') || request()->routeIs('cargos.form') ? 'active' : '' }}">
+                            <i class="fas fa-briefcase"></i>
+                            <p class="item-1">
+                              Secção / Departamentos
+                              <i class="right fas fa-angle-left"></i>
+                            </p>
+                          </a>
+                          <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                              <a href="{{ route('seccao.index') }}"  class="nav-link {{ request()->routeIs('cargos.index') ? 'active' : ''}}">
+                                <p class="item-2">
+                                 <i class="bi bi-view-list"></i>
+                                  Secção / Index 
+                                </p>
+                              </a>
+                            </li>
+                            <li class="nav-item  {{ ($permissoes === 'Admin' || $permissoes >= 5) ? '' : 'd-none' }}">
+                              <a href="#" class="nav-link {{ request()->routeIs('cargos.form') ? 'active' : ''}}">
+                                <p class="item-1">
+                                <i class="bi bi-node-plus-fill"></i>
+                                  Cadastrar Secção
+                                </p>
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                      <!--/.Cargos-->
+              @endif
 						<!--Opcoes do Sistema -->
 						 <!--Opcoes do Sistema-->
                         <li class=" {{ $permissoes === 'Admin' ? '' : 'd-none' }} nav-item {{ request()->routeIs('opcoes.sistema') || request()->routeIs('auditoria') || request()->routeIs('telemetria') ? 'menu-open' : '' }}">

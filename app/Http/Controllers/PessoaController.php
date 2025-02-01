@@ -40,7 +40,8 @@ class PessoaController extends Controller
             //'grupoSanguineo' => ['string','max:3'],
             'estadoCivil' => ['string'],
             'numeroBI' => ['required', 'string', 'max:14', 'unique:pessoas,numeroBI'],
-            'validadeBI' => ['date','required','after_or_equal:'.now()],
+//Validacao do Bilhete de Identidade            
+		  // 'validadeBI' => ['date','required','after_or_equal:'.now()],
             'provincia' => ['string', 'max:255','required'],
             'municipio' => ['string', 'max:255','required'],
             'nomePai' => ['string', 'max:255','required'],

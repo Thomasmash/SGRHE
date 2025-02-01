@@ -7,6 +7,7 @@ use App\Http\Controllers\AproveitamentoController;
 use App\Http\Controllers\AssinaturaController;
 use App\Http\Controllers\AvaliacaoDesempenhoFuncionarioController;
 use App\Http\Controllers\CargoController;
+use App\Http\Controllers\SeccaoController;
 use App\Http\Controllers\CategoriaFuncionarioController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentoController;
@@ -244,6 +245,20 @@ Route::any('/update-cargo/{id}',[CargoController::class,'update'])->name('cargos
 Route::get('/index-cargo',[CargoController::class,'index'])->name('cargos.index');
 //Delectar um Registro da Tabela Cargo
 Route::delete('/delete-cargo/{id}',[CargoController::class,'destroy'])->name('cargos.delete');//->middleware('AcessoAdmin');
+
+// #######      Operacoes com a Entidade/Tabela Seccao       #########
+
+//Formulario Create e Edite the same form
+//	Route::any('/create-edit-cargo/{id?}',[SeccaoController::class,'formulario'])->name('seccao.form');
+//Armazenar seccao 
+//	Route::any('/store-seccao',[SeccaoController::class,'store'])->name('seccao.store');//->middleware('AcessoAdmin');
+//Actualizar seccao 
+//	Route::any('/update-seccao/{id}',[SeccaoController::class,'update'])->name('seccao.update');//->middleware('AcessoAdmin');
+//Mostrar seccao cadastradas
+Route::get('/index-seccao',[SeccaoController::class,'index'])->name('seccao.index');
+//Delectar um Registro da Tabela seccao
+//	Route::delete('/delete-seccao/{id}',[SeccaoController::class,'destroy'])->name('seccao.delete');//->middleware('AcessoAdmin');
+
 
 
 #######      Operacoes com a Entidade/Tabela Arquivo       #########

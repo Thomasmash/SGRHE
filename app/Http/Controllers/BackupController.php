@@ -96,7 +96,7 @@ class BackupController extends Controller
 		
 		Storage::disk('restauro_backup')->put('backupRestaurado.json', json_encode(['nomeBackupRestaurado' => $request->nomeBackup, 'data' => date('d/m/Y H:i:s') ])); //Registrar o Backup restaurado como o ultimo 
 				
-		return response()->json(['message' => "O Backup ".$request->nomeBackup." foi restaurado com sucesso. Acutualize a página para continuar!"], 200);
+		return response()->json(['message' => "O Backup ".$request->nomeBackup." foi restaurado com sucesso. Actualize a página para continuar!"], 200);
         //return redirect()->back()->with('success', 'Restauração realizada com sucesso.');
     } catch (Exception $e) {
         // Captura e exibe a mensagem de erro

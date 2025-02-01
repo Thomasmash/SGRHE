@@ -13,12 +13,12 @@
             <div class="container-fluid">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <h1>Cadastrar Cargos</h1>
+                  <h1>Cadastrar Secção ou Departamento</h1>
                 </div>
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">{{isset($cargo)?'Editar Cargo':'Cadastrar Cargo'}}</li>
+                    <li class="breadcrumb-item active">{{isset($seccao)?'Editar Secção ou Departamento':'Cadastrar Secção ou Departamento'}}</li>
                   </ol>
                 </div>
               </div>
@@ -34,64 +34,37 @@
                   <!-- jquery validation -->
                   <div class="card card-primary">
                       <div class="card-header">
-                          <h3 class="card-title"> {{isset($cargo)?'Editar Cargo':'Cadastrar Cargo'}}</h3>  
+                          <h3 class="card-title"> {{isset($seccao)?'Editar Secção ou Departamento':'Cadastrar Secção ou Departamento'}}</h3>  
                       </div>
                       <!--Verifcar a Existencia da Variavel Cargo para determinar se Editar ou Criar um novo Registro-->
                       <form action="{{ isset($cargo) ? route('cargos.update',['id' => $cargo->id]) : route('cargos.store') }}" method="post">
                         @csrf
                         @method('post')
                           <div class="card-body">
-                            <label>Cargo</label>
-                              <div  class="form-group">
-                              <label for="designacao">Escolha um cargo:</label>
-                                  <select name="designacao" id="designacao" onchange="carregarpermissoess()" class="form-control select2" style="width: 100%;">
-                                      <option value="{{isset($cargo) ? $cargo->designacao : ''}}">{{isset($cargo) ? $cargo->designacao : 'Seleccione um Cargo'}}</option>
-                                      <option value="Auxiliar de Limpeza">Auxiliar de Limpeza</option>
-									  <option value="Operário Qualificado">Operário Qualificado</option>
-									  <option value="Profesor">Profesor</option>
-									  <option value="Profesor Auxiliar">Profesor Auxiliar</option>
-                                      <option value="Tecnico / Escola">Tecnico / Escola</option>
-                                      <option value="Director da Escola">Director da Escola</option>
-									  <option value="SuDirector Administractivo">SubDirector Administractivo</option>
-									  <option value="SubDirector Pedagogico">SubDirector Pedagógico </option>
-                                      <option value="Técnico / Direção Municipal">Técnico / Direção Municipal</option>
-                                      <option value="Chefe de Secção">Chefe de Secção</option>
-                                      <option value="Director Municipal">Director Municipal</option>
-                                      <!-- Adicione mais opções de província aqui -->
-                                    </select>
-                                  <label for="permissoes">Nivel de Permissão</label>
-                                  <select id="permissoes" name="permissoes" class="form-control select2" style="width: 100%;">
-                                      <option value="{{isset($cargo) ? $cargo->permissoes : ''}}">{{isset($cargo) ? $cargo->permissoes : 'Seleccione um Nível de Acesso'}}</option>
-                                  </select>
-                                  <label for="seccao">Escolha uma Secção:</label>
-                                  <select name="seccao" id="seccao"  class="form-control select2" style="width: 100%;">
-                                      <option value="{{ old('Selecione Uma Secção',$cargo->seccao ?? '') }}">{{ old('Selecione Uma Secção',$cargo->seccao ?? 'Escolha uma Secção') }}</option>
-                                      <option class="d-none" value="Admin">Admin</option>
-									  <option value="Operações">Operações</option>
-									  <option value="Saneamento">Saneamento</option>
-                                      <option value="SecretariaGeral">SecretariaGeral</option>
-                                      <option value="TIC">Tecnologias de Informação e Comunicação</option>
-                                      <option value="RHPE">Recursos Humanos, Planeamento e Estatística</option>
-                                      <option value="EdEnsino">Direção da Escola</option>
-                                      <option value="DG">Director Municipal</option>
-                                  </select>
-                              </div>
+                            <label>Dados Da Secção </label>
+                        
+                                <div class="form-group">
+								  <label for="designacao">Designação da Secção:</label>
+								  <input type="text" name="descrisao" class="form-control" id="descrisao" placeholder="Descricao do Cargo" value="{{isset($cargo) ? $cargo->descrisao : ''}}" required>
+								</div>
+                               
+                       
 
 
 
                         
                             
-                            <div class="form-group">
-                              <label for="descricao">Descrição do Cargo</label>
-                              <input type="text" name="descrisao" class="form-control" id="descrisao" placeholder="Descricao do Cargo" value="{{isset($cargo) ? $cargo->descrisao : ''}}">
-                            </div>
-                
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary" style="width: 100%;">{{ isset($cargo)? 'Actualizar Natureza de Cargo Cargo' : 'Criar Natureza de Cargo' }}</button>
-                                <br>
-                                <br>
-                                <a href="{{route('cargos.index')}}" class="btn btn-primary" style="width: 100%;"> Cargos / Index  </a>
-                            </div>
+								<div class="form-group">
+								  <label for="descricao">Descrição da Secção</label>
+								  <input type="text" name="descricao" class="form-control" id="descrisao" placeholder="Descricao do Cargo" value="{{isset($cargo) ? $cargo->descrisao : ''}}">
+								</div>
+					
+								<div class="card-footer">
+									<button type="submit" class="btn btn-primary" style="width: 100%;">{{ isset($seccao)? 'Actualizar Secção' : 'Criar Secção' }}</button>
+									<br>
+									<br>
+									<a href="{{route('cargos.index')}}" class="btn btn-primary" style="width: 100%;"> Cargos / Index  </a>
+								</div>
                           </div>
                       </form>
                     </div>

@@ -1,4 +1,5 @@
-			<!-- /.content-header -->
+
+	<!-- /.content-header -->
 							  <!-- Carregando tipos de Ciclos de Ensino -->
 							  @php
 								$ICiclo = "I Ciclo";
@@ -916,3 +917,4 @@
                 
               </script>
     @endsection
+

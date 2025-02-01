@@ -13,12 +13,12 @@
               <div class="container-fluid">
                 <div class="row mb-2">
                   <div class="col-sm-6">
-                    <h1>{{ isset($funcionario)?'Editar Funcionário':'Cadastrar Funcionário'}}</h1>
+                    <h1>{{ isset($funcionario)?'Editar Funcionário':'Cadastrar dados do Funcionário'}}</h1>
                   </div>
                   <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                       <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item active">{{isset($funcionario)?'Editar Funcionário':'Cadastrar Funcionário'}}</li>
+                      <li class="breadcrumb-item active">{{isset($funcionario)?'Editar Funcionário':'Cadastrar dados do Funcionário'}}</li>
                     </ol>
                   </div>
                 </div>
@@ -95,7 +95,7 @@
                                           <select name="idCategoriaFuncionario" class="form-control select2" required>
                                             <option selected="selected" value="{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->id : '' }}">{{ isset($opcoesCategoriaFuncionario) ? $opcoesCategoriaFuncionario->categoria.' do '.$opcoesCategoriaFuncionario->grau : 'Escolha uma Categoria de Funcionário' }}</option>
                                             @php
-                                              $opcoesCategoriaFuncionario = App\Models\CategoriaFuncionario::where( 'id', '!=', 1 )->get();
+                                              $opcoesCategoriaFuncionario = App\Models\CategoriaFuncionario::where( 'id', '!=', 1 )->orderBy('categoria', 'asc')->get();
                                             @endphp
                                             @foreach ($opcoesCategoriaFuncionario as $CategoriaFuncionario)
                                             <option value="{{ old('id',$CategoriaFuncionario->id ?? 'id') }}">{{ old('categoria',$CategoriaFuncionario->categoria.' do '.$CategoriaFuncionario->grau ?? 'categoria') }}</option>

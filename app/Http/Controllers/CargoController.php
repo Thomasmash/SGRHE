@@ -5,6 +5,7 @@ use App\Models\Cargo;
 use App\Models\Seccao;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CargoController extends Controller
 {
@@ -28,15 +29,21 @@ class CargoController extends Controller
     public function store(Request $request)
     {
        // dd($request->all());
-       $request->validate([
-            'designacao'=> ['required','string', 'max:255',],
-            'descrisao'=> ['string', 'max:255'],
+			$validardados = $request->validate([
+			'designacao' => [
+				'string',
+				'max:255',
+				Rule::unique('cargos')->where(function ($query) use ($request) {
+					return $query->where('designacao', $request->designacao)->where('permissoes', $request->permissoes);
+				}),
+			],
+			'descrisao'=> ['string', 'max:255'],
             'permissoes'=> ['required','string', 'max:255'],
-            //'seccao'
-        ],[
-            'designacao.required' => 'O Campo designação é obrigatório',
-            'permissoes.required' => 'Defina permissoes para  o cargo!'
-        ]);
+		], [
+			'designacao.unique' => 'O cargo '.$request->designacao.' ja criado com as mesmas permissões.',
+		]);
+		
+		
 
         $cargo=Cargo::create([
             'designacao'=> $request->input('designacao'),

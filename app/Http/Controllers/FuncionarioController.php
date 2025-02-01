@@ -133,9 +133,9 @@ class FuncionarioController extends Controller
 
 //Create
     public function store(Request $request) {
-      //  dd($request->all());
+        //dd($request->all());
        $cargo = Cargo::find($request->idCargo);
-       $seccao = Seccao ::find($request->idSeccao);
+       $seccao = Seccao::find($request->idSeccao);
        if ($cargo->codNome === "DirectorEscola") {
         $funcionario = Funcionario::where('idUnidadeOrganica', $request->idUnidadeOrganica)->where('idCargo', 5)->exists();
         if ($funcionario) {
@@ -193,10 +193,11 @@ class FuncionarioController extends Controller
             }
         }
     }else{
+		//dd('DD');
         $request->validate([
             'idCargo' => [
                 Rule::unique('funcionarios')->where( function($query) {
-                    $query->where('idCargo', 8);
+                    $query->where('idCargo', 10);
                 })->ignore($request->idCargo),
             ],
         'numeroAgente' => ['numeric','required','unique:funcionarios,numeroAgente'],
@@ -222,21 +223,7 @@ class FuncionarioController extends Controller
             //'email.unique' => 'O Email ja está sendo utilizado por outro Funcionário!', 
             'numeroTelefone.unique' => 'O Numero de Telefone já está sendo utilizado por outro Funcionário!',
         ]);
-        DB::beginTransaction();
-        $funcionario = Funcionario::create([
-            'numeroAgente' => $request->input('numeroAgente'),
-            'dataAdmissao' => $request->input('dataAdmissao'),
-            'iban' => $request->input('iban'),
-            //'email' => $request->input('email'),
-            'idPessoa' => $request->input('idPessoa'),
-            'idUnidadeOrganica' => $request->input('idUnidadeOrganica'),
-            'idCargo' => $request->input('idCargo'), 
-            'idCategoriaFuncionario' => $request->input('idCategoriaFuncionario'),
-            'numeroTelefone'=> $request->input('numeroTelefone'),
-            'idSeccao'=> $request->input('idSeccao'),
-            'estado'=> "Activo",
-
-         ]);
+ 
               //Verificar  Eleicao para o Cargo de Chefe de Seccao
               if ($cargo->codNome === "ChefeSeccao") {
                 // dd('E para cargos de chefia');
@@ -246,8 +233,9 @@ class FuncionarioController extends Controller
                       //Verificar  Eleicao para o Cargo de Chefe de Seccao
                       if ($cargo->codNome === "ChefeSeccao") {
                          //Verificar se em todos os funcionarios já existir alguem da mesma seccao com o cargo de chefe de secção
-                         $verificarChefeSeccao = Funcionario::where('idcargo', $cargo->id)->where('idSeccao', $seccao->id)->exists();
-                         if ($verificarChefeSeccao) {
+                         $verificarChefeSeccao = Funcionario::where('idcargo', $cargo->id)->where('idSeccao', $seccao->id)->first();
+                         //dd($verificarChefeSeccao);
+						 if ($verificarChefeSeccao) {
                              // dd('funcionario com esse cargo!');
                              DB::rollBack();
                              return redirect()->back()->with('error', 'O Cargo de Chefia para a Secção de '.$seccao->designacao.' não se encontra disponível! ');
@@ -255,6 +243,20 @@ class FuncionarioController extends Controller
                      }
                  }
              }
+			        DB::beginTransaction();
+						$funcionario = Funcionario::create([
+							'numeroAgente' => $request->input('numeroAgente'),
+							'dataAdmissao' => $request->input('dataAdmissao'),
+							'iban' => $request->input('iban'),
+							//'email' => $request->input('email'),
+							'idPessoa' => $request->input('idPessoa'),
+							'idUnidadeOrganica' => $request->input('idUnidadeOrganica'),
+							'idCargo' => $request->input('idCargo'), 
+							'idCategoriaFuncionario' => $request->input('idCategoriaFuncionario'),
+							'numeroTelefone'=> $request->input('numeroTelefone'),
+							'idSeccao'=> $request->input('idSeccao'),
+							'estado'=> "Activo",
+						 ]);
         if ($funcionario) {
             DB::commit();
             return redirect()->back()->with('success', 'Funcionário Cadastrado com sucesso!');
@@ -265,6 +267,8 @@ class FuncionarioController extends Controller
     }
         
     }
+	
+	
 
       //Update
       public function update(Request $request, string $id)
@@ -331,7 +335,8 @@ class FuncionarioController extends Controller
               //Verificar se é Nomeação de Cargo de Chefe de Secção
               if ( $cargo->codNome === "ChefeSeccao" ) {
                     // Verificar de o cargo de Chefe de Secção está disponivel
-                    $verificarChefeSeccao = Funcionario::where('idcargo', $cargo->id)->where('idSeccao', $seccao->id)->exists();
+                    $verificarChefeSeccao = Funcionario::where('codNome', $cargo->codNome)->where('codNome', $seccao->codNome)->exists();
+					dd($verificarChefeSeccao);
                     if ($verificarChefeSeccao) {
                     return redirect()->back()->with('error', 'O Cargo de Chefia para a Secção de '.$seccao->designacao.' não se encontra disponível! ');
                 }else {
